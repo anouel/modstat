@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://lbelzile.github.io/modstat/contenu/installation.html</loc>
+    <lastmod>2024-08-17T15:03:06.551Z</lastmod>
+  </url>
+  <url>
     <loc>https://lbelzile.github.io/modstat/index.html</loc>
+    <lastmod>2023-11-18T18:16:13.624Z</lastmod>
   </url>
   <url>
-    <loc>https://lbelzile.github.io/modstat/articles/contenu.html</loc>
+    <loc>https://lbelzile.github.io/modstat/objectifsapprentissage.html</loc>
+    <lastmod>2024-08-28T14:38:27.435Z</lastmod>
   </url>
   <url>
-    <loc>https://lbelzile.github.io/modstat/articles/equipe.html</loc>
+    <loc>https://lbelzile.github.io/modstat/contenu/01-contenu.html</loc>
+    <lastmod>2024-08-28T14:15:55.208Z</lastmod>
   </url>
   <url>
-    <loc>https://lbelzile.github.io/modstat/articles/introSAS.html</loc>
+    <loc>https://lbelzile.github.io/modstat/exercices/index.html</loc>
+    <lastmod>2023-10-28T21:00:36.819Z</lastmod>
   </url>
   <url>
-    <loc>https://lbelzile.github.io/modstat/articles/plandetailleseance.html</loc>
+    <loc>https://lbelzile.github.io/modstat/contenu/index.html</loc>
+    <lastmod>2024-08-28T14:46:16.902Z</lastmod>
   </url>
 </urlset>

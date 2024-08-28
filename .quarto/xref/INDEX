@@ -109,5 +109,11 @@
   },
   "exercices/index.qmd": {
     "index.html": "3256def4"
+  },
+  "objectifsapprentissage.qmd": {
+    "objectifsapprentissage.html": "3eed4846"
+  },
+  "contenu/installation.qmd": {
+    "installation.html": "e57de2ef"
   }
 }

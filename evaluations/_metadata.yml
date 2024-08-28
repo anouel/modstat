@@ -1,9 +1,0 @@
-date-heading:
-  content: "À remettre avant 23h55 le"
-  class: "bg-assignment"
-date-format: "full"
-
-format:
-  html:
-    template-partials:
-      - ../html/title-block.html

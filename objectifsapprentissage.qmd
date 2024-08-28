@@ -1,0 +1,98 @@
+---
+title: Objectifs d’apprentissage
+---
+
+## Introduction
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- formuler l’hypothèse nulle et l’hypothèse alternative rattachée à une mise en situation;
+- faire un test d’hypothèse pour une statistique arbitraire;
+- connaître et interpréter adéquatement une valeur-$p$ et un intervalle de confiance;
+
+## Modèles lnéaires
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);
+- calculer des contrastes
+- estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);
+- tester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;
+- mesurer l’adéquation du modèle à l’aide du coefficient de détermination;
+- obtenir des prédictions du modèle linéaire par le biais d’un logiciel;
+- comprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);
+- interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;
+- interpréter et de tester si des termes d’interactions sont significatifs et interpréter les interactions entre deux vari-
+ables catégorielles ou entre une variable catégorielle et une variable continue;
+- tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;
+- comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;
+- lister les postulats de validité du modèle linéaire;
+- utiliser des diagnostics graphiques pour établir la validité des postulats.
+
+
+## Vraisemblance
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de:
+
+- expliquer la notion de vraisemblance;
+- dériver le maximum de vraisemblance dans un problème simple;
+- comprendre le principe du maximum de vraisemblance;
+- comparer des modèles emboîtés à l’aide d’un test du rapport de vraisemblance;
+- comparer des modèles non-emboîtés à l’aide de critères d’information.
+
+
+## Modèles linéaires généralisés
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- d’écrire l’équation de liaison des modèles linéaires généralisés de loi de Poisson, binomiale et normal, reliant les
+variables explicatives et les paramètres;
+- de comprendre la relation entre moyenne et variance d’un modèle linéaire généralisé;
+- d’interpréter les paramètres de régression Poisson et binomiale négative;
+- de tester la surdispersion dans un modèle de Poisson à l’aide du test de rapport de vraisemblance;
+- de juger de la qualité de l’adéquation du modèle de Poisson à l’aide de la déviance;
+- de tester l’indépendance dans un tableau de contingence à l’aide d’un modèle Poisson saturé;
+- d’interpréter les sorties logiciel pour les modèles linéaires généralisés
+- d’interpréter les paramètres d’une régression logistique en terme de rapports de cote;
+- de modéliser le taux de succès de données aggrégées à l’aide d’un modèle de Poisson avec décalage ou avec un modèle binomial logistique.
+
+## Modèles pour données longitudinales et corrélées
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- comprendre d’où provient la corrélation dans les données groupées et longitudinales.
+- calculer correctement des statistiques descriptives sur les données répétées.
+- ajuster des modèles avec un modèle d’équicorrélation ou autorégressif de premier ordre (et leurs variantes hétérogènes),
+de même qu’une corrélation non structurée.
+- écrire la corrélation et covariance des principaux modèles selon la paramétrisation utilisée en classe.
+- faire des tests de rapport de vraisemblance pour comparer des modèles de covariance (modèle emboîtés) ou des
+critères d’information.
+- comprendre l’hétéroscédasticité de groupe et savoir la modéliser.
+
+## Introduction aux modèles mixtes linéaires
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- comprendre le concept d’effet-groupe;
+- savoir dans quel contexte utiliser un effet-groupe aléatoire plutôt qu’un effet-groupe fixe (variables explicatives
+fixes par groupe, nombre de groupe large avec peu d’observations dans chacun);
+- écrire l’équation du modèle mixte avec ordonnée à l’origine ou pente aléatoire(s);
+- écrire les hypothèses du modèle (linéarité, normalité des erreurs et des effets aléatoires, indépendance entre effets
+aléatoires et erreurs, indépendence inter-groupe et structure intra-groupe, etc.);
+- écrire la matrice de covariance d’observations d’un modèle mixte avec effet aléatoire à partir des estimés des
+paramètres (soit la somme des matrices de covariance des effets-groupe aléatoire et des erreurs);
+- choisir des structures de covariance adéquates pour données corrélées ou longitudinales;
+- distinguer entre prédictions pour la population (moyenne marginale) et prédictions pour des individus avec effets
+aléatoires (moyenne conditionnelle);
+- obtenir des prédictions du modèle mixte à partir de logiciels.
+
+## Introduction à l’analyse de survie
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- expliquer les concepts clés de l’analyse de survie (troncation, censure) dans vos propres mots et fournir des exem-
+ples de ces derniers;
+- reconnaître des scénarios dans lesquels les données sont censurées à droite de façon aléatoire;
+- interpréter une courbe de survie de Kaplan–Meier;
+- comparer et tester l’égalité de courbes de survie à l’aide d’un test du score;
+- interpréter les paramètres du modèle de risques proportionnels de Cox et vérifier leur significativité.

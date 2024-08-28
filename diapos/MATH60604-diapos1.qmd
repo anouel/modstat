@@ -1,0 +1,1155 @@
+---
+title: "Statistical modelling"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "01. Statistical Inference"
+date: today
+date-format: YYYY
+eval: true
+cache: true
+echo: true
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecbleu <- c("#002855")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(digits = 3, width = 75)
+```
+
+
+# Statistical inference  {background-color="#002855"}
+
+
+## Studying a population
+
+The population distribution (describing possible outcomes and their frequencies) encodes everything we could be interested in.
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '70%'
+set.seed(234)
+prob <- c(1,2,3.4,5,8,4,2.3,5,4,2)
+prob <- prob/sum(prob)
+prob2 <- mev::rdir(n = 1, alpha = 3 + prob)[1,]
+prob2 <- prob2/sum(prob2)
+p1 <- ggplot(data = data.frame(x = 1:10, 
+                         p = prob)) +
+  geom_bar(mapping = aes(x = x, weight = p)) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  labs(subtitle = "control",
+       x = "",
+       y = "probability") + 
+  theme_classic()
+p2 <- ggplot(data = data.frame(x = 1:10, 
+                         p = prob2)) +
+  geom_bar(mapping = aes(x = x, weight = p)) +
+  scale_x_continuous(breaks = 1:10, labels = 1:10) +
+  labs(subtitle = "treatment",
+       y = "probability",
+       x = "") +
+  theme_classic()
+library(patchwork)
+  p1 + p2
+```
+
+
+
+## Sampling variability
+
+```{r}
+#| label: unifsamp1
+#| cache: true
+#| echo: false
+#| fig-cap: Histograms for 10 random samples of size 20 from a discrete uniform distribution.
+#| fig-width: 8
+#| fig-height: 4.5
+#| out-width: 80%
+set.seed(1234)
+ng <- 10
+ns <- 20
+df <- data.frame(x = runif(ng*ns,1,10),
+             sample=rep(1:ng,each=ns))
+ggplot(df, aes(x = x, y = ..density..)) +
+  geom_hline(yintercept = 0.1, col = "gray", lty = 2) +
+  geom_histogram(bins=10, color="white",)+
+  facet_wrap(~sample, nrow = 2)+
+  labs(y = "", subtitle = "sample proportion for treatment (top) and control (bottom)", x = "") +
+  scale_x_continuous(breaks=c(0,5,10)) +
+  theme_classic()
+```
+
+## Decision making under uncertainty
+
+**Statistics** is concerned with decision making under uncertainty.
+
+- Data collection is costly. 
+    - we only have limited information about the population.
+    - focus on moments (mean $\mu$, standard deviation $\sigma$, etc.)
+- Samples are typically too small to reliably estimate the whole distribution.   
+    - we rely instead on a statistical model to gain insights about the data.
+ 
+
+## Why use models?
+
+A famous quote attributed to George Box claims that
+
+> All models are wrong, but some are useful.
+
+Peter McCullagh and John Nelder wrote in the preamble of their book (emphasis mine)
+
+> Modelling in science remains, partly at least, an art. Some principles do exist, however, to guide the modeller. The first is that all models are wrong; **some, though, are better** than others and we can **search for the better ones**. At the same time we must recognize that eternal truth is not within our grasp.
+
+## More insights on modelling
+
+This quote by David R. Cox adds to the point:
+
+> ...it does not seem helpful just to say that all models are wrong. The very word model implies simplification and idealization. The idea that complex physical, biological or sociological systems can be exactly described by a few formulae is patently absurd. The construction of idealized representations that **capture important stable aspects of such systems** is, however, a vital part of general scientific analysis and statistical models, especially substantive ones, do not seem essentially different from other kinds of model.
+
+## What is in a model?
+
+A stochastic model typically combines
+
+- a distribution for the data
+- a formula linking the parameters or the mean of a response variable $Y$ conditional on explanatory variables $\mathbf{X}$
+
+Models are "golem" for obtaining answers to our questions.
+
+## How to model
+
+0. Determine a research question and collect some data/harvest data.
+1. Conduct an **exploratory data analysis**.
+    - what are the salient features of the data?
+2. Build a preliminary model.
+3. Check the goodness-of-fit or adjustment.
+4. Rinse and repeat if necessary.
+
+## How do we determine the model?
+
+We need to know 
+
+1. how were the data collected 
+   - what is the sampling mechanism?
+   - are variables observed or experimentally manipulated?
+2. what is the nature of the response?
+   - count data, proportions, etc.
+
+## Nature of data
+
+- Are data from a **random sample of the population** or not?
+   - if so, can generalize conclusions.
+- Is there a "treatment" randomly allocated?
+   - if so, data are experimental (as opposed to observational).
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-align: "center"
+knitr::include_graphics("fig/01/random_sample_assignment.png")
+```
+
+
+## Observational vs experimental
+
+Without further adjustment, we cannot draw **causal** statements from observational data.
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-align: "center"
+knitr::include_graphics("fig/01/nyt-wellness-program.png")
+```
+
+
+# Motivating examples {background-color="#002855"}
+
+## 1. Driving exams in Great Britain
+
+Are driving tests easier if you live in a rural area? Source: [The Guardian, August 23rd, 2019](https://www.theguardian.com/world/2019/aug/23/an-easy-ride-scottish-village-fuels-debate-driving-test-pass-rates)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/guardian_driving.png")
+```
+
+:::
+
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/guardian_driving_infographic.png")
+```
+
+:::
+
+::::
+
+Model: binomial logistic model. Data `gbdriving`, **R** package `hecstatmod`.
+
+
+
+<!--
+## Motivating examples - smartwatches are distracting.
+
+Eye tracking gaze distribution results show that participants were more distracted in the smartwatch condition than in the mobile phone condition, they were less distracted in the speaker condition than in the phone condition, and they were more distracted in the texting condition than in any of the others.
+-->
+
+## 2. Road safety and distraction due to smartwatches {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/smartwatches.png")
+```
+
+
+Models: Within-subject ANOVA (repeated measures) with pairwise paired t-tests or nonparametric tests (Friedman + Wilcoxon signed-rank test). Dataset `BRLS21_T3`, package `hecedsm`.
+
+:::
+
+
+::: {.column width="50%"}
+
+@Brodeur:2021
+
+> A within-subject experiment was conducted in a driving simulator where 31 participants received and answered text messages under four conditions: they received notifications (1) on a mobile phone, (2) on a smartwatch, and (3) on a speaker, and then responded orally to these messages. They also (4) received messages in a “texting” condition where they had to reply through text to the notifications. 
+
+:::
+
+::::
+
+## 3. Perceived environmental friendliness of packages {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/package-paper-plastic.png")
+```
+
+:::
+
+
+::: {.column width="40%"}
+@Sokolova:2023
+
+> Eight studies (N = 4103) document the perceived environmental friendliness (PEF) bias whereby consumers judge plastic packaging with additional paper to be more environmentally friendly than identical plastic packaging without the paper.
+
+:::
+
+::::
+
+Model: linear regression/ANOVA with custom contrasts. Dataset `SKD23_S2A`, package `hecedsm`
+
+## 4. A/B tests and news headlines {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="60%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/upworthy.png")
+```
+
+:::
+
+
+::: {.column width="40%"}
+Upworthy.com, a US media publisher, revolutionized headlines online advertisement by running systematic A/B tests to compare the different wording of headlines, placement of text and image to figure out what catches attention the most. 
+
+The Upworthy Research Archive [@Matias:2021] contains results for 22743 experiments, with a click through rate of 1.58% on average and a standard deviation of 1.23%.
+:::
+
+::::
+
+Model: Poisson regression with offset. Data `upworthy_sesame`, package `hecbayes`.
+
+
+
+
+## 5. Impact of videoconferencing on idea generation  {.smaller}
+
+
+
+
+:::: {.columns}
+
+::: {.column width="40%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '80%'
+knitr::include_graphics("fig/01/Brucks_Levav-virtual_communications.png")
+```
+
+:::
+
+
+::: {.column width="60%"}
+
+@Brucks.Levav:2022
+
+> In a laboratory study and a field experiment across five countries (in Europe, the Middle East and South Asia), we show that videoconferencing inhibits the production of creative ideas [...]  
+
+> we demonstrate that videoconferencing hampers idea generation because it focuses communicators on a screen, which prompts a narrower cognitive focus. Our results suggest that virtual interaction comes with a cognitive cost for creative idea generation.
+
+
+:::
+
+::::
+
+- Model: Linear regression with compound symmetry covariance/MANOVA. Dataset `BL22_E`, package `hecedsm`
+- Model: Binomial regression, dataset `BL22_L` from package `hecedsm`.
+
+## 6. Suggesting amounts for donations {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+@Moon.VanEpps:2023
+
+> Across seven studies, we provide evidence that quantity requests, wherein people consider multiple choice options of how much to donate (e.g., $5, $10, or $15), increase contributions compared to open-ended requests. 
+
+
+> Our findings offer new conceptual insights into how quantity requests increase contributions as well as practical implications for charitable organizations to optimize contributions by leveraging the use of quantity requests.
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/Moon_VanEpps-giving.png")
+```
+
+:::
+
+::::
+
+Model: Tobit type II regression and Poisson regression (independence test), data `MV23_S1` from package `hecedsm`.
+
+## 7. Integrated decisions in online shopping {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+@Duke.Amir:2023
+
+> Customers must often decide on the quantity to purchase in addition to whether to purchase. The current research introduces and compares the quantity-sequential selling format, in which shoppers resolve the purchase and quantity decisions separately, with the quantity-integrated selling format, where shoppers simultaneously consider whether and how many to buy. Although retailers often use the sequential format, we demonstrate that the integrated format can increase purchase rates.
+
+:::
+
+::: {.column width="40%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/Duke_Amir.png")
+```
+
+> A field experiment conducted with a large technology firm found that quantity integration yielded considerably higher sales, amounting to an increase of more than $1 million in annual revenue. 
+
+:::
+
+::::
+
+Model: logistic regression, dataset `DA23_E1`.
+
+## 8. Price of oil in the Gaspe Peninsula {.smaller}
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Mayors requested  an inquiry by the [**Régie de l'énergie**](https://www.regie-energie.qc.ca/fr), a regulating agency in charge of energy prices. The report found that prices were indeed more expensive, but pointed out that there were more retailers per capita, and lower volume so their margins were higher.
+
+Source: Radio-Canada [1](https://ici.radio-canada.ca/nouvelle/1303956/prix-essence-gaspe-enquete), [2](https://ici.radio-canada.ca/nouvelle/1463520/prix-essence-gaspesie-rapport-regie-energie)
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/regieenergie.png")
+```
+
+:::
+
+::::
+
+Model: Linear regression with autoregressive errors, pairwise comparisons. Dataset `renergy`, package `hecstatmod`.
+
+
+# Hypothesis testing {background-color="#002855"}
+
+
+## Sampling variability
+
+We cannot compare summaries without accounting for their uncertainty inherent to our estimation which is due to random sample.
+
+```{r}
+#| label: fig-samplevar
+#| eval: true
+#| echo: false
+#| fig-cap: Five samples of size $n=10$ drawn from a common population with mean $\mu$
+#|   (horizontal line). The colored segments show the sample means of each sample.
+set.seed(1234)
+samp <- data.frame(dat = rgamma(50, shape = 10, rate = 2),
+                   group = factor(rep(1:5, each = 10L)))
+ggplot(data = samp,
+       aes(x = group, y = dat, col = group)) +
+  geom_hline(yintercept = 5) +
+  geom_point() +
+  geom_jitter() +
+  labs(col = "sample", y = "observations", x = "sample number") +
+  stat_summary(fun = mean,
+               geom = "point",
+               shape = 95,
+               size = 20) +
+  theme_classic() +
+  theme(legend.position = "none")
+```
+
+
+## The signal and the noise
+
+The stronger the signal-to-noise ratio, the larger our ability to detect differences when they truly exist.
+
+```{r}
+#| label: plots
+#| echo: false
+#| fig-height: 4
+#| fig-width: 8
+#| out-width: 80%
+set.seed(12345)
+dat1 <- data.frame(dat = rnorm(100, mean = 10, sd = 3) + rep((1:4)/4, each = 25),
+       group = factor(x = rep(1:4, each = 25), 
+                      labels = letters[1:4]))
+
+g1 <- ggplot(dat = dat1, aes(x = group, 
+                       y = dat, 
+                       col = group)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.3) +
+  labs(y = "observations",
+         subtitle = "weak signal, strong noise") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+dat2 <- data.frame(dat = rnorm(100, mean = 10, sd = 0.5) + rep((1:4)[sample.int(4,4)], each = 25),
+       group = factor(x = rep(1:4, each = 25), 
+                      labels = letters[1:4]))
+
+g2 <- ggplot(dat = dat2, aes(x = group, 
+                       y = dat, 
+                       col = group)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.3) +
+  labs(y = "observations",
+         subtitle = "strong signal, weak noise") +
+  theme_bw() +
+  theme(legend.position = "none")
+g1 + g2 
+```
+
+
+---
+
+## Accumulation of information
+
+As we gather more observations (sample size increases), we can better discriminate between scenarios.
+
+```{r}
+#| label: uniformsamp2
+#| echo: false
+#| cache: true
+#| fig-cap: |-
+#|   Histograms of data from uniform (top) and non-uniform (bottom)
+#|   distributions with increasing sample sizes.
+#| fig-width: 8
+#| fig-height: 5
+set.seed(1234)
+ntot <- (10+100+1000+10000)
+df <- data.frame(
+  x = c(sample.int(n = 10, 
+                   size = ntot,
+                   replace = TRUE),
+        round(TruncatedNormal::rtnorm(n = ntot, 
+                                      sd = 4, 
+                                      mu = 6, 
+                                      lb = 1, 
+                                      ub = 10))),
+  group = rep(factor(c("null","alternative")), 
+              each = ntot),
+  sample = rep(factor(c(rep(1,10),
+                    rep(2,100),
+                    rep(3, 1000),
+                    rep(4, 1e4)),
+                    labels = c("10","100","1000","10 000")), length.out = 2*ntot))
+g1 <- ggplot(df |> dplyr::filter(group == "alternative"), aes(x = x, y = ..density..)) +
+  geom_hline(yintercept = 0.1, col = "gray", lty = 2) +
+  geom_histogram(bins = 10, color="white", fill = 2)+
+  facet_wrap(~sample, nrow = 1,
+             labeller = label_wrap_gen(multi_line=FALSE))+
+  labs(y = "proportion", x = "") +
+  scale_x_continuous(breaks=c(0,5,10)) + 
+  theme_classic()
+g2 <- ggplot(df |> dplyr::filter(group == "null"), aes(x = x, y = ..density..)) +
+  geom_hline(yintercept = 0.1, col = "gray", lty = 2) +
+  geom_histogram(bins = 10, color="white", fill = 4)+
+  facet_wrap(~sample, nrow = 1,
+             labeller = label_wrap_gen(multi_line=FALSE))+
+  labs(y = "proportion", x = "") +
+  scale_x_continuous(breaks=c(0,5,10)) + 
+  theme_classic()
+g2 / g1 
+```
+
+
+## Recipe for hypothesis test
+
+An hypothesis test is a binary decision rule (reject/fail to reject)
+
+Below are the different steps to undertake:
+
+
+1. Define the variables of interest.
+2. Formulate the alternative and the null hypotheses, $\mathscr{H}_a$ and $\mathscr{H}_0$.
+3. Choose the test statistic and compute the latter on the sample.
+4. Compare the numerical value with the null distribution.
+5. Obtain the *p*-value or a confidence interval.
+6. Conclude in the setting of the problem.
+
+
+## Running example: texting while walking
+
+Tech3Lab, HEC Montreal's User Experience (UX) lab, studied the impact of texting on distraction.
+
+```{r}
+#| label: tech3lab
+#| echo: false
+#| out-width: '65%'
+knitr::include_graphics('fig/01/Tech3Lab-texter.jpg')
+```
+
+
+## Study details
+
+- 35 participants took part in the study.
+- Each person had to walk on a treadmill in front of a screen where obstacles were projected.
+- In one of the sessions, the subjects walked while talking on a cell
+phone, whereas in another session, they walked while texting.
+- The order of these sessions was determined *at random*.
+- Different obstacles were randomly projected during the session.
+- We are only interested in one kind of scenario: a cyclist riding towards the participant.
+
+## Characteristics
+
+- Population: adults
+- Sample: 35 individuals (convenience sample, recruited)
+- Variables:
+  - Time to perceive an obstacle: quantitative
+  - Distraction type (cellphone call or texting): nominal variable
+- Response variable: time (in seconds) that it takes for a person to notice the obstacle when walking while texting or talking on a cell phone (measured through an encephalogram)
+
+
+## 1. Define the variables of interest
+
+- Let $\mu_{\texttt{c}}$ be the average reaction time (in seconds) during a call (`c`)
+- and let $\mu_{\texttt{t}}$ be the average reaction time (in seconds) while texting (`t`)
+
+
+## 2. Formulate the null and alternative hypothesis
+
+- Hypothesis of interest (alternative): does texting increases distraction?
+    - $\mathscr{H}_a: \mu_{\texttt{t}} > \mu_{\texttt{c}}$ (one-sided)
+- Null hypothesis (Devil's advocate)
+    - $\mathscr{H}_0: \mu_{\texttt{t}} \leq  \mu_{\texttt{c}}$
+
+Express the hypothesis in terms of the difference of means
+\begin{align*}
+\mathscr{H}_a: \mu_{\texttt{t}} - \mu_{\texttt{c}}>0.
+\end{align*}
+
+We only ever assess the null hypothesis at a single value.
+
+## How to assess evidence?
+
+
+- A **statistic** is a function of the data that returns a numerical summary. 
+- There are general principles for constructing statistics: for example, **Wald statistics** are of the form
+\begin{align*}
+W = \frac{\text{estimated qty} - \text{postulated qty}}{\text{std. error (estimated qty)}} = \frac{T - T_0}{\mathsf{se}(T)}
+\end{align*}
+    - Statistic are typically unitless quantities.
+    - This standardization is useful for benchmarking purposes.
+    - The **standard error** measures the uncertainty of the statistic.
+
+ 
+::: aside
+Do not confuse standard error (variability of statistic) and standard deviation (variability of observation from the population). 
+:::
+
+## 3.Choose the test statistic
+
+We compare the difference of the mean reaction time.
+
+- one-sample _t_-test for $\texttt{t}-\texttt{c}$ (paired _t_-test)
+\begin{align*}
+T_D=\frac{\overline{D}-\mu_0}{\mathsf{se}(\overline{D})}
+\end{align*}
+- $\overline{D}$ is the mean difference in the sample.
+- Under $\mathscr{H}_0: \mu_0=\mu_{\texttt{t}}-\mu_{\texttt{c}}=0$.
+- The standard error of $\overline{D}$ is $\mathsf{se}(\overline{D})=S_D/\sqrt{n}$, where $S_D$ is the standard deviation of the variables $D_i$ and $n$ the sample size.
+
+## **R** code
+
+```{r}
+#| label: distraction_code
+#| eval: true
+#| echo: true
+data(distraction, package = "hecstatmod")
+ttest <- with(distraction,
+     t.test(x = t,
+            y = c, 
+            paired = TRUE, 
+            alternative = "greater"))
+```
+
+
+```{r}
+#| label: distraction-output
+#| eval: true
+#| echo: false
+ttest
+```
+
+## Null distribution
+
+The null distribution tells us what values we would obtain under a null, and their relative frequency.
+
+- We typically rely on **large sample approximations**, that are justified by the central limit theorem.
+- Alternative, use simulation-based inference (check [permutation tests](https://www.jwilber.me/permutationtest/)).
+- The null distribution is a benchmark to establish whether our outcome is extreme.
+
+## Null distributions
+
+
+
+```{r}
+#| label: fig-renfepermut
+#| cache: true
+#| echo: false
+#| fit.height: 5
+#| fig-align: 'center'
+#| fig-cap: Permutation-based approximation to the null distribution (full) and standard normal approximation
+#|   (dashed curve). The value of the test statistic calculated using the original sample
+#|   is represented by a vertical line.
+#| fig-width: 6
+# p-value (permutation test)
+data(renfe, package = "hecstatmod")
+# Sub-sample with only Promo tickets
+renfe_promo <- renfe |>
+   dplyr::filter(fare == "Promo",
+                 type == "AVE")
+
+# two-sample t-test and mean difference
+ttest <- t.test(price~dest, data = renfe_promo)
+n <- nrow(renfe_promo)
+B <- 1e4
+ttest_stats <- numeric(B)
+ttest_stats[1] <- ttest$statistic
+set.seed(20200608) # set seed of pseudo-random number generator
+for(i in 2:B){
+  # Recalculate the test statistic, permuting the labels
+  ttest_stats[i] <- t.test(price ~ dest[sample.int(n = n)],
+                           data = renfe_promo)$statistic
+}
+# Graphics library
+library(ggplot2)
+# Plot the empirical permutation distribution
+ggplot(data = data.frame(statistic = ttest_stats),
+       aes(x=statistic)) +
+  geom_histogram(bins = 30, aes(y=after_stat(density)), alpha = 0.2) +
+  geom_density() +
+  geom_vline(xintercept = ttest_stats[1]) +
+  scale_y_continuous(limits = c(0,NA), expand = expansion(mult = c(0,0.1))) + 
+  labs(y = "density", x = "statistic") +
+  stat_function(fun = dnorm, linetype = "dashed")
+```
+
+## 4. Compare the statistic with the null distribution
+
+- The test statistic value is $t_D = 2.91$.
+- We are only interested in the probability that $T > 2.91$ under $\mathscr{H}_0$ (one-sided test).
+- Use as null distribution a standard Student-_t_ distribution with 34 degrees of freedom, $T \sim \mathsf{Student}(34)$.
+- The $0.05$ quantile of $T$ is $\mathfrak{t}_{0.05} = `r qt(0.05, 34)`$.
+
+
+## $P$-values
+
+Apply distribution function of the null distribution to map the test statistic to the $[0,1]$ interval.
+
+The _p_-value is the probability that the test statistic is equal or more extreme to the estimate computed from the data, assuming $\mathscr{H}_0$ is true.
+
+
+:::{.callout-caution}
+
+The [American Statistical Association (ASA) published a
+list of principles](https://doi.org/10.1080/00031305.2016.1154108) guiding (mis)interpretation of _p_-values, including:
+
+- (2) _P_-values do not measure the probability that the studied hypothesis is true.
+- (5) _p_-value, or statistical significance, does not measure the size of an effect or the importance of a result.
+
+:::
+
+
+## Hypothesis testing as a trial analogy
+
+```{r}
+#| label: fig-twelveangrymen
+#| echo: false
+#| out-width: '55%'
+#| fig-cap: "Screenshot of the courtoom drama _Twelve Angry Men_ (1957)"
+knitr::include_graphics('fig/01/12_Angry_Men_scene.jpg')
+```
+
+## Trial analogy 
+
+The presumption of innocence applies (look at everything as if the null hypothesis is true)
+
+- Evidences are judged under this optic: are they remotely plausible if the person was innocent?  
+- The burden of the proof lies with the prosecution to avoid as much as possible judicial errors. 
+- The null hypothesis $\mathscr{H}_0$ is *not guilty*, whereas the alternative $\mathscr{H}_a$ is *guilty*. 
+- If there is a reasonable doubt, the verdict of the trial will be not guilty.
+
+## What can we expect of $p$-values?
+
+If we repeat the experiment with random samples, we expect $p$-values to be uniform if $\mathscr{H}_0$ is true **and** the null hypothesis benchmark is properly calibrated.
+
+Under the alternative, smaller $p$-values occur more often than $\alpha$.
+
+
+```{r}
+#| label: fig-power-plots
+#| echo: false
+#| eval: true
+#| cache: true
+#| message: false
+#| warning: false
+#| fig-cap: "Density of _p_-values under the null hypothesis (left) and under an alternative
+#|   with a signal-to-noise ratio of 0.5 (right)."
+power_t <- function(x, ncp, df){dt(df = df, qt(p = x, df = df, ncp = ncp))/dt(df = df, qt(p = x, df = df))}
+power_wald <- function(x, ncp){dnorm(qnorm(p = x, mean = ncp))/dnorm(qnorm(p = x))}
+cdf_wald <- function(x, ncp){pnorm(qnorm(p = x, mean = ncp), lower.tail = TRUE)}
+g1a <- ggplot() +
+  geom_function(fun = power_t, args = list(ncp = 0, df = 5), xlim = c(0,1), n = 10001) +
+  stat_function(fun = power_t, args = list(ncp = 0, df = 5),
+                xlim = c(1e-12,0.1), geom = "area", fill = "blue", alpha = 0.2) +
+  labs(y = "density", x = "probability level") +
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0,5),
+                     breaks = 1:5,
+                     labels = 1:5)  +
+  scale_x_continuous(expand = c(0,0),
+                     limits = c(0,1),
+                     breaks = sort(c(0.1, seq(0,1, by= 0.25))),
+                     labels = c("0","0.1","0.25","0.5", "0.75", "1")) +
+  theme_classic()
+# g1b <- ggplot() +
+#   geom_vline(xintercept = 0.1, lty = 2, alpha = 0.2) +
+#   geom_segment(data = data.frame(x = 0, xend = 0.1, y = cdf_wald(0.1, ncp = 0)),
+#               mapping = aes(x = x, y = y, xend = xend, yend = y), col = "blue", lwd = 2) +
+#   geom_function(fun = cdf_wald, args = list(ncp = 0), xlim = c(0,1), n = 10001) +
+#   labs(y = "probability of rejection", x = "probability level")
+g2a <- ggplot() +
+  geom_function(fun = power_wald, args = list(ncp = 1), xlim = c(0,1), n = 10001) +
+  stat_function(fun = power_wald, args = list(ncp = 1),  n = 1001,
+                xlim = c(0,0.1), geom = "area", fill = "blue", alpha = 0.2) +
+  labs(y = "density", x = "probability level") +
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0,5),
+                     breaks = 1:5,
+                     labels = 1:5)  +
+  scale_x_continuous(expand = c(0,0),
+                     limits = c(0,1),
+                     breaks = sort(c(0.1, seq(0,1, by= 0.25))),
+                     labels = c("0","0.1","0.25","0.5", "0.75", "1")) +
+  theme_classic()
+
+g3a <- ggplot() +
+  geom_function(fun = power_wald, args = list(ncp = 0.5), xlim = c(0,1), n = 10001) +
+  stat_function(fun = power_wald, args = list(ncp = 0.5),
+                xlim = c(0,0.1), geom = "area", fill = 2, alpha = 0.2, n = 1001) +
+  labs(y = "density", x = "probability level") +
+  scale_y_continuous(expand = c(0,0),
+                     limits = c(0,5),
+                     breaks = 1:5,
+                     labels = 1:5)  +
+  scale_x_continuous(expand = c(0,0),
+                     limits = c(0,1),
+                     breaks = sort(c(0.1, seq(0,1, by= 0.25))),
+                     labels = c("0","0.1","0.25","0.5", "0.75", "1")) +
+  theme_classic()
+# g3b <- ggplot() +
+#   geom_vline(xintercept = 0.1, lty = 2, alpha = 0.2) +
+#   geom_segment(data = data.frame(x = 0, xend = 0.1, y = cdf_wald(0.1, ncp = 0.5)),
+#               mapping = aes(x = x, y = y, xend = xend, yend = y), col = "blue") +
+#   geom_function(fun = cdf_wald, args = list(ncp = 0.5), xlim = c(0,1), n = 10001) +
+#   labs(y = "probability of rejection", x = "probability level")
+# (g1a + g1b) / (g3a + g3b)
+
+g4 <- ggplot() +
+  geom_vline(xintercept = 0.1, lty = 2, alpha = 0.2) +
+  geom_segment(data = data.frame(x = 0, xend = 0.1, y = 0.1),
+              mapping = aes(x = x, y = y, xend = xend, yend = y), col = "blue") +
+  geom_segment(data = data.frame(x = 0, xend = 0.1, y = cdf_wald(0.1, ncp = 0.5)),
+              mapping = aes(x = x, y = y, xend = xend, yend = y), col = 2) +
+  geom_function(fun = cdf_wald, args = list(ncp = 0), xlim = c(0,1), n = 10001) +
+  geom_function(fun = cdf_wald, args = list(ncp = 0.5), xlim = c(0,1), n = 10001, col = 2) +
+  labs(y = "probability of rejection", x = "probability level") +
+   scale_x_continuous(expand = c(0,0),
+                     limits = c(0,1),
+                     breaks = seq(0,1, by= 0.25),
+                     labels = c("0","0.25","0.5", "0.75", "1")) +
+    scale_y_continuous(expand = c(0,0),
+                     limits = c(0,1),
+                     breaks = seq(0,1, by= 0.25),
+                     labels = c("0","0.25","0.5", "0.75", "1")) +
+  theme_classic()
+# (g1a + g1b) / (g3a + g3b)
+g1a + g3a
+```
+
+## Level of a test
+
+
+If the null hypothesis $\mathscr{H}_0$ is true, the *p*-value follows a uniform distribution if our benchmark is properly calibrated. 
+
+- There are always small $p$-values, even if they are less likely.
+- Since we want to rule out **against** the null hypothesis, we need to pre-determine a **level** $\alpha$ to decide when to reject $\mathscr{H}_0$.
+
+
+To make a decision, we compare our *p*-value $P$ with the level of the test $\alpha$:
+
+- if $P < \alpha,$ we reject $\mathscr{H}_0$;
+- if $P \geq \alpha,$ we fail to reject $\mathscr{H}_0.$
+
+
+The value of $\alpha \in (0, 1)$ is the probability of rejecting $\mathscr{H}_0$ when $\mathscr{H}_0$ is in fact true.
+
+## Statistical errors
+
+
+| **Decision** \\ **true model** | $\mathscr{H}_0$ | $\mathscr{H}_a$ |
+| :-- | :-: | :-: |
+| fail to reject $\mathscr{H}_0$ | $\checkmark$ | type II error |
+| reject $\mathscr{H}_0$ |type I error | $\checkmark$|
+
+
+We seek to avoid error of type I: we reject $\mathscr{H}_0$ when $\mathscr{H}_0$ is true.
+
+- trial analogy: avoid condemning an innocent. 
+
+Since we fix the level $\alpha$, we have no control over the type II error.
+
+## Power
+
+We want to be able to detect and reject $\mathscr{H}_0$ when it is false.
+
+The **power of a test** is the probability of rejecting $\mathscr{H}_0$ when it is false, i.e.,
+\begin{align*}
+\Pr{\!}_a(\text{reject } \mathscr{H}_0),
+\end{align*}
+where $\Pr_a$ is the probability under a **given** alternative of falling in the rejection region .
+
+## Illustration of power
+
+```{r}
+#| label: fig-power
+#| cache: true
+#| echo: false
+#| fig-width: 10
+#| fig-height: 3
+#| out-width: '100%'
+#| fig-cap: Comparison between null distribution (full curve) and a specific alternative
+#|   for a *t*-test (dashed line). The power corresponds to the area under the curve
+#|   of the density of the alternative distribution which is in the rejection area (in
+#|   white). The middle panel shows an increase in power due to an increase in the mean difference, whereas the right panel shows the change due to a decrease in variability of increase in the sample size.
+region <- data.frame(start = c(-Inf, qt(0.025, df = 10), qt(0.975, df = 10)),
+                     end = c(qt(0.025, df = 10), qt(0.975, df = 10), Inf),
+                     region = factor(c("reject","fail to reject","reject")))
+g1 <- ggplot(region) +
+  geom_rect(aes(xmin = start, xmax = end, fill = region),
+    ymin = -Inf, ymax = Inf, alpha = 0.2, data = region) +
+  scale_fill_manual(values = c("blue","orange")) +
+  coord_cartesian(xlim = c(-3.5,6), ylim = c(0, 1), expand = FALSE) +
+  theme_classic() + theme(legend.position = "bottom") +
+  stat_function(fun = dt, args = list(ncp = 1.5, df=10), xlim = c(qt(0.975, df = 10), 10),
+                geom = "area", fill = "white") +
+  stat_function(fun = dt, n = 1000, args = list(df= 10), xlim = c(-5,6)) +
+  stat_function(fun = dt, n = 1000, args = list(ncp = 1.5, df=10), lty = 2, xlim = c(-5,6)) +
+  ylab("f(x)")
+  region1 <- data.frame(start = c(-Inf, qnorm(0.025), qnorm(0.975)),
+                     end = c(qnorm(0.025), qnorm(0.975), Inf),
+                     region = factor(c("reject","fail to reject","reject")))
+g2 <- ggplot(region1) +
+  geom_rect(aes(xmin = start, xmax = end, fill = region),
+    ymin = -Inf, ymax = Inf, alpha = 0.2, data = region1) +
+  scale_fill_manual(values = c("blue","orange")) +
+  coord_cartesian(xlim = c(-3.5,5), ylim = c(0, 1), expand = FALSE) +
+  theme_classic() + theme(legend.position = "bottom") +
+  stat_function(fun = dnorm, args = list(mean = 3, sd = 1), xlim = c(qnorm(0.975),10),
+                geom = "area", fill = "white") +
+  ylab("f(x)") +
+  stat_function(fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-5,5)) +
+  stat_function(fun = dnorm, n = 1000, args = list(mean = 3, sd = 1), lty = 2, xlim = c(-5,5))
+region2 <- data.frame(start = c(-Inf, qnorm(0.025, sd = 0.5), qnorm(0.975, sd = 0.5)),
+                     end = c(qnorm(0.025, sd = 0.5), qnorm(0.975, sd = 0.5), Inf),
+                     region = factor(c("reject","fail to reject","reject")))
+g3 <- ggplot(region) +
+  geom_rect(aes(xmin = start, xmax = end, fill = region),
+    ymin = -Inf, ymax = Inf, alpha = 0.2, data = region2) +
+  scale_fill_manual(values = c("blue","orange")) +
+  coord_cartesian(xlim = c(-3.5,5), ylim = c(0, 1), expand = FALSE) +
+  theme_classic() + theme(legend.position = "bottom") +
+  stat_function(fun = dnorm, args = list(mean = 1.5, sd = 0.5), xlim = c(qnorm(0.975, sd = 0.5),10), geom = "area", fill = "white") +
+  stat_function(fun = dnorm, n = 1000, args = list(mean = 0, sd = 0.5), xlim = c(-5,5)) +
+  stat_function(fun = dnorm, n = 1000, args = list(mean = 1.5, sd = 0.5), lty = 2, xlim = c(-5,5)) +
+  ylab("f(x)")
+g1 + g2 + g3 +
+  patchwork::plot_layout(guides = 'collect')  &  ylim(0,1) & theme(legend.position = "bottom")
+```
+
+## Criteria determining power 
+
+
+- the effect size: the bigger the difference between the postulated value for $\theta_0$ under $\mathscr{H}_0$ and the observed behavior, the easier it is to detect it, as in the middle panel of @fig-power;
+- variability: the less noisy your data, the easier it is to detect differences between the curves
+- the sample size: the more observation, the smaller the standard error
+- the choice of test statistic
+
+
+Minimally, the power of the test should be $\alpha$ because we reject the null hypothesis $\alpha$ fraction of the time even when $\mathscr{H}_0$ is true. 
+
+## Confidence interval
+
+
+A **confidence interval** is an alternative way to present the conclusions of an hypothesis test performed at significance level $\alpha$ with the **same data units**.
+
+Wald-based  $(1-\alpha)$ confidence intervals for a scalar parameter $\theta$ are of the form
+\begin{align*}
+[\widehat{\theta} + \mathfrak{q}_{\alpha/2}\mathrm{se}(\widehat{\theta}, \widehat{\theta} +\mathfrak{q}_{1-\alpha/2}\times \mathrm{se}(\widehat{\theta})]
+\end{align*}
+corresponding to a point estimate plus or minus the margin of error.
+
+## Estimation: a piece of cake {.smaller}
+
+We distinguish between our target (estimand, e.g., population mean), the recipe or formula (estimator) and the output (estimate). 
+
+
+```{r}
+#| label: fig-cake
+#| eval: true
+#| echo: false
+#| fig-cap: "[Estimand](https://www.flickr.com/photos/darkdwarf/16563489881) (left), estimator (middle) and [estimate](https://www.flickr.com/photos/bensutherland/14685548773) (right) illustrated with cakes and based on an original idea of Simon Grund. Cake photos shared under [CC BY-NC 2.0 license](https://creativecommons.org/licenses/by-nc/2.0/)."
+#| fig-subcap:
+#|  - "Estimand"
+#|  - "Estimator"
+#|  - "Estimate"
+#| layout-ncol: 3
+#| out-width: '90%'
+knitr::include_graphics("fig/01/estimand.jpg")
+knitr::include_graphics("fig/01/estimator.jpg")
+knitr::include_graphics("fig/01/estimate.jpg")
+```
+
+## Interpretation of confidence interval
+
+Since the inputs of the confidence interval (estimator) are random, the output is also random and change from one sample to the next: even if you repeat a recipe, you won't always get the exact same result.
+
+- If we calculate the confidence interval for a sample, the true unknown value of the parameter $\theta$ is either in the confidence interval or not: there is no notion of probability!
+- Our confidence is in the *procedure* we use to calculate confidence intervals and not in the actual values we obtain from a sample.
+- If we were to repeat the experiment multiple times, and calculate a $1-\alpha$ confidence interval each time, then roughly $1-\alpha$ of the calculated confidence intervals would contain the true value of $\theta$ in repeated samples.
+
+
+
+
+
+## Frequentist properties of confidence intervals
+
+```{r}
+#| label: intconf
+#| eval: true
+#| echo: false
+#| cache: true
+#| fig.width: 8.0
+#| fig.height: 5.0
+#| fig-cap: 95\% confidence intervals for the mean of a standard normal population for
+#|   100 random samples. On average, 5\% of these intervals fail to include the true
+#|   mean value of zero (in red).
+set.seed(1234)
+interv <- t(sapply(1:100, function(i){t.test(rnorm(1000), mu=0)$conf.int}))
+confint_dat <- data.frame(lower = interv[,1],
+                          upper = interv[,2],
+                          replicate = 1:100,
+                          covers = factor((interv[,1] > 0) | (interv[,2] < 0), labels = c("covers","fails to cover")))
+confint_dat$covers <- relevel(confint_dat$covers, ref = "fails to cover")
+ggplot(data = confint_dat,
+       aes(x = factor(replicate))) +
+  geom_hline(yintercept = 0) +
+  geom_segment(mapping = aes(y = lower, yend = upper, x = replicate, xend = replicate, col = covers)) +
+  # scale_color_discrete(c("black","red")) +
+  labs(x = "replicate study",
+       y = "",
+       col = "") +
+  theme_classic() +
+  theme(legend.position = "bottom",
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major.y = element_blank())
+```
+
+
+## Equivalence of confidence intervals and $p$-values
+
+The $1-\alpha$ confidence interval gives us all values for which we fail to reject $\mathscr{H}_0$ at level $\alpha$
+
+- Binary decision rule with confidence interval: if the postulated value lies inside the interval, we fail to reject the null hypothesis.
+- The $p$-value based on the same procedure would be $p \ge\alpha$ if you fail to reject (and vice-versa $p <\alpha$ if the value is outside the interval).
+
+But confidence intervals are in terms of the data units, so easier to interpret.
+
+## 5. Obtain a *p*-value or a confidence interval
+
+The _p_-value is $p = \Pr_0(T > t_D)$, where $T \sim \mathsf{Student}(34)$. Using **R**, we find $p=0.0032$, which is smaller than $\alpha=5\%$.
+
+```{r}
+#| eval: true
+#| echo: true
+ttest$p.value
+```
+
+The lower bound of the confidence interval is $\overline{D} + \mathsf{se}(\overline{D}) \times \mathfrak{t}_{0.05}$.
+
+```{r}
+#| eval: true
+#| echo: true
+ttest$conf.int
+```
+
+The one-sided confidence interval is $[`r as.numeric(ttest$conf.int)[1]`, \infty]$. The postulated null value, $0$, is outside the interval.
+
+
+## **R** --- calculations by hand
+
+```{r}
+#| label: distraction_manual
+#| eval: true
+#| echo: true
+d <- with(distraction, t - c) # time difference text vs conversation
+n <- length(d) # sample size
+(mean_d <- mean(d)) # mean difference
+(se_d <- sd(d)/sqrt(n)) # standard error of sample mean
+(stat <- mean_d/se_d) # t-test statistic
+dof <- n - 1L # degrees of freedom
+crit <- qt(p = 0.05, df = dof) # critical value, "q" for quantile
+(pval <- pt(q = stat, df = dof, lower.tail = FALSE)) # Pr(T > stat)
+(conf_low <- mean_d + se_d*crit) # lower bound of Wald confidence interval
+```
+
+::: aside
+
+**R** uses the convention `d/p/q/r` for density/distribution function/quantile function/random number generation. The name of the distribution (e.g., `norm`, `t`, `chisq`, `f`, `unif`) is appended to that letter, e.g.,
+
+- `pnorm` is the distribution function of a normal variable,
+- `qt` is the quantile function of a Student-$t$ variable,
+- `runif` generates uniform variables.
+:::
+
+## 6. Conclude in the setting of the problem
+
+The estimated mean difference is $`r ttest$estimate`$ seconds (std. error of $`r ttest$stderr`$ seconds). 
+
+We reject $\mathscr{H}_0$, meaning that the reaction time is significantly higher (at level $5$%) when texting than talking on the cellphone while walking (p-value of $`r pval`$).
+
+
+
+## Learning objectives
+
+
+::: {.callout-note title="Learning objectives"}
+
+* Understanding the role of uncertainty in decision making.
+* Understanding the importance of signal-to-noise ratio as a measure of evidence.
+* Knowing the basic ingredients of hypothesis testing and being capable of correctly formulating and identifying these components in a paper.
+* Correctly interpreting $p$-values and confidence intervals for a parameter.
+
+:::
+
+
+## References
+

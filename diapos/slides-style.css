@@ -1,0 +1,330 @@
+/* Custom fonts */
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Caveat|Handlee&display=swap');
+
+/* colors */
+/* From: https://www.pantone.com/color-intelligence/color-of-the-year/color-of-the-year-2020-palette-exploration */
+
+:root {
+  --hec-bleu: #003C71;
+  --hec-bleu-30: #003C7130;
+  --hec-cyan: #009FDF;
+  --hec-gris: #97999B;
+  --hec-gris-30: #97999B30;
+  --hec-noir: #2C2A29;
+  --hec-sec-violet: #9678D3;
+  --hec-sec-violet-30: #9678D330;
+}
+
+
+/* Title slide customization */
+.title-slide h1, h2 {
+  text-align: left;
+  font-weight: bold;
+}
+
+.title-slide h1 {
+  font-weight: bold;
+  font-family: Raleway;
+}
+
+.inverse h2 {
+  font-weight: normal;
+}
+
+.title-slide h2 {
+  font-weight: normal;
+}
+
+.title-slide a {
+  color: var(--hec-bleu);
+}
+
+a {
+  color: var(--hec-bleu);
+}
+
+.title-slide h3 {
+  text-align: right;
+}
+
+/* Alignment */
+.right{
+  text-align: right;
+}
+
+/* Margins around headers */
+
+h1, h2, h3 {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+h4 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+/* Font colors */
+
+/* Font sizes */
+.larger { font-size: 400% }
+.bitlarger { font-size: 200% }
+.large { font-size: 130% }
+.midi { font-size: 85% }
+.small { font-size: 70% }
+.xsmall { font-size: 60% }
+.tiny { font-size: 50% }
+
+/* Custom fonts */
+
+.huge-text {
+ font-family: 'Raleway', sans-serif;
+ font-size: 600%;
+ font-weight: bold;
+ color: var(--hec-gris);
+}
+.huge-number {
+ font-family: 'Raleway', sans-serif;
+ font-size: 1700%;
+ font-weight: bold;
+ color: var(--hec-bleu);
+}
+
+/* Handwriting */
+.hand{
+  font-family: 'Caveat', cursive;
+  color: var(--hec-gris);
+  font-size: 125%;
+}
+.hand-large{
+  font-family: 'Caveat', cursive;
+  color: var(--hec-gris);
+  font-size: 500%;
+}
+
+/*Alternative two-column layouts*/
+
+/*Left 70% - Right 30% */
+.pull-left-wide {
+  width: 70%;
+  float: left;
+}
+.pull-right-narrow {
+  width: 27%;
+  float: right;
+}
+.pull-right-narrow ~ * {
+  clear: both;
+}
+
+  /*Left 30% - Right 70% */
+.pull-left-narrow {
+  width: 30%;
+  float: left;
+}
+.pull-right-wide {
+  width: 67%;
+  float: right;
+}
+.pull-right-wide ~ * {
+  clear: both;
+}
+
+
+/* Four column layout */
+.four-column {
+  float: left;
+  width: 25%;
+  text-align: center;
+}
+
+/* Three column layout */
+.three-column {
+  float: left;
+  width: 33%;
+  text-align: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.figcaption{
+  font-size: 70%;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Progress bar */
+/* https://github.com/yihui/xaringan/wiki/Progressbar */
+.remark-slide-number {
+  font-size: 10pt;
+  margin-bottom: -11.6px;
+  margin-right: 10px;
+  color: #003C71; /* white */
+  opacity: 1; /* default: 0.5 */
+}
+
+.progress-bar-container {
+  position: absolute;
+  top: 0;
+  height: 4px;
+  display: block;
+  left: 0;
+  right: 0;
+}
+
+.remark-slide-number .progress-bar {
+  height: 100%;
+  background-color: var(--hec-gris);
+}
+
+/* Square bullets for lists */
+
+
+/* Custom boxes */
+.discussion, .your-turn, .take-home {
+  padding: 5px 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.discussion{
+  border-left: solid 5px var(--hec-gris);
+  background-color: var(--hec-gris-30);
+}
+.discussion:before{
+  content: "Discussion";
+  font-size: 150%;
+  font-weight: bold;
+  color: var(--hec-gris);
+  margin-bottom: 10px;
+}
+.your-turn {
+  border-left: solid 5px var(--hec-sec-violet);
+  background-color: var(--hec-sec-violet-30);
+  font-size: 25px;
+}
+.your-turn:before{
+  content: "Your turn!";
+  font-size: 150%;
+  font-weight: bold;
+  color: var(--hec-cyan);
+  margin-bottom: 10px;
+}
+.take-home {
+  border-left: solid 5px var(--hec-gris);
+  background-color: var(--hec-gris-30);
+}
+.take-home:before{
+  content: "Take home";
+  font-size: 150%;
+  font-weight: bold;
+  color: var(--hec-gris);
+  margin-bottom: 10px;
+}
+.alert {
+  border-right: solid 5px var(--peach-quartz);
+  background-color: var(--peach-quartz-30);
+}
+
+/* Code highlighting */
+.remark-code-line-highlighted {
+  background-color: var(--peach-quartz)
+}
+
+/* Footer */
+div.my-footer {
+    border-top: 1px solid var(--hec-gris);
+    position: absolute;
+    bottom: 0px;
+    height: 35px;
+    width: 90%;
+}
+div.my-footer span {
+    font-size: 12pt;
+    position: absolute;
+    color: #333333;
+    bottom: 10px;
+}
+div.my-footer a {
+    font-size: 12pt;
+    color: #333333;
+}
+
+/* Footnote */
+.footnote {
+  position: absolute;
+  bottom: 1em;
+  padding-right: 4em;
+  font-size: 70%;
+}
+
+.math{
+ font-size: 120%;
+ }
+
+
+/* Custom boxes */
+.question {
+  background-color: var(--hec-gris-30);
+  padding: 10px 16px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  font-size: 120%;
+  font-weight:bold;
+  color: var(--hec-cyan);
+}
+.alert {
+  border-right: solid 5px #A7D5E8;
+  background-color: #A7D5E830;
+  padding: 1px 16px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.instructions {
+  border-left: solid 5px #FFD748;
+  background-color: #FFD74850;
+  padding: 10px 16px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.instructions li::before {
+  content: ">"; 
+  color: #FFD748;
+  display: inline-block; 
+  margin-left: -1.5em
+}
+
+
+/* Quotes */
+blockquote {
+  border-left: solid 5px lightgray;
+  padding-left: 1em;
+}
+
+
+/* Lists */
+ul {
+  list-style: none;
+}
+ul li::before {
+  content: "✚"; 
+  color: #003C71; 
+  display: inline-block; 
+  width: 1.5em;
+  margin-left: -1.5em
+}
+ul li{
+  margin: 10px 0;
+}

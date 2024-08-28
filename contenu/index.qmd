@@ -4,58 +4,56 @@ title: "Contenu"
 
 
 
-Le contenu du cours est divisé en chapitres: des notes de cours, du code, des questions à choix multiples et des exercices sont disponibles pour chaque sujet.
+Le contenu du cours est divisé en chapitres: des notes de cours, du code,  et des exercices sont disponibles pour chaque sujet.
 
 ## Notes de cours
 
-
-- [Bases de l'inférence statistique](https://lbelzile.github.io/math60604/intro.html)
-- [Régression linéaire (incomplet)](https://lbelzile.github.io/math60604/regression-lineaire.html)
-- [Régression linéaire (anglais)](https://lbelzile.github.io/math60604a/linear-regression.html)
-- [Vraisemblance (anglais)](https://lbelzile.github.io/math60604a/likelihood.html)
-- [Modèles linéaires généralisés (anglais)](https://lbelzile.github.io/math60604a/generalized-linear-models.html)
-- [Données corrélées et longitudinales (incomplet)](https://lbelzile.github.io/math60604/donnees-correlees-longitudinales.html)
-- [Modèles linéaires mixtes (incomplet)](https://lbelzile.github.io/math60604/modeles-lineaires-mixtes.html)
+- [Introduction](https://lbelzile.github.io/math60604/introduction.html)
+- [Bases de l'inférence statistique](https://lbelzile.github.io/math60604/inference.html)
+<!-- - [Régression linéaire (incomplet)](https://lbelzile.github.io/math60604/regression-lineaire.html) -->
+<!-- - [Régression linéaire (anglais)](https://lbelzile.github.io/math60604a/linear-regression.html) -->
+<!-- - [Vraisemblance (anglais)](https://lbelzile.github.io/math60604a/likelihood.html) -->
+<!-- - [Modèles linéaires généralisés (anglais)](https://lbelzile.github.io/math60604a/generalized-linear-models.html) -->
+<!-- - [Données corrélées et longitudinales (incomplet)](https://lbelzile.github.io/math60604/donnees-correlees-longitudinales.html) -->
+<!-- - [Modèles linéaires mixtes (incomplet)](https://lbelzile.github.io/math60604/modeles-lineaires-mixtes.html) -->
 <!-- - [Analyse de survie (anglais)](https://lbelzile.github.io/math60604a/survival.html) -->
 
 
-
-## Vidéos et diapositives
-
-Cette section contient des liens vers les vidéos ainsi que le code et les diapositives utilisés dans ces dernières.
-
-
-```{r, echo=FALSE, eval=TRUE, message=FALSE}
-source("../files/get_slide_data.R")
-knitr::kable(sldat, align = "llccccc")
-```
-
 ## Données
 
-Si vous accédez à **SAS** onDemand, vous pouvez accéder aux données à l'aide des instructions suivantes: 
-```{sas loadintro, eval = FALSE}
-OPTIONS LOCALE=fr_CA DFLANG=LOCALE;
-LIBNAME modstat "~/my_shared_file_links/u41148888/modstat" access=readonly;
-```
+Vous pouvez accéder aux bases de données dans **R** en installant le paquet **R** `hecmodstat`.
 
-Les jeux de données (en format `.sas7bdat`) sont disponibles pour [téléchargement en cliquant sur ce lien](https://raw.githubusercontent.com/lbelzile/modstat/main/files/datasets/MATH60604_SAS_donnees.zip).
+Vous pouvez installer le paquet à partir de Github à l'aide des commandes suivantes en roulant les commandes suivantes dans **R** (décommentez la première ligne pour installer le paquet `remotes`):
 
-Vous pouvez également accéder aux bases de données dans **R** en installant le paquet **R** `hecmodstat`
-
-Vous pouvez installer le paquet à partir de Github à l'aide des commandes suivantes en roulant les commandes suivantes dans **R** (décommentez la première ligne pour installer les bibliothèques `learnr` et `remotes`):
-```{r, eval = FALSE}
-#install.packages(c("learnr","remotes"))
+```{r}
+#| eval: false
+lib <- c("afex", "broom", "car", "dplyr", "emmeans",
+         "ggplot2", "Hmisc", "lme4", "lmerTest", 
+         "marginaleffects", "MASS", "multcomp", "nlme", 
+         "patchwork", "poorman", "remotes", "survminer",
+         "survival", "tidyr", "tinytable")
+for(pack in lib){
+  if(!require(pack, quietly = TRUE)){
+    install.packages(pack)
+  }
+}
 remotes::install_github("lbelzile/hecmodstat")
+remotes::install_github("lbelzile/hecedsm")
 ```
 
-*Note*: plusieurs bases de données ne sont pas documentées et les tutoriels ne sont pas encore complétés.
+*Note*: plusieurs bases de données ne sont pas documentées.
+
+<!--
 
 ## Quiz
 
 Pour ouvrir un quiz dans votre navigateur, tapez un des commandes suivantes dans une console **R** pour ouvrir le quiz dans un navigateur web.
-```{r eval = FALSE}
+
+```{r}
+#| eval: false
 learnr::run_tutorial("intro", package = "hecmodstat")
 learnr::run_tutorial("vraisemblance", package = "hecmodstat")
 learnr::run_tutorial("survie", package = "hecmodstat")
 ```
 
+-->

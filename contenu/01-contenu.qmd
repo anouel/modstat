@@ -1,43 +1,21 @@
 ---
-title: "Introduction"
+title: "Tests d'hypothèse"
 ---
 
 
 ### Contenu
 
- 
-```{r, echo=FALSE, eval=TRUE, message=FALSE}
-source("../files/get_slide_data.R")
-knitr::kable(sldat[which(sldat$S %in% c("0","1a","1b","1c")),], align = "llccccc", row.names = FALSE)
-```
-
-
-- Notes de cours: chapitre 1 et annexe A
-- Créez un compte pour **SAS** onDemand 
-- Complétez l'[Introduction à **SAS**](sas.html)
+- Notes de cours: chapitres 1 et 2
+- Installation de **R**
 
 ### En classe
 
-- Présentation et pratique des outils pédagogique (Zoom / Wooclap / SAS onDemand)
-- [Atelier de visualisation (groupe)](https://github.com/lbelzile/modstat/raw/main/files/atelier/graphiques/graphics.zip)
 
 ### Après le cours
 
-- Quiz 1 (`intro`)
-- Exercice 1.4 (a) et (b) avec **SAS**. *Note: cette série d'exercices est probablement difficile à l'heure actuelle, mais vous devriez être en mesure de la compléter dans quelques séances.*
 
 
 ### Lectures additionnelles
 
-- [Chapitre 1 de *Data Visualization: A practical introduction* par Kieran Healy](https://socviz.co/lookatdata.html#lookatdata)
 - [Tests de permutation](https://www.jwilber.me/permutationtest/)
-- [DataViz Cheatsheet](https://policyviz.com/2018/08/07/dataviz-cheatsheet/)
-- [Chapitre 7 de _**R** for Data Science_ par Garrett Grolemund et Hadley Wickham](https://r4ds.had.co.nz/)
 
-### Autres références
-
-- [Chapitre 3 de _**R** for Data Science_ par Garrett Grolemund et Hadley Wickham](https://r4ds.had.co.nz/)
-- [*Fundamentals of Data Visualization* par Claus O. Wilke](https://clauswilke.com/dataviz/)
-- [Do's and don'ts of making effective graphics](https://stat545.com/effective-graphs.html)
-- [Financial Times Visual Vocabulary](	https://github.com/ft-interactive/chart-doctor/tree/master/visual-vocabulary)
-- [BBC R Cookbook (optionnel)](https://bbc.github.io/rcookbook/)
