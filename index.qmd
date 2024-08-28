@@ -1,9 +1,10 @@
 ---
 title: "Modélisation statistique"
 subtitle: |
- Ce cours aborde notamment les modèles linéaires, les modèles linéaires généralisés et la régression pour données longitudinales avec effets aléatoires et structures de corrélation. Pour chacune de ces méthodes, les principes théoriques de l’inférence, tels que les tests d’hypothèse, statistiques de tests et méthodes d’estimation seront abordés avec rigueur. Une attention particulière sera aussi portée aux applications en gestion à l’aide du logiciel SAS.
-details: |
-  MATH 60604, automne 2020<br>HEC Montréal
+ L'objectif de ce cours est de couvrir les bases de l'inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.
+
+ Ce cours aborde notamment les modèles linéaires, les modèles linéaires généralisés et la régression pour données longitudinales avec effets aléatoires et structures de corrélation. Pour chacune de ces méthodes, les principes théoriques de l'inférence, tels que les tests d'hypothèses, statistiques de tests et méthodes d'estimation sont abordés avec rigueur. Une attention particulière est portée aux applications en gestion. details: |
+  MATH 60604, automne 2024<br>HEC Montréal
 sidebar: false
 toc: false
 page-layout: full
@@ -27,11 +28,20 @@ withr::with_dir(here::here(), {
 ::: {.grid .course-details}
 
 ::: {.g-col-4}
-### Instructeur
+### Instructeur 1
 
-- {{< fa user >}} &nbsp; [{{< var instructor.name >}}]({{< var instructor.url >}})
-- {{< fa university >}} &nbsp; {{< var instructor.office >}}
-- {{< fa envelope >}} &nbsp; <a href='mailto:{{< var instructor.email >}}'>{{< var instructor.email >}}</a>
+- {{< fa user >}} &nbsp; [{{< var instructor1.name >}}]({{< var instructor1.url >}})
+- {{< fa university >}} &nbsp; {{< var instructor1.office >}}
+- {{< fa envelope >}} &nbsp; <a href='mailto:{{< var instructor1.email >}}'>{{< var instructor1.email >}}</a>
+:::
+
+
+::: {.g-col-4}
+### Instructeur 2
+
+- {{< fa user >}} &nbsp; [{{< var instructor2.name >}}]({{< var instructor2.url >}})
+- {{< fa university >}} &nbsp; {{< var instructor2.office >}}
+- {{< fa envelope >}} &nbsp; <a href='mailto:{{< var instructor2.email >}}'>{{< var instructor2.email >}}</a>
 :::
 
 ::: {.g-col-4}
@@ -42,50 +52,8 @@ withr::with_dir(here::here(), {
 - {{< fa location-dot >}} &nbsp; {{< var course.location >}}
 :::
 
-::: {.g-col-4 .contact-policy}
-### Contact
-
-{{< var instructor.contact_policy >}}
-:::
 
 :::
 
 :::
 
-## Descriptif du cours
-
-- Principes fondamentaux de modélisation et d'inférence statistique
-- Modèles linéaires
-- Modèles linéaires généralisés
-- Modèles pour données longitudinales et corrélées
-- Modèles linéaires mixtes
-- Introduction à l'analyse de survie
-
-
-## Mode d'enseignement
-
-Ce cours fonctionnera selon le principe de classe inversée: le matériel pédagogique (notes de cours, diapositives avec vidéos, quiz et exercices de programmation) sera mis à la disposition des étudiant(e)s à l'avance. Le temps réservé à l'horaire servira à faire un récapitulatif des notions importantes, répondre aux questions et compléter des ateliers et exercices en petit groupes.
-Chaque étudiant(e) est responsable de son apprentissage.
-
-
-## Prérequis
-
-Ce cours couvre beaucoup de matériel (c'est davantage un survol qu'un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre [_Introductory Statistics with Randomization and Simulation_](https://www.openintro.org/book/isrs/) (Chapitres 1--4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l'algèbre linéaire est supposée. 
-
-## Public cible
-
-Le cours « Modélisation statistique » est un cours obligatoire dans le programme de M.Sc. en sciences des données et analytique d'affaires (cheminement projet supervisé) et un cours optionnel pour le cheminement mémoire. Notez que ce cours n'est pas crédité dans la spécialisation Intelligence d'affaires: le cours est incompatible avec MATH606019(A).
-## Licence
-
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Ce matériel est mis à disposition sous licence <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-
-
-## Contributeurs
-
-- [Léo Belzile](https://www.hec.ca/profs/leo.belzile.html) 
-  a écrit les notes de cours en ligne et créé la plupart des exercices et des corrigés.
-- [Denis Larocque](https://www.hec.ca/profs/denis.larocque.html) 
-  a écrit le polycopié d'Analyse et inférence statistique, un précurseur de ce cours. La plupart des exemples utilisés et l'approche sont de son crû.
-- [Aurélie Labbe](https://www.hec.ca/profs/aurelie.labbe.html) 
-  a transformé le recueil en diapositives et enseigné plusieurs itérations du cours, en ajoutant des exercices et des scripts **R**.
-- [Juliana Schulz](https://www.hec.ca/profs/juliana.schulz.html) a enseigné la première itération du nouveau cours MATH 60604 à l'automne 2019 et a créé le matériel sur l'analyse de survie.

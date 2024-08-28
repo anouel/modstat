@@ -74,7 +74,7 @@ website:
 
   page-footer:
     left: |
-      Contenu {{< fa brands creative-commons >}} {{< var course.copyright_year >}} par [{{< var instructor.name_no_title >}}]({{< var instructor.url >}}); canevas du site par [Dr. Andrew Heiss](https://www.andrewheiss.com/) sous [licence MIT](https://mit-license.org/) <br>
+      Contenu {{< fa brands creative-commons >}} {{< var course.copyright_year >}} by [{{< var instructor1.name_no_title >}}]({{< var instructor1.url >}}), [{{< var instructor2.name_no_title >}}]({{< var instructor2.url >}})<br>; canevas du site par [Dr. Andrew Heiss](https://www.andrewheiss.com/) sous [licence MIT](https://mit-license.org/) <br>
       Tout le contenu du site (hors notes) est distribué sous licence {{< fa brands creative-commons >}}
       {{< fa brands creative-commons-by >}} {{< fa brands creative-commons-nc >}}
       [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)

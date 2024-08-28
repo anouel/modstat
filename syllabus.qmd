@@ -11,11 +11,20 @@ library(pander)
 ::: {.grid .course-details .course-details-smaller}
 
 ::: {.g-col-6}
-### Enseignant
+### Enseignant 1
 
-- {{< fa user >}} &nbsp; [{{< var instructor.name >}}]({{< var instructor.url >}})
-- {{< fa university >}} &nbsp; {{< var instructor.office >}}
-- {{< fa envelope >}} &nbsp; <a href="mailto:{{< var instructor.email >}}">{{< var instructor.email >}}</a>
+- {{< fa user >}} &nbsp; [{{< var instructor1.name >}}]({{< var instructor1.url >}})
+- {{< fa university >}} &nbsp; {{< var instructor1.office >}}
+- {{< fa envelope >}} &nbsp; <a href='mailto:{{< var instructor1.email >}}'>{{< var instructor1.email >}}</a>
+
+:::
+
+::: {.g-col-6}
+### Enseignant 2
+
+- {{< fa user >}} &nbsp; [{{< var instructor2.name >}}]({{< var instructor2.url >}})
+- {{< fa university >}} &nbsp; {{< var instructor2.office >}}
+- {{< fa envelope >}} &nbsp; <a href='mailto:{{< var instructor2.email >}}'>{{< var instructor2.email >}}</a>
 
 :::
 
@@ -31,41 +40,31 @@ library(pander)
 
 :::
 
-### Horaire des cours
 
-- Section J01: les jeudi à 12h00 en salle Forestville (Decelles)
-- Section S01: les mercredi à 18h45 en salle Victoriaville (Decelles)
+## Description
 
-La séance 2 se déroulera au laboratoire informatique Laced.
+L'objectif de ce cours est de couvrir les bases de l'inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.
 
-Selon le règlement de l'École, la présence de l'étudiant aux activités du cours est présumée. Ainsi, l'enseignant n'est pas tenu de fournir de l'aide ou d'adapter le cours ou son évaluation en raison d'une absence.
+Ce cours aborde notamment les modèles linéaires, les modèles linéaires généralisés et la régression pour données longitudinales avec effets aléatoires et structures de corrélation. Pour chacune de ces méthodes, les principes théoriques de l'inférence, tels que les tests d'hypothèses, statistiques de tests et méthodes d'estimation sont abordés avec rigueur. Une attention particulière est portée aux applications en gestion.
 
-### 
-     
-# Description
+## Contenu du cours
 
-Formation de base en traitement de données multidimensionnelles. Compréhension intuitive, interprétation et utilisation de plusieurs techniques statistiques à l'aide de logiciels appropriés.
-
-Sujets couverts: l'analyse factorielle exploratoire, l'analyse de regroupements, les méthodes de sélection de variables en régression, la régression logistique (incluant modèles pour données multinomiales), l'analyse de survie et le traitement de données manquantes.
-
-L'emploi de concepts mathématiques sera réduit à son minimum et ces derniers ne serviront qu'à faciliter la compréhension des méthodes étudiées. Une connaissance des concepts et méthodes statistiques de base est requise.
-
-## Thèmes couverts
-
-- Analyse exploratoire
-- Analyse factorielle exploratoire (analyse en composantes principales)
-- Analyse de regroupements
-- Sélection de variables pour les modèles de régression
-- Régression logistique (incluant les données multinomiales, modèle à cotes proportionnelles)
-- Analyse de survie
-- Données manquantes
+- Principes fondamentaux de modélisation et d'inférence statistique
+- Modèles linéaires
+- Modèles linéaires généralisés
+- Modèles pour données longitudinales et corrélées
+- Modèles linéaires mixtes
+- Introduction à l'analyse de survie
 
 
-## Clientèle cible
-Cours obligatoire de spécialisation dans le programme de M.Sc. (spécialisation intelligence d'affaires) et dans le microprogramme en exploitation de données en intelligence d'affaires.
 
-## Cours incompatible
-Vous ne pouvez pas vous inscrire à ce cours si vous avez postulé ou réussi le cours MATH 60603(A), ou si MATH 60603(A) fait partie de votre structure.
+## Prérequis
+
+Ce cours couvre beaucoup de matériel (c'est davantage un survol qu'un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre [_Introductory Statistics with Randomization and Simulation_](https://www.openintro.org/book/isrs/) (Chapitres 1--4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l'algèbre linéaire est supposée. 
+
+## Public cible
+
+Le cours « Modélisation statistique » est un cours obligatoire dans le programme de M.Sc. en sciences des données et analytique d'affaires (cheminement projet supervisé) et un cours optionnel pour le cheminement mémoire. Notez que ce cours n'est pas crédité dans la spécialisation Intelligence d'affaires: le cours est incompatible avec MATH606019(A).
 
 # Matériel de cours
 
@@ -77,7 +76,7 @@ Chercher sur un moteur de recherche des sujets liés à **R** est parfois fastid
 
 ## Manuel
 
-Les notes de cours [en ligne](https://lbelzile.github.io/math60602) font office d'ouvrage de référence.
+Les notes de cours [en ligne](https://lbelzile.github.io/math60604) font office d'ouvrage de référence.
 
 
 
@@ -96,20 +95,6 @@ Votre note finale sera basée sur les évaluations suivantes
 
 
 
-Les devoirs sont à remettre au plus tard à 23h55 le jour de la remise et seront notés selon le barem suivant:
-
-<div class="centered-table">
-
-| Clarté (20%) |  Contenu (40%) | Rigueur (30%) | Présentation (10%) |
-|:-------|:---------|:--------|:-------------|
-| Énoncés sans jargon, explications claires et enchaînement logique des idées.  | Le contenu présenté est succinct et pertinent pour répondre aux questions. | Réponses correctes, réflexion poussée | Pas d'erreur d'orthographe, de grammaire ou de syntaxe. Références bibliographiques adéquates (le cas échéant). Règles de présentation respectées. |
-| Énoncés généralement clairs. Explications majoritairement claires. Justification adéquate des arguments énoncés. | Le contenu est présenté de manière adéquate, mais parfois est superflu ou lacunaire. | La plupart des réponses sont correctes et accompagnées d'une réflexion soutenue | Quelques fautes de français au plus. Références bibliographes présentes, mais inadéquatement citées. Organisation de la présentation globalement satisfaisante. |
-| Formulation alambiquée ne répondant que partiellement aux questions. | Le contenu présenté est parfois tangentiel, trop de détails inutiles sont présentés ou plusieurs éléments de réponse sont manquants. | Plusieurs erreurs logiques, réflexion ténue et superficielle | Plusieurs erreurs de français, absence de bibliographie ou de sources. Présentation déficiente non conformes au *vade mecum*. |
-
-J'assignerai 0% pour un devoir non remis ou visiblement bâclé.
-
-</div>
-
 <!--
 - 110%: Devoir 100% complété. Travail de qualité exceptionnelle démontrant un engagement soutenu avec le cours et une réflexion poussée. L'écriture du document soumis est claire, concise et le français est excellent. Je n'assignerai pas ces notes régulièrement.
 - 100%: Devoir entièrement complété avec erreurs mineures. Pas ou peu de fautes d'orthographe.
@@ -124,13 +109,11 @@ Tout travail remis hors délai sera pénalisé de 5% par jour de retard.
 La note obtenue lors des travaux d’équipe contribuera à la note globale seulement si la note combinée des évaluations individuelles est supérieure à 50%. Autrement, la note finale de l’étudiant(e) est calculée au pro rata des évaluations individuelles.
 
 
-Vous pouvez trouver une description des évaluations sur la page [évaluations](/evaluations/).
-
 
 ```{r assignments-grades, include=FALSE}
 assignments <- tibble::tribble(
   ~Note,  ~Evaluation,
-  30 , "Devoirs (2 × 15 pts)",
+  30 , "Projet (3 x 10 pts)",
   30     , "Examen intra (30 pts)",
   40     , "Examen final (40 pts)",
 )
@@ -172,12 +155,18 @@ grading %>%
 <div>
 
 -->
+## Présence au cours
+
+Selon le règlement de l'École, la présence de l'étudiant aux activités du cours est présumée. Ainsi, l'enseignant n'est pas tenu de fournir de l'aide ou d'adapter le cours ou son évaluation en raison d'une absence.
+
+
 
 # Ressources étudiantes
 
 Les [services aux étudiant(e)s (SAE)](https://www.hec.ca/etudiants/soutien-ressources/soutien-psychologique/) offrent du soutien aux études, du soutien psychologique et de l'aide pour les personnes en situation de handicap. Consultez leur site web pour la liste des services offerts.
 
 ### Intégrité intellectuelle
+
 Le [Règlement sur l’intégrité intellectuelle des étudiants](https://www.hec.ca/direction_services/secretariat_general/juridique/reglements_politiques/documents/REG_integrite-intellectuelle-etudiants.pdf) dicte les comportements proscrits par l'école, notamment la triche, l'utilisation de l'intelligence artificielle, le plagiat et la falsification de résultat. Tout comportement répréhensible sera rapporté aux instances concernées.
 
 ### Violences à caractère sexuel
