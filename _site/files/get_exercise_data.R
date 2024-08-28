@@ -36,9 +36,9 @@ topics <-
     "Modèles linéaires mixtes",
     "Analyse de survie")
 
-exos <- c(paste0("[<span style='color: #4b5357;'><i class='fas fa-file-pdf fa-lg'></i></span>](", linkstring, ex, ")"),
+exos <- c(paste0("[<span style='color: #4b5357;'><i class='fas fa-file-pdf fa-lg'></i></span>](", linkgithub, ex, ")"),
   rep("", length.out = 7-length(ex)))
-soln <- c(paste0("[<span style='color: #bfc2c5;'><i class='far fa-file-pdf fa-lg'></i></span>](", linkstring, so, ")"),
+soln <- c(paste0("[<span style='color: #bfc2c5;'><i class='far fa-file-pdf fa-lg'></i></span>](", linkgithub, so, ")"),
           rep("", length.out = 7-length(so)))
 exdat <- data.frame(Chapitre = topics,
                     Exercice = exos,

@@ -1,1 +1,1 @@
-Sitemap: https://lbelzile.github.io/modstat/sitemap.xml
+Sitemap: https://lbelzile.github.io/modstat-a20/sitemap.xml
