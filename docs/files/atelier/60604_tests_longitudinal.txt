@@ -1,9 +1,0 @@
-Atelier: 25 minutes
-À l'aide de la base de données longitudinales assignée (nom de votre salle)
-
-0) transformez les données en format long (si nécessaire)
-1) construisez un modèle adéquate pour la moyenne avec les variables explicatives et la variable temps (continue ou catégorielle, selon ce qui est pertinent)
-2) ajustez un modèle autorégressif d'ordre 1 [AR(1) ou SP(POW)], ARH(1) et non structuré [UN], si c'est logique/possible.
-3) extraire les statistiques d'ajustement (log-vraisemblance REML, AIC et BIC) 
-4) tester pour des simplicafications de votre modèle de covariance, en partant du plus complexe [UN -> ARH(1) -> AR(1) -> INDEP]
-5) Notez le nombre de paramètres pour chacun des modèles.
