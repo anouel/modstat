@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Contenu – Modélisation statistique</title>
+<title>Tests d’hypothèse – Modélisation statistique</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +102,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -127,11 +156,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Syllabus</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../contenu/index.html" aria-current="page"> 
+    <a class="nav-link" href="../contenu/index.html"> 
 <span class="menu-text">Contenu</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../exercices/index.html"> 
+    <a class="nav-link active" href="../exercices/index.html" aria-current="page"> 
 <span class="menu-text">Exercices</span></a>
   </li>  
   <li class="nav-item">
@@ -149,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../contenu/index.html">Ressources</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercices/01-exercice.html">Inférence statistique</a></li><li class="breadcrumb-item"><a href="../exercices/01-solution.html">Solution 1</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -163,26 +192,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contenu/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Ressources</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../objectifsapprentissage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Objectifs d’apprentissage</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../contenu/installation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Installation de R</span></a>
+  <a href="../exercices/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercises</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Contenu</span></a>
+ <span class="menu-text">Inférence statistique</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -190,8 +207,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../contenu/01-contenu.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Semaine 1</span></a>
+  <a href="../exercices/01-exercice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercice 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../exercices/01-solution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Solution 1</span></a>
   </div>
 </li>
       </ul>
@@ -206,69 +229,190 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table des matières</h2>
    
   <ul>
-  <li><a href="#notes-de-cours" id="toc-notes-de-cours" class="nav-link active" data-scroll-target="#notes-de-cours">Notes de cours</a></li>
-  <li><a href="#données" id="toc-données" class="nav-link" data-scroll-target="#données">Données</a></li>
+  <li><a href="#exercice-1.1" id="toc-exercice-1.1" class="nav-link active" data-scroll-target="#exercice-1.1">Exercice 1.1</a></li>
+  <li><a href="#exercice-1.2" id="toc-exercice-1.2" class="nav-link" data-scroll-target="#exercice-1.2">Exercice 1.2</a></li>
+  <li><a href="#exercice-1.3" id="toc-exercice-1.3" class="nav-link" data-scroll-target="#exercice-1.3">Exercice 1.3</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header">
-<h2 class="title anchored display-7">Contenu</h2>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../exercices/01-exercice.html">Inférence statistique</a></li><li class="breadcrumb-item"><a href="../exercices/01-solution.html">Solution 1</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Tests d’hypothèse</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
 
 </header>
 
 
-<p>Le contenu du cours est divisé en chapitres: des notes de cours, du code, et des exercices sont disponibles pour chaque sujet.</p>
-<section id="notes-de-cours" class="level2">
-<h2 class="anchored" data-anchor-id="notes-de-cours">Notes de cours</h2>
-<ul>
-<li><a href="https://lbelzile.github.io/math60604/introduction.html">Introduction</a></li>
-<li><a href="https://lbelzile.github.io/math60604/inference.html">Bases de l’inférence statistique</a> <!-- - [Régression linéaire (incomplet)](https://lbelzile.github.io/math60604/regression-lineaire.html) --> <!-- - [Régression linéaire (anglais)](https://lbelzile.github.io/math60604a/linear-regression.html) --> <!-- - [Vraisemblance (anglais)](https://lbelzile.github.io/math60604a/likelihood.html) --> <!-- - [Modèles linéaires généralisés (anglais)](https://lbelzile.github.io/math60604a/generalized-linear-models.html) --> <!-- - [Données corrélées et longitudinales (incomplet)](https://lbelzile.github.io/math60604/donnees-correlees-longitudinales.html) --> <!-- - [Modèles linéaires mixtes (incomplet)](https://lbelzile.github.io/math60604/modeles-lineaires-mixtes.html) --> <!-- - [Analyse de survie (anglais)](https://lbelzile.github.io/math60604a/survival.html) --></li>
-</ul>
-</section>
-<section id="données" class="level2">
-<h2 class="anchored" data-anchor-id="données">Données</h2>
-<p>Vous pouvez accéder aux bases de données dans <strong>R</strong> en installant le paquet <strong>R</strong> <code>hecmodstat</code>.</p>
-<p>Vous pouvez installer le paquet à partir de Github à l’aide des commandes suivantes en roulant les commandes suivantes dans <strong>R</strong> (décommentez la première ligne pour installer le paquet <code>remotes</code>):</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>lib <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"afex"</span>, <span class="st">"broom"</span>, <span class="st">"car"</span>, <span class="st">"dplyr"</span>, <span class="st">"emmeans"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"ggplot2"</span>, <span class="st">"Hmisc"</span>, <span class="st">"lme4"</span>, <span class="st">"lmerTest"</span>, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"marginaleffects"</span>, <span class="st">"MASS"</span>, <span class="st">"multcomp"</span>, <span class="st">"nlme"</span>, </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"patchwork"</span>, <span class="st">"poorman"</span>, <span class="st">"remotes"</span>, <span class="st">"survminer"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"survival"</span>, <span class="st">"tidyr"</span>, <span class="st">"tinytable"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(pack <span class="cf">in</span> lib){</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(pack, <span class="at">quietly =</span> <span class="cn">TRUE</span>)){</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(pack)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"lbelzile/hecmodstat"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"lbelzile/hecedsm"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="exercice-1.1" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1.1">Exercice 1.1</h2>
+<ol type="1">
+<li>Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.</li>
+<li>Supposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille <span class="math inline">\(n=1000\)</span>. Comment est-ce que les points pour le test-<span class="math inline">\(t\)</span> pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?</li>
+<li>Expliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de <span class="math inline">\(\mu=2,845\)</span>.</li>
+<li>Produisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-<span class="math inline">\(t\)</span> à des déviations de l’hypothèse de normalité.</li>
+</ol>
+<div id="sol-e1p1" class="proof solution">
+<p><span class="proof-title"><em>Solution 1</em>. </span></p>
+<ol type="1">
+<li>La courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-<span class="math inline">\(t\)</span> pour un échantillon. Le plus on s’éloigne de la vraie valeur <span class="math inline">\(\mu\)</span>, le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle <span class="math inline">\(\mathscr{H}_0\)</span>. Elle tend vers 0.05 près de <span class="math inline">\(\mu\)</span> et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.</li>
+<li>La puissance augmente si <span class="math inline">\(n\)</span> croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de <span class="math inline">\(\mu\)</span> où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.</li>
+<li>Puisque le test est fait à niveau <span class="math inline">\(\alpha=0.05\)</span>, on devrait recouvrer le niveau du test quand <span class="math inline">\(\mathscr{H}_0\)</span> est vraie.</li>
+<li>Les données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-<span class="math inline">\(t\)</span> pour un échantillon semble augmenter à mesure que l’on s’éloigne de <span class="math inline">\(\mu\)</span> et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.</li>
+</ol>
 </div>
-<p><em>Note</em>: plusieurs bases de données ne sont pas documentées.</p>
-<!--
-
-## Quiz
-
-Pour ouvrir un quiz dans votre navigateur, tapez un des commandes suivantes dans une console **R** pour ouvrir le quiz dans un navigateur web.
-
-
-
-
-::: {.cell}
-
-```{.r .cell-code}
-learnr::run_tutorial("intro", package = "hecmodstat")
-learnr::run_tutorial("vraisemblance", package = "hecmodstat")
-learnr::run_tutorial("survie", package = "hecmodstat")
-```
-:::
-
-
-
-
--->
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-renferpowercurve" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-renferpowercurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-solution_files/figure-html/fig-renferpowercurve-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-renferpowercurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Courbe de puissance pour le test-<span class="math inline">\(t\)</span> pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne <span class="math inline">\(\mu\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exercice-1.2" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1.2">Exercice 1.2</h2>
+<p>Supposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille <span class="math inline">\(n=1000\)</span>. Les données <code>renfe_simu</code> contiennent les différences moyennes (<code>difmoy</code>), les statistiques de test (<code>Wstat</code>), les valeurs-<span class="math inline">\(p\)</span> (<code>valp</code>) et les intervalles de confiance à 95% (<code>icbi</code> et <code>icbs</code>) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de <span class="math inline">\(-0,28\)</span>€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.</p>
+<ol type="1">
+<li>Quel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?</li>
+<li>Tracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.</li>
+<li>Calculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).</li>
+</ol>
+<div id="sol-e1p2" class="proof solution">
+<p><span class="proof-title"><em>Solution 2</em>. </span></p>
+<ol type="1">
+<li>Le taux de couverture empirique est 0.947; cette valeur est près du taux de couverture théorique nominal, ce qui indique que le test est bien calibré.</li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(renfe_simu, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vraie_diff <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.28</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>couverture <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">with</span>(renfe_simu, icbi <span class="sc">&lt;</span> vraie_diff <span class="sc">&amp;</span> icbs <span class="sc">&gt;</span> vraie_diff))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>couverture</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.947</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li><a href="#fig-hist" class="quarto-xref">Figure&nbsp;2</a> contient deux histogrammes: la différence moyenne semble approximativement normale et centrée en <span class="math inline">\(0.28\)</span>, tandis que les valeurs-<span class="math inline">\(p\)</span> sont réparties dans l’intervalle <span class="math inline">\([0,1]\)</span> avec plus de valeurs près de zéro.</li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> renfe_simu, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> difmoy)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> vraie_diff, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"gray"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="cn">NA</span>), <span class="at">expand =</span> <span class="fu">expansion</span>()) <span class="sc">+</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"moyenne des différences"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> renfe_simu,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> valp)) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">11</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="cn">NA</span>), <span class="at">expand =</span> <span class="fu">expansion</span>())</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>g1 <span class="sc">+</span> g2</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-hist" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-solution_files/figure-html/fig-hist-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Gauche: densité de la différence moyenne de prix pour les trains à grande vitesse entre Madrid et Barcelone, versus Barcelone et Madrid. La vraie différence de moyenne est montrée par une ligne verticale. Droite: histogramme des valeurs-p.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>La puissance est <span class="math inline">\(0.105\)</span>. Sous le régime alternatif (puisque <span class="math inline">\(\Delta=0.28\)</span>€), on rejette 10.5% du temps l’hypothèse nulle. Ce pourcentage est faible parce que la différence est petite et donc difficile de distinguer cette différence de la variabilité intrinsèque de la statistique à moins d’avoir une grande taille d’échantillon. La différence moyenne estimée avec l’échantillon est de <span class="math inline">\(0.274\)</span>.</li>
+</ol>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(renfe_simu<span class="sc">$</span>valp <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.105</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="exercice-1.3" class="level2">
+<h2 class="anchored" data-anchor-id="exercice-1.3">Exercice 1.3</h2>
+<p>À l’aide des données <code>renfe</code>, testez si le prix moyen du billet pour un train de classe <code>AVE-TGV</code> est le même que celui d’un train régio-express (<code>REXPRESS</code>). Veillez à</p>
+<ul>
+<li>énoncer l’hypothèse nulle et l’hypothèse alternative,</li>
+<li>justifier avec soin le choix de votre statistique de test,</li>
+<li>rapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,</li>
+<li>conclure dans le cadre de la mise en situation.</li>
+</ul>
+<div id="sol-e1p3" class="proof solution">
+<p><span class="proof-title"><em>Solution 3</em>. </span>Le prix des billets <code>REXPRESS</code> est fixe et vaut 43.25€, on a donc un échantillon aléatoire que pour l’autre classe de train!</p>
+<ul>
+<li>Soit <span class="math inline">\(\mu_{\text{AVE-TGV}}\)</span> le prix moyen de l’ensemble des billets de train haute vitesse AVE-TGV.</li>
+<li>L’hypothèse nulle est <span class="math inline">\(\mathscr{H}_0: \mu_{\text{AVE-TGV}}=43.25\)</span>€ contre l’alternative <span class="math inline">\(\mathscr{H}_a: \mu_{\text{AVE-TGV}}\neq 43.25\)</span>€.</li>
+<li>Puisqu’on veut comparer la moyenne et qu’un seul échantillon est aléatoire, on utilise un test-<span class="math inline">\(t\)</span> pour un échantillon.</li>
+<li>La différence moyenne estimée est <span class="math inline">\(45.63\)</span>€<span class="math inline">\(= 88.88\)</span>€<span class="math inline">\(-43.25\)</span>€, avec un intervalle de confiance à 90% pour la différence moyenne de <span class="math inline">\([44.14, 47.12]\)</span>.</li>
+<li>La statistique <span class="math inline">\(t\)</span>, qui vaut 50.519 ici, suit une loi Student-<span class="math inline">\(t\)</span> avec 428 degrés de liberté; une approximation normale serait identique. La valeur-<span class="math inline">\(p\)</span> associée est négligeable, on conclut que le prix des trains <code>AVE-TGV</code> et <code>REXPRESS</code> diffèrent.</li>
+</ul>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(renfe, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>renfe <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(type) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">moy =</span> <span class="fu">mean</span>(prix), <span class="at">sd =</span> <span class="fu">sd</span>(prix))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  type       moy    sd
+  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;
+1 AVE       87.8  20.3
+2 AVE-TGV   88.9  18.7
+3 REXPRESS  43.2   0  </code></pre>
+</div>
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>testt <span class="ot">&lt;-</span> <span class="fu">with</span>(renfe <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(type <span class="sc">==</span> <span class="st">"AVE-TGV"</span>),</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">t.test</span>(prix, <span class="at">mu =</span> <span class="fl">43.25</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Intervalle de confiance pour la différence</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>testt<span class="sc">$</span>conf.int <span class="sc">-</span> <span class="fl">43.25</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 43.85496 47.40560
+attr(,"conf.level")
+[1] 0.95</code></pre>
+</div>
+</div>
+</div>
 
 
 </section>

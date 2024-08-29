@@ -118,5 +118,11 @@
   },
   "syllabus.qmd": {
     "syllabus.html": "5d406116"
+  },
+  "exercices/01-solution.qmd": {
+    "01-solution.html": "6cc0f585"
+  },
+  "exercices/01-exercice.qmd": {
+    "01-exercice.html": "9cecdce0"
   }
 }

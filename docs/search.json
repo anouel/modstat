@@ -11,36 +11,114 @@
     ]
   },
   {
-    "objectID": "contenu/index.html",
-    "href": "contenu/index.html",
-    "title": "Modélisation statistique",
+    "objectID": "syllabus.html",
+    "href": "syllabus.html",
+    "title": "Plan de cours",
     "section": "",
-    "text": "Le contenu du cours est divisé en chapitres: des notes de cours, du code, et des exercices sont disponibles pour chaque sujet.",
+    "text": "Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\n\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\n\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
+  },
+  {
+    "objectID": "syllabus.html#description",
+    "href": "syllabus.html#description",
+    "title": "Plan de cours",
+    "section": "Description",
+    "text": "Description\nL’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\nCe cours aborde notamment les modèles linéaires, les modèles linéaires généralisés et la régression pour données longitudinales avec effets aléatoires et structures de corrélation. Pour chacune de ces méthodes, les principes théoriques de l’inférence, tels que les tests d’hypothèses, statistiques de tests et méthodes d’estimation sont abordés avec rigueur. Une attention particulière est portée aux applications en gestion."
+  },
+  {
+    "objectID": "syllabus.html#contenu-du-cours",
+    "href": "syllabus.html#contenu-du-cours",
+    "title": "Plan de cours",
+    "section": "Contenu du cours",
+    "text": "Contenu du cours\n\nPrincipes fondamentaux de modélisation et d’inférence statistique\nModèles linéaires\nModèles linéaires généralisés\nModèles pour données longitudinales et corrélées\nModèles linéaires mixtes\nIntroduction à l’analyse de survie"
+  },
+  {
+    "objectID": "syllabus.html#prérequis",
+    "href": "syllabus.html#prérequis",
+    "title": "Plan de cours",
+    "section": "Prérequis",
+    "text": "Prérequis\nCe cours couvre beaucoup de matériel (c’est davantage un survol qu’un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre Introductory Statistics with Randomization and Simulation (Chapitres 1–4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l’algèbre linéaire est nécessaire."
+  },
+  {
+    "objectID": "syllabus.html#public-cible",
+    "href": "syllabus.html#public-cible",
+    "title": "Plan de cours",
+    "section": "Public cible",
+    "text": "Public cible\nLe cours « Modélisation statistique » est un cours obligatoire dans le programme de M.Sc. en sciences des données et analytique d’affaires (cheminement projet supervisé) et un cours optionnel pour le cheminement mémoire. Notez que ce cours n’est pas crédité dans la spécialisation Intelligence d’affaires: le cours est incompatible avec MATH606019(A)."
+  },
+  {
+    "objectID": "syllabus.html#logiciels-et-programmation",
+    "href": "syllabus.html#logiciels-et-programmation",
+    "title": "Plan de cours",
+    "section": "Logiciels et programmation",
+    "text": "Logiciels et programmation\nNous utiliserons le langage de programmation R. Les notes de cours et les exercices contiennent des scripts pour vous aider. La courbe d’apprentissage est abrupte, mais nous consacrerons la deuxième séance de cours à couvrir les bases du langage, la manipulation de bases de données et la visualisation. Vous trouverez des instructions pour installer, R, Rstudio et d’autres utilitaires ici.\nChercher sur un moteur de recherche des sujets liés à R est parfois fastidieux; essayez rstats comme mot-clé si r ne retourne rien. Le forum de question StackOverflow, un site de questions et réponses pour la programmation, ainsi que la communauté RStudio, un forum dédié à RStudio et au tidyverse, sont d’autres ressources utiles.\nSuivez les instructions pour installer R."
+  },
+  {
+    "objectID": "syllabus.html#présence-au-cours",
+    "href": "syllabus.html#présence-au-cours",
+    "title": "Plan de cours",
+    "section": "Présence au cours",
+    "text": "Présence au cours\nSelon le règlement de l’École, la présence de l’étudiant aux activités du cours est présumée. Ainsi, l’enseignant n’est pas tenu de fournir de l’aide ou d’adapter le cours ou son évaluation en raison d’une absence."
+  },
+  {
+    "objectID": "syllabus.html#politique-de-conciliation-études-famille",
+    "href": "syllabus.html#politique-de-conciliation-études-famille",
+    "title": "Plan de cours",
+    "section": "Politique de conciliation études-famille",
+    "text": "Politique de conciliation études-famille\nHEC a une politique officielle pour les parents aux études, mais les principes suivants énumèrent mes engagements1\n\nLes poupons sont bienvenues en classe pour les mères allaitantes\nVous pouvez apporter votre enfant en classe en cas de problèmes de dernière minute de garderie.\nSi vous venez accompagnés de votre enfant ou de votre bébé, merci de prendre un siège près de la porte pour pouvoir sortir si votre enfant dérange vos collègues ou requiert votre attention spéciale. Les sièges près des portes sont réservés aux parents accompagnés de leurs enfants. child."
+  },
+  {
+    "objectID": "syllabus.html#footnotes",
+    "href": "syllabus.html#footnotes",
+    "title": "Plan de cours",
+    "section": "Notes de bas de page",
+    "text": "Notes de bas de page\n\n\nAdapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander↩︎"
+  },
+  {
+    "objectID": "exercices/01-exercice.html",
+    "href": "exercices/01-exercice.html",
+    "title": "Exercice 1",
+    "section": "",
+    "text": "Les données renfe contiennent des informations sur 10K billets de trains vendus par la compagnie Renfe, l’entreprise ferroviaire publique espagnole. Les données incluent les variables:",
     "crumbs": [
-      "Contenu",
-      "Ressources"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
-    "objectID": "contenu/index.html#notes-de-cours",
-    "href": "contenu/index.html#notes-de-cours",
-    "title": "Modélisation statistique",
-    "section": "Notes de cours",
-    "text": "Notes de cours\n\nIntroduction\nBases de l’inférence statistique",
+    "objectID": "exercices/01-exercice.html#exercice-1.1",
+    "href": "exercices/01-exercice.html#exercice-1.1",
+    "title": "Exercice 1",
+    "section": "Exercice 1.1",
+    "text": "Exercice 1.1\nOn considère le temps de parcours pour les trains à grande vitesse (AVE} etAVE-TGV}). La vraie moyenne théorique de la « population » est de \\(\\mu=2.845\\) heures; ces quantités ont été déterminées sur la base des données complète contenant plus de 2.3 millions d’entrées et sont donc considérées comme connues, contrairement à la plupart des applications pratiques.\nUne étude de simulation a été conduite pour déterminer le comportement de tests pour un échantillon. L’algorithme suivant a été répété 10K fois:\n\nsélection d’un sous-échantillon de taille \\(n=100\\).\ncalcul de la statistique du test-\\(t\\) pour un échantillon correspondant à \\(\\mathscr{H}_0: \\mu=\\mu_0\\) (versus \\(\\mathscr{H}_0: \\mu \\neq \\mu_0\\)) pour différentes valeurs de \\(\\mu_0\\).\nsauvegarde des valeurs-\\(p\\) associées au test.\n\nLa Figure 1 montre le pourcentage de valeur-\\(p\\) parmi les 10K qui sont plus petites que 0.05, c’est-à-dire la proportion de rejet (à un niveau de \\(5\\)%) de \\(\\mathscr{H}_0:\\mu=\\mu_0\\) contre l’alternative bilatérale à \\(\\mu_0 \\in \\{2.83, 2.835, 2.84, \\ldots, 2.995, 3\\}\\). Utilisez la courbe de puissance (Figure 1) afin de répondre aux questions suivantes:\n\nExpliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\n\nCode\nlibrary(ggplot2)\n## Exercice 1.1\ndata(renfe, package = \"hecmodstat\")\n# Sélectionner un sous-échantillon de trains à haute vitesse\ndonnees &lt;- renfe |&gt; dplyr::filter(type %in% c(\"AVE\",\"AVE-TGV\"))\n# Transformer la durée en heures\nduree &lt;- donnees$duree / 60\n# Compute summary statistics of the duration\nmoy_d &lt;- mean(duree);\n\n# Étude de puissance\nB &lt;- 1e4L # nombre de simulations (10 000)\nn &lt;- nrow(donnees)\nm &lt;- 100L # taille du sous-échantillon\nalpha &lt;- 0.05 # niveau du test\n# Créer une grille de durées pour le temps moyen sous l'alternative\ntemps &lt;- sort(c(moy_d, seq(from = 2.83, to = 3, by = 0.005)))\n# Créer un contenant pour stocker les résultats\npuissance &lt;- matrix(nrow = B, ncol = length(temps))\n# Fixer le germe aléatoire pour s'assurer de résultats reproductibles\nset.seed(2020)\nfor(i in seq_len(B)){ # pour chaque réplication\n  for(j in seq_along(temps)){ # pour chaque alternative\n    # Test-t pour un échantillon\n    puissance[i,j] &lt;-  t.test(x = duree[sample.int(n = n, size = m)],\n                          mu = temps[j])$p.value\n    # Stocker les valeurs-p\n  }\n}\n# Créer un graphique de la puissance\nggplot(data = data.frame(temps = temps,\n                         puissance = colMeans(puissance &lt; alpha)),\n       mapping = aes(x = temps, y = puissance)) +\n  geom_point() +\n  geom_vline(xintercept = 2.845, linetype = \"dashed\") +\n  geom_hline(yintercept = alpha) +\n  labs(x = \"durée moyenne de trajet (en heures)\",\n       y = \"\",\n       subtitle = \"Puissance du test-t en fonction de la durée moyenne de trajet postulée.\") +\n  scale_y_continuous(limits = c(0,1),\n                     expand = expansion(add = 0.01)) +\n  theme_classic()\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
     "crumbs": [
-      "Contenu",
-      "Ressources"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
-    "objectID": "contenu/index.html#données",
-    "href": "contenu/index.html#données",
-    "title": "Modélisation statistique",
-    "section": "Données",
-    "text": "Données\nVous pouvez accéder aux bases de données dans R en installant le paquet R hecmodstat.\nVous pouvez installer le paquet à partir de Github à l’aide des commandes suivantes en roulant les commandes suivantes dans R (décommentez la première ligne pour installer le paquet remotes):\n\nlib &lt;- c(\"afex\", \"broom\", \"car\", \"dplyr\", \"emmeans\",\n         \"ggplot2\", \"Hmisc\", \"lme4\", \"lmerTest\", \n         \"marginaleffects\", \"MASS\", \"multcomp\", \"nlme\", \n         \"patchwork\", \"poorman\", \"remotes\", \"survminer\",\n         \"survival\", \"tidyr\", \"tinytable\")\nfor(pack in lib){\n  if(!require(pack, quietly = TRUE)){\n    install.packages(pack)\n  }\n}\nremotes::install_github(\"lbelzile/hecmodstat\")\nremotes::install_github(\"lbelzile/hecedsm\")\n\nNote: plusieurs bases de données ne sont pas documentées.",
+    "objectID": "exercices/01-exercice.html#exercice-1.2",
+    "href": "exercices/01-exercice.html#exercice-1.2",
+    "title": "Exercice 1",
+    "section": "Exercice 1.2",
+    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).",
     "crumbs": [
-      "Contenu",
-      "Ressources"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-exercice.html#exercice-1.3",
+    "href": "exercices/01-exercice.html#exercice-1.3",
+    "title": "Exercice 1",
+    "section": "Exercice 1.3",
+    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
@@ -48,7 +126,11 @@
     "href": "exercices/index.html",
     "title": "Exercices",
     "section": "",
-    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie"
+    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie",
+    "crumbs": [
+      "Exercices",
+      "Exercises"
+    ]
   },
   {
     "objectID": "contenu/01-contenu.html",
@@ -157,66 +239,84 @@
     "text": "Modélisation statistique\n        \n        \n            L’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\n        \n        \n            MATH 60604, automne 2024HEC Montréal\n        \n    \n\n\n\n\n\n\nInstructeur 1\n\n   Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\nInstructeur 2\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\nDétails\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
   },
   {
-    "objectID": "syllabus.html",
-    "href": "syllabus.html",
-    "title": "Plan de cours",
+    "objectID": "contenu/index.html",
+    "href": "contenu/index.html",
+    "title": "Modélisation statistique",
     "section": "",
-    "text": "Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\n\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\n\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
+    "text": "Le contenu du cours est divisé en chapitres: des notes de cours, du code, et des exercices sont disponibles pour chaque sujet.",
+    "crumbs": [
+      "Contenu",
+      "Ressources"
+    ]
   },
   {
-    "objectID": "syllabus.html#description",
-    "href": "syllabus.html#description",
-    "title": "Plan de cours",
-    "section": "Description",
-    "text": "Description\nL’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\nCe cours aborde notamment les modèles linéaires, les modèles linéaires généralisés et la régression pour données longitudinales avec effets aléatoires et structures de corrélation. Pour chacune de ces méthodes, les principes théoriques de l’inférence, tels que les tests d’hypothèses, statistiques de tests et méthodes d’estimation sont abordés avec rigueur. Une attention particulière est portée aux applications en gestion."
+    "objectID": "contenu/index.html#notes-de-cours",
+    "href": "contenu/index.html#notes-de-cours",
+    "title": "Modélisation statistique",
+    "section": "Notes de cours",
+    "text": "Notes de cours\n\nIntroduction\nBases de l’inférence statistique",
+    "crumbs": [
+      "Contenu",
+      "Ressources"
+    ]
   },
   {
-    "objectID": "syllabus.html#contenu-du-cours",
-    "href": "syllabus.html#contenu-du-cours",
-    "title": "Plan de cours",
-    "section": "Contenu du cours",
-    "text": "Contenu du cours\n\nPrincipes fondamentaux de modélisation et d’inférence statistique\nModèles linéaires\nModèles linéaires généralisés\nModèles pour données longitudinales et corrélées\nModèles linéaires mixtes\nIntroduction à l’analyse de survie"
+    "objectID": "contenu/index.html#données",
+    "href": "contenu/index.html#données",
+    "title": "Modélisation statistique",
+    "section": "Données",
+    "text": "Données\nVous pouvez accéder aux bases de données dans R en installant le paquet R hecmodstat.\nVous pouvez installer le paquet à partir de Github à l’aide des commandes suivantes en roulant les commandes suivantes dans R (décommentez la première ligne pour installer le paquet remotes):\n\nlib &lt;- c(\"afex\", \"broom\", \"car\", \"dplyr\", \"emmeans\",\n         \"ggplot2\", \"Hmisc\", \"lme4\", \"lmerTest\", \n         \"marginaleffects\", \"MASS\", \"multcomp\", \"nlme\", \n         \"patchwork\", \"poorman\", \"remotes\", \"survminer\",\n         \"survival\", \"tidyr\", \"tinytable\")\nfor(pack in lib){\n  if(!require(pack, quietly = TRUE)){\n    install.packages(pack)\n  }\n}\nremotes::install_github(\"lbelzile/hecmodstat\")\nremotes::install_github(\"lbelzile/hecedsm\")\n\nNote: plusieurs bases de données ne sont pas documentées.",
+    "crumbs": [
+      "Contenu",
+      "Ressources"
+    ]
   },
   {
-    "objectID": "syllabus.html#prérequis",
-    "href": "syllabus.html#prérequis",
-    "title": "Plan de cours",
-    "section": "Prérequis",
-    "text": "Prérequis\nCe cours couvre beaucoup de matériel (c’est davantage un survol qu’un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre Introductory Statistics with Randomization and Simulation (Chapitres 1–4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l’algèbre linéaire est nécessaire."
+    "objectID": "exercices/01-solution.html",
+    "href": "exercices/01-solution.html",
+    "title": "Tests d’hypothèse",
+    "section": "",
+    "text": "Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\nSolution 1. \n\nLa courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-\\(t\\) pour un échantillon. Le plus on s’éloigne de la vraie valeur \\(\\mu\\), le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle \\(\\mathscr{H}_0\\). Elle tend vers 0.05 près de \\(\\mu\\) et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.\nLa puissance augmente si \\(n\\) croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de \\(\\mu\\) où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.\nPuisque le test est fait à niveau \\(\\alpha=0.05\\), on devrait recouvrer le niveau du test quand \\(\\mathscr{H}_0\\) est vraie.\nLes données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-\\(t\\) pour un échantillon semble augmenter à mesure que l’on s’éloigne de \\(\\mu\\) et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
   },
   {
-    "objectID": "syllabus.html#public-cible",
-    "href": "syllabus.html#public-cible",
-    "title": "Plan de cours",
-    "section": "Public cible",
-    "text": "Public cible\nLe cours « Modélisation statistique » est un cours obligatoire dans le programme de M.Sc. en sciences des données et analytique d’affaires (cheminement projet supervisé) et un cours optionnel pour le cheminement mémoire. Notez que ce cours n’est pas crédité dans la spécialisation Intelligence d’affaires: le cours est incompatible avec MATH606019(A)."
+    "objectID": "exercices/01-solution.html#exercice-1.1",
+    "href": "exercices/01-solution.html#exercice-1.1",
+    "title": "Tests d’hypothèse",
+    "section": "",
+    "text": "Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\nSolution 1. \n\nLa courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-\\(t\\) pour un échantillon. Le plus on s’éloigne de la vraie valeur \\(\\mu\\), le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle \\(\\mathscr{H}_0\\). Elle tend vers 0.05 près de \\(\\mu\\) et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.\nLa puissance augmente si \\(n\\) croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de \\(\\mu\\) où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.\nPuisque le test est fait à niveau \\(\\alpha=0.05\\), on devrait recouvrer le niveau du test quand \\(\\mathscr{H}_0\\) est vraie.\nLes données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-\\(t\\) pour un échantillon semble augmenter à mesure que l’on s’éloigne de \\(\\mu\\) et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
   },
   {
-    "objectID": "syllabus.html#logiciels-et-programmation",
-    "href": "syllabus.html#logiciels-et-programmation",
-    "title": "Plan de cours",
-    "section": "Logiciels et programmation",
-    "text": "Logiciels et programmation\nNous utiliserons le langage de programmation R. Les notes de cours et les exercices contiennent des scripts pour vous aider. La courbe d’apprentissage est abrupte, mais nous consacrerons la deuxième séance de cours à couvrir les bases du langage, la manipulation de bases de données et la visualisation. Vous trouverez des instructions pour installer, R, Rstudio et d’autres utilitaires ici.\nChercher sur un moteur de recherche des sujets liés à R est parfois fastidieux; essayez rstats comme mot-clé si r ne retourne rien. Le forum de question StackOverflow, un site de questions et réponses pour la programmation, ainsi que la communauté RStudio, un forum dédié à RStudio et au tidyverse, sont d’autres ressources utiles.\nSuivez les instructions pour installer R."
+    "objectID": "exercices/01-solution.html#exercice-1.2",
+    "href": "exercices/01-solution.html#exercice-1.2",
+    "title": "Tests d’hypothèse",
+    "section": "Exercice 1.2",
+    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).\n\n\nSolution 2. \n\nLe taux de couverture empirique est 0.947; cette valeur est près du taux de couverture théorique nominal, ce qui indique que le test est bien calibré.\n\n\n\nCode\ndata(renfe_simu, package = \"hecmodstat\")\nvraie_diff &lt;- -0.28\ncouverture &lt;- mean(with(renfe_simu, icbi &lt; vraie_diff & icbs &gt; vraie_diff))\ncouverture\n\n\n[1] 0.947\n\n\n\nFigure 2 contient deux histogrammes: la différence moyenne semble approximativement normale et centrée en \\(0.28\\), tandis que les valeurs-\\(p\\) sont réparties dans l’intervalle \\([0,1]\\) avec plus de valeurs près de zéro.\n\n\n\nCode\nlibrary(ggplot2)\nlibrary(patchwork) \ntheme_set(theme_classic())\ng1 &lt;- ggplot(data = renfe_simu, \n             mapping = aes(x = difmoy)) +\n  geom_density() +\n  geom_vline(xintercept = vraie_diff, \n             color = \"gray\",\n             linetype = \"dashed\") +\n  scale_y_continuous(limits = c(0,NA), expand = expansion()) + \n  labs(x = \"moyenne des différences\")\ng2 &lt;- ggplot(data = renfe_simu,\n             mapping = aes(x = valp)) +\n  geom_histogram(bins = 11) +\n  scale_y_continuous(limits = c(0,NA), expand = expansion())\ng1 + g2\n\n\n\n\n\n\n\n\nFigure 2: Gauche: densité de la différence moyenne de prix pour les trains à grande vitesse entre Madrid et Barcelone, versus Barcelone et Madrid. La vraie différence de moyenne est montrée par une ligne verticale. Droite: histogramme des valeurs-p.\n\n\n\n\n\n\nLa puissance est \\(0.105\\). Sous le régime alternatif (puisque \\(\\Delta=0.28\\)€), on rejette 10.5% du temps l’hypothèse nulle. Ce pourcentage est faible parce que la différence est petite et donc difficile de distinguer cette différence de la variabilité intrinsèque de la statistique à moins d’avoir une grande taille d’échantillon. La différence moyenne estimée avec l’échantillon est de \\(0.274\\).\n\n\n\nCode\nmean(renfe_simu$valp &lt; 0.05)\n\n\n[1] 0.105",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
   },
   {
-    "objectID": "syllabus.html#présence-au-cours",
-    "href": "syllabus.html#présence-au-cours",
-    "title": "Plan de cours",
-    "section": "Présence au cours",
-    "text": "Présence au cours\nSelon le règlement de l’École, la présence de l’étudiant aux activités du cours est présumée. Ainsi, l’enseignant n’est pas tenu de fournir de l’aide ou d’adapter le cours ou son évaluation en raison d’une absence."
-  },
-  {
-    "objectID": "syllabus.html#politique-de-conciliation-études-famille",
-    "href": "syllabus.html#politique-de-conciliation-études-famille",
-    "title": "Plan de cours",
-    "section": "Politique de conciliation études-famille",
-    "text": "Politique de conciliation études-famille\nHEC a une politique officielle pour les parents aux études, mais les principes suivants énumèrent mes engagements1\n\nLes poupons sont bienvenues en classe pour les mères allaitantes\nVous pouvez apporter votre enfant en classe en cas de problèmes de dernière minute de garderie.\nSi vous venez accompagnés de votre enfant ou de votre bébé, merci de prendre un siège près de la porte pour pouvoir sortir si votre enfant dérange vos collègues ou requiert votre attention spéciale. Les sièges près des portes sont réservés aux parents accompagnés de leurs enfants. child."
-  },
-  {
-    "objectID": "syllabus.html#footnotes",
-    "href": "syllabus.html#footnotes",
-    "title": "Plan de cours",
-    "section": "Notes de bas de page",
-    "text": "Notes de bas de page\n\n\nAdapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander↩︎"
+    "objectID": "exercices/01-solution.html#exercice-1.3",
+    "href": "exercices/01-solution.html#exercice-1.3",
+    "title": "Tests d’hypothèse",
+    "section": "Exercice 1.3",
+    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.\n\n\nSolution 3. Le prix des billets REXPRESS est fixe et vaut 43.25€, on a donc un échantillon aléatoire que pour l’autre classe de train!\n\nSoit \\(\\mu_{\\text{AVE-TGV}}\\) le prix moyen de l’ensemble des billets de train haute vitesse AVE-TGV.\nL’hypothèse nulle est \\(\\mathscr{H}_0: \\mu_{\\text{AVE-TGV}}=43.25\\)€ contre l’alternative \\(\\mathscr{H}_a: \\mu_{\\text{AVE-TGV}}\\neq 43.25\\)€.\nPuisqu’on veut comparer la moyenne et qu’un seul échantillon est aléatoire, on utilise un test-\\(t\\) pour un échantillon.\nLa différence moyenne estimée est \\(45.63\\)€\\(= 88.88\\)€\\(-43.25\\)€, avec un intervalle de confiance à 90% pour la différence moyenne de \\([44.14, 47.12]\\).\nLa statistique \\(t\\), qui vaut 50.519 ici, suit une loi Student-\\(t\\) avec 428 degrés de liberté; une approximation normale serait identique. La valeur-\\(p\\) associée est négligeable, on conclut que le prix des trains AVE-TGV et REXPRESS diffèrent.\n\n\n\nCode\ndata(renfe, package = \"hecmodstat\")\nlibrary(dplyr)\nrenfe |&gt; \n  group_by(type) |&gt; \n  summarize(moy = mean(prix), sd = sd(prix))\n\n\n# A tibble: 3 × 3\n  type       moy    sd\n  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;\n1 AVE       87.8  20.3\n2 AVE-TGV   88.9  18.7\n3 REXPRESS  43.2   0  \n\n\nCode\ntestt &lt;- with(renfe |&gt; dplyr::filter(type == \"AVE-TGV\"),\n     t.test(prix, mu = 43.25))\n# Intervalle de confiance pour la différence\ntestt$conf.int - 43.25\n\n\n[1] 43.85496 47.40560\nattr(,\"conf.level\")\n[1] 0.95",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
   }
 ]

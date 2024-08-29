@@ -65,11 +65,4 @@ summarise(renfe_simu, puissance = mean(valp < 0.05))
 
 # Question 1.3
 with(renfe,
-     t.test(x = prix, mu = 43.25, conf.level = 0.9, subset = type %in% "AVE-TGV"))
-
-# Question 1.4
-summary(assurance)
-assurance <- assurance %>%
-  mutate(obesite = factor(imc >= 30, labels = c("normal","obese"))
-)
-
+     t.test(x = prix, mu = 43.25, conf.level = 0.9, subset = type == "AVE-TGV"))
