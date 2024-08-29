@@ -22,7 +22,7 @@ layout: true
   
 <div class="my-footer">
 <span>
-<a href="https://lbelzile.github.io/modstat/" target="_blank"><b>Statistical Modelling</b></a> - Dr. Léo Belzile, HEC Montréal
+<a href="https://lbelzile.github.io/modstat/" target="_blank"><b>Modélisation statistique</b></a> - Dr. Léo Belzile, HEC Montréal
 </span>
 </div> 
 

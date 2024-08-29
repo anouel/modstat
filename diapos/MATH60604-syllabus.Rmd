@@ -1,0 +1,310 @@
+---
+title: "Modélisation statistique"
+subtitle: "Plan de cours"
+author: "<br> <br> Dr. Léo Belzile <br> HEC Montréal"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["xaringan-themer.css", "slides-style.css"]
+    nature:
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      slideNumberFormat: |
+        <div class="progress-bar-container">
+          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
+          </div>
+        </div>
+        
+---
+
+```{r child = "setup.Rmd"}
+```
+
+```{r set-theme, include=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color      = "#003C71", # pantone classic blue
+  secondary_color    = "#009FDF", # pantone baby blue
+  header_font_google = google_font("Raleway"),
+  text_font_google   = google_font("Raleway", "300", "300i"),
+  code_font_google   = google_font("Source Code Pro"),
+  text_font_size     = "30px"
+)
+```
+
+
+```{r load-packages, message=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message = FALSE, 
+                      warning = FALSE, 
+                      out.width = '70%', 
+                      fig.align = 'center', 
+                      tidy = FALSE)
+options(scipen = 1, digits = 3)
+library(ggplot2, warn.conflicts = FALSE, quietly = TRUE)
+theme_set(theme_minimal())
+```
+
+```{r xaringanExtra, echo=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "editable","panelset", "tachyons","webcam"))
+
+```
+
+# Organisation
+
+- Rencontres hebdomadaires les jeudi en salle [Louis-Laberge](https://www.hec.ca/campus/cote_sainte_catherine/1er_etage/salles_cours/louis-laberge.html)
+- Deux enseignants
+  - [Léo Belzile](https://www.hec.ca/profs/leo.belzile.html) (CSC 4.850, `leo.belzile@hec.ca`) enseigne la première partie
+  - [Juliana Schulz](https://www.hec.ca/profs/juliana.schulz.html) (CSC 4.809, `juliana.schulz@hec.ca`) enseigne la deuxième partie
+
+---
+
+# Contenu du cours
+
+- Tout le matériel est disponible via le site web du cours: [`https://lbelzile.github.io/modstat/`](https://lbelzile.github.io/modstat/) et sur ZoneCours
+.midi[
+- notes de cours
+- capsules vidéo
+- exercices et solutionnaires
+- code pour démos **R**
+    ]
+    
+---
+
+# Communications
+
+- Soumissions de travaux via *ZoneCours*
+- Publiez vos questions de cours sur le canal **Teams**: [`O365-MATH60604 A2024`](https://teams.microsoft.com/l/team/19%3AzUBLTS-gNYVF4fzYRlEBq9TPT3wHA9ofha5OwSKpPcM1%40thread.tacv2/conversations?groupId=5f5c0da8-dc8c-44f1-850c-425c393acc45&tenantId=19df09a9-d1f0-4cff-90c4-01385cc40b57) - code `3v9x63b`
+- Pour d'autres questions, écrivez-nous par courriel à [`leo.belzile@hec.ca`](mailto:leo.belzile@hec.ca) et [`juliana.schulz@hec.ca`](mailto:juliana.schulz@hec.ca) --- mettez-nous toujours ensemble en copie-conforme
+---
+
+# Contenu du cours 
+
+
+1. Principes fondamentaux de modélisation et d’inférence statistique
+2. Modèles linéaires
+3. Modèles linéaires généralisés
+4. Modèles pour données longitudinales et corrélées
+5. Modèles linéaires mixtes
+6. Introduction à l’analyse de survie
+
+---
+
+
+
+# Évaluations
+
+- Un projet en trois parties valant 30% au total (travail d'équipe), avec remises les vendredi
+   - 11 octobre
+   - 8 novembre
+   - 6 décembre
+- Examen intra (30%) le mardi 29 octobre de 12h à 15h
+- Examen final (40%) le jeudi 12 décembre de 13h30 à 16h30
+
+L'intra et le final sont des examens à livre fermés (pas d'ordinateur ou de programmation). Vous avez droit à une feuille d'aide mémoire format lettre (recto pour intra, recto-verso pour final)
+ 
+---
+
+
+
+.question[
+Quel est le format du cours?
+]
+
+--
+.pull-left[
+À la maison:
+- lectures des notes de cours
+- visionnement des capsules vidéos
+- exercices et problèmes avec solutionnaires
+]
+
+--
+
+.pull-right[
+En classe:
+- cours magistral
+- séance de réponse aux questions
+- ateliers en groupe et discussion.
+]
+
+---
+
+.question[
+Quelle est la charge de travail de ce cours?
+]
+
+--
+
+- 3 crédits = 135 heures de travail
+- une moyenne de 9 heures par semaine
+- ne sous-estimez pas l'investissement initial nécessaire 
+    - installation de logiciels
+    - apprentissage de la programmation
+    - mise à jour des connaissances
+
+---
+
+.question[
+Quelle est la clientèle cible du cours?
+]
+
+--
+
+Étudiant(e)s du programme de sciences des données et analytique d'affaires. 
+
+Les étudiant(e)s admis(es) ont normalement un diplôme de premier cycle en
+ - ingénierie, 
+ - physique
+ - économie ou 
+ - mathématique.
+
+Une certaine familiarité mathématique (algèbre linéaire, calcul) est assumée.
+
+---
+
+.question[
+Quels sont les prérequis pour ce cours?
+]
+
+--
+
+Un premier cours de statistique couvrant les notions suivantes:
+
+.pull-left[
++ axiomes de probabilité
++ variables aléatoires
+    + espérance et variance
+    + lois discrètes: Bernoulli, binomiale, Poisson
+    + lois continues: uniforme, exponentielle, normale
+]
+
+.pull-right[
++ statistiques descriptives
++ tests d'hypothèses
++ comparaison de moyennes et proportions (un et deux échantillons)
++ régression linéaire simple et corrélation
+]
+
+---
+
+.question[
+Quel logiciel utilisera-t-on en classe?
+]
+
+
+.pull-left[
+```{r fig.align="center", echo=FALSE, alt = "R", out.width="60%"}
+knitr::include_graphics("https://www.r-project.org/logo/Rlogo.png")
+```
+]
+
+.pull-right[
+Je suis un (ardent) partisan du libre-accès et de **R**, un langage de programmation/logiciel écrit par la communauté
+
+ - c'est gratuit!
+ - support multi système d'exploitation
+ - téléchargement via [cran.r-project.org](https://cran.r-project.org/)
+ - je recommande l'environnement de développement [RStudio](https://posit.co/downloads/)
+ 
+]
+---
+
+.question[
+Est-ce qu'il y aura de la programmation?
+]
+
+Oui. Nous apprendrons les bases de **R** pour ajuster les modèles
+
+- Nous fournirons le code pour les diapos, ateliers et exercises
+
+Vous aurez à produire du code uniquement pour le projet de groupe
+
+- je dois pouvoir reproduire *exactement* vos analyses.
+- fichier `.txt` (sinon, *Zonecours* vous empêchera de soumettre votre travail)
+- encodage UTF-8 
+- suivez les consignes (voir instructions) pour nommer vos scripts.
+
+
+---
+
+# Apprentissage de R
+
+Le [Centre d'aide en mathématiques et statistique (CAMS)](http://hec-ca.libcal.com/calendar/cams) offre des tutoriels sur **R** (gratuits, mais l'inscription est obligatoire et le nombre de places limité).
+
+- [Introduction à **R**: 1re partie](https://hec-ca.libcal.com/event/3823412), le vendredi 30 août 2024 de 15h30 à 17h30
+- [Introduction à **R**: 2e partie](https://hec-ca.libcal.com/event/3823663),  le vendredi 5 septembre 2024 de 15h30 à 17h30
+
+L'objectif n'est pas de devenir un(e) expert, mais d'être en mesure d'utiliser le langage de programmation pour réaliser les analyses.
+
+- Des ressources sont disponibles sur le site web du cours.
+
+---
+
+.question[
+Quelles sont les attentes des professeurs?
+]
+
+--
+
+- Participation active: présence supposée au cours
+.midi[
+- posez des questions! il n'y a pas de question stupide
+]
+--
+
+- Autonomie: vous êtes responsables de votre apprentissage.
+.midi[
+- être à jour et faire les lectures avant le cours
+- ne laissez pas l'obscurantisme vous gagner: posez des questions (à moi, à vos pairs)!
+]
+--
+
+- Rétroaction: des problèmes? faites-en part rapidement
+
+---
+
+# Environnement inclusif et respectueux
+
+L'environnement de classe doit être respectueux. Les remarques déplacées, le harcèlement, etc. ne seront pas tolérés.
+
+--
+
+Faites-moi savoir si 
+
+- je peux faire quelque chose pour améliorer le cours pour vous, pour les autres étudiant(e)s et le groupe
+- une remarque vous rend inconfortable
+- vous avez un nom/pronom/genre qui diffère de celui présent sur *HEC en ligne*
+- votre performance est affectée par des expériences externes au cours: je ferai mon possible pour vous aider ou vous diriger vers des ressources extérieures
+
+---
+
+# Plagiat
+
+Ne trichez pas! Les conséquences seraient fâcheuses et ce serait faire insulte à votre intelligence. 
+
+- si vous vous inspirez de code écrit par d'autres (par ex., `StackOverflow`), citez adéquatement vos sources.
+
+--
+
+## Intelligence artificielle générative (IAG)
+
+
+
+Projet: Les étudiant(e)s peuvent utiliser des outils d’IAG pour améliorer et éditer un livrable (texte ou code) dans une perspective de révision, mais le premier jet des analyses statistiques, du code et du rapport écrit doit être un travail original produit par les étudiant(e)s.
+
+Notre vision reflète celle d' [Andrew Heiss](https://datavizf24.classes.andrewheiss.com/resource/ai-bs.html)
+
+
+---
+
+## Utilisation d'IAG
+
+Toute utilisation d'IAG doit être citée adéquatement. Les étudiant(e)s doivent fournir en sus
+
+1. les détails sur l'outil employé (nom et version)
+2. la liste des requêtes
+3. une copie du code ou texte brouillon soumis
+4. une description des modifications apportées aux sorties, le cas échéant
+5. une brève réflexion sur leur utilisation de l'IAG

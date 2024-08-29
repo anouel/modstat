@@ -2,18 +2,43 @@
 title: "Tests d'hypothèse"
 ---
 
+### Objectifs d'apprentissage
+
+* Comprendre le rôle de l’incertitude dans la prise de décision.
+* Comprendre l’importance du rapport signal/bruit en tant que preuve.
+* Connaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique
+* Interpréter correctement les valeurs-$p$ et les intervalles de confiance pour un paramètre.
+
+
 
 ### Contenu
 
-- Notes de cours: chapitres 1 et 2
-- Installation de **R**
+:::{.callout-warning}
+Idéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.
+:::
+
+- Notes de cours: chapitres [1 (Introduction)](https://lbelzile.github.io/math60604/introduction.html) et [2 (Inférence statistique)](https://lbelzile.github.io/math60604/inference.html)
+- [Installation de **R**](installation.qmd)
 
 ### En classe
 
+- [Plan de cours](../diapos/MATH60604-syllabus.html) ([pdf](../diapos/MATH60604-syllabus.pdf))
+- [Diapositives](../diapos/MATH60604-diapos1.html) ([pdf](../diapos/MATH60604-diapos1.pdf) et [code](MATH60604-diapos1.R))
+- [Activité](MATH60604-semaine1-atelier.R): rapporter les conclusions de tests
+
+
+### Diapositives
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH6060-diapos1.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH6060-diapos1.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos1.html"></iframe>
+</div>
 
 ### Après le cours
 
-
+- [Série d'exercices 1](../exercices/index.qmd)
 
 ### Lectures additionnelles
 

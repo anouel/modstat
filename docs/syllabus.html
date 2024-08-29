@@ -127,9 +127,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#matériel-de-cours" id="toc-matériel-de-cours" class="nav-link" data-scroll-target="#matériel-de-cours">Matériel de cours</a>
   <ul class="collapse">
   <li><a href="#logiciels-et-programmation" id="toc-logiciels-et-programmation" class="nav-link" data-scroll-target="#logiciels-et-programmation">Logiciels et programmation</a></li>
-  <li><a href="#manuel" id="toc-manuel" class="nav-link" data-scroll-target="#manuel">Manuel</a></li>
   </ul></li>
-  <li><a href="#évaluations" id="toc-évaluations" class="nav-link" data-scroll-target="#évaluations">Évaluations</a>
+  <li><a href="#évaluations" id="toc-évaluations" class="nav-link" data-scroll-target="#évaluations">Évaluations</a></li>
+  <li><a href="#contenu-du-cours-1" id="toc-contenu-du-cours-1" class="nav-link" data-scroll-target="#contenu-du-cours-1">Contenu du cours</a>
   <ul class="collapse">
   <li><a href="#présence-au-cours" id="toc-présence-au-cours" class="nav-link" data-scroll-target="#présence-au-cours">Présence au cours</a></li>
   </ul></li>
@@ -137,6 +137,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#intégrité-intellectuelle" id="toc-intégrité-intellectuelle" class="nav-link" data-scroll-target="#intégrité-intellectuelle">Intégrité intellectuelle</a></li>
   <li><a href="#violences-à-caractère-sexuel" id="toc-violences-à-caractère-sexuel" class="nav-link" data-scroll-target="#violences-à-caractère-sexuel">Violences à caractère sexuel</a></li>
+  <li><a href="#politique-de-conciliation-études-famille" id="toc-politique-de-conciliation-études-famille" class="nav-link" data-scroll-target="#politique-de-conciliation-études-famille">Politique de conciliation études-famille</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -164,7 +165,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="grid course-details course-details-smaller">
-<section id="enseignant-1" class="level3 g-col-6">
+<section id="enseignant-1" class="level3 g-col-4">
 <h3 class="anchored" data-anchor-id="enseignant-1">Enseignant 1</h3>
 <ul>
 <li><i class="fa-solid fa-user" aria-hidden="true"></i> &nbsp; <a href="lbelzile.bitbucket.io"><span>Dr.&nbsp;Léo Belzile</span></a></li>
@@ -172,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> &nbsp; <a href="mailto:leo.belzile@hec.ca">leo.belzile@hec.ca</a></li>
 </ul>
 </section>
-<section id="enseignant-2" class="level3 g-col-6">
+<section id="enseignant-2" class="level3 g-col-4">
 <h3 class="anchored" data-anchor-id="enseignant-2">Enseignant 2</h3>
 <ul>
 <li><i class="fa-solid fa-user" aria-hidden="true"></i> &nbsp; <a href="https://www.hec.ca/en/profs/juliana.schulz.html"><span>Dr.&nbsp;Juliana Schulz</span></a></li>
@@ -180,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> &nbsp; <a href="mailto:juliana.schulz@hec.ca">juliana.schulz@hec.ca</a></li>
 </ul>
 </section>
-<section id="détails-du-cours" class="level3 g-col-6">
+<section id="détails-du-cours" class="level3 g-col-4">
 <h3 class="anchored" data-anchor-id="détails-du-cours">Détails du cours</h3>
 <ul>
 <li><i class="fa-solid fa-calendar-alt" aria-hidden="true"></i> &nbsp; automne 2024</li>
@@ -208,7 +209,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="prérequis" class="level2">
 <h2 class="anchored" data-anchor-id="prérequis">Prérequis</h2>
-<p>Ce cours couvre beaucoup de matériel (c’est davantage un survol qu’un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre <a href="https://www.openintro.org/book/isrs/"><em>Introductory Statistics with Randomization and Simulation</em></a> (Chapitres 1–4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l’algèbre linéaire est supposée.</p>
+<p>Ce cours couvre beaucoup de matériel (c’est davantage un survol qu’un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre <a href="https://www.openintro.org/book/isrs/"><em>Introductory Statistics with Randomization and Simulation</em></a> (Chapitres 1–4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l’algèbre linéaire est nécessaire.</p>
 </section>
 <section id="public-cible" class="level2">
 <h2 class="anchored" data-anchor-id="public-cible">Public cible</h2>
@@ -220,34 +221,23 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="logiciels-et-programmation">Logiciels et programmation</h2>
 <p>Nous utiliserons le langage de programmation <a href="https://cran.r-project.org/"><strong>R</strong></a>. Les notes de cours et les <a href="./exercices">exercices</a> contiennent des scripts pour vous aider. La courbe d’apprentissage est abrupte, mais nous consacrerons la deuxième séance de cours à couvrir les bases du langage, la manipulation de bases de données et la visualisation. Vous trouverez des <a href="./contenu/installation">instructions pour installer, <strong>R</strong>, Rstudio et d’autres utilitaires ici.</a></p>
 <p>Chercher sur un moteur de recherche des sujets liés à <strong>R</strong> est parfois fastidieux; essayez <code>rstats</code> comme mot-clé si <code>r</code> ne retourne rien. Le forum de question <a href="https://stackoverflow.com/">StackOverflow</a>, un site de questions et réponses pour la programmation, ainsi que la <a href="https://community.rstudio.com/">communauté RStudio</a>, un forum dédié à RStudio et au tidyverse, sont d’autres ressources utiles.</p>
-</section>
-<section id="manuel" class="level2">
-<h2 class="anchored" data-anchor-id="manuel">Manuel</h2>
-<p>Les notes de cours <a href="https://lbelzile.github.io/math60604">en ligne</a> font office d’ouvrage de référence.</p>
+<p>Suivez les <a href="./contenu/installation.html">instructions</a> pour installer <strong>R</strong>.</p>
 </section>
 </section>
 <section id="évaluations" class="level1">
 <h1>Évaluations</h1>
 <p>Votre note finale sera basée sur les évaluations suivantes</p>
 <ul>
-<li>Examen intra (30%), le samedi 28 octobre à 13h30</li>
-<li>Examen final (40%), le jeudi 14 décembre à 18h30</li>
-<li>Devoirs (30%): il y a deux devoirs équipondérés (15% chacun). Les devoirs seront à réaliser en équipe d’au plus quatre personnes. Vous aurez en moyenne deux semaines pour réaliser chaque devoir.</li>
-</ul>
-<p><strong>Dates de remise:</strong></p>
+<li>Projet en trois parties valant 30% au total (travail d’équipe), avec remises intermédiaires les vendredi
 <ul>
-<li>Devoir 1, date limite le vendredi 20 octobre</li>
-<li>Devoir 2, date limite le vendredi 1 décembre</li>
+<li>11 octobre</li>
+<li>8 novembre</li>
+<li>6 décembre</li>
+</ul></li>
+<li>Examen intra (30%) le mardi 29 octobre de 12h à 15h</li>
+<li>Examen final (40%) le jeudi 12 décembre de 13h30 à 16h30</li>
 </ul>
-<!--
-- 110%: Devoir 100% complété. Travail de qualité exceptionnelle démontrant un engagement soutenu avec le cours et une réflexion poussée. L'écriture du document soumis est claire, concise et le français est excellent. Je n'assignerai pas ces notes régulièrement.
-- 100%: Devoir entièrement complété avec erreurs mineures. Pas ou peu de fautes d'orthographe.
-- 75%: Devoir majoritairement complété (plus de 70%), la plupart des réponses sont correctes.
-- 50%: Devoir complété à moins de 70% et/ou pour lequel la plupart des réponses sont incorrectes. Témoigne d'un besoin d'amélioration; j'espère ne pas assigner cette note fréquemment.
-- 0%: Devoir non remis, ou visiblement bâclé.
-
--->
-<p>Tout travail remis hors délai sera pénalisé de 5% par jour de retard.</p>
+<p>L’intra et le final sont des examens à livre fermés (pas d’ordinateur ou de programmation). Vous avez droit à une feuille d’aide mémoire format lettre (recto pour intra, recto-verso pour final)</p>
 <p>La note obtenue lors des travaux d’équipe contribuera à la note globale seulement si la note combinée des évaluations individuelles est supérieure à 50%. Autrement, la note finale de l’étudiant(e) est calculée au pro rata des évaluations individuelles.</p>
 <div class="centered-table">
 <table class="caption-top table">
@@ -287,7 +277,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-
 --------------------------------
 Note     Plage   Note    Plage  
 ------ --------- ------ --------
@@ -302,10 +291,53 @@ B+      75-80%   F        <60%
 
 
 
-
 <div>
 
 -->
+</section>
+<section id="contenu-du-cours-1" class="level1">
+<h1>Contenu du cours</h1>
+<p>Voici un descriptif du contenu des séances, sujet à changement</p>
+<ol type="1">
+<li><strong>Introduction</strong>
+<ul>
+<li>Syllabus</li>
+<li>Exemples de modélisation</li>
+<li>Révision</li>
+<li>Inférence statistique (notions de base, tests d’hypothèse)</li>
+</ul></li>
+<li><strong>Modèles linéaires</strong>
+<ul>
+<li>Paramétrisations</li>
+<li>Interprétation des paramètres</li>
+<li>Coefficient de détermination</li>
+</ul></li>
+<li><strong>Inférence basée sur la vraisemblance</strong>
+<ul>
+<li>Vraisemblance</li>
+<li>Maximum de vraisemblance</li>
+<li>Tests d’hypothèses</li>
+</ul></li>
+<li><strong>Modèles linéaires</strong>
+<ul>
+<li>Prédictions</li>
+<li>Interactions</li>
+<li>Collinéarité</li>
+</ul></li>
+<li><strong>Diagnostics pour les postulats de modèles linéaires</strong>
+<ul>
+<li>Postulats du modèle linéaire</li>
+<li>Diagnostics graphiques</li>
+<li>Extensions et remèdes</li>
+</ul></li>
+<li><strong>Modèles linéaires généralisés</strong>
+<ul>
+<li>Structure des modèles linéaires généralisés</li>
+<li>Régression de Poisson</li>
+<li>Tableaux de contingence</li>
+<li>Surdispersion</li>
+</ul></li>
+</ol>
 <section id="présence-au-cours" class="level2">
 <h2 class="anchored" data-anchor-id="présence-au-cours">Présence au cours</h2>
 <p>Selon le règlement de l’École, la présence de l’étudiant aux activités du cours est présumée. Ainsi, l’enseignant n’est pas tenu de fournir de l’aide ou d’adapter le cours ou son évaluation en raison d’une absence.</p>
@@ -317,6 +349,15 @@ B+      75-80%   F        <60%
 <section id="intégrité-intellectuelle" class="level3">
 <h3 class="anchored" data-anchor-id="intégrité-intellectuelle">Intégrité intellectuelle</h3>
 <p>Le <a href="https://www.hec.ca/direction_services/secretariat_general/juridique/reglements_politiques/documents/REG_integrite-intellectuelle-etudiants.pdf">Règlement sur l’intégrité intellectuelle des étudiants</a> dicte les comportements proscrits par l’école, notamment la triche, l’utilisation de l’intelligence artificielle, le plagiat et la falsification de résultat. Tout comportement répréhensible sera rapporté aux instances concernées.</p>
+<p>Projet: Les étudiant(e)s peuvent utiliser des outils d’intelligence artificielle générative (IAG) pour améliorer et éditer un livrable (texte ou code) dans une perspective de révision, mais le premier jet des analyses statistiques, du code et du rapport écrit doit être un travail original produit par les étudiant(e)s. Notre vision reflète celle d’ <a href="https://datavizf24.classes.andrewheiss.com/resource/ai-bs.html">Andrew Heiss</a></p>
+<p>Toute utilisation d’IAG doit être citée adéquatement. Les étudiant(e)s doivent fournir en sus de son travail final</p>
+<ol type="1">
+<li>les détails sur l’outil employé (nom et version)</li>
+<li>la liste des requêtes</li>
+<li>une copie du code ou texte brouillon soumis</li>
+<li>une description des modifications apportées aux sorties, le cas échéant</li>
+<li>une brève réflexion sur leur utilisation de l’IAG</li>
+</ol>
 </section>
 <section id="violences-à-caractère-sexuel" class="level3">
 <h3 class="anchored" data-anchor-id="violences-à-caractère-sexuel">Violences à caractère sexuel</h3>
@@ -326,12 +367,27 @@ B+      75-80%   F        <60%
 <li>Appelez immédiatement les services d’urgence au 911</li>
 <li>Appelez ensuite la Sécurité de HEC Montréal au 514 340-6611</li>
 </ul>
+</section>
+<section id="politique-de-conciliation-études-famille" class="level2">
+<h2 class="anchored" data-anchor-id="politique-de-conciliation-études-famille">Politique de conciliation études-famille</h2>
+<p>HEC a une <a href="https://www.hec.ca/direction_services/secretariat_general/juridique/reglements_politiques/documents/DIR_parents-etudes.pdf">politique officielle</a> pour les parents aux études, mais les principes suivants énumèrent mes engagements<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<ol type="1">
+<li>Les poupons sont bienvenues en classe pour les mères allaitantes</li>
+<li>Vous pouvez apporter votre enfant en classe en cas de problèmes de dernière minute de garderie.</li>
+<li>Si vous venez accompagnés de votre enfant ou de votre bébé, merci de prendre un siège près de la porte pour pouvoir sortir si votre enfant dérange vos collègues ou requiert votre attention spéciale. Les sièges près des portes sont réservés aux parents accompagnés de leurs enfants. child.</li>
+</ol>
 
 
 </section>
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Notes de bas de page</h2>
+
+<ol>
+<li id="fn1"><p>Adapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

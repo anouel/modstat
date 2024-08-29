@@ -64,14 +64,6 @@ website:
       foreground: "#002855"
       contents:
         - text: "Exercises"
-          file: exercices/index.qmd
-        - section: "Tests d'hypothèse"
-          contents:
-        - text: "Exercice 1"
-          file:  "exercices/01-exercice.qmd"
-        - text: "Solution 1"
-          file: "exercices/01-solution.qmd"
-
   page-footer:
     left: |
       Contenu {{< fa brands creative-commons >}} {{< var course.copyright_year >}} by [{{< var instructor1.name_no_title >}}]({{< var instructor1.url >}}), [{{< var instructor2.name_no_title >}}]({{< var instructor2.url >}})<br>; canevas du site par [Dr. Andrew Heiss](https://www.andrewheiss.com/) sous [licence MIT](https://mit-license.org/) <br>

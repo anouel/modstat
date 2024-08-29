@@ -10,7 +10,7 @@ library(pander)
 
 ::: {.grid .course-details .course-details-smaller}
 
-::: {.g-col-6}
+::: {.g-col-4}
 ### Enseignant 1
 
 - {{< fa user >}} &nbsp; [{{< var instructor1.name >}}]({{< var instructor1.url >}})
@@ -19,7 +19,7 @@ library(pander)
 
 :::
 
-::: {.g-col-6}
+::: {.g-col-4}
 ### Enseignant 2
 
 - {{< fa user >}} &nbsp; [{{< var instructor2.name >}}]({{< var instructor2.url >}})
@@ -28,7 +28,7 @@ library(pander)
 
 :::
 
-::: {.g-col-6}
+::: {.g-col-4}
 ### Détails du cours
 
 - {{< fa calendar-alt >}} &nbsp; {{< var course.semester >}}
@@ -60,7 +60,7 @@ Ce cours aborde notamment les modèles linéaires, les modèles linéaires gén�
 
 ## Prérequis
 
-Ce cours couvre beaucoup de matériel (c'est davantage un survol qu'un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre [_Introductory Statistics with Randomization and Simulation_](https://www.openintro.org/book/isrs/) (Chapitres 1--4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l'algèbre linéaire est supposée. 
+Ce cours couvre beaucoup de matériel (c'est davantage un survol qu'un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre [_Introductory Statistics with Randomization and Simulation_](https://www.openintro.org/book/isrs/) (Chapitres 1--4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l'algèbre linéaire est nécessaire. 
 
 ## Public cible
 
@@ -74,37 +74,23 @@ Nous utiliserons le langage de programmation [**R**](https://cran.r-project.org/
 
 Chercher sur un moteur de recherche des sujets liés à **R** est parfois fastidieux; essayez `rstats` comme mot-clé si `r` ne retourne rien. Le forum de question [StackOverflow](https://stackoverflow.com/), un site de questions et réponses pour la programmation, ainsi que la [communauté RStudio](https://community.rstudio.com/), un forum dédié à RStudio et au tidyverse, sont d'autres ressources utiles.
 
-## Manuel
-
-Les notes de cours [en ligne](https://lbelzile.github.io/math60604) font office d'ouvrage de référence.
-
+Suivez les [instructions](contenu/installation.qmd) pour installer **R**.
 
 
 # Évaluations
 
 Votre note finale sera basée sur les évaluations suivantes
 
-- Examen intra (30%), le samedi 28 octobre à 13h30
-- Examen final (40%), le jeudi 14 décembre à 18h30
-- Devoirs (30%): il y a deux devoirs équipondérés (15% chacun). Les devoirs seront à réaliser en équipe d'au plus quatre personnes. Vous aurez en moyenne deux semaines pour réaliser chaque devoir.
+- Projet en trois parties valant 30% au total (travail d'équipe), avec remises intermédiaires les vendredi
+   - 11 octobre
+   - 8 novembre
+   - 6 décembre
+- Examen intra (30%) le mardi 29 octobre de 12h à 15h
+- Examen final (40%) le jeudi 12 décembre de 13h30 à 16h30
 
-**Dates de remise:**
+L'intra et le final sont des examens à livre fermés (pas d'ordinateur ou de programmation). Vous avez droit à une feuille d'aide mémoire format lettre (recto pour intra, recto-verso pour final)
+ 
 
-- Devoir 1, date limite le vendredi 20 octobre
-- Devoir 2, date limite le vendredi 1 décembre
-
-
-
-<!--
-- 110%: Devoir 100% complété. Travail de qualité exceptionnelle démontrant un engagement soutenu avec le cours et une réflexion poussée. L'écriture du document soumis est claire, concise et le français est excellent. Je n'assignerai pas ces notes régulièrement.
-- 100%: Devoir entièrement complété avec erreurs mineures. Pas ou peu de fautes d'orthographe.
-- 75%: Devoir majoritairement complété (plus de 70%), la plupart des réponses sont correctes.
-- 50%: Devoir complété à moins de 70% et/ou pour lequel la plupart des réponses sont incorrectes. Témoigne d'un besoin d'amélioration; j'espère ne pas assigner cette note fréquemment.
-- 0%: Devoir non remis, ou visiblement bâclé.
-
--->
-
-Tout travail remis hors délai sera pénalisé de 5% par jour de retard.
 
 La note obtenue lors des travaux d’équipe contribuera à la note globale seulement si la note combinée des évaluations individuelles est supérieure à 50%. Autrement, la note finale de l’étudiant(e) est calculée au pro rata des évaluations individuelles.
 
@@ -155,6 +141,38 @@ grading %>%
 <div>
 
 -->
+
+# Contenu du cours
+
+Voici un descriptif du contenu des séances, sujet à changement
+
+1. **Introduction**
+    - Syllabus
+    - Exemples de modélisation
+    - Révision
+    - Inférence statistique (notions de base, tests d'hypothèse)
+2. **Modèles linéaires**
+    - Paramétrisations
+    - Interprétation des paramètres
+    - Coefficient de détermination
+3.  **Inférence basée sur la vraisemblance**
+    - Vraisemblance
+    - Maximum de vraisemblance
+    - Tests d'hypothèses
+4. **Modèles linéaires**
+    - Prédictions
+    - Interactions
+    - Collinéarité
+5. **Diagnostics pour les postulats de modèles linéaires**
+    - Postulats du modèle linéaire
+    - Diagnostics graphiques
+    - Extensions et remèdes
+6. **Modèles linéaires généralisés**
+    - Structure des modèles linéaires généralisés
+    - Régression de Poisson
+    - Tableaux de contingence
+    - Surdispersion
+
 ## Présence au cours
 
 Selon le règlement de l'École, la présence de l'étudiant aux activités du cours est présumée. Ainsi, l'enseignant n'est pas tenu de fournir de l'aide ou d'adapter le cours ou son évaluation en raison d'une absence.
@@ -169,7 +187,21 @@ Les [services aux étudiant(e)s (SAE)](https://www.hec.ca/etudiants/soutien-ress
 
 Le [Règlement sur l’intégrité intellectuelle des étudiants](https://www.hec.ca/direction_services/secretariat_general/juridique/reglements_politiques/documents/REG_integrite-intellectuelle-etudiants.pdf) dicte les comportements proscrits par l'école, notamment la triche, l'utilisation de l'intelligence artificielle, le plagiat et la falsification de résultat. Tout comportement répréhensible sera rapporté aux instances concernées.
 
+
+Projet: Les étudiant(e)s peuvent utiliser des outils d'intelligence artificielle générative (IAG) pour améliorer et éditer un livrable (texte ou code) dans une perspective de révision, mais le premier jet des analyses statistiques, du code et du rapport écrit doit être un travail original produit par les étudiant(e)s. Notre vision reflète celle d' [Andrew Heiss](https://datavizf24.classes.andrewheiss.com/resource/ai-bs.html)
+
+
+Toute utilisation d'IAG doit être citée adéquatement. Les étudiant(e)s doivent fournir en sus de son travail final
+
+1. les détails sur l'outil employé (nom et version)
+2. la liste des requêtes
+3. une copie du code ou texte brouillon soumis
+4. une description des modifications apportées aux sorties, le cas échéant
+5. une brève réflexion sur leur utilisation de l'IAG
+
+
 ### Violences à caractère sexuel
+
 Le [Bureau d'intervention en matière de harcèlement (BIMH)](https://harcelement.hec.ca/) est le guichet unique au service de tous les membres de la communauté de l’École affectés par le harcèlement ou la violence à caractère sexuel. Vous pouvez les rejoindre au 514 343-7020 ou à l'[adresse courriel `harcelement@hec.ca`](mailto:harcelement@hec.ca) du lundi au vendredi entre 8h30 et 16h30.
 
 Si vous êtes en situation d'urgence ou craignez pour votre sécurité, pour votre intégrité physique ou pour votre vie:
@@ -177,3 +209,11 @@ Si vous êtes en situation d'urgence ou craignez pour votre sécurité, pour vot
 - Appelez immédiatement les services d'urgence au 911
 - Appelez ensuite la Sécurité de HEC Montréal au 514 340-6611
 
+
+## Politique de conciliation études-famille
+
+HEC a une [politique officielle](https://www.hec.ca/direction_services/secretariat_general/juridique/reglements_politiques/documents/DIR_parents-etudes.pdf) pour les parents aux études, mais les principes suivants énumèrent mes engagements^[Adapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander]
+
+1. Les poupons sont bienvenues en classe pour les mères allaitantes
+2. Vous pouvez apporter votre enfant en classe en cas de problèmes de dernière minute de garderie. 
+3. Si vous venez accompagnés de votre enfant ou de votre bébé, merci de prendre un siège près de la porte pour pouvoir sortir si votre enfant dérange vos collègues ou requiert votre attention spéciale. Les sièges près des portes sont réservés aux parents accompagnés de leurs enfants. child.

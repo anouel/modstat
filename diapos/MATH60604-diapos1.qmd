@@ -95,7 +95,7 @@ library(patchwork)
 #| label: unifsamp1
 #| cache: true
 #| echo: false
-#| fig-cap: Histogrammes de 10 échantillons aléatoires simples de taill 20 d'une loi uniforme.
+#| fig-cap: Histogrammes de 10 échantillons aléatoires simples de taille 20 tirés d'une loi uniforme.
 #| fig-width: 8
 #| fig-height: 4.5
 #| out-width: 80%
@@ -165,7 +165,7 @@ Les modèles sont des "golems" qui servent à obtenir des réponses à nos quest
 On se base notamment sur les informations suivantes
 
 1. plan de collecte de données
-   - quel est le méchanisme pour l'échantillonage?
+   - quel est le méchanisme d'échantillonage?
    - est-ce que les variables sont observées ou manipulées dans le cadre d'une expérience?
 2. la nature de la variable réponse
    - décomptes, proportions, etc.
@@ -357,7 +357,7 @@ knitr::include_graphics("fig/01/Brucks_Levav-virtual_communications.png")
 ::::
 
 - Modèle 1: régression linéaire avec matrice d'équicorrélation/MANOVA. Données `BL22_E`, paquet `hecedsm`
-- Modèle 2: régression binomiale. Données `BL22_L`, paquet `hecedsm`.
+- Modèle 2: régression binomiale ou binomiale négative. Données `BL22_L`, paquet `hecedsm`.
 
 ## 6. Suggestion des montants pour les dons de charité {.smaller}
 
@@ -471,7 +471,7 @@ ggplot(data = samp,
   geom_hline(yintercept = 5) +
   geom_point() +
   geom_jitter() +
-  labs(col = "échantillon", y = "observations", x = "numéro d'échantillon") +
+  labs(col = "échantillon", y = "", x = "numéro d'échantillon") +
   stat_summary(fun = mean,
                geom = "point",
                shape = 95,
@@ -501,7 +501,8 @@ g1 <- ggplot(dat = dat1, aes(x = group,
                        col = group)) +
   geom_boxplot() +
   geom_jitter(width = 0.3) +
-  labs(y = "observations",
+  labs(y = "",
+         x = "groupe",
          subtitle = "signal faible, bruit fort") +
   theme_bw() +
   theme(legend.position = "none")
@@ -515,7 +516,8 @@ g2 <- ggplot(dat = dat2, aes(x = group,
                        col = group)) +
   geom_boxplot() +
   geom_jitter(width = 0.3) +
-  labs(y = "observations",
+  labs(y = "",
+       x = "groupe",
          subtitle = "signal fort, bruit faible") +
   theme_bw() +
   theme(legend.position = "none")
@@ -587,6 +589,25 @@ Voici les étapes de la démarche.
 6. conclure dans le contexte du problème.
 
 
+
+## Analogie du procès
+
+```{r}
+#| label: fig-twelveangrymen
+#| echo: false
+#| out-width: '55%'
+#| fig-cap: "Capture d'écran du drame _Douze hommes en colère_ (1957)"
+knitr::include_graphics('fig/01/12_Angry_Men_scene.jpg')
+```
+
+## Analogie du procès 
+
+La présomption d'innocence est de mise (on regarde tout comme si l'hypothèse nulle était vraie).
+
+- On analyse toutes les preuves sous cette optique: est-ce que les preuves sont plausibles si la personne était innocente
+- Le fardeau de la preuve revient à la poursuite, pour éviter les erreurs judiciaires (condamner une personne innocente).
+- L'hypothèse nulle $\mathscr{H}_0$ est *non coupable*, contre l'alternative $\mathscr{H}_a$ *coupable*. 
+- S'il y a un doute raisonnable, le verdict sera non coupable.
 
 ## Exemple: texter en marchant
 
@@ -667,7 +688,7 @@ On s'intéresse à la différence de temps de réaction (moyenne)
 \begin{align*}
 T_D=\frac{\overline{D}-\mu_0}{\mathsf{se}(\overline{D})}
 \end{align*}
-- $\overline{D}$ est la différence des temps moyens de réaction.
+- $\overline{D}$ est la moyenne des différence de temps de réaction.
 - On postule $\mu_0=\mu_{\texttt{t}}-\mu_{\texttt{c}}=0$.
 - L'erreur-type de $\overline{D}$ est $\mathsf{se}(\overline{D})=S_D/\sqrt{n}$, où $S_D$ est l'écart-type des variables $D_i$ et $n$ est la taille de l'échantillon.
 
@@ -771,25 +792,6 @@ L'[*American Statistical Association (ASA)* a publié une liste de principes](ht
 
 :::
 
-
-## Analogie du procès
-
-```{r}
-#| label: fig-twelveangrymen
-#| echo: false
-#| out-width: '55%'
-#| fig-cap: "Capture d'écran du drame _Douze hommes en colère_ (1957)"
-knitr::include_graphics('fig/01/12_Angry_Men_scene.jpg')
-```
-
-## Analogie du procès 
-
-La présomption d'innocence est de mise (on regarde tout comme si l'hypothèse nulle était vraie).
-
-- On analyse toutes les preuves sous cette optique: est-ce que les preuves sont plausibles si la personne était innocente
-- Le fardeau de la preuve revient à la poursuite, pour éviter les erreurs judiciaires (condamner une personne innocente).
-- L'hypothèse nulle $\mathscr{H}_0$ est *non coupable*, contre l'alternative $\mathscr{H}_a$ *coupable*. 
-- S'il y a un doute raisonnable, le verdict sera non coupable.
 
 ## À quoi s'attendre pour les valeurs-_$p$?
 
@@ -1045,6 +1047,17 @@ Les intervalles de confiance sont exprimés dans les mêmes unités que les donn
 La valeur-_p_ est $p = \Pr_0(T > t_D)$, où $T \sim \mathsf{Student}(34)$. À l'aide de **R**, on obtient $p=0.0032$, inférieur à $\alpha=5$%.
 
 ```{r}
+#| label: distraction_code2
+#| eval: true
+#| echo: false
+data(distraction, package = "hecmodstat")
+ttest <- with(distraction,
+     t.test(x = t,
+            y = c, 
+            paired = TRUE, 
+            alternative = "greater"))
+```
+```{r}
 #| eval: true
 #| echo: true
 ttest$p.value
@@ -1077,9 +1090,7 @@ crit <- qt(p = 0.05, df = ddl) # valeur critique, "q" pour quantiles
 (valp <- pt(q = stat, df = ddl, lower.tail = FALSE)) # Pr(T > stat)
 (ic_inf <- moy_d + errtype_d*crit) # borne inférieure de l'intervalle de confiance
 ```
-
 ::: aside
-
 **R** utilise la convention `d/p/q/r` pour les fonctions de densité/répartition/quantile et pour la simulation. Le nom de la loi (par ex., `norm`, `t`, `chisq`, `f`, `unif`) suit cette lettre, donc
 
 - `pnorm` est la fonction de répartition normale,

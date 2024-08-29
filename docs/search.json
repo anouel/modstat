@@ -48,18 +48,14 @@
     "href": "exercices/index.html",
     "title": "Exercices",
     "section": "",
-    "text": "Chapitre\nExercice\nSolution\nSAS\nR\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n\n7\nAnalyse de survie",
-    "crumbs": [
-      "Exercices",
-      "Exercises"
-    ]
+    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie"
   },
   {
     "objectID": "contenu/01-contenu.html",
     "href": "contenu/01-contenu.html",
     "title": "Modélisation statistique",
     "section": "",
-    "text": "Contenu\n\nNotes de cours: chapitres 1 et 2\nInstallation de R\n\n\n\nEn classe\n\n\nAprès le cours\n\n\nLectures additionnelles\n\nTests de permutation",
+    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
     "crumbs": [
       "Contenu",
       "Semaine 1"
@@ -186,7 +182,7 @@
     "href": "syllabus.html#prérequis",
     "title": "Plan de cours",
     "section": "Prérequis",
-    "text": "Prérequis\nCe cours couvre beaucoup de matériel (c’est davantage un survol qu’un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre Introductory Statistics with Randomization and Simulation (Chapitres 1–4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l’algèbre linéaire est supposée."
+    "text": "Prérequis\nCe cours couvre beaucoup de matériel (c’est davantage un survol qu’un traitement en profondeur de la matière). Cela dit, les étudiant(e)s inscrit(e)s devraient avoir une formation de base préalable en statistique au niveau du livre Introductory Statistics with Randomization and Simulation (Chapitres 1–4, en excluant les sujets spéciaux). Une certaine familiarité avec le calcul différentiel et intégral et l’algèbre linéaire est nécessaire."
   },
   {
     "objectID": "syllabus.html#public-cible",
@@ -200,14 +196,7 @@
     "href": "syllabus.html#logiciels-et-programmation",
     "title": "Plan de cours",
     "section": "Logiciels et programmation",
-    "text": "Logiciels et programmation\nNous utiliserons le langage de programmation R. Les notes de cours et les exercices contiennent des scripts pour vous aider. La courbe d’apprentissage est abrupte, mais nous consacrerons la deuxième séance de cours à couvrir les bases du langage, la manipulation de bases de données et la visualisation. Vous trouverez des instructions pour installer, R, Rstudio et d’autres utilitaires ici.\nChercher sur un moteur de recherche des sujets liés à R est parfois fastidieux; essayez rstats comme mot-clé si r ne retourne rien. Le forum de question StackOverflow, un site de questions et réponses pour la programmation, ainsi que la communauté RStudio, un forum dédié à RStudio et au tidyverse, sont d’autres ressources utiles."
-  },
-  {
-    "objectID": "syllabus.html#manuel",
-    "href": "syllabus.html#manuel",
-    "title": "Plan de cours",
-    "section": "Manuel",
-    "text": "Manuel\nLes notes de cours en ligne font office d’ouvrage de référence."
+    "text": "Logiciels et programmation\nNous utiliserons le langage de programmation R. Les notes de cours et les exercices contiennent des scripts pour vous aider. La courbe d’apprentissage est abrupte, mais nous consacrerons la deuxième séance de cours à couvrir les bases du langage, la manipulation de bases de données et la visualisation. Vous trouverez des instructions pour installer, R, Rstudio et d’autres utilitaires ici.\nChercher sur un moteur de recherche des sujets liés à R est parfois fastidieux; essayez rstats comme mot-clé si r ne retourne rien. Le forum de question StackOverflow, un site de questions et réponses pour la programmation, ainsi que la communauté RStudio, un forum dédié à RStudio et au tidyverse, sont d’autres ressources utiles.\nSuivez les instructions pour installer R."
   },
   {
     "objectID": "syllabus.html#présence-au-cours",
@@ -215,5 +204,19 @@
     "title": "Plan de cours",
     "section": "Présence au cours",
     "text": "Présence au cours\nSelon le règlement de l’École, la présence de l’étudiant aux activités du cours est présumée. Ainsi, l’enseignant n’est pas tenu de fournir de l’aide ou d’adapter le cours ou son évaluation en raison d’une absence."
+  },
+  {
+    "objectID": "syllabus.html#politique-de-conciliation-études-famille",
+    "href": "syllabus.html#politique-de-conciliation-études-famille",
+    "title": "Plan de cours",
+    "section": "Politique de conciliation études-famille",
+    "text": "Politique de conciliation études-famille\nHEC a une politique officielle pour les parents aux études, mais les principes suivants énumèrent mes engagements1\n\nLes poupons sont bienvenues en classe pour les mères allaitantes\nVous pouvez apporter votre enfant en classe en cas de problèmes de dernière minute de garderie.\nSi vous venez accompagnés de votre enfant ou de votre bébé, merci de prendre un siège près de la porte pour pouvoir sortir si votre enfant dérange vos collègues ou requiert votre attention spéciale. Les sièges près des portes sont réservés aux parents accompagnés de leurs enfants. child."
+  },
+  {
+    "objectID": "syllabus.html#footnotes",
+    "href": "syllabus.html#footnotes",
+    "title": "Plan de cours",
+    "section": "Notes de bas de page",
+    "text": "Notes de bas de page\n\n\nAdapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander↩︎"
   }
 ]

@@ -7,14 +7,8 @@ fn <- FALSE
 
 ex <- list.files(path = exdir, pattern = "MATH60604-Exercice[[:digit:]].pdf", 
     full.names = fn)
-codesas <- list.files(path = exdir, pattern = "MATH60604-Exercice[[:digit:]].sas", 
-                 full.names = fn)
 coder <- list.files(path = exdir, pattern = "MATH60604-Exercice[[:digit:]].R", 
                       full.names = fn)
-
-sas <- rep("", 7)
-sas[as.integer(substr(codesas, start = 19, stop = 19))] <- 
-  paste0("[<span style='color: #4b5357;'><i class='fas fa-file-code fa-lg'></i></span>](", linkgithub, "exercices/",codesas, ")")
 rc <- rep("",7)
 rc[as.integer(substr(coder, start = 19, stop = 19))] <- 
   paste0("[<span style='color: #276dc2;'><i class='fab fa-r-project fa-lg'></i></span>](", linkgithub, "exercices/", coder, ")")
@@ -43,6 +37,5 @@ soln <- c(paste0("[<span style='color: #bfc2c5;'><i class='far fa-file-pdf fa-lg
 exdat <- data.frame(Chapitre = topics,
                     Exercice = exos,
                     Solution = soln,
-                    "SAS" = sas,
-                    "R" = rc)
+                    Code = rc)
 

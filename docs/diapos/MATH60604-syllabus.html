@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Modélisation statistique</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="    Dr. Léo Belzile   HEC Montréal" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
+    <link href="libs/tile-view/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view/tile-view.js"></script>
+    <link href="libs/tachyons/tachyons.min.css" rel="stylesheet" />
+    <link href="libs/panelset/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset/panelset.js"></script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e881b3c822784f6b9a166d73d9a4b7ba","expires":14}</script>
+    <script src="libs/himalaya/himalaya.js"></script>
+    <script src="libs/js-cookie/js.cookie.js"></script>
+    <link href="libs/editable/editable.css" rel="stylesheet" />
+    <script src="libs/editable/editable.js"></script>
+    <script src="libs/xaringanExtra-webcam/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="slides-style.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Modélisation statistique
+]
+.subtitle[
+## Plan de cours
+]
+.author[
+### <br> <br> Dr. Léo Belzile <br> HEC Montréal
+]
+
+---
+
+
+
+
+
+layout: true
+  
+&lt;div class="my-footer"&gt;
+&lt;span&gt;
+&lt;a href="https://lbelzile.github.io/modstat/" target="_blank"&gt;&lt;b&gt;Modélisation statistique&lt;/b&gt;&lt;/a&gt; - Dr. Léo Belzile, HEC Montréal
+&lt;/span&gt;
+&lt;/div&gt; 
+
+---
+
+
+
+
+
+
+
+
+# Organisation
+
+- Rencontres hebdomadaires les jeudi en salle [Louis-Laberge](https://www.hec.ca/campus/cote_sainte_catherine/1er_etage/salles_cours/louis-laberge.html)
+- Deux enseignants
+  - [Léo Belzile](https://www.hec.ca/profs/leo.belzile.html) (CSC 4.850, `leo.belzile@hec.ca`) enseigne la première partie
+  - [Juliana Schulz](https://www.hec.ca/profs/juliana.schulz.html) (CSC 4.809, `juliana.schulz@hec.ca`) enseigne la deuxième partie
+
+---
+
+# Contenu du cours
+
+- Tout le matériel est disponible via le site web du cours: [`https://lbelzile.github.io/modstat/`](https://lbelzile.github.io/modstat/) et sur ZoneCours
+.midi[
+- notes de cours
+- capsules vidéo
+- exercices et solutionnaires
+- code pour démos **R**
+    ]
+    
+---
+
+# Communications
+
+- Soumissions de travaux via *ZoneCours*
+- Publiez vos questions de cours sur le canal **Teams**: [`O365-MATH60604 A2024`](https://teams.microsoft.com/l/team/19%3AzUBLTS-gNYVF4fzYRlEBq9TPT3wHA9ofha5OwSKpPcM1%40thread.tacv2/conversations?groupId=5f5c0da8-dc8c-44f1-850c-425c393acc45&amp;tenantId=19df09a9-d1f0-4cff-90c4-01385cc40b57) - code `3v9x63b`
+- Pour d'autres questions, écrivez-nous par courriel à [`leo.belzile@hec.ca`](mailto:leo.belzile@hec.ca) et [`juliana.schulz@hec.ca`](mailto:juliana.schulz@hec.ca) --- mettez-nous toujours ensemble en copie-conforme
+---
+
+# Contenu du cours 
+
+
+1. Principes fondamentaux de modélisation et d’inférence statistique
+2. Modèles linéaires
+3. Modèles linéaires généralisés
+4. Modèles pour données longitudinales et corrélées
+5. Modèles linéaires mixtes
+6. Introduction à l’analyse de survie
+
+---
+
+
+
+# Évaluations
+
+- Un projet en trois parties valant 30% au total (travail d'équipe), avec remises les vendredi
+   - 11 octobre
+   - 8 novembre
+   - 6 décembre
+- Examen intra (30%) le mardi 29 octobre de 12h à 15h
+- Examen final (40%) le jeudi 12 décembre de 13h30 à 16h30
+
+L'intra et le final sont des examens à livre fermés (pas d'ordinateur ou de programmation). Vous avez droit à une feuille d'aide mémoire format lettre (recto pour intra, recto-verso pour final)
+ 
+---
+
+
+
+.question[
+Quel est le format du cours?
+]
+
+--
+.pull-left[
+À la maison:
+- lectures des notes de cours
+- visionnement des capsules vidéos
+- exercices et problèmes avec solutionnaires
+]
+
+--
+
+.pull-right[
+En classe:
+- cours magistral
+- séance de réponse aux questions
+- ateliers en groupe et discussion.
+]
+
+---
+
+.question[
+Quelle est la charge de travail de ce cours?
+]
+
+--
+
+- 3 crédits = 135 heures de travail
+- une moyenne de 9 heures par semaine
+- ne sous-estimez pas l'investissement initial nécessaire 
+    - installation de logiciels
+    - apprentissage de la programmation
+    - mise à jour des connaissances
+
+---
+
+.question[
+Quelle est la clientèle cible du cours?
+]
+
+--
+
+Étudiant(e)s du programme de sciences des données et analytique d'affaires. 
+
+Les étudiant(e)s admis(es) ont normalement un diplôme de premier cycle en
+ - ingénierie, 
+ - physique
+ - économie ou 
+ - mathématique.
+
+Une certaine familiarité mathématique (algèbre linéaire, calcul) est assumée.
+
+---
+
+.question[
+Quels sont les prérequis pour ce cours?
+]
+
+--
+
+Un premier cours de statistique couvrant les notions suivantes:
+
+.pull-left[
++ axiomes de probabilité
++ variables aléatoires
+    + espérance et variance
+    + lois discrètes: Bernoulli, binomiale, Poisson
+    + lois continues: uniforme, exponentielle, normale
+]
+
+.pull-right[
++ statistiques descriptives
++ tests d'hypothèses
++ comparaison de moyennes et proportions (un et deux échantillons)
++ régression linéaire simple et corrélation
+]
+
+---
+
+.question[
+Quel logiciel utilisera-t-on en classe?
+]
+
+
+.pull-left[
+&lt;img src="https://www.r-project.org/logo/Rlogo.png" width="60%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+Je suis un (ardent) partisan du libre-accès et de **R**, un langage de programmation/logiciel écrit par la communauté
+
+ - c'est gratuit!
+ - support multi système d'exploitation
+ - téléchargement via [cran.r-project.org](https://cran.r-project.org/)
+ - je recommande l'environnement de développement [RStudio](https://posit.co/downloads/)
+ 
+]
+---
+
+.question[
+Est-ce qu'il y aura de la programmation?
+]
+
+Oui. Nous apprendrons les bases de **R** pour ajuster les modèles
+
+- Nous fournirons le code pour les diapos, ateliers et exercises
+
+Vous aurez à produire du code uniquement pour le projet de groupe
+
+- je dois pouvoir reproduire *exactement* vos analyses.
+- fichier `.txt` (sinon, *Zonecours* vous empêchera de soumettre votre travail)
+- encodage UTF-8 
+- suivez les consignes (voir instructions) pour nommer vos scripts.
+
+
+---
+
+# Apprentissage de R
+
+Le [Centre d'aide en mathématiques et statistique (CAMS)](http://hec-ca.libcal.com/calendar/cams) offre des tutoriels sur **R** (gratuits, mais l'inscription est obligatoire et le nombre de places limité).
+
+- [Introduction à **R**: 1re partie](https://hec-ca.libcal.com/event/3823412), le vendredi 30 août 2024 de 15h30 à 17h30
+- [Introduction à **R**: 2e partie](https://hec-ca.libcal.com/event/3823663),  le vendredi 5 septembre 2024 de 15h30 à 17h30
+
+L'objectif n'est pas de devenir un(e) expert, mais d'être en mesure d'utiliser le langage de programmation pour réaliser les analyses.
+
+- Des ressources sont disponibles sur le site web du cours.
+
+---
+
+.question[
+Quelles sont les attentes des professeurs?
+]
+
+--
+
+- Participation active: présence supposée au cours
+.midi[
+- posez des questions! il n'y a pas de question stupide
+]
+--
+
+- Autonomie: vous êtes responsables de votre apprentissage.
+.midi[
+- être à jour et faire les lectures avant le cours
+- ne laissez pas l'obscurantisme vous gagner: posez des questions (à moi, à vos pairs)!
+]
+--
+
+- Rétroaction: des problèmes? faites-en part rapidement
+
+---
+
+# Environnement inclusif et respectueux
+
+L'environnement de classe doit être respectueux. Les remarques déplacées, le harcèlement, etc. ne seront pas tolérés.
+
+--
+
+Faites-moi savoir si 
+
+- je peux faire quelque chose pour améliorer le cours pour vous, pour les autres étudiant(e)s et le groupe
+- une remarque vous rend inconfortable
+- vous avez un nom/pronom/genre qui diffère de celui présent sur *HEC en ligne*
+- votre performance est affectée par des expériences externes au cours: je ferai mon possible pour vous aider ou vous diriger vers des ressources extérieures
+
+---
+
+# Plagiat
+
+Ne trichez pas! Les conséquences seraient fâcheuses et ce serait faire insulte à votre intelligence. 
+
+- si vous vous inspirez de code écrit par d'autres (par ex., `StackOverflow`), citez adéquatement vos sources.
+
+--
+
+## Intelligence artificielle générative (IAG)
+
+
+
+Projet: Les étudiant(e)s peuvent utiliser des outils d’IAG pour améliorer et éditer un livrable (texte ou code) dans une perspective de révision, mais le premier jet des analyses statistiques, du code et du rapport écrit doit être un travail original produit par les étudiant(e)s.
+
+Notre vision reflète celle d' [Andrew Heiss](https://datavizf24.classes.andrewheiss.com/resource/ai-bs.html)
+
+
+---
+
+## Utilisation d'IAG
+
+Toute utilisation d'IAG doit être citée adéquatement. Les étudiant(e)s doivent fournir en sus
+
+1. les détails sur l'outil employé (nom et version)
+2. la liste des requêtes
+3. une copie du code ou texte brouillon soumis
+4. une description des modifications apportées aux sorties, le cas échéant
+5. une brève réflexion sur leur utilisation de l'IAG
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"slideNumberFormat": "<div class=\"progress-bar-container\">\n  <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">\n  </div>\n</div>\n"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

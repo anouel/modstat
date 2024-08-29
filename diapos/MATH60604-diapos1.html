@@ -438,7 +438,7 @@ Léo Belzile, HEC Montréal
 <section id="variabilité-échantillonale" class="slide level2">
 <h2>Variabilité échantillonale</h2>
 
-<img data-src="MATH60604-diapos1_files/figure-revealjs/unifsamp1-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">Histogrammes de 10 échantillons aléatoires simples de taill 20 d’une loi uniforme.</p></section>
+<img data-src="MATH60604-diapos1_files/figure-revealjs/unifsamp1-1.png" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">Histogrammes de 10 échantillons aléatoires simples de taille 20 tirés d’une loi uniforme.</p></section>
 <section id="prise-de-décisions-avec-incertitude" class="slide level2">
 <h2>Prise de décisions avec incertitude</h2>
 <p>La <strong>statistique</strong> traite de la prise de décisions dans un contexte d’incertitude.</p>
@@ -500,7 +500,7 @@ Léo Belzile, HEC Montréal
 <ol type="1">
 <li>plan de collecte de données
 <ul>
-<li>quel est le méchanisme pour l’échantillonage?</li>
+<li>quel est le méchanisme d’échantillonage?</li>
 <li>est-ce que les variables sont observées ou manipulées dans le cadre d’une expérience?</li>
 </ul></li>
 <li>la nature de la variable réponse
@@ -650,7 +650,7 @@ Eye tracking gaze distribution results show that participants were more distract
 </div></div>
 <ul>
 <li>Modèle 1: régression linéaire avec matrice d’équicorrélation/MANOVA. Données <code>BL22_E</code>, paquet <code>hecedsm</code></li>
-<li>Modèle 2: régression binomiale. Données <code>BL22_L</code>, paquet <code>hecedsm</code>.</li>
+<li>Modèle 2: régression binomiale ou binomiale négative. Données <code>BL22_L</code>, paquet <code>hecedsm</code>.</li>
 </ul>
 </section>
 <section id="suggestion-des-montants-pour-les-dons-de-charité" class="slide level2 smaller">
@@ -757,6 +757,22 @@ Figure&nbsp;2: Histogrammes de données tirées d’une loi uniforme (haut) et d
 <li>conclure dans le contexte du problème.</li>
 </ol>
 </section>
+<section id="analogie-du-procès" class="slide level2">
+<h2>Analogie du procès</h2>
+
+<img data-src="fig/01/12_Angry_Men_scene.jpg" style="width:55.0%" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;3: Capture d’écran du drame <em>Douze hommes en colère</em> (1957)
+</p></section>
+<section id="analogie-du-procès-1" class="slide level2">
+<h2>Analogie du procès</h2>
+<p>La présomption d’innocence est de mise (on regarde tout comme si l’hypothèse nulle était vraie).</p>
+<ul>
+<li>On analyse toutes les preuves sous cette optique: est-ce que les preuves sont plausibles si la personne était innocente</li>
+<li>Le fardeau de la preuve revient à la poursuite, pour éviter les erreurs judiciaires (condamner une personne innocente).</li>
+<li>L’hypothèse nulle <span class="math inline">\(\mathscr{H}_0\)</span> est <em>non coupable</em>, contre l’alternative <span class="math inline">\(\mathscr{H}_a\)</span> <em>coupable</em>.</li>
+<li>S’il y a un doute raisonnable, le verdict sera non coupable.</li>
+</ul>
+</section>
 <section id="exemple-texter-en-marchant" class="slide level2">
 <h2>Exemple: texter en marchant</h2>
 <p>Le centre de recherche en expérience utilisateur de HEC Montréal, le Tech3Lab, a effectué une étude sur la distraction causée le fait de texter en marchant.</p>
@@ -834,7 +850,7 @@ W = \frac{\text{qté estimée} - \text{qté postulé}}{\text{erreur-type (qté e
 <li>Test-<em>t</em> pour un échantillon pour <span class="math inline">\(\texttt{t}-\texttt{c}\)</span> (un test-<em>t</em> pour données appariées) <span class="math display">\[\begin{align*}
 T_D=\frac{\overline{D}-\mu_0}{\mathsf{se}(\overline{D})}
 \end{align*}\]</span></li>
-<li><span class="math inline">\(\overline{D}\)</span> est la différence des temps moyens de réaction.</li>
+<li><span class="math inline">\(\overline{D}\)</span> est la moyenne des différence de temps de réaction.</li>
 <li>On postule <span class="math inline">\(\mu_0=\mu_{\texttt{t}}-\mu_{\texttt{c}}=0\)</span>.</li>
 <li>L’erreur-type de <span class="math inline">\(\overline{D}\)</span> est <span class="math inline">\(\mathsf{se}(\overline{D})=S_D/\sqrt{n}\)</span>, où <span class="math inline">\(S_D\)</span> est l’écart-type des variables <span class="math inline">\(D_i\)</span> et <span class="math inline">\(n\)</span> est la taille de l’échantillon.</li>
 </ul>
@@ -876,7 +892,7 @@ T_D=\frac{\overline{D}-\mu_0}{\mathsf{se}(\overline{D})}
 <h2>Lois nulles</h2>
 
 <img data-src="MATH60604-diapos1_files/figure-revealjs/fig-renfepermut-1.png" class="quarto-figure quarto-figure-center r-stretch" width="576"><p class="caption">
-Figure&nbsp;3: Approximation normale (traitillé) et basée sur les permutations (ligne pleine) pour une statistique de test. La valeur de la statistique observée sur l’échantillon est représentée par une droite verticale.
+Figure&nbsp;4: Approximation normale (traitillé) et basée sur les permutations (ligne pleine) pour une statistique de test. La valeur de la statistique observée sur l’échantillon est représentée par une droite verticale.
 </p></section>
 <section id="comparer-la-valeur-numérique-obtenue-à-la-loi-nulle" class="slide level2">
 <h2>4. Comparer la valeur numérique obtenue à la loi nulle</h2>
@@ -915,22 +931,6 @@ Figure&nbsp;3: Approximation normale (traitillé) et basée sur les permutations
 </div>
 </div>
 </div>
-</section>
-<section id="analogie-du-procès" class="slide level2">
-<h2>Analogie du procès</h2>
-
-<img data-src="fig/01/12_Angry_Men_scene.jpg" style="width:55.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;4: Capture d’écran du drame <em>Douze hommes en colère</em> (1957)
-</p></section>
-<section id="analogie-du-procès-1" class="slide level2">
-<h2>Analogie du procès</h2>
-<p>La présomption d’innocence est de mise (on regarde tout comme si l’hypothèse nulle était vraie).</p>
-<ul>
-<li>On analyse toutes les preuves sous cette optique: est-ce que les preuves sont plausibles si la personne était innocente</li>
-<li>Le fardeau de la preuve revient à la poursuite, pour éviter les erreurs judiciaires (condamner une personne innocente).</li>
-<li>L’hypothèse nulle <span class="math inline">\(\mathscr{H}_0\)</span> est <em>non coupable</em>, contre l’alternative <span class="math inline">\(\mathscr{H}_a\)</span> <em>coupable</em>.</li>
-<li>S’il y a un doute raisonnable, le verdict sera non coupable.</li>
-</ul>
 </section>
 <section id="à-quoi-sattendre-pour-les-valeurs-_p" class="slide level2">
 <h2>À quoi s’attendre pour les valeurs-_<span class="math inline">\(p\)</span>?</h2>
@@ -1098,16 +1098,16 @@ Figure&nbsp;8: Intervalles de confiance à 95% pour la moyenne d’une populatio
 <p>La valeur-<em>p</em> est <span class="math inline">\(p = \Pr_0(T &gt; t_D)\)</span>, où <span class="math inline">\(T \sim \mathsf{Student}(34)\)</span>. À l’aide de <strong>R</strong>, on obtient <span class="math inline">\(p=0.0032\)</span>, inférieur à <span class="math inline">\(\alpha=5\)</span>%.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>ttest<span class="sc">$</span>p.value</span>
-<span id="cb3-2"><a href=""></a><span class="do">## [1] 0.249</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href=""></a><span class="do">## [1] 0.00319</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>La borne inférieure de l’intervalle unilatéral est <span class="math inline">\(\overline{D} + \mathsf{se}(\overline{D}) \times \mathfrak{t}_{0.05}\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>ttest<span class="sc">$</span>conf.int</span>
-<span id="cb4-2"><a href=""></a><span class="do">## [1] -1.067  0.277</span></span>
+<span id="cb4-2"><a href=""></a><span class="do">## [1] 0.131   Inf</span></span>
 <span id="cb4-3"><a href=""></a><span class="do">## attr(,"conf.level")</span></span>
 <span id="cb4-4"><a href=""></a><span class="do">## [1] 0.95</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>L’intervalle de confiance est <span class="math inline">\([-1.067, \infty]\)</span>. La différence moyenne postulée, <span class="math inline">\(0\)</span>, n’appartient pas à l’intervalle.</p>
+<p>L’intervalle de confiance est <span class="math inline">\([0.131, \infty]\)</span>. La différence moyenne postulée, <span class="math inline">\(0\)</span>, n’appartient pas à l’intervalle.</p>
 </section>
 <section id="r-calculs-à-la-mitaine" class="slide level2">
 <h2><strong>R</strong> — calculs à la mitaine</h2>
@@ -1138,7 +1138,7 @@ Figure&nbsp;8: Intervalles de confiance à 95% pour la moyenne d’une populatio
 </div></aside></section>
 <section id="conclude-in-the-setting-of-the-problem" class="slide level2">
 <h2>6. Conclude in the setting of the problem</h2>
-<p>La différence moyenne estimée est de <span class="math inline">\(82.146, 82.541\)</span> secondes (écart-type de <span class="math inline">\(0.637\)</span> secondes).</p>
+<p>La différence moyenne estimée est de <span class="math inline">\(0.313\)</span> secondes (écart-type de <span class="math inline">\(0.637\)</span> secondes).</p>
 <p>On rejette <span class="math inline">\(\mathscr{H}_0\)</span>: le temps de réaction est significativement plus élevé lorsqu’on texte que lorsqu’on parle au cellulaire en marchant.</p>
 </section>
 <section id="objectifs-dapprentissage" class="slide level2">
