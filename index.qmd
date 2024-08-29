@@ -2,8 +2,7 @@
 title: "Modélisation statistique"
 subtitle: |
  L'objectif de ce cours est de couvrir les bases de l'inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.
-
- Ce cours aborde notamment les modèles linéaires, les modèles linéaires généralisés et la régression pour données longitudinales avec effets aléatoires et structures de corrélation. Pour chacune de ces méthodes, les principes théoriques de l'inférence, tels que les tests d'hypothèses, statistiques de tests et méthodes d'estimation sont abordés avec rigueur. Une attention particulière est portée aux applications en gestion. details: |
+details: |
   MATH 60604, automne 2024<br>HEC Montréal
 sidebar: false
 toc: false

@@ -1,12 +1,13 @@
 ---
-title: "Statistical modelling"
+title: "Modélisation statistique"
 author: "Léo Belzile, HEC Montréal"
-subtitle: "01. Statistical Inference"
+subtitle: "01. Inférence statistique"
 date: today
 date-format: YYYY
 eval: true
 cache: true
 echo: true
+lang: fr
 standalone: true
 bibliography: MATH60604A.bib
 format:
@@ -50,12 +51,12 @@ options(digits = 3, width = 75)
 ```
 
 
-# Statistical inference  {background-color="#002855"}
+# Inférence statistique  {background-color="#002855"}
 
 
-## Studying a population
+## Étude d'une population
 
-The population distribution (describing possible outcomes and their frequencies) encodes everything we could be interested in.
+La loi d'une population (qui décrit les valeurs possibles et leur fréquence/probabilité) contient toute l'information nécessaire.
 
 ```{r}
 #| eval: true
@@ -70,16 +71,16 @@ p1 <- ggplot(data = data.frame(x = 1:10,
                          p = prob)) +
   geom_bar(mapping = aes(x = x, weight = p)) +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
-  labs(subtitle = "control",
+  labs(subtitle = "contrôle",
        x = "",
-       y = "probability") + 
+       y = "probabilité") + 
   theme_classic()
 p2 <- ggplot(data = data.frame(x = 1:10, 
                          p = prob2)) +
   geom_bar(mapping = aes(x = x, weight = p)) +
   scale_x_continuous(breaks = 1:10, labels = 1:10) +
-  labs(subtitle = "treatment",
-       y = "probability",
+  labs(subtitle = "traitement",
+       y = "probabilité",
        x = "") +
   theme_classic()
 library(patchwork)
@@ -88,13 +89,13 @@ library(patchwork)
 
 
 
-## Sampling variability
+## Variabilité échantillonale
 
 ```{r}
 #| label: unifsamp1
 #| cache: true
 #| echo: false
-#| fig-cap: Histograms for 10 random samples of size 20 from a discrete uniform distribution.
+#| fig-cap: Histogrammes de 10 échantillons aléatoires simples de taill 20 d'une loi uniforme.
 #| fig-width: 8
 #| fig-height: 4.5
 #| out-width: 80%
@@ -107,72 +108,74 @@ ggplot(df, aes(x = x, y = ..density..)) +
   geom_hline(yintercept = 0.1, col = "gray", lty = 2) +
   geom_histogram(bins=10, color="white",)+
   facet_wrap(~sample, nrow = 2)+
-  labs(y = "", subtitle = "sample proportion for treatment (top) and control (bottom)", x = "") +
+  labs(y = "", 
+       subtitle = "proportion échantillonnale dans le groupe traitement (haut) et contrôle (bas)", 
+       x = "") +
   scale_x_continuous(breaks=c(0,5,10)) +
   theme_classic()
 ```
 
-## Decision making under uncertainty
+## Prise de décisions avec incertitude
 
-**Statistics** is concerned with decision making under uncertainty.
+La **statistique** traite de la prise de décisions dans un contexte d'incertitude.
 
-- Data collection is costly. 
-    - we only have limited information about the population.
-    - focus on moments (mean $\mu$, standard deviation $\sigma$, etc.)
-- Samples are typically too small to reliably estimate the whole distribution.   
-    - we rely instead on a statistical model to gain insights about the data.
+- La collecte de données est coûteuse. 
+    - nous avons une quantité d'information limitée sur la population.
+    - on s'intéresse typiquement aux moments (moyenne théorique $\mu$, écart-type $\sigma$, etc.)
+- Les échantillons sont typiquement trop petits pour estimer de manière fiable la loi de la population.
+    - on se base plutôt sur un modèle statistique pour obtenir des informations.
  
 
-## Why use models?
+## Pourquoi employer des modèles?
 
-A famous quote attributed to George Box claims that
+Ce cours traite de modélisation des données. Une citation célèbre attribuée à George Box dit que
 
-> All models are wrong, but some are useful.
+> tous les modèles sont faux, mais certains sont utiles.
 
-Peter McCullagh and John Nelder wrote in the preamble of their book (emphasis mine)
+@McCullagh.Nelder:1989 expliquent dans le préambule de leur livre
 
-> Modelling in science remains, partly at least, an art. Some principles do exist, however, to guide the modeller. The first is that all models are wrong; **some, though, are better** than others and we can **search for the better ones**. At the same time we must recognize that eternal truth is not within our grasp.
+> La modélisation en science demeure, du moins partiellement, un art. Certains principes existent, en revanche, pour guider le modélisateur. Le premier est que tous les modèles sont faux; mais que **certains sont meilleurs** et **le modélisateur doit chercher le meilleur à sa portée**. En même temps, il est sage de reconnaître que la quête perpétuelle de la vérité n’est pas envisageable.
 
-## More insights on modelling
+## Plaidoyer pour la modélisation
 
-This quote by David R. Cox adds to the point:
+Et David R. Cox de rajouter
 
-> ...it does not seem helpful just to say that all models are wrong. The very word model implies simplification and idealization. The idea that complex physical, biological or sociological systems can be exactly described by a few formulae is patently absurd. The construction of idealized representations that **capture important stable aspects of such systems** is, however, a vital part of general scientific analysis and statistical models, especially substantive ones, do not seem essentially different from other kinds of model.
+> ...il n’est pas utile de simplement énoncer que tout modèle est faux. L’idée même de modèle sous-tend une notion de simplification et d’idéalisation. L’idée qu’un système physique, biologique ou sociologique complexe puisse être décrit de manière exacte par quelques formules est franchement absurde. La construction de **représentations idéalisées qui capturent les aspects stables les plus importants du système** est néanmoins une partie essentielle de toute analyse scientifique et les modèles statistiques ne diffèrent pas en cela d’autres types de modèles.
 
-## What is in a model?
+## Quels sont les éléments d'un modèle
 
-A stochastic model typically combines
+Un modèle stochastique (ou aléatoire) combine typiquement
 
-- a distribution for the data
-- a formula linking the parameters or the mean of a response variable $Y$ conditional on explanatory variables $\mathbf{X}$
+- une loi pour les données avec
+- une formule liant les paramètres ou la moyenne conditionnelle d'une variable réponse $Y$ à des variables explicatives $\mathbf{X}$
 
-Models are "golem" for obtaining answers to our questions.
+Les modèles sont des "golems" qui servent à obtenir des réponses à nos questions.
 
-## How to model
+## Comment modéliser
 
-0. Determine a research question and collect some data/harvest data.
-1. Conduct an **exploratory data analysis**.
-    - what are the salient features of the data?
-2. Build a preliminary model.
-3. Check the goodness-of-fit or adjustment.
-4. Rinse and repeat if necessary.
+0. Déterminer notre question de recherche et collecter des données.
+1. Effectuer une analyse exploratoire.
+    - quels sont les faits saillants à prendre en considération?
+2. Construire un modèle préliminaire.
+3. Vérifier la qualité de l'ajustement.
+4. Recommencer et itérer au besoin.
 
-## How do we determine the model?
+## Comment déterminer le modèle adéquat?
 
-We need to know 
+On se base notamment sur les informations suivantes
 
-1. how were the data collected 
-   - what is the sampling mechanism?
-   - are variables observed or experimentally manipulated?
-2. what is the nature of the response?
-   - count data, proportions, etc.
+1. plan de collecte de données
+   - quel est le méchanisme pour l'échantillonage?
+   - est-ce que les variables sont observées ou manipulées dans le cadre d'une expérience?
+2. la nature de la variable réponse
+   - décomptes, proportions, etc.
 
-## Nature of data
+## Nature des données
 
-- Are data from a **random sample of the population** or not?
-   - if so, can generalize conclusions.
-- Is there a "treatment" randomly allocated?
-   - if so, data are experimental (as opposed to observational).
+- Est-ce que les données forment un **échantillon aléatoire simple** ou pas?
+   - si oui, elles sont représentatives et on peut généraliser les conclusions à toute la population
+- Est-ce que le "traitement" est assigné de manière aléatoire?
+   - si oui, on parle de données expérimentales (plutôt qu'observationnelles).
 
 ```{r}
 #| eval: true
@@ -183,9 +186,9 @@ knitr::include_graphics("fig/01/random_sample_assignment.png")
 ```
 
 
-## Observational vs experimental
+## Observationel versus expérimental
 
-Without further adjustment, we cannot draw **causal** statements from observational data.
+Sans ajustement supplémentaire, on ne peut tirer de conclusions ou d'énoncés de cause à effet avec des données observationnelles.
 
 ```{r}
 #| eval: true
@@ -196,11 +199,11 @@ knitr::include_graphics("fig/01/nyt-wellness-program.png")
 ```
 
 
-# Motivating examples {background-color="#002855"}
+# Exemples de modélisation {background-color="#002855"}
 
-## 1. Driving exams in Great Britain
+## 1. Examens de conduite en Grande-Bretagne {.smaller}
 
-Are driving tests easier if you live in a rural area? Source: [The Guardian, August 23rd, 2019](https://www.theguardian.com/world/2019/aug/23/an-easy-ride-scottish-village-fuels-debate-driving-test-pass-rates)
+Est-ce que les examens pratiques de conduite en Grande-Bretagne sont plus faciles dans les régions à faible densité de population? Source: [The Guardian, August 23rd, 2019](https://www.theguardian.com/world/2019/aug/23/an-easy-ride-scottish-village-fuels-debate-driving-test-pass-rates)
 
 :::: {.columns}
 
@@ -219,7 +222,7 @@ knitr::include_graphics("fig/01/guardian_driving.png")
 ```{r}
 #| eval: true
 #| echo: false
-#| out-width: '100%'
+#| out-width: '80%'
 knitr::include_graphics("fig/01/guardian_driving_infographic.png")
 ```
 
@@ -227,7 +230,7 @@ knitr::include_graphics("fig/01/guardian_driving_infographic.png")
 
 ::::
 
-Model: binomial logistic model. Data `gbdriving`, **R** package `hecstatmod`.
+Modèle: régression binomiale logistique. Données `gbconduite`, paquet **R** `hecmodstat`.
 
 
 
@@ -237,7 +240,7 @@ Model: binomial logistic model. Data `gbdriving`, **R** package `hecstatmod`.
 Eye tracking gaze distribution results show that participants were more distracted in the smartwatch condition than in the mobile phone condition, they were less distracted in the speaker condition than in the phone condition, and they were more distracted in the texting condition than in any of the others.
 -->
 
-## 2. Road safety and distraction due to smartwatches {.smaller}
+## 2. Sécurité routière et distraction dues aux montres intelligentes {.smaller}
 
 :::: {.columns}
 
@@ -250,7 +253,7 @@ knitr::include_graphics("fig/01/smartwatches.png")
 ```
 
 
-Models: Within-subject ANOVA (repeated measures) with pairwise paired t-tests or nonparametric tests (Friedman + Wilcoxon signed-rank test). Dataset `BRLS21_T3`, package `hecedsm`.
+Modèle: Analyse de variance pour données répétées, ou tests nonparamétrique de Friedman. Données `BRLS21_T3`, paquet `hecedsm`.
 
 :::
 
@@ -259,13 +262,14 @@ Models: Within-subject ANOVA (repeated measures) with pairwise paired t-tests or
 
 @Brodeur:2021
 
-> A within-subject experiment was conducted in a driving simulator where 31 participants received and answered text messages under four conditions: they received notifications (1) on a mobile phone, (2) on a smartwatch, and (3) on a speaker, and then responded orally to these messages. They also (4) received messages in a “texting” condition where they had to reply through text to the notifications. 
+> Une expérience intra-sujet a été menée dans un simulateur de conduite où 31 participants ont reçu des messages textuels et y ont répondu sous quatre scénarios: ils ont reçu des notifications (1) sur un téléphone portable, (2) sur une montre intelligente et (3) sur un haut-parleur, puis ont répondu oralement à ces messages. Ils ont également (4) reçu des messages textes où ils devaient répondre par texte aux notifications. 
+
 
 :::
 
 ::::
 
-## 3. Perceived environmental friendliness of packages {.smaller}
+## 3. Perception environnemental des emballages plastiques {.smaller}
 
 :::: {.columns}
 
@@ -283,15 +287,15 @@ knitr::include_graphics("fig/01/package-paper-plastic.png")
 ::: {.column width="40%"}
 @Sokolova:2023
 
-> Eight studies (N = 4103) document the perceived environmental friendliness (PEF) bias whereby consumers judge plastic packaging with additional paper to be more environmentally friendly than identical plastic packaging without the paper.
+> Huit études documentent le biais de perception du respect de l'environnement selon lequel les consommateurs jugent les emballages en plastique enrobés d'un emballage carton superflu plus respectueux de l'environnement que les emballages en plastique identiques sans carton.
 
 :::
 
 ::::
 
-Model: linear regression/ANOVA with custom contrasts. Dataset `SKD23_S2A`, package `hecedsm`
+Modèle: régression linéaire avec contrastes. Données `SKD23_S2A`, paquet `hecedsm`
 
-## 4. A/B tests and news headlines {.smaller}
+## 4. Tests A/B et titres des nouvelles {.smaller}
 
 
 :::: {.columns}
@@ -308,19 +312,20 @@ knitr::include_graphics("fig/01/upworthy.png")
 
 
 ::: {.column width="40%"}
-Upworthy.com, a US media publisher, revolutionized headlines online advertisement by running systematic A/B tests to compare the different wording of headlines, placement of text and image to figure out what catches attention the most. 
+Upworthy.com, un éditeur de médias américain, a révolutionné la publicité en ligne en effectuant des tests A/B systématiques pour comparer les différentes formulations des titres, l'emplacement du texte et de l'image afin de déterminer ce qui attire le plus l'attention. 
 
-The Upworthy Research Archive [@Matias:2021] contains results for 22743 experiments, with a click through rate of 1.58% on average and a standard deviation of 1.23%.
+Les archives de recherche d'Upworthy [@Matias:2021] contiennent les résultats de 22743 expériences, avec un taux moyens de clics de 1.58% (écart type de 1.23%).
+
 :::
 
 ::::
 
-Model: Poisson regression with offset. Data `upworthy_sesame`, package `hecbayes`.
+Modèle: régression Poisson avec décalage. Données `upworthy_sesame`, paquet `hecbayes`.
 
 
 
 
-## 5. Impact of videoconferencing on idea generation  {.smaller}
+## 5. Impact de la visioconférence sur la créativité {.smaller}
 
 
 
@@ -342,19 +347,19 @@ knitr::include_graphics("fig/01/Brucks_Levav-virtual_communications.png")
 
 @Brucks.Levav:2022
 
-> In a laboratory study and a field experiment across five countries (in Europe, the Middle East and South Asia), we show that videoconferencing inhibits the production of creative ideas [...]  
+> Dans une étude en laboratoire et une expérience sur le terrain dans cinq pays (en Europe, au Moyen-Orient et en Asie du Sud), nous montrons que la vidéoconférence inhibe la production d'idées créatives [...]  
 
-> we demonstrate that videoconferencing hampers idea generation because it focuses communicators on a screen, which prompts a narrower cognitive focus. Our results suggest that virtual interaction comes with a cognitive cost for creative idea generation.
+> Nous démontrons que la vidéoconférence entrave la production d'idées parce que les communicants se concentrent sur l'écran, ce qui incite à une focalisation cognitive plus étroite. Nos résultats suggèrent que l'interaction virtuelle a un coût cognitif pour la génération d'idées créatives.
 
 
 :::
 
 ::::
 
-- Model: Linear regression with compound symmetry covariance/MANOVA. Dataset `BL22_E`, package `hecedsm`
-- Model: Binomial regression, dataset `BL22_L` from package `hecedsm`.
+- Modèle 1: régression linéaire avec matrice d'équicorrélation/MANOVA. Données `BL22_E`, paquet `hecedsm`
+- Modèle 2: régression binomiale. Données `BL22_L`, paquet `hecedsm`.
 
-## 6. Suggesting amounts for donations {.smaller}
+## 6. Suggestion des montants pour les dons de charité {.smaller}
 
 
 :::: {.columns}
@@ -363,11 +368,10 @@ knitr::include_graphics("fig/01/Brucks_Levav-virtual_communications.png")
 
 @Moon.VanEpps:2023
 
-> Across seven studies, we provide evidence that quantity requests, wherein people consider multiple choice options of how much to donate (e.g., $5, $10, or $15), increase contributions compared to open-ended requests. 
+> Dans sept études, nous démontrons que les suggestions de montants, où on propose des choix multiples sur le montant à donner (par exemple, 5$, 10$ ou 15$), augmentent les contributions par rapport aux contributions libres. 
 
 
-> Our findings offer new conceptual insights into how quantity requests increase contributions as well as practical implications for charitable organizations to optimize contributions by leveraging the use of quantity requests.
-
+> Nos résultats offrent de nouvelles perspectives conceptuelles sur la façon dont ces propositions augmentent les contributions, ainsi que des implications pratiques pour les organisations caritatives afin d'optimiser les contributions.
 :::
 
 ::: {.column width="50%"}
@@ -383,9 +387,9 @@ knitr::include_graphics("fig/01/Moon_VanEpps-giving.png")
 
 ::::
 
-Model: Tobit type II regression and Poisson regression (independence test), data `MV23_S1` from package `hecedsm`.
+Modèle: régression Tobit de type II, régression Poisson. Données `MV23_S1` du paquet `hecedsm`.
 
-## 7. Integrated decisions in online shopping {.smaller}
+## 7. Décisions intégrées dans l'achat en ligne {.smaller}
 
 :::: {.columns}
 
@@ -393,7 +397,12 @@ Model: Tobit type II regression and Poisson regression (independence test), data
 
 @Duke.Amir:2023
 
-> Customers must often decide on the quantity to purchase in addition to whether to purchase. The current research introduces and compares the quantity-sequential selling format, in which shoppers resolve the purchase and quantity decisions separately, with the quantity-integrated selling format, where shoppers simultaneously consider whether and how many to buy. Although retailers often use the sequential format, we demonstrate that the integrated format can increase purchase rates.
+> Les clients doivent souvent décider de la quantité à acheter. La présente étude présente et compare le format de vente quantitatif-séquentiel, dans lequel les acheteurs prennent séparément les décisions d'achat et de quantité, avec le format de vente quantitatif-intégré, dans lequel les acheteurs prennent simultanément la décision d'acheter ou non et la quantité à acheter. Bien que les détaillants utilisent souvent le format séquentiel, nous démontrons que le format intégré peut augmenter les ventes.
+
+
+
+> Une expérience sur le terrain menée auprès d'une grande entreprise technologique a montré que l'intégration des quantités permettait d'augmenter considérablement les ventes, de plus d'un million de dollars par an. 
+
 
 :::
 
@@ -406,15 +415,13 @@ Model: Tobit type II regression and Poisson regression (independence test), data
 knitr::include_graphics("fig/01/Duke_Amir.png")
 ```
 
-> A field experiment conducted with a large technology firm found that quantity integration yielded considerably higher sales, amounting to an increase of more than $1 million in annual revenue. 
 
+Modèle: régression logistique. Données `DA23_E1`, paquet `hecedsm`
 :::
 
 ::::
 
-Model: logistic regression, dataset `DA23_E1`.
-
-## 8. Price of oil in the Gaspe Peninsula {.smaller}
+## 8. Prix de l'essence en Gaspésie {.smaller}
 
 
 
@@ -422,7 +429,7 @@ Model: logistic regression, dataset `DA23_E1`.
 
 ::: {.column width="50%"}
 
-Mayors requested  an inquiry by the [**Régie de l'énergie**](https://www.regie-energie.qc.ca/fr), a regulating agency in charge of energy prices. The report found that prices were indeed more expensive, but pointed out that there were more retailers per capita, and lower volume so their margins were higher.
+Des maires ont demandé à la [**Régie de l'énergie**](https://www.regie-energie.qc.ca/fr) d'enquête sur un possible cartel de l'essence en Gaspésie, où les prix au détail étaient anormalement élevés. Le rapport a conclu que les prix étaient plus élevés qu'attendu, mais que le nombre de détaillants par capita était plus élevé, ce qui réduisait les volumes de ventes et pouvait expliquer l'augmentation des marges observées.
 
 Source: Radio-Canada [1](https://ici.radio-canada.ca/nouvelle/1303956/prix-essence-gaspe-enquete), [2](https://ici.radio-canada.ca/nouvelle/1463520/prix-essence-gaspesie-rapport-regie-energie)
 :::
@@ -432,7 +439,7 @@ Source: Radio-Canada [1](https://ici.radio-canada.ca/nouvelle/1303956/prix-essen
 ```{r}
 #| eval: true
 #| echo: false
-#| out-width: '100%'
+#| out-width: '90%'
 knitr::include_graphics("fig/01/regieenergie.png")
 ```
 
@@ -440,22 +447,22 @@ knitr::include_graphics("fig/01/regieenergie.png")
 
 ::::
 
-Model: Linear regression with autoregressive errors, pairwise comparisons. Dataset `renergy`, package `hecstatmod`.
+Modèle: régression linéaire avec erreurs autorégressives. Données `renergie`, paquet `hecmodstat`.
 
 
-# Hypothesis testing {background-color="#002855"}
+# Tests d'hypothèse {background-color="#002855"}
 
 
-## Sampling variability
+## Variabilité échantillonale
 
-We cannot compare summaries without accounting for their uncertainty inherent to our estimation which is due to random sample.
+On ne peut comparer des statistiques sans prendre en compte l'incertitude inhérente due à la leur estimation à l'aide d'un échantillon aléatoire.
 
 ```{r}
 #| label: fig-samplevar
 #| eval: true
 #| echo: false
-#| fig-cap: Five samples of size $n=10$ drawn from a common population with mean $\mu$
-#|   (horizontal line). The colored segments show the sample means of each sample.
+#| fig-cap: Cinq échantillons de taille 10 tirés d'une même population de moyenne $\mu$
+#|   (ligne horizontale). Les segments colorés donnent les moyennes des sous-groupes.
 set.seed(1234)
 samp <- data.frame(dat = rgamma(50, shape = 10, rate = 2),
                    group = factor(rep(1:5, each = 10L)))
@@ -464,7 +471,7 @@ ggplot(data = samp,
   geom_hline(yintercept = 5) +
   geom_point() +
   geom_jitter() +
-  labs(col = "sample", y = "observations", x = "sample number") +
+  labs(col = "échantillon", y = "observations", x = "numéro d'échantillon") +
   stat_summary(fun = mean,
                geom = "point",
                shape = 95,
@@ -474,9 +481,9 @@ ggplot(data = samp,
 ```
 
 
-## The signal and the noise
+## Le signal et le bruit
 
-The stronger the signal-to-noise ratio, the larger our ability to detect differences when they truly exist.
+Plus le rapport signal/bruit est important, plus notre capacité à détecter des différences existantes est grande.
 
 ```{r}
 #| label: plots
@@ -495,7 +502,7 @@ g1 <- ggplot(dat = dat1, aes(x = group,
   geom_boxplot() +
   geom_jitter(width = 0.3) +
   labs(y = "observations",
-         subtitle = "weak signal, strong noise") +
+         subtitle = "signal faible, bruit fort") +
   theme_bw() +
   theme(legend.position = "none")
 
@@ -509,7 +516,7 @@ g2 <- ggplot(dat = dat2, aes(x = group,
   geom_boxplot() +
   geom_jitter(width = 0.3) +
   labs(y = "observations",
-         subtitle = "strong signal, weak noise") +
+         subtitle = "signal fort, bruit faible") +
   theme_bw() +
   theme(legend.position = "none")
 g1 + g2 
@@ -518,160 +525,159 @@ g1 + g2
 
 ---
 
-## Accumulation of information
+## Accumulation de l'information
 
-As we gather more observations (sample size increases), we can better discriminate between scenarios.
+À mesure que l'on collecte plus d'observations et que la taille de l'échantillon augmente, on peut mieux discriminer.
+
 
 ```{r}
-#| label: uniformsamp2
+#| label: fig-uniformsamp2
+#| fig-cap: Histogrammes de données tirées d'une loi uniforme (haut) et d'une loi non-uniforme (bas) pour des tailles d'échantillons de 10, 100, 1000 and 10 000 (de gauche à droite).
 #| echo: false
-#| cache: true
-#| fig-cap: |-
-#|   Histograms of data from uniform (top) and non-uniform (bottom)
-#|   distributions with increasing sample sizes.
-#| fig-width: 8
-#| fig-height: 5
+#| eval: true
 set.seed(1234)
 ntot <- (10+100+1000+10000)
 df <- data.frame(
-  x = c(sample.int(n = 10, 
+  x = c(sample.int(n = 10,
                    size = ntot,
                    replace = TRUE),
-        round(TruncatedNormal::rtnorm(n = ntot, 
-                                      sd = 4, 
-                                      mu = 6, 
-                                      lb = 1, 
+        round(TruncatedNormal::rtnorm(n = ntot,
+                                      sd = 4,
+                                      mu = 6,
+                                      lb = 1,
                                       ub = 10))),
-  group = rep(factor(c("null","alternative")), 
+  group = rep(factor(c("null","alternative")),
               each = ntot),
   sample = rep(factor(c(rep(1,10),
                     rep(2,100),
                     rep(3, 1000),
                     rep(4, 1e4)),
                     labels = c("10","100","1000","10 000")), length.out = 2*ntot))
-g1 <- ggplot(df |> dplyr::filter(group == "alternative"), aes(x = x, y = ..density..)) +
+g1 <- ggplot(df |> dplyr::filter(group == "alternative"), aes(x = x, y = after_stat(density))) +
   geom_hline(yintercept = 0.1, col = "gray", lty = 2) +
   geom_histogram(bins = 10, color="white", fill = 2)+
   facet_wrap(~sample, nrow = 1,
              labeller = label_wrap_gen(multi_line=FALSE))+
   labs(y = "proportion", x = "") +
-  scale_x_continuous(breaks=c(0,5,10)) + 
+  scale_x_continuous(breaks=c(0,5,10)) +
   theme_classic()
-g2 <- ggplot(df |> dplyr::filter(group == "null"), aes(x = x, y = ..density..)) +
+g2 <- ggplot(df |> dplyr::filter(group == "null"), aes(x = x, y = after_stat(density))) +
   geom_hline(yintercept = 0.1, col = "gray", lty = 2) +
   geom_histogram(bins = 10, color="white", fill = 4)+
   facet_wrap(~sample, nrow = 1,
              labeller = label_wrap_gen(multi_line=FALSE))+
   labs(y = "proportion", x = "") +
-  scale_x_continuous(breaks=c(0,5,10)) + 
+  scale_x_continuous(breaks=c(0,5,10)) +
   theme_classic()
-g2 / g1 
+g2 / g1
 ```
 
 
-## Recipe for hypothesis test
+## Recette pour les tests d'hypothèses
 
-An hypothesis test is a binary decision rule (reject/fail to reject)
+Un test d'hypothèse est une règle de décision binaire (rejetter ou ne pas rejetter)
 
-Below are the different steps to undertake:
+Voici les étapes de la démarche.
+
+1. définir les paramètres du modèle,
+2. formuler les hypothèses alternative et nulle,
+3. choisir et calculer la statistique de test,
+4. déterminer son comportement sous $\mathscr{H}_0$ (loi nulle),
+5. calculer la valeur-*p*,
+6. conclure dans le contexte du problème.
 
 
-1. Define the variables of interest.
-2. Formulate the alternative and the null hypotheses, $\mathscr{H}_a$ and $\mathscr{H}_0$.
-3. Choose the test statistic and compute the latter on the sample.
-4. Compare the numerical value with the null distribution.
-5. Obtain the *p*-value or a confidence interval.
-6. Conclude in the setting of the problem.
 
+## Exemple: texter en marchant
 
-## Running example: texting while walking
-
-Tech3Lab, HEC Montreal's User Experience (UX) lab, studied the impact of texting on distraction.
+Le centre de recherche en expérience utilisateur de HEC Montréal, le Tech3Lab, a effectué une étude sur la distraction causée le fait de texter en marchant.
 
 ```{r}
 #| label: tech3lab
 #| echo: false
 #| out-width: '65%'
+#| fig-align: 'center'
 knitr::include_graphics('fig/01/Tech3Lab-texter.jpg')
 ```
 
+## Détails de l'étude
 
-## Study details
+- 35 sujets ont participé à l'étude.
+- Chaque personne devait marcher sur un tapis roulant et un écran projetait des obstacles.
+- Au cours d'une séance, le sujet marchait en parlant au cellulaire tandis que lors d'une autre séance, il devait marcher en textant.
+- L'ordre entre les séances a été déterminé au hasard.
+- Différents obstacles étaient présentés durant une séance selon un ordre aléatoire.
+- Nous allons nous intéresser à l'un d'eux, l'apparition d'un cycliste dans le champ visuel
 
-- 35 participants took part in the study.
-- Each person had to walk on a treadmill in front of a screen where obstacles were projected.
-- In one of the sessions, the subjects walked while talking on a cell
-phone, whereas in another session, they walked while texting.
-- The order of these sessions was determined *at random*.
-- Different obstacles were randomly projected during the session.
-- We are only interested in one kind of scenario: a cyclist riding towards the participant.
+## Caractéristiques
 
-## Characteristics
-
-- Population: adults
-- Sample: 35 individuals (convenience sample, recruited)
+- Population: adultes (18 ans et plus)
+- Échantillon: 35 individus
 - Variables:
-  - Time to perceive an obstacle: quantitative
-  - Distraction type (cellphone call or texting): nominal variable
-- Response variable: time (in seconds) that it takes for a person to notice the obstacle when walking while texting or talking on a cell phone (measured through an encephalogram)
+    - temps pour percevoir un obstacle: quantitatif
+    - type de distraction (cellulaire ou textos): nominale
+
+On s'intéresse au temps (en secondes) que prend une personne pour apercevoir cet obstacle (mesuré à l'aide d'un encéphalogramme).
 
 
-## 1. Define the variables of interest
+## 1.  Définir les variables d'intérêt
 
-- Let $\mu_{\texttt{c}}$ be the average reaction time (in seconds) during a call (`c`)
-- and let $\mu_{\texttt{t}}$ be the average reaction time (in seconds) while texting (`t`)
+- $\mu_{\texttt{c}}$: moyenne du temps de réaction (en secondes) lors d'un appel (`c`)
+- $\mu_{\texttt{t}}$: moyenne du temps de réaction (en secondes) lorsqu'on texte (`t`)
 
 
-## 2. Formulate the null and alternative hypothesis
 
-- Hypothesis of interest (alternative): does texting increases distraction?
-    - $\mathscr{H}_a: \mu_{\texttt{t}} > \mu_{\texttt{c}}$ (one-sided)
-- Null hypothesis (Devil's advocate)
+## 2. Formuler les hypothèses alternatives et nulles
+
+- Hypothèse d'intérêt: est-ce que texter est plus distrayant?
+    - $\mathscr{H}_a: \mu_{\texttt{t}} > \mu_{\texttt{c}}$ (unilatéral)
+- Hypothèse nulle (avocat du Diable)
     - $\mathscr{H}_0: \mu_{\texttt{t}} \leq  \mu_{\texttt{c}}$
 
-Express the hypothesis in terms of the difference of means
+On exprime l'hypothèse en fonction de la différence: 
 \begin{align*}
 \mathscr{H}_a: \mu_{\texttt{t}} - \mu_{\texttt{c}}>0.
 \end{align*}
 
-We only ever assess the null hypothesis at a single value.
 
-## How to assess evidence?
+On ne va juger la preuve contre l'hypothèse nulle qu'à une seule valeur numérique.
+
+## Comment déterminer le fardeau de la preuve?
 
 
-- A **statistic** is a function of the data that returns a numerical summary. 
-- There are general principles for constructing statistics: for example, **Wald statistics** are of the form
+- Une **statistique** est une fonction des données qui retourne un résumé numérique. 
+- Il existe des principes généraux pour la construction de statistiques: par exemple, les **statistiques de Wald** sont de la forme
 \begin{align*}
-W = \frac{\text{estimated qty} - \text{postulated qty}}{\text{std. error (estimated qty)}} = \frac{T - T_0}{\mathsf{se}(T)}
+W = \frac{\text{qté estimée} - \text{qté postulé}}{\text{erreur-type (qté estimée)}} = \frac{T - T_0}{\mathsf{se}(T)}
 \end{align*}
-    - Statistic are typically unitless quantities.
-    - This standardization is useful for benchmarking purposes.
-    - The **standard error** measures the uncertainty of the statistic.
+    - Les statistiques n'ont pas d'unité.
+    - Elles sont standardisées `pourà des fins d'étalonnage.
+    - L'**erreur-type** mesure l'incertitude de la statistique
 
  
 ::: aside
-Do not confuse standard error (variability of statistic) and standard deviation (variability of observation from the population). 
+Ne pas mélanger erreur-type (variabilité d'une statistique) et écart-type (terme réservé à la variabilité d'une unité de la population)
 :::
 
-## 3.Choose the test statistic
+## 3. Choisir la statistique de test
 
-We compare the difference of the mean reaction time.
+On s'intéresse à la différence de temps de réaction (moyenne)
 
-- one-sample _t_-test for $\texttt{t}-\texttt{c}$ (paired _t_-test)
+- Test-_t_ pour un échantillon pour $\texttt{t}-\texttt{c}$ (un test-_t_ pour données appariées) 
 \begin{align*}
 T_D=\frac{\overline{D}-\mu_0}{\mathsf{se}(\overline{D})}
 \end{align*}
-- $\overline{D}$ is the mean difference in the sample.
-- Under $\mathscr{H}_0: \mu_0=\mu_{\texttt{t}}-\mu_{\texttt{c}}=0$.
-- The standard error of $\overline{D}$ is $\mathsf{se}(\overline{D})=S_D/\sqrt{n}$, where $S_D$ is the standard deviation of the variables $D_i$ and $n$ the sample size.
+- $\overline{D}$ est la différence des temps moyens de réaction.
+- On postule $\mu_0=\mu_{\texttt{t}}-\mu_{\texttt{c}}=0$.
+- L'erreur-type de $\overline{D}$ est $\mathsf{se}(\overline{D})=S_D/\sqrt{n}$, où $S_D$ est l'écart-type des variables $D_i$ et $n$ est la taille de l'échantillon.
 
-## **R** code
+## Code **R**
 
 ```{r}
 #| label: distraction_code
 #| eval: true
 #| echo: true
-data(distraction, package = "hecstatmod")
+data(distraction, package = "hecmodstat")
 ttest <- with(distraction,
      t.test(x = t,
             y = c, 
@@ -687,15 +693,15 @@ ttest <- with(distraction,
 ttest
 ```
 
-## Null distribution
+## Loi nulle
 
-The null distribution tells us what values we would obtain under a null, and their relative frequency.
+La loi nulle nous renseigne sur les valeurs plausibles de la statistique si l'hypothèse nulle tient la route, et leurs fréquence ou probabilité relative.
 
-- We typically rely on **large sample approximations**, that are justified by the central limit theorem.
-- Alternative, use simulation-based inference (check [permutation tests](https://www.jwilber.me/permutationtest/)).
-- The null distribution is a benchmark to establish whether our outcome is extreme.
+- On se base typiquement sur une approximation asymptotique (grands échantillons), qui est justifiée par le théorème central limite.
+- Sinon, on peut utiliser l'inférence par simulations (par exemple, un [test de permutation](https://www.jwilber.me/permutationtest/)).
+- La loi nulle est notre étalon de mesure pour déterminer si la valeur observée de la statistique est extrême.
 
-## Null distributions
+## Lois nulles
 
 
 
@@ -705,9 +711,7 @@ The null distribution tells us what values we would obtain under a null, and the
 #| echo: false
 #| fit.height: 5
 #| fig-align: 'center'
-#| fig-cap: Permutation-based approximation to the null distribution (full) and standard normal approximation
-#|   (dashed curve). The value of the test statistic calculated using the original sample
-#|   is represented by a vertical line.
+#| fig-cap: Approximation normale (traitillé) et basée sur les permutations (ligne pleine) pour une statistique de test. La valeur de la statistique observée sur l'échantillon est représentée par une droite verticale.
 #| fig-width: 6
 # p-value (permutation test)
 data(renfe, package = "hecstatmod")
@@ -737,60 +741,61 @@ ggplot(data = data.frame(statistic = ttest_stats),
   geom_density() +
   geom_vline(xintercept = ttest_stats[1]) +
   scale_y_continuous(limits = c(0,NA), expand = expansion(mult = c(0,0.1))) + 
-  labs(y = "density", x = "statistic") +
+  labs(y = "densité", x = "statistique") +
   stat_function(fun = dnorm, linetype = "dashed")
 ```
 
-## 4. Compare the statistic with the null distribution
+## 4. Comparer la valeur numérique obtenue à la loi nulle
 
-- The test statistic value is $t_D = 2.91$.
-- We are only interested in the probability that $T > 2.91$ under $\mathscr{H}_0$ (one-sided test).
-- Use as null distribution a standard Student-_t_ distribution with 34 degrees of freedom, $T \sim \mathsf{Student}(34)$.
-- The $0.05$ quantile of $T$ is $\mathfrak{t}_{0.05} = `r qt(0.05, 34)`$.
+ 
+
+- La statistique vaut $t_D = 2.91$.
+- On s'intéresse uniquement à la probabilité d'obtenir $T_D > 2.91$ sous $\mathscr{H}_0$ (test unilatéral).
+- On utilise comme loi nulle une loi Student-_t_ standard avec 34 degrés de liberté, dénotée $T \sim \mathsf{Student}(34)$.
+- Le $0.05$ quantile de $T$ est $\mathfrak{t}_{0.05} = `r qt(0.05, 34)`$.
 
 
-## $P$-values
+## Valeurs-$p$
 
-Apply distribution function of the null distribution to map the test statistic to the $[0,1]$ interval.
+Si on applique la fonction de répartition de la loi nulle à la statistique, on obtient une valeur dans l'intervalle $[0,1]$.
 
-The _p_-value is the probability that the test statistic is equal or more extreme to the estimate computed from the data, assuming $\mathscr{H}_0$ is true.
+La valeur-$p$ est la probabilité que la statistique de test soit égale ou plus extrême que la valeur calculée sur l'échantillon, si l'hypothèse nulle $\mathscr{H}_0$ est vraie
 
 
 :::{.callout-caution}
+L'[*American Statistical Association (ASA)* a publié une liste de principes](https://doi.org/10.1080/00031305.2016.1154108) détaillant les principales erreurs d'interprétation des valeurs-$p,$ notamment
 
-The [American Statistical Association (ASA) published a
-list of principles](https://doi.org/10.1080/00031305.2016.1154108) guiding (mis)interpretation of _p_-values, including:
-
-- (2) _P_-values do not measure the probability that the studied hypothesis is true.
-- (5) _p_-value, or statistical significance, does not measure the size of an effect or the importance of a result.
+- (2) Les valeurs-$p$ ne mesurent pas la probabilité que l'hypothèse étudiée est vrai
+- (3) Les décisions d'affaires et scientiques ne devraient pas seulement être basées sur le fait qu'une valeur-$p$ est inférieure à un seuil spécifié.
+- (5) Les valeurs-$p,$ ou la significativité statistiques, ne mesurent pas la taille de l'effet ou l'importance d'un résultat.
 
 :::
 
 
-## Hypothesis testing as a trial analogy
+## Analogie du procès
 
 ```{r}
 #| label: fig-twelveangrymen
 #| echo: false
 #| out-width: '55%'
-#| fig-cap: "Screenshot of the courtoom drama _Twelve Angry Men_ (1957)"
+#| fig-cap: "Capture d'écran du drame _Douze hommes en colère_ (1957)"
 knitr::include_graphics('fig/01/12_Angry_Men_scene.jpg')
 ```
 
-## Trial analogy 
+## Analogie du procès 
 
-The presumption of innocence applies (look at everything as if the null hypothesis is true)
+La présomption d'innocence est de mise (on regarde tout comme si l'hypothèse nulle était vraie).
 
-- Evidences are judged under this optic: are they remotely plausible if the person was innocent?  
-- The burden of the proof lies with the prosecution to avoid as much as possible judicial errors. 
-- The null hypothesis $\mathscr{H}_0$ is *not guilty*, whereas the alternative $\mathscr{H}_a$ is *guilty*. 
-- If there is a reasonable doubt, the verdict of the trial will be not guilty.
+- On analyse toutes les preuves sous cette optique: est-ce que les preuves sont plausibles si la personne était innocente
+- Le fardeau de la preuve revient à la poursuite, pour éviter les erreurs judiciaires (condamner une personne innocente).
+- L'hypothèse nulle $\mathscr{H}_0$ est *non coupable*, contre l'alternative $\mathscr{H}_a$ *coupable*. 
+- S'il y a un doute raisonnable, le verdict sera non coupable.
 
-## What can we expect of $p$-values?
+## À quoi s'attendre pour les valeurs-_$p$?
 
-If we repeat the experiment with random samples, we expect $p$-values to be uniform if $\mathscr{H}_0$ is true **and** the null hypothesis benchmark is properly calibrated.
+Si on répèt l'expérience avec des échantillons aléatoires simples, on s'attend à ce que les valeurs-$p$ soit uniformes si $\mathscr{H}_0$ est vraie **et** que la loi nulle est calibrée.
 
-Under the alternative, smaller $p$-values occur more often than $\alpha$.
+Sous l'alternative, les valeurs-$p$ auront tendance à être plus petites.
 
 
 ```{r}
@@ -800,8 +805,7 @@ Under the alternative, smaller $p$-values occur more often than $\alpha$.
 #| cache: true
 #| message: false
 #| warning: false
-#| fig-cap: "Density of _p_-values under the null hypothesis (left) and under an alternative
-#|   with a signal-to-noise ratio of 0.5 (right)."
+#| fig-cap: "Densité empirique des valeurs-_p_ sous l'hypothèse nulle (gauche) et sous une alternative avec un rapport signal/bruit de 0.5 (droite)."
 power_t <- function(x, ncp, df){dt(df = df, qt(p = x, df = df, ncp = ncp))/dt(df = df, qt(p = x, df = df))}
 power_wald <- function(x, ncp){dnorm(qnorm(p = x, mean = ncp))/dnorm(qnorm(p = x))}
 cdf_wald <- function(x, ncp){pnorm(qnorm(p = x, mean = ncp), lower.tail = TRUE)}
@@ -809,27 +813,7 @@ g1a <- ggplot() +
   geom_function(fun = power_t, args = list(ncp = 0, df = 5), xlim = c(0,1), n = 10001) +
   stat_function(fun = power_t, args = list(ncp = 0, df = 5),
                 xlim = c(1e-12,0.1), geom = "area", fill = "blue", alpha = 0.2) +
-  labs(y = "density", x = "probability level") +
-  scale_y_continuous(expand = c(0,0),
-                     limits = c(0,5),
-                     breaks = 1:5,
-                     labels = 1:5)  +
-  scale_x_continuous(expand = c(0,0),
-                     limits = c(0,1),
-                     breaks = sort(c(0.1, seq(0,1, by= 0.25))),
-                     labels = c("0","0.1","0.25","0.5", "0.75", "1")) +
-  theme_classic()
-# g1b <- ggplot() +
-#   geom_vline(xintercept = 0.1, lty = 2, alpha = 0.2) +
-#   geom_segment(data = data.frame(x = 0, xend = 0.1, y = cdf_wald(0.1, ncp = 0)),
-#               mapping = aes(x = x, y = y, xend = xend, yend = y), col = "blue", lwd = 2) +
-#   geom_function(fun = cdf_wald, args = list(ncp = 0), xlim = c(0,1), n = 10001) +
-#   labs(y = "probability of rejection", x = "probability level")
-g2a <- ggplot() +
-  geom_function(fun = power_wald, args = list(ncp = 1), xlim = c(0,1), n = 10001) +
-  stat_function(fun = power_wald, args = list(ncp = 1),  n = 1001,
-                xlim = c(0,0.1), geom = "area", fill = "blue", alpha = 0.2) +
-  labs(y = "density", x = "probability level") +
+  labs(y = "densité", x = "probabilité") +
   scale_y_continuous(expand = c(0,0),
                      limits = c(0,5),
                      breaks = 1:5,
@@ -844,7 +828,7 @@ g3a <- ggplot() +
   geom_function(fun = power_wald, args = list(ncp = 0.5), xlim = c(0,1), n = 10001) +
   stat_function(fun = power_wald, args = list(ncp = 0.5),
                 xlim = c(0,0.1), geom = "area", fill = 2, alpha = 0.2, n = 1001) +
-  labs(y = "density", x = "probability level") +
+  labs(y = "densité", x = "probabilité") +
   scale_y_continuous(expand = c(0,0),
                      limits = c(0,5),
                      breaks = 1:5,
@@ -854,172 +838,146 @@ g3a <- ggplot() +
                      breaks = sort(c(0.1, seq(0,1, by= 0.25))),
                      labels = c("0","0.1","0.25","0.5", "0.75", "1")) +
   theme_classic()
-# g3b <- ggplot() +
-#   geom_vline(xintercept = 0.1, lty = 2, alpha = 0.2) +
-#   geom_segment(data = data.frame(x = 0, xend = 0.1, y = cdf_wald(0.1, ncp = 0.5)),
-#               mapping = aes(x = x, y = y, xend = xend, yend = y), col = "blue") +
-#   geom_function(fun = cdf_wald, args = list(ncp = 0.5), xlim = c(0,1), n = 10001) +
-#   labs(y = "probability of rejection", x = "probability level")
-# (g1a + g1b) / (g3a + g3b)
-
-g4 <- ggplot() +
-  geom_vline(xintercept = 0.1, lty = 2, alpha = 0.2) +
-  geom_segment(data = data.frame(x = 0, xend = 0.1, y = 0.1),
-              mapping = aes(x = x, y = y, xend = xend, yend = y), col = "blue") +
-  geom_segment(data = data.frame(x = 0, xend = 0.1, y = cdf_wald(0.1, ncp = 0.5)),
-              mapping = aes(x = x, y = y, xend = xend, yend = y), col = 2) +
-  geom_function(fun = cdf_wald, args = list(ncp = 0), xlim = c(0,1), n = 10001) +
-  geom_function(fun = cdf_wald, args = list(ncp = 0.5), xlim = c(0,1), n = 10001, col = 2) +
-  labs(y = "probability of rejection", x = "probability level") +
-   scale_x_continuous(expand = c(0,0),
-                     limits = c(0,1),
-                     breaks = seq(0,1, by= 0.25),
-                     labels = c("0","0.25","0.5", "0.75", "1")) +
-    scale_y_continuous(expand = c(0,0),
-                     limits = c(0,1),
-                     breaks = seq(0,1, by= 0.25),
-                     labels = c("0","0.25","0.5", "0.75", "1")) +
-  theme_classic()
-# (g1a + g1b) / (g3a + g3b)
 g1a + g3a
 ```
 
-## Level of a test
+## Niveau du test
 
 
-If the null hypothesis $\mathscr{H}_0$ is true, the *p*-value follows a uniform distribution if our benchmark is properly calibrated. 
+Si la loi $\mathscr{H}_0$ est vraie et que notre étalon de mesure est calibré, les valeurs-$p$ devraient suivre une loi uniforme
 
-- There are always small $p$-values, even if they are less likely.
-- Since we want to rule out **against** the null hypothesis, we need to pre-determine a **level** $\alpha$ to decide when to reject $\mathscr{H}_0$.
-
-
-To make a decision, we compare our *p*-value $P$ with the level of the test $\alpha$:
-
-- if $P < \alpha,$ we reject $\mathscr{H}_0$;
-- if $P \geq \alpha,$ we fail to reject $\mathscr{H}_0.$
+- Les petites valeurs-$p$ sont toujours possibles, mais rares si $p$ est faible.
+- Puisque que l'on s'intéresse à l'alternative, on doit déterminer un **seuil de significativité** $\alpha$ pour savoir quand rejectter $\mathscr{H}_0$.
 
 
-The value of $\alpha \in (0, 1)$ is the probability of rejecting $\mathscr{H}_0$ when $\mathscr{H}_0$ is in fact true.
+Pour prendre une décision, on compare notre valeur-$p$ $P$ avec le niveau du test $\alpha$:
 
-## Statistical errors
-
-
-| **Decision** \\ **true model** | $\mathscr{H}_0$ | $\mathscr{H}_a$ |
-| :-- | :-: | :-: |
-| fail to reject $\mathscr{H}_0$ | $\checkmark$ | type II error |
-| reject $\mathscr{H}_0$ |type I error | $\checkmark$|
+- si $P < \alpha,$ on rejette $\mathscr{H}_0$;
+- si $P \geq \alpha,$ on ne rejette pas $\mathscr{H}_0.$
 
 
-We seek to avoid error of type I: we reject $\mathscr{H}_0$ when $\mathscr{H}_0$ is true.
+La valeur fixe $\alpha \in (0, 1)$ est la probabilité de rejetter $\mathscr{H}_0$ quand cette dernière est vraie. 
 
-- trial analogy: avoid condemning an innocent. 
+## Erreurs statistiques
 
-Since we fix the level $\alpha$, we have no control over the type II error.
 
-## Power
+| **Décision** \\ **vrai modèle**   | $\mathscr{H}_0$ | $\mathscr{H}_a$ |
+|:-- |:-: |:-: |
+| ne pas rejeter $\mathscr{H}_0$ | $\checkmark$ | erreur de type II |
+| rejeter $\mathscr{H}_0$ | erreur de type I | $\checkmark$|
 
-We want to be able to detect and reject $\mathscr{H}_0$ when it is false.
 
-The **power of a test** is the probability of rejecting $\mathscr{H}_0$ when it is false, i.e.,
+On cherche à contrôler l'erreur de type I (soit rejetter $\mathscr{H}_0$ si $\mathscr{H}_0$ est vraie).
+
+- analogie du procès: une erreur judiciaire, condamner un innocent
+
+Puisque que l'on fixe le niveau $\alpha$, on n'a pas de contrôle sur l'erreur de type II
+
+## Puissance
+
+On aimerait être en mesure de détermine si $\mathscr{H}_0$ est fausse et, le cas échéant, rejetter cette hypothèse.
+
+La **puissance** d'un test est la probabilité de rejeter $\mathscr{H}_0$ quand elle est fausse, soit
 \begin{align*}
-\Pr{\!}_a(\text{reject } \mathscr{H}_0),
+\Pr{\!}_a(\text{rejetter} \mathscr{H}_0),
 \end{align*}
-where $\Pr_a$ is the probability under a **given** alternative of falling in the rejection region .
+où $\Pr_a$ désigne la probabilité d'obtenir un résultat dans la zone de rejet pour une alternative **donnée**.
 
-## Illustration of power
+## Illustration du concept de puissance
 
 ```{r}
-#| label: fig-power
+#| label: fig-puissance
 #| cache: true
 #| echo: false
 #| fig-width: 10
 #| fig-height: 3
 #| out-width: '100%'
-#| fig-cap: Comparison between null distribution (full curve) and a specific alternative
-#|   for a *t*-test (dashed line). The power corresponds to the area under the curve
-#|   of the density of the alternative distribution which is in the rejection area (in
-#|   white). The middle panel shows an increase in power due to an increase in the mean difference, whereas the right panel shows the change due to a decrease in variability of increase in the sample size.
+#| fig-cap: "Comparaison de la loi nulle (ligne pleine) et d'une alternative spécifique
+#|   pour un test-$t$ (ligne traitillée). La puissance correspond à l'aire sous la courbe
+#|   de la densité de la loi alternative qui est dans la zone de rejet du test (en blanc). Le panneau du milieu représente l'augmentation de la puissance suite à l'augmentation de la taille d'effet (différence moyenne entre groupes plus élevée) sous l'hypothèse alternative. Le panneau de droite correspond à un scénario alternatif avec la même taille d'effet, mais une taille d'échantillon ou une précision plus grande."
 region <- data.frame(start = c(-Inf, qt(0.025, df = 10), qt(0.975, df = 10)),
                      end = c(qt(0.025, df = 10), qt(0.975, df = 10), Inf),
-                     region = factor(c("reject","fail to reject","reject")))
+                     région = factor(c("rejeter","ne pas rejeter","rejeter")))
 g1 <- ggplot(region) +
-  geom_rect(aes(xmin = start, xmax = end, fill = region),
+  geom_rect(aes(xmin = start, xmax = end, fill = région),
     ymin = -Inf, ymax = Inf, alpha = 0.2, data = region) +
   scale_fill_manual(values = c("blue","orange")) +
   coord_cartesian(xlim = c(-3.5,6), ylim = c(0, 1), expand = FALSE) +
-  theme_classic() + theme(legend.position = "bottom") +
   stat_function(fun = dt, args = list(ncp = 1.5, df=10), xlim = c(qt(0.975, df = 10), 10),
                 geom = "area", fill = "white") +
   stat_function(fun = dt, n = 1000, args = list(df= 10), xlim = c(-5,6)) +
   stat_function(fun = dt, n = 1000, args = list(ncp = 1.5, df=10), lty = 2, xlim = c(-5,6)) +
-  ylab("f(x)")
-  region1 <- data.frame(start = c(-Inf, qnorm(0.025), qnorm(0.975)),
+  labs(y = "densité") +
+  theme_classic() +
+  theme(legend.position = "bottom")
+region1 <- data.frame(start = c(-Inf, qnorm(0.025), qnorm(0.975)),
                      end = c(qnorm(0.025), qnorm(0.975), Inf),
-                     region = factor(c("reject","fail to reject","reject")))
+                     région = factor(c("rejeter","ne pas rejeter","rejeter")))
 g2 <- ggplot(region1) +
-  geom_rect(aes(xmin = start, xmax = end, fill = region),
+  geom_rect(aes(xmin = start, xmax = end, fill = région),
     ymin = -Inf, ymax = Inf, alpha = 0.2, data = region1) +
   scale_fill_manual(values = c("blue","orange")) +
   coord_cartesian(xlim = c(-3.5,5), ylim = c(0, 1), expand = FALSE) +
-  theme_classic() + theme(legend.position = "bottom") +
   stat_function(fun = dnorm, args = list(mean = 3, sd = 1), xlim = c(qnorm(0.975),10),
                 geom = "area", fill = "white") +
-  ylab("f(x)") +
   stat_function(fun = dnorm, args = list(mean = 0, sd = 1), xlim = c(-5,5)) +
-  stat_function(fun = dnorm, n = 1000, args = list(mean = 3, sd = 1), lty = 2, xlim = c(-5,5))
+  stat_function(fun = dnorm, n = 1000, args = list(mean = 3, sd = 1), lty = 2, xlim = c(-5,5)) +
+  labs(y = "densité") +
+  theme_classic() +
+  theme(legend.position = "bottom")
 region2 <- data.frame(start = c(-Inf, qnorm(0.025, sd = 0.5), qnorm(0.975, sd = 0.5)),
                      end = c(qnorm(0.025, sd = 0.5), qnorm(0.975, sd = 0.5), Inf),
-                     region = factor(c("reject","fail to reject","reject")))
+                     région = factor(c("rejeter","ne pas rejeter","rejeter")))
 g3 <- ggplot(region) +
-  geom_rect(aes(xmin = start, xmax = end, fill = region),
+  geom_rect(aes(xmin = start, xmax = end, fill = région),
     ymin = -Inf, ymax = Inf, alpha = 0.2, data = region2) +
   scale_fill_manual(values = c("blue","orange")) +
   coord_cartesian(xlim = c(-3.5,5), ylim = c(0, 1), expand = FALSE) +
-  theme_classic() + theme(legend.position = "bottom") +
-  stat_function(fun = dnorm, args = list(mean = 1.5, sd = 0.5), xlim = c(qnorm(0.975, sd = 0.5),10), geom = "area", fill = "white") +
+   stat_function(fun = dnorm, args = list(mean = 1.5, sd = 0.5), xlim = c(qnorm(0.975, sd = 0.5),10), geom = "area", fill = "white") +
   stat_function(fun = dnorm, n = 1000, args = list(mean = 0, sd = 0.5), xlim = c(-5,5)) +
   stat_function(fun = dnorm, n = 1000, args = list(mean = 1.5, sd = 0.5), lty = 2, xlim = c(-5,5)) +
-  ylab("f(x)")
+  labs(y = "densité") +
+  theme_classic() + theme(legend.position = "bottom")
 g1 + g2 + g3 +
-  patchwork::plot_layout(guides = 'collect')  &  ylim(0,1) & theme(legend.position = "bottom")
+  patchwork::plot_layout(guides = 'collect')& theme(legend.position = "bottom")
 ```
 
-## Criteria determining power 
+## Critères qui déterminent la puissance
 
 
-- the effect size: the bigger the difference between the postulated value for $\theta_0$ under $\mathscr{H}_0$ and the observed behavior, the easier it is to detect it, as in the middle panel of @fig-power;
-- variability: the less noisy your data, the easier it is to detect differences between the curves
-- the sample size: the more observation, the smaller the standard error
-- the choice of test statistic
+- la taille de l'effet: plus la différence est grande entre la valeur du paramètre postulée et le comportement observé, plus il est facile de le détecter;
+- la variabilité: moins les observations sont variables, plus il est facile de déterminer que la différence observée est significative;
+- la taille de l'échantillon: plus on a d'observations, plus petite est l'erreur-type
+- le choix de la statistique de test
 
 
-Minimally, the power of the test should be $\alpha$ because we reject the null hypothesis $\alpha$ fraction of the time even when $\mathscr{H}_0$ is true. 
+Minimalement, la puissance devrait être $\alpha$ puisqu'on rejette l'hypothèse nulle $\alpha$ du temps sous le scénario favorable où $\mathscr{H}_0$ est vraie. 
 
-## Confidence interval
+## Intervalle de confiance
 
 
-A **confidence interval** is an alternative way to present the conclusions of an hypothesis test performed at significance level $\alpha$ with the **same data units**.
+Un **intervalle de confiance** est une façon alternative de présenter les conclusions d'un test d'hypothèse de niveau $\alpha$.
 
-Wald-based  $(1-\alpha)$ confidence intervals for a scalar parameter $\theta$ are of the form
+L'intervalle de confiance bilatéral de Wald $(1-\alpha)$ pour un paramètre unidimensionnel $\theta$ est
 \begin{align*}
-[\widehat{\theta} + \mathfrak{q}_{\alpha/2}\mathrm{se}(\widehat{\theta}, \widehat{\theta} +\mathfrak{q}_{1-\alpha/2}\times \mathrm{se}(\widehat{\theta})]
+[\widehat{\theta} + \mathfrak{q}_{\alpha/2} \times \mathrm{se}(\widehat{\theta}), \widehat{\theta} +\mathfrak{q}_{1-\alpha/2}\times \mathrm{se}(\widehat{\theta})]
 \end{align*}
-corresponding to a point estimate plus or minus the margin of error.
+soit l'estimation ponctuelle plus ou moins une marge d'erreur.
 
-## Estimation: a piece of cake {.smaller}
+## Estimation: c'est pas du gâteau {.smaller}
 
-We distinguish between our target (estimand, e.g., population mean), the recipe or formula (estimator) and the output (estimate). 
+On distingue entre notre objectif (estimand, par exemple la moyenne $\mu$), la recette ou formule (estimateur) et la sortie (estimé, une valeur numérique). 
 
 
 ```{r}
 #| label: fig-cake
 #| eval: true
 #| echo: false
-#| fig-cap: "[Estimand](https://www.flickr.com/photos/darkdwarf/16563489881) (left), estimator (middle) and [estimate](https://www.flickr.com/photos/bensutherland/14685548773) (right) illustrated with cakes and based on an original idea of Simon Grund. Cake photos shared under [CC BY-NC 2.0 license](https://creativecommons.org/licenses/by-nc/2.0/)."
+#| fig-cap: "Les concepts d'[estimand](https://www.flickr.com/photos/darkdwarf/16563489881) (gauche), estimateur (milieu) et [estimaté](https://www.flickr.com/photos/bensutherland/14685548773) (droite), illustrés à l'aide de gâteau, une variation d'un idée originale de Simon Grund. Les photos de gâteau sont partagées sous licence [CC BY-NC 2.0](https://creativecommons.org/licenses/by-nc/2.0/)."
 #| fig-subcap:
 #|  - "Estimand"
-#|  - "Estimator"
-#|  - "Estimate"
+#|  - "Estimateurr"
+#|  - "Estimé"
 #| layout-ncol: 3
 #| out-width: '90%'
 knitr::include_graphics("fig/01/estimand.jpg")
@@ -1027,43 +985,42 @@ knitr::include_graphics("fig/01/estimator.jpg")
 knitr::include_graphics("fig/01/estimate.jpg")
 ```
 
-## Interpretation of confidence interval
+## Interprétation d'un intervalle de confiance
 
-Since the inputs of the confidence interval (estimator) are random, the output is also random and change from one sample to the next: even if you repeat a recipe, you won't always get the exact same result.
+Puisque les intrants de l'intervalle de confiance (l'estimateur) sont aléatoires, la sortie l'est également et change d'un échantillon à l'autre. Même si on répète une recette, on n'obtient pas toujours le même résultat.
 
-- If we calculate the confidence interval for a sample, the true unknown value of the parameter $\theta$ is either in the confidence interval or not: there is no notion of probability!
-- Our confidence is in the *procedure* we use to calculate confidence intervals and not in the actual values we obtain from a sample.
-- If we were to repeat the experiment multiple times, and calculate a $1-\alpha$ confidence interval each time, then roughly $1-\alpha$ of the calculated confidence intervals would contain the true value of $\theta$ in repeated samples.
-
-
+- Si on calcule un intervalle de confiance pour un échantillon donné, la vraie valeur (inconnue) du paramètre $\theta$ est soit dans l'intervalle de confiance, soit pas: il n'y a pas de notion de probabilité!
+- Le terme confiance s'applique à la *procédure* que l'on utilise pour calculer l'intervalle, et non pas dans les valeurs des bornes obtenues pour un échantillon en particulier.
+- Si on répète l'expérience plusieurs fois, et qu'on calcule un intervalle de confiance de niveau $1-\alpha$ à chaque reprise, alors en moyenne une proportion de $1-\alpha$ des intervalles contiendra la vraie valeur de $\theta$ parmi toutes les répétitions.
 
 
 
-## Frequentist properties of confidence intervals
+
+
+## Propriétés fréquentistes des intervalles de confiance
 
 ```{r}
-#| label: intconf
+#| label: fig-intconf
 #| eval: true
 #| echo: false
 #| cache: true
-#| fig.width: 8.0
-#| fig.height: 5.0
-#| fig-cap: 95\% confidence intervals for the mean of a standard normal population for
-#|   100 random samples. On average, 5\% of these intervals fail to include the true
-#|   mean value of zero (in red).
+#| fig-width: 8
+#| fig-height: 5
+#| fig-cap: "Intervalles de confiance à 95% pour la moyenne d'une population normale standard pour 100 échantillons aléatoires. En moyenne, 5% de ces intervalles
+#|   (en rouge) n'incluent pas la vraie valeur de la moyenne de zéro."
 set.seed(1234)
 interv <- t(sapply(1:100, function(i){t.test(rnorm(1000), mu=0)$conf.int}))
 confint_dat <- data.frame(lower = interv[,1],
                           upper = interv[,2],
                           replicate = 1:100,
-                          covers = factor((interv[,1] > 0) | (interv[,2] < 0), labels = c("covers","fails to cover")))
-confint_dat$covers <- relevel(confint_dat$covers, ref = "fails to cover")
+                          covers = factor((interv[,1] > 0) | (interv[,2] < 0), labels = c("couvre","ne couvre pas")))
+confint_dat$covers <- relevel(confint_dat$covers, ref = "ne couvre pas")
 ggplot(data = confint_dat,
        aes(x = factor(replicate))) +
   geom_hline(yintercept = 0) +
   geom_segment(mapping = aes(y = lower, yend = upper, x = replicate, xend = replicate, col = covers)) +
   # scale_color_discrete(c("black","red")) +
-  labs(x = "replicate study",
+  labs(x = "no de l'étude de réplication",
        y = "",
        col = "") +
   theme_classic() +
@@ -1074,18 +1031,18 @@ ggplot(data = confint_dat,
 ```
 
 
-## Equivalence of confidence intervals and $p$-values
+## Équivalence des intervalles de confiances et des valeurs-$p$
 
-The $1-\alpha$ confidence interval gives us all values for which we fail to reject $\mathscr{H}_0$ at level $\alpha$
+L'intervalle de confiance de niveau $1-\alpha$ nous donne la plage des valeurs pour lesquelles on ne peut rejetter $\mathscr{H}_0$ à niveau $\alpha$
 
-- Binary decision rule with confidence interval: if the postulated value lies inside the interval, we fail to reject the null hypothesis.
-- The $p$-value based on the same procedure would be $p \ge\alpha$ if you fail to reject (and vice-versa $p <\alpha$ if the value is outside the interval).
+- Règle de décision binaire avec intervalle de confiance: si la valeur postulée est dans l'intervalle, on ne rejette pas l'hypothèse nulle.
+- La valeur-$p$ obtenue avec la même procédure satisferait $p \ge\alpha$ si on n'a pas rejetté avec l'intervalle de confiance (et vice-versa, $p <\alpha$ si la valeur postulée est hors de l'intervalle de confiance).
 
-But confidence intervals are in terms of the data units, so easier to interpret.
+Les intervalles de confiance sont exprimés dans les mêmes unités que les données (donc plus interprétables?)
 
-## 5. Obtain a *p*-value or a confidence interval
+## 5. Obtenir une valeur-_p_ ou un intervalle de confiance
 
-The _p_-value is $p = \Pr_0(T > t_D)$, where $T \sim \mathsf{Student}(34)$. Using **R**, we find $p=0.0032$, which is smaller than $\alpha=5\%$.
+La valeur-_p_ est $p = \Pr_0(T > t_D)$, où $T \sim \mathsf{Student}(34)$. À l'aide de **R**, on obtient $p=0.0032$, inférieur à $\alpha=5$%.
 
 ```{r}
 #| eval: true
@@ -1093,7 +1050,7 @@ The _p_-value is $p = \Pr_0(T > t_D)$, where $T \sim \mathsf{Student}(34)$. Usin
 ttest$p.value
 ```
 
-The lower bound of the confidence interval is $\overline{D} + \mathsf{se}(\overline{D}) \times \mathfrak{t}_{0.05}$.
+La borne inférieure de l'intervalle unilatéral est $\overline{D} + \mathsf{se}(\overline{D}) \times \mathfrak{t}_{0.05}$.
 
 ```{r}
 #| eval: true
@@ -1101,55 +1058,55 @@ The lower bound of the confidence interval is $\overline{D} + \mathsf{se}(\overl
 ttest$conf.int
 ```
 
-The one-sided confidence interval is $[`r as.numeric(ttest$conf.int)[1]`, \infty]$. The postulated null value, $0$, is outside the interval.
+L'intervalle de confiance est $[`r as.numeric(ttest$conf.int)[1]`, \infty]$. La différence moyenne postulée, $0$, n'appartient pas à l'intervalle.
 
 
-## **R** --- calculations by hand
+## **R** --- calculs à la mitaine
 
 ```{r}
 #| label: distraction_manual
 #| eval: true
 #| echo: true
-d <- with(distraction, t - c) # time difference text vs conversation
-n <- length(d) # sample size
-(mean_d <- mean(d)) # mean difference
-(se_d <- sd(d)/sqrt(n)) # standard error of sample mean
-(stat <- mean_d/se_d) # t-test statistic
-dof <- n - 1L # degrees of freedom
-crit <- qt(p = 0.05, df = dof) # critical value, "q" for quantile
-(pval <- pt(q = stat, df = dof, lower.tail = FALSE)) # Pr(T > stat)
-(conf_low <- mean_d + se_d*crit) # lower bound of Wald confidence interval
+d <- with(distraction, t - c) # différence entre texter et conversation
+n <- length(d) # taille de l'échantillon
+(moy_d <- mean(d)) # différence moyenne
+(errtype_d <- sd(d)/sqrt(n)) # erreur-type de la différence moyenne
+(stat <- moy_d/errtype_d) # statistique du test-t
+ddl <- n - 1L # degrés de liberté
+crit <- qt(p = 0.05, df = ddl) # valeur critique, "q" pour quantiles
+(valp <- pt(q = stat, df = ddl, lower.tail = FALSE)) # Pr(T > stat)
+(ic_inf <- moy_d + errtype_d*crit) # borne inférieure de l'intervalle de confiance
 ```
 
 ::: aside
 
-**R** uses the convention `d/p/q/r` for density/distribution function/quantile function/random number generation. The name of the distribution (e.g., `norm`, `t`, `chisq`, `f`, `unif`) is appended to that letter, e.g.,
+**R** utilise la convention `d/p/q/r` pour les fonctions de densité/répartition/quantile et pour la simulation. Le nom de la loi (par ex., `norm`, `t`, `chisq`, `f`, `unif`) suit cette lettre, donc
 
-- `pnorm` is the distribution function of a normal variable,
-- `qt` is the quantile function of a Student-$t$ variable,
-- `runif` generates uniform variables.
+- `pnorm` est la fonction de répartition normale,
+- `qt` est la fonction quantile d'une loi Student-$t$,
+- `runif` génère des nombres aléatoires uniformes.
 :::
 
 ## 6. Conclude in the setting of the problem
 
-The estimated mean difference is $`r ttest$estimate`$ seconds (std. error of $`r ttest$stderr`$ seconds). 
-
-We reject $\mathscr{H}_0$, meaning that the reaction time is significantly higher (at level $5$%) when texting than talking on the cellphone while walking (p-value of $`r pval`$).
 
 
+La différence moyenne estimée est de $`r ttest$estimate`$ secondes (écart-type de $`r sd(d)`$ secondes).  
 
-## Learning objectives
+On rejette $\mathscr{H}_0$: le temps de réaction est significativement plus élevé lorsqu'on texte que lorsqu'on parle au cellulaire en marchant. 
+
+## Objectifs d'apprentissage
 
 
-::: {.callout-note title="Learning objectives"}
+::: {.callout-note title="Objectifs d'apprentissage"}
 
-* Understanding the role of uncertainty in decision making.
-* Understanding the importance of signal-to-noise ratio as a measure of evidence.
-* Knowing the basic ingredients of hypothesis testing and being capable of correctly formulating and identifying these components in a paper.
-* Correctly interpreting $p$-values and confidence intervals for a parameter.
+* Comprendre le rôle de l’incertitude dans la prise de décision.
+* Comprendre l’importance du rapport signal/bruit en tant que preuve.
+* Connaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique
+* Interpréter correctement les valeurs-$p$ et les intervalles de confiance pour un paramètre.
 
 :::
 
 
-## References
+## Références
 
