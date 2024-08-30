@@ -577,7 +577,7 @@ g2 / g1
 
 ## Recette pour les tests d'hypothèses
 
-Un test d'hypothèse est une règle de décision binaire (rejetter ou ne pas rejetter)
+Un test d'hypothèse est une règle de décision binaire (rejeter ou ne pas rejeter)
 
 Voici les étapes de la démarche.
 
@@ -661,7 +661,7 @@ On exprime l'hypothèse en fonction de la différence:
 \end{align*}
 
 
-On ne va juger la preuve contre l'hypothèse nulle qu'à une seule valeur numérique.
+On ne va juger la preuve contre l'hypothèse nulle que pour une seule valeur numérique.
 
 ## Comment déterminer le fardeau de la preuve?
 
@@ -669,10 +669,10 @@ On ne va juger la preuve contre l'hypothèse nulle qu'à une seule valeur numér
 - Une **statistique** est une fonction des données qui retourne un résumé numérique. 
 - Il existe des principes généraux pour la construction de statistiques: par exemple, les **statistiques de Wald** sont de la forme
 \begin{align*}
-W = \frac{\text{qté estimée} - \text{qté postulé}}{\text{erreur-type (qté estimée)}} = \frac{T - T_0}{\mathsf{se}(T)}
+W = \frac{\mathrm{qté estimée} - \mathrm{qté postulé}}{\mathrm{erreur-type (qté estimée)}} = \frac{T - T_0}{\mathsf{se}(T)}
 \end{align*}
     - Les statistiques n'ont pas d'unité.
-    - Elles sont standardisées `pourà des fins d'étalonnage.
+    - Elles sont standardisées à des fins d'étalonnage.
     - L'**erreur-type** mesure l'incertitude de la statistique
 
  
@@ -788,12 +788,12 @@ L'[*American Statistical Association (ASA)* a publié une liste de principes](ht
 
 - (2) Les valeurs-$p$ ne mesurent pas la probabilité que l'hypothèse étudiée est vrai
 - (3) Les décisions d'affaires et scientiques ne devraient pas seulement être basées sur le fait qu'une valeur-$p$ est inférieure à un seuil spécifié.
-- (5) Les valeurs-$p,$ ou la significativité statistiques, ne mesurent pas la taille de l'effet ou l'importance d'un résultat.
+- (5) Les valeurs-$p,$ ou la significativité statistique, ne mesurent pas la taille de l'effet ou l'importance d'un résultat.
 
 :::
 
 
-## À quoi s'attendre pour les valeurs-_$p$?
+## À quoi s'attendre pour les valeurs-$p$?
 
 Si on répèt l'expérience avec des échantillons aléatoires simples, on s'attend à ce que les valeurs-$p$ soit uniformes si $\mathscr{H}_0$ est vraie **et** que la loi nulle est calibrée.
 
@@ -849,7 +849,7 @@ g1a + g3a
 Si la loi $\mathscr{H}_0$ est vraie et que notre étalon de mesure est calibré, les valeurs-$p$ devraient suivre une loi uniforme
 
 - Les petites valeurs-$p$ sont toujours possibles, mais rares si $p$ est faible.
-- Puisque que l'on s'intéresse à l'alternative, on doit déterminer un **seuil de significativité** $\alpha$ pour savoir quand rejectter $\mathscr{H}_0$.
+- Puisque que l'on s'intéresse à l'alternative, on doit déterminer un **seuil de significativité** $\alpha$ pour savoir quand rejeter $\mathscr{H}_0$.
 
 
 Pour prendre une décision, on compare notre valeur-$p$ $P$ avec le niveau du test $\alpha$:
@@ -858,7 +858,7 @@ Pour prendre une décision, on compare notre valeur-$p$ $P$ avec le niveau du te
 - si $P \geq \alpha,$ on ne rejette pas $\mathscr{H}_0.$
 
 
-La valeur fixe $\alpha \in (0, 1)$ est la probabilité de rejetter $\mathscr{H}_0$ quand cette dernière est vraie. 
+La valeur fixe $\alpha \in (0, 1)$ est la probabilité de rejeter $\mathscr{H}_0$ quand cette dernière est vraie. 
 
 ## Erreurs statistiques
 
@@ -869,7 +869,7 @@ La valeur fixe $\alpha \in (0, 1)$ est la probabilité de rejetter $\mathscr{H}_
 | rejeter $\mathscr{H}_0$ | erreur de type I | $\checkmark$|
 
 
-On cherche à contrôler l'erreur de type I (soit rejetter $\mathscr{H}_0$ si $\mathscr{H}_0$ est vraie).
+On cherche à contrôler l'erreur de type I (soit rejeter $\mathscr{H}_0$ si $\mathscr{H}_0$ est vraie).
 
 - analogie du procès: une erreur judiciaire, condamner un innocent
 
@@ -877,11 +877,11 @@ Puisque que l'on fixe le niveau $\alpha$, on n'a pas de contrôle sur l'erreur d
 
 ## Puissance
 
-On aimerait être en mesure de détermine si $\mathscr{H}_0$ est fausse et, le cas échéant, rejetter cette hypothèse.
+On aimerait être en mesure de détermine si $\mathscr{H}_0$ est fausse et, le cas échéant, rejeter cette hypothèse.
 
 La **puissance** d'un test est la probabilité de rejeter $\mathscr{H}_0$ quand elle est fausse, soit
 \begin{align*}
-\Pr{\!}_a(\text{rejetter} \mathscr{H}_0),
+\Pr{\!}_a(\text{rejeter} \mathscr{H}_0),
 \end{align*}
 où $\Pr_a$ désigne la probabilité d'obtenir un résultat dans la zone de rejet pour une alternative **donnée**.
 
@@ -978,7 +978,7 @@ On distingue entre notre objectif (estimand, par exemple la moyenne $\mu$), la r
 #| fig-cap: "Les concepts d'[estimand](https://www.flickr.com/photos/darkdwarf/16563489881) (gauche), estimateur (milieu) et [estimaté](https://www.flickr.com/photos/bensutherland/14685548773) (droite), illustrés à l'aide de gâteau, une variation d'un idée originale de Simon Grund. Les photos de gâteau sont partagées sous licence [CC BY-NC 2.0](https://creativecommons.org/licenses/by-nc/2.0/)."
 #| fig-subcap:
 #|  - "Estimand"
-#|  - "Estimateurr"
+#|  - "Estimateur"
 #|  - "Estimé"
 #| layout-ncol: 3
 #| out-width: '90%'
@@ -1035,7 +1035,7 @@ ggplot(data = confint_dat,
 
 ## Équivalence des intervalles de confiances et des valeurs-$p$
 
-L'intervalle de confiance de niveau $1-\alpha$ nous donne la plage des valeurs pour lesquelles on ne peut rejetter $\mathscr{H}_0$ à niveau $\alpha$
+L'intervalle de confiance de niveau $1-\alpha$ nous donne la plage des valeurs pour lesquelles on ne peut rejeter $\mathscr{H}_0$ à niveau $\alpha$
 
 - Règle de décision binaire avec intervalle de confiance: si la valeur postulée est dans l'intervalle, on ne rejette pas l'hypothèse nulle.
 - La valeur-$p$ obtenue avec la même procédure satisferait $p \ge\alpha$ si on n'a pas rejetté avec l'intervalle de confiance (et vice-versa, $p <\alpha$ si la valeur postulée est hors de l'intervalle de confiance).
@@ -1098,7 +1098,7 @@ crit <- qt(p = 0.05, df = ddl) # valeur critique, "q" pour quantiles
 - `runif` génère des nombres aléatoires uniformes.
 :::
 
-## 6. Conclude in the setting of the problem
+## 6. Conclure dans le cadre du problème
 
 
 

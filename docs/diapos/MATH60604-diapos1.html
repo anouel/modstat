@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos1_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos1_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.56">
+  <meta name="generator" content="quarto-1.6.1">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -746,7 +746,7 @@ Figure&nbsp;2: Histogrammes de données tirées d’une loi uniforme (haut) et d
 </p></section>
 <section id="recette-pour-les-tests-dhypothèses" class="slide level2">
 <h2>Recette pour les tests d’hypothèses</h2>
-<p>Un test d’hypothèse est une règle de décision binaire (rejetter ou ne pas rejetter)</p>
+<p>Un test d’hypothèse est une règle de décision binaire (rejeter ou ne pas rejeter)</p>
 <p>Voici les étapes de la démarche.</p>
 <ol type="1">
 <li>définir les paramètres du modèle,</li>
@@ -824,18 +824,18 @@ Figure&nbsp;3: Capture d’écran du drame <em>Douze hommes en colère</em> (195
 <p>On exprime l’hypothèse en fonction de la différence: <span class="math display">\[\begin{align*}
 \mathscr{H}_a: \mu_{\texttt{t}} - \mu_{\texttt{c}}&gt;0.
 \end{align*}\]</span></p>
-<p>On ne va juger la preuve contre l’hypothèse nulle qu’à une seule valeur numérique.</p>
+<p>On ne va juger la preuve contre l’hypothèse nulle que pour une seule valeur numérique.</p>
 </section>
 <section id="comment-déterminer-le-fardeau-de-la-preuve" class="slide level2">
 <h2>Comment déterminer le fardeau de la preuve?</h2>
 <ul>
 <li>Une <strong>statistique</strong> est une fonction des données qui retourne un résumé numérique.</li>
 <li>Il existe des principes généraux pour la construction de statistiques: par exemple, les <strong>statistiques de Wald</strong> sont de la forme <span class="math display">\[\begin{align*}
-W = \frac{\text{qté estimée} - \text{qté postulé}}{\text{erreur-type (qté estimée)}} = \frac{T - T_0}{\mathsf{se}(T)}
+W = \frac{\mathrm{qté estimée} - \mathrm{qté postulé}}{\mathrm{erreur-type (qté estimée)}} = \frac{T - T_0}{\mathsf{se}(T)}
 \end{align*}\]</span>
 <ul>
 <li>Les statistiques n’ont pas d’unité.</li>
-<li>Elles sont standardisées `pourà des fins d’étalonnage.</li>
+<li>Elles sont standardisées à des fins d’étalonnage.</li>
 <li>L’<strong>erreur-type</strong> mesure l’incertitude de la statistique</li>
 </ul></li>
 </ul>
@@ -925,15 +925,15 @@ Figure&nbsp;4: Approximation normale (traitillé) et basée sur les permutations
 <li>Les décisions d’affaires et scientiques ne devraient pas seulement être basées sur le fait qu’une valeur-<span class="math inline">\(p\)</span> est inférieure à un seuil spécifié.</li>
 </ol></li>
 <li><ol start="5" type="1">
-<li>Les valeurs-<span class="math inline">\(p,\)</span> ou la significativité statistiques, ne mesurent pas la taille de l’effet ou l’importance d’un résultat.</li>
+<li>Les valeurs-<span class="math inline">\(p,\)</span> ou la significativité statistique, ne mesurent pas la taille de l’effet ou l’importance d’un résultat.</li>
 </ol></li>
 </ul>
 </div>
 </div>
 </div>
 </section>
-<section id="à-quoi-sattendre-pour-les-valeurs-_p" class="slide level2">
-<h2>À quoi s’attendre pour les valeurs-_<span class="math inline">\(p\)</span>?</h2>
+<section id="à-quoi-sattendre-pour-les-valeurs-p" class="slide level2">
+<h2>À quoi s’attendre pour les valeurs-<span class="math inline">\(p\)</span>?</h2>
 <p>Si on répèt l’expérience avec des échantillons aléatoires simples, on s’attend à ce que les valeurs-<span class="math inline">\(p\)</span> soit uniformes si <span class="math inline">\(\mathscr{H}_0\)</span> est vraie <strong>et</strong> que la loi nulle est calibrée.</p>
 <p>Sous l’alternative, les valeurs-<span class="math inline">\(p\)</span> auront tendance à être plus petites.</p>
 
@@ -945,14 +945,14 @@ Figure&nbsp;5: Densité empirique des valeurs-<em>p</em> sous l’hypothèse nul
 <p>Si la loi <span class="math inline">\(\mathscr{H}_0\)</span> est vraie et que notre étalon de mesure est calibré, les valeurs-<span class="math inline">\(p\)</span> devraient suivre une loi uniforme</p>
 <ul>
 <li>Les petites valeurs-<span class="math inline">\(p\)</span> sont toujours possibles, mais rares si <span class="math inline">\(p\)</span> est faible.</li>
-<li>Puisque que l’on s’intéresse à l’alternative, on doit déterminer un <strong>seuil de significativité</strong> <span class="math inline">\(\alpha\)</span> pour savoir quand rejectter <span class="math inline">\(\mathscr{H}_0\)</span>.</li>
+<li>Puisque que l’on s’intéresse à l’alternative, on doit déterminer un <strong>seuil de significativité</strong> <span class="math inline">\(\alpha\)</span> pour savoir quand rejeter <span class="math inline">\(\mathscr{H}_0\)</span>.</li>
 </ul>
 <p>Pour prendre une décision, on compare notre valeur-<span class="math inline">\(p\)</span> <span class="math inline">\(P\)</span> avec le niveau du test <span class="math inline">\(\alpha\)</span>:</p>
 <ul>
 <li>si <span class="math inline">\(P &lt; \alpha,\)</span> on rejette <span class="math inline">\(\mathscr{H}_0\)</span>;</li>
 <li>si <span class="math inline">\(P \geq \alpha,\)</span> on ne rejette pas <span class="math inline">\(\mathscr{H}_0.\)</span></li>
 </ul>
-<p>La valeur fixe <span class="math inline">\(\alpha \in (0, 1)\)</span> est la probabilité de rejetter <span class="math inline">\(\mathscr{H}_0\)</span> quand cette dernière est vraie.</p>
+<p>La valeur fixe <span class="math inline">\(\alpha \in (0, 1)\)</span> est la probabilité de rejeter <span class="math inline">\(\mathscr{H}_0\)</span> quand cette dernière est vraie.</p>
 </section>
 <section id="erreurs-statistiques" class="slide level2">
 <h2>Erreurs statistiques</h2>
@@ -982,7 +982,7 @@ Figure&nbsp;5: Densité empirique des valeurs-<em>p</em> sous l’hypothèse nul
 </tr>
 </tbody>
 </table>
-<p>On cherche à contrôler l’erreur de type I (soit rejetter <span class="math inline">\(\mathscr{H}_0\)</span> si <span class="math inline">\(\mathscr{H}_0\)</span> est vraie).</p>
+<p>On cherche à contrôler l’erreur de type I (soit rejeter <span class="math inline">\(\mathscr{H}_0\)</span> si <span class="math inline">\(\mathscr{H}_0\)</span> est vraie).</p>
 <ul>
 <li>analogie du procès: une erreur judiciaire, condamner un innocent</li>
 </ul>
@@ -990,9 +990,9 @@ Figure&nbsp;5: Densité empirique des valeurs-<em>p</em> sous l’hypothèse nul
 </section>
 <section id="puissance" class="slide level2">
 <h2>Puissance</h2>
-<p>On aimerait être en mesure de détermine si <span class="math inline">\(\mathscr{H}_0\)</span> est fausse et, le cas échéant, rejetter cette hypothèse.</p>
+<p>On aimerait être en mesure de détermine si <span class="math inline">\(\mathscr{H}_0\)</span> est fausse et, le cas échéant, rejeter cette hypothèse.</p>
 <p>La <strong>puissance</strong> d’un test est la probabilité de rejeter <span class="math inline">\(\mathscr{H}_0\)</span> quand elle est fausse, soit <span class="math display">\[\begin{align*}
-\Pr{\!}_a(\text{rejetter} \mathscr{H}_0),
+\Pr{\!}_a(\text{rejeter} \mathscr{H}_0),
 \end{align*}\]</span> où <span class="math inline">\(\Pr_a\)</span> désigne la probabilité d’obtenir un résultat dans la zone de rejet pour une alternative <strong>donnée</strong>.</p>
 </section>
 <section id="illustration-du-concept-de-puissance" class="slide level2">
@@ -1044,7 +1044,7 @@ Figure&nbsp;6: Comparaison de la loi nulle (ligne pleine) et d’une alternative
 <img data-src="fig/01/estimator.jpg" style="width:90.0%" data-ref-parent="fig-cake">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-cake-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) Estimateurr
+(b) Estimateur
 </figcaption>
 </figure>
 </div>
@@ -1086,7 +1086,7 @@ Figure&nbsp;8: Intervalles de confiance à 95% pour la moyenne d’une populatio
 </p></section>
 <section id="équivalence-des-intervalles-de-confiances-et-des-valeurs-p" class="slide level2">
 <h2>Équivalence des intervalles de confiances et des valeurs-<span class="math inline">\(p\)</span></h2>
-<p>L’intervalle de confiance de niveau <span class="math inline">\(1-\alpha\)</span> nous donne la plage des valeurs pour lesquelles on ne peut rejetter <span class="math inline">\(\mathscr{H}_0\)</span> à niveau <span class="math inline">\(\alpha\)</span></p>
+<p>L’intervalle de confiance de niveau <span class="math inline">\(1-\alpha\)</span> nous donne la plage des valeurs pour lesquelles on ne peut rejeter <span class="math inline">\(\mathscr{H}_0\)</span> à niveau <span class="math inline">\(\alpha\)</span></p>
 <ul>
 <li>Règle de décision binaire avec intervalle de confiance: si la valeur postulée est dans l’intervalle, on ne rejette pas l’hypothèse nulle.</li>
 <li>La valeur-<span class="math inline">\(p\)</span> obtenue avec la même procédure satisferait <span class="math inline">\(p \ge\alpha\)</span> si on n’a pas rejetté avec l’intervalle de confiance (et vice-versa, <span class="math inline">\(p &lt;\alpha\)</span> si la valeur postulée est hors de l’intervalle de confiance).</li>
@@ -1136,8 +1136,8 @@ Figure&nbsp;8: Intervalles de confiance à 95% pour la moyenne d’une populatio
 <li><code>runif</code> génère des nombres aléatoires uniformes.</li>
 </ul>
 </div></aside></section>
-<section id="conclude-in-the-setting-of-the-problem" class="slide level2">
-<h2>6. Conclude in the setting of the problem</h2>
+<section id="conclure-dans-le-cadre-du-problème" class="slide level2">
+<h2>6. Conclure dans le cadre du problème</h2>
 <p>La différence moyenne estimée est de <span class="math inline">\(0.313\)</span> secondes (écart-type de <span class="math inline">\(0.637\)</span> secondes).</p>
 <p>On rejette <span class="math inline">\(\mathscr{H}_0\)</span>: le temps de réaction est significativement plus élevé lorsqu’on texte que lorsqu’on parle au cellulaire en marchant.</p>
 </section>
