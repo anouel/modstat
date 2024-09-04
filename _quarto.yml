@@ -14,7 +14,8 @@ project:
     - "diapos/partials/"
     - "diapos/*_files/"
 
-
+bibliography: files/bib/math60604.bib
+csl: files/bib/apa.csl
 
 # See https://quarto.org/docs/projects/code-execution.html#freeze
 execute:
@@ -58,6 +59,8 @@ website:
           contents:
             - text: "Semaine 1"
               file: contenu/01-contenu.qmd
+            - text: "Semaine 2"
+              file: contenu/02-contenu.qmd
     - title: "Exercices"
       style: "docked"
       search: false

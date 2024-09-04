@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="MATH60604-diapos2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MATH60604-diapos2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="MATH60604-diapos2_files/libs/quarto-html/popper.min.js"></script>
+<script src="MATH60604-diapos2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="MATH60604-diapos2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MATH60604-diapos2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="MATH60604-diapos2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="MATH60604-diapos2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.5.56">
+
+  <meta name="author" content="Léo Belzile, HEC Montréal">
+  <meta name="dcterms.date" content="2024-01-01">
+  <title>Modélisation statistique</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="MATH60604-diapos2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="MATH60604-diapos2_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="MATH60604-diapos2_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="MATH60604-diapos2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="MATH60604-diapos2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="MATH60604-diapos2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="MATH60604-diapos2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+
+  .callout {
+    margin-top: 1em;
+    margin-bottom: 1em;  
+    border-radius: .25rem;
+  }
+
+  .callout.callout-style-simple { 
+    padding: 0em 0.5em;
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+    display: flex;
+  }
+
+  .callout.callout-style-default {
+    border-left: solid #acacac .3rem;
+    border-right: solid 1px silver;
+    border-top: solid 1px silver;
+    border-bottom: solid 1px silver;
+  }
+
+  .callout .callout-body-container {
+    flex-grow: 1;
+  }
+
+  .callout.callout-style-simple .callout-body {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-style-default .callout-body {
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .callout.callout-titled.callout-style-simple .callout-body {
+    margin-top: 0.2em;
+  }
+
+  .callout:not(.callout-titled) .callout-body {
+      display: flex;
+  }
+
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
+    padding-left: 1.6em;
+  }
+
+  .callout.callout-titled .callout-header {
+    padding-top: 0.2em;
+    margin-bottom: -0.2em;
+  }
+
+  .callout.callout-titled .callout-title  p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+    
+  .callout.callout-titled.callout-style-simple .callout-content  p {
+    margin-top: 0;
+  }
+
+  .callout.callout-titled.callout-style-default .callout-content  p {
+    margin-top: 0.7em;
+  }
+
+  .callout.callout-style-simple div.callout-title {
+    border-bottom: none;
+    font-size: .9rem;
+    font-weight: 600;
+    opacity: 75%;
+  }
+
+  .callout.callout-style-default  div.callout-title {
+    border-bottom: none;
+    font-weight: 600;
+    opacity: 85%;
+    font-size: 0.9rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-default div.callout-content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+
+  .callout.callout-style-simple .callout-icon::before {
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1rem 1rem;
+  }
+
+  .callout.callout-style-default .callout-icon::before {
+    height: 0.9rem;
+    width: 0.9rem;
+    display: inline-block;
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 0.9rem 0.9rem;
+  }
+
+  .callout-title {
+    display: flex
+  }
+    
+  .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  .callout.no-icon::before {
+    display: none !important;
+  }
+
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .callout.callout-titled .callout-icon::before {
+    margin-top: .5rem;
+    padding-right: .5rem;
+  }
+
+  .callout:not(.callout-titled) .callout-icon::before {
+    margin-top: 1rem;
+    padding-right: .5rem;
+  }
+
+  /* Callout Types */
+
+  div.callout-note {
+    border-left-color: #4582ec !important;
+  }
+
+  div.callout-note .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
+  }
+
+  div.callout-note.callout-style-default .callout-title {
+    background-color: #dae6fb
+  }
+
+  div.callout-important {
+    border-left-color: #d9534f !important;
+  }
+
+  div.callout-important .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-important.callout-style-default .callout-title {
+    background-color: #f7dddc
+  }
+
+  div.callout-warning {
+    border-left-color: #f0ad4e !important;
+  }
+
+  div.callout-warning .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-warning.callout-style-default .callout-title {
+    background-color: #fcefdc
+  }
+
+  div.callout-tip {
+    border-left-color: #02b875 !important;
+  }
+
+  div.callout-tip .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
+  }
+
+  div.callout-tip.callout-style-default .callout-title {
+    background-color: #ccf1e3
+  }
+
+  div.callout-caution {
+    border-left-color: #fd7e14 !important;
+  }
+
+  div.callout-caution .callout-icon::before {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
+  }
+
+  div.callout-caution.callout-style-default .callout-title {
+    background-color: #ffe5d0
+  }
+
+  </style>
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#002855" class="quarto-title-block center">
+  <h1 class="title">Modélisation statistique</h1>
+  <p class="subtitle">02. Inférence basée sur la vraisemblance</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Léo Belzile, HEC Montréal 
+</div>
+</div>
+</div>
+
+  <p class="date">2024</p>
+</section>
+<section id="motivation" class="slide level2">
+<h2>Motivation</h2>
+<p>La base de données <code>attente</code> contient le temps en secondes entre 17h59 et l’heure de départ de la prochain rame de métro à la station Université de Montréal sur la ligne bleue du métro de Montréal. Les données ont été collectées sur trois mois (62 jours en semaine). Les observations sont positives et vont de <span class="math inline">\(4\)</span> à <span class="math inline">\(57\)</span> secondes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">data</span>(attente, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-attente-hist-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p class="caption">
+Figure&nbsp;1: Histogramme du temps d’attente; les traits indiquent les temps observés.
+</p></section>
+<section id="modèle-statistique" class="slide level2">
+<h2>Modèle statistique</h2>
+<p>Le point de départ d’un modèle statistique est le <strong>processus de génération de données</strong>.</p>
+<p>Nous postulons que les données <span class="math inline">\(\boldsymbol{y}\)</span> proviennent d’une loi de probabilité avec un vecteur de paramètres (inconnu) de dimension <span class="math inline">\(p\)</span>, dénoté <span class="math inline">\(\boldsymbol{\theta} \in \boldsymbol{\Theta} \subseteq \mathbb{R}^p\)</span>.</p>
+<p>En supposant que les données sont <em>indépendantes</em>, la densité (ou la fonction de masse) conjointe se factorise en <span class="math display">\[\begin{align*}
+f(\boldsymbol{y} ; \boldsymbol{\theta}) = \prod_{i=1}^n f_i(y_i ; \boldsymbol{\theta}) = f_1(y_1 ; \boldsymbol{\theta}) \times \cdots \times f_n(y_n ; \boldsymbol{\theta}).
+\end{align*}\]</span> Si les données sont identiquement distribuées, alors toutes les densités marginales sont identiques, ce qui signifie que <span class="math inline">\(f_1(\cdot) = \cdots f_n(\cdot)\)</span>.</p>
+</section>
+<section id="modèle-exponentiel-pour-les-temps-dattente" class="slide level2">
+<h2>Modèle exponentiel pour les temps d’attente</h2>
+<p>Pour modéliser le temps d’attente, nous pouvons considérer par exemple une loi exponentielle <span class="math inline">\(Y_i \stackrel{\mathrm{iid}}{\sim}\mathsf{exp}(\lambda)\)</span> avec paramètre d’échelle <span class="math inline">\(\lambda&gt;0\)</span>, dont la densité est <span class="math display">\[f(x) =\lambda^{-1}\exp(-x/\lambda), \qquad x \ge 0.\]</span> L’espérance est égale à l’échelle, donc <span class="math inline">\(\mathsf{E}(Y)=\lambda\)</span>.</p>
+</section>
+<section id="densité-conjointe-du-modèle-exponentielle" class="slide level2">
+<h2>Densité conjointe du modèle exponentielle</h2>
+<p>Dans notre exemple, la densité conjointe du modèle exponentielle pour un vecteur d’observations <span class="math inline">\(y_1, \ldots, y_n\)</span> est <span class="math display">\[\begin{align*}
+f(\boldsymbol{y}) = \prod_{i=1}^n f(y_i) =\prod_{i=1}^n  \lambda^{-1} \exp(- y_i/\lambda) = \lambda^{-n} \exp\left(- \sum_{i=1}^n y_i/\lambda\right)
+\end{align*}\]</span> L’espace d’échantillonnage est <span class="math inline">\(\mathbb{R}_{+}^n = [0, \infty)^n,\)</span> tandis que l’espace des paramètres est <span class="math inline">\((0, \infty).\)</span></p>
+<p>Pour estimer le paramètre d’échelle <span class="math inline">\(\lambda\)</span> et obtenir des mesures d’incertitude appropriées, nous avons besoin d’un <strong>cadre de modélisation</strong>.</p>
+</section>
+<section id="vraisemblance" class="slide level2">
+<h2>Vraisemblance</h2>
+<div id="def-vraisemblance" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 1</strong></span> La <strong>vraisemblance</strong> <span class="math inline">\(L(\boldsymbol{\theta})\)</span> est une fonction des paramètres <span class="math inline">\(\boldsymbol{\theta}\)</span> qui donne la probabilité (ou densité) d’observer un échantillon selon une loi postulée, en traitant les observations comme fixes, <span class="math display">\[\begin{align*}
+L(\boldsymbol{\theta}; \boldsymbol{y}) = f(\boldsymbol{y}; \boldsymbol{\theta}),
+\end{align*}\]</span> où <span class="math inline">\(f(\boldsymbol{y}; \boldsymbol{\theta})\)</span> désigne la densité ou la fonction de masse conjointe du <span class="math inline">\(n\)</span>-vecteur des observations.</p>
+</div>
+<p>En pratique, on travaille plutôt avec la <strong>log-vraisemblance</strong> <span class="math inline">\(\ell(\boldsymbol{\theta} ; \boldsymbol{y}) = \ln L(\boldsymbol{\theta} ; \boldsymbol{y})\)</span>.</p>
+</section>
+<section id="estimateur-du-maximum-de-vraisemblance" class="slide level2">
+<h2>Estimateur du maximum de vraisemblance</h2>
+<div id="def-emv" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2</strong></span> L’<strong>estimateur du maximum de vraisemblance</strong> (EMV) <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est la valeur du vecteur qui maximise la vraisemblance,<sup>1</sup>. <span class="math display">\[\begin{align*}
+\widehat{\boldsymbol{\theta}} = \mathrm{arg max}_{\boldsymbol{\theta} \in \boldsymbol{\Theta}} L(\boldsymbol{\theta}; \boldsymbol{y}) = \mathrm{arg max}_{\boldsymbol{\theta} \in \boldsymbol{\Theta}} \ell(\boldsymbol{\theta}; \boldsymbol{y}).
+\end{align*}\]</span></p>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn1"><p>Le logarithme naturel <span class="math inline">\(\ln\)</span> est une transformation monotone, il est donc préférable de calculer les EMV sur l’échelle logarithmique pour éviter les imprécisions numériques</p></li></ol></aside></section>
+<section id="compréhension-du-maximum-de-vraisemblance" class="slide level2">
+<h2>Compréhension du maximum de vraisemblance</h2>
+<p>Dans le cadre discret, la fonction de masse donne la probabilité d’un résultat.</p>
+<p>Nous voulons trouver les valeurs des paramètres qui rendent les données les plus <strong>probables</strong> d’avoir été générées par notre modèle.</p>
+<blockquote>
+<p>Pensée scientifique: tout ce que nous observons, nous nous attendions à l’obtenir.</p>
+</blockquote>
+</section>
+<section id="dérivation-des-emv" class="slide level2">
+<h2>Dérivation des EMV</h2>
+<p>Nous pouvons faire appel au calcul différentiel pour trouver le maximum de la fonction <span class="math inline">\(\ell(\lambda)\)</span>.</p>
+<p>En prenant la dérivée première et en fixant le résultat à zéro, nous trouvons <span class="math display">\[\begin{align*}
+\frac{\mathrm{d} \ell(\lambda)}{\mathrm{d} \lambda}  = -\frac{n}{\lambda} + \frac{1}{\lambda^2} \sum_{i=1}^n y_i = 0.
+\end{align*}\]</span> Si on résout pour <span class="math inline">\(\lambda\)</span>, on trouve <span class="math inline">\(\widehat{\lambda} = \sum_{i=1}^n y_i / n.\)</span></p>
+<p>La dérivée seconde de la log vraisemblance est <span class="math inline">\(\mathrm{d}^2 \ell(\lambda)/\mathrm{d} \lambda^2 = n(\lambda^{-2} - 2\lambda^{-3}\overline{y}),\)</span> et en substituant <span class="math inline">\(\lambda = \overline{y}\)</span>, on obtient <span class="math inline">\(-n/\overline{y}^2\)</span>. Puisque cette valeur est négative, <span class="math inline">\(\widehat{\lambda}\)</span> maximise la fonction.</p>
+</section>
+<section id="log-vraisemblance-exponentielle-et-emv" class="slide level2">
+<h2>Log vraisemblance exponentielle et EMV</h2>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-loglik-exp-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
+Figure&nbsp;2: Fonction de log-vraisemblance exponentielle pour le temps d’attente, avec l’estimation du maximum de vraisemblance données par la ligne verticale pointillée (droite).
+</p></section>
+<section id="invariance-des-estimateurs-du-maximum-de-vraisemblance" class="slide level2">
+<h2>Invariance des estimateurs du maximum de vraisemblance</h2>
+<p>Si <span class="math inline">\(g(\boldsymbol{\theta}): \mathbb{R}^p \mapsto \mathbb{R}^k\)</span> pour <span class="math inline">\(k \leq p\)</span> est une fonction du vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}\)</span>, alors <span class="math inline">\(g(\widehat{\boldsymbol{\theta}})\)</span> est un estimateur du maximum de vraisemblance de <span class="math inline">\(g(\boldsymbol{\theta})\)</span>.</p>
+<p>Par exemple, nous pourrions calculer l’estimation du maximum de vraisemblance de la probabilité d’attendre plus d’une minute, <span class="math inline">\(\Pr(T&gt;60) = \exp(-60/\widehat{\lambda})= 0.126,\)</span> ou en utilisant <strong>R</strong> via la fonction de loi <code>pexp</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Note: la paramétrisation usuelle dans R pour la loi exponentielle</span></span>
+<span id="cb2-2"><a href=""></a><span class="co"># est en terme d'intensité (réciproque du paramètre d'échelle)</span></span>
+<span id="cb2-3"><a href=""></a><span class="fu">pexp</span>(<span class="at">q =</span> <span class="dv">60</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">mean</span>(attente), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-4"><a href=""></a><span class="do">## [1] 0.126</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On peut sélectionner la paramétrisation qui facilite le plus l’optimisation!</p>
+</section>
+<section id="fonction-de-score" class="slide level2">
+<h2>Fonction de score</h2>
+<p>Le gradient (ou vecteur de dérivées première) de la log vraisemblance <span class="math display">\[\begin{align*}
+U(\boldsymbol{\theta}) = \frac{\partial \ell(\boldsymbol{\theta}; \boldsymbol{y})}{\partial \boldsymbol{\theta}}
+\end{align*}\]</span> est dénommé fonction de <strong>score</strong>.</p>
+<p>Sous conditions de régularité (voir par ex. le chapitre 4 de <span class="citation" data-cites="Davison:2003">(<a href="" role="doc-biblioref" onclick="return false;"><strong>Davison:2003?</strong></a>)</span>), les EMV satisfont l’équation du score <span class="math display">\[\begin{align*}
+U(\widehat{\boldsymbol{\theta}})=0.
+\end{align*}\]</span></p>
+</section>
+<section id="information" class="slide level2">
+<h2>Information</h2>
+<p>Comment mesurer la précision de notre estimateur ? Les matrices d’observation encodent la courbure de la log vraisemblance et fournissent de l’information sur la variabilité de <span class="math inline">\(\widehat{\boldsymbol{\theta}}.\)</span></p>
+<p>La <strong>matrice d’information observée</strong> est le négatif de la hessienne de la log vraisemblance, <span class="math display">\[\begin{align*}
+j(\boldsymbol{\theta}; \boldsymbol{y})=-\frac{\partial^2 \ell(\boldsymbol{\theta}; \boldsymbol{y})}{\partial \boldsymbol{\theta} \partial \boldsymbol{\theta}^\top},
+\end{align*}\]</span> évaluée à l’estimation du maximum de vraisemblance <span class="math inline">\(\widehat{\boldsymbol{\theta}},\)</span> soit <span class="math inline">\(j(\widehat{\boldsymbol{\theta}}).\)</span> Sous des conditions de régularité, la <strong>matrice d’information de Fisher</strong> est <span class="math display">\[\begin{align*}
+i(\boldsymbol{\theta}) = \mathsf{E}\left\{U(\boldsymbol{\theta}; \boldsymbol{Y}) U(\boldsymbol{\theta}; \boldsymbol{Y})^\top\right\} = \mathsf{E}\left\{j(\boldsymbol{\theta}; \boldsymbol{Y})\right\}
+\end{align*}\]</span> À la fois la matrice d’information de Fisher et la matrice d’information observée sont symmétriques.</p>
+</section>
+<section id="matrices-dinformation-pour-données-exponentielles" class="slide level2">
+<h2>Matrices d’information pour données exponentielles</h2>
+<p>L’information de Fisher et l’observation observée pour un échantillon aléatoire simple de loi exponentielle <span class="math inline">\(Y_1, \ldots, Y_n,\)</span> paramétrée en terme d’échelle <span class="math inline">\(\lambda,\)</span> sont <span class="math display">\[\begin{align*}
+j(\lambda; \boldsymbol{y}) &amp;= -\frac{\partial^2 \ell(\lambda)}{\partial \lambda^2} = \frac{n}{\lambda^{2}} + \frac{2}{n\lambda^{3}}\sum_{i=1}^n y_i \\
+i(\lambda) &amp;= \frac{n}{\lambda^{2}} + \frac{2}{n\lambda^{3}}\sum_{i=1}^n \mathsf{E}(Y_i)  = \frac{n}{\lambda^{2}}
+\end{align*}\]</span> puisque <span class="math inline">\(\mathsf{E}(Y_i) = \lambda\)</span> et que l’espérance est un opérateur linéaire. Les deux versions de l’information coïncident lorsque évaluées à l’EMV, <span class="math inline">\(i(\widehat{\lambda}) = j(\widehat{\lambda}) = n/\overline{y}^2\)</span> pour <span class="math inline">\(\widehat{\lambda}=\overline{y}\)</span> la moyenne de l’échantillon. Ce n’est généralement pas le cas.</p>
+</section>
+<section id="maximisation-de-la-vraisemblance" class="slide level2">
+<h2>Maximisation de la vraisemblance</h2>
+<ul>
+<li>Pour obtenir l’estimateur du maximum de vraisemblance, nous trouverons généralement la valeur du vecteur <span class="math inline">\(\boldsymbol{\theta}\)</span> qui résout l’équation du score <span class="math inline">\(U(\widehat{\boldsymbol{\theta}})=\boldsymbol{0}_p.\)</span></li>
+<li>Cela revient à résoudre simultanément un système de <span class="math inline">\(p\)</span> équations en mettant à zéro la dérivée par rapport à chaque élément de <span class="math inline">\(\boldsymbol{\theta}\)</span>.</li>
+<li>Si <span class="math inline">\(j(\widehat{\boldsymbol{\theta}})\)</span> est une matrice définie positive (c’est-à-dire que toutes ses valeurs propres sont positives), alors le vecteur <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est l’estimateur du maximum de vraisemblance.</li>
+</ul>
+</section>
+<section id="optimisation-basée-sur-le-gradient-algorithme-de-newtonraphson" class="slide level2">
+<h2>Optimisation basée sur le gradient (algorithme de Newton–Raphson)</h2>
+<p>Si nous considérons une valeur initiale <span class="math inline">\(\boldsymbol{\theta}^{\dagger},\)</span> sous des <strong>conditions de régularité</strong> appropriées, une expansion en série de Taylor du score dans un voisinage <span class="math inline">\(\boldsymbol{\theta}^{\dagger}\)</span> des EMV <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> donne <span class="math display">\[\begin{align*}
+\boldsymbol{0}_p &amp; = U(\widehat{\boldsymbol{\theta}}) \stackrel{\cdot}{\simeq} \left.
+\frac{\partial \ell(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} \right|_{\boldsymbol{\theta} = \boldsymbol{\theta}^{\dagger}} + \left.
+\frac{\partial^2 \ell(\boldsymbol{\theta})}{\partial \boldsymbol{\theta} \partial \boldsymbol{\theta}^\top}\right|_{\boldsymbol{\theta} = \boldsymbol{\theta}^{\dagger}}(\widehat{\boldsymbol{\theta}} - \boldsymbol{\theta}^{\dagger})\\&amp;=U(\boldsymbol{\theta}^{\dagger}) - j(\boldsymbol{\theta}^{\dagger})(\widehat{\boldsymbol{\theta}} - \boldsymbol{\theta}^{\dagger})
+\end{align*}\]</span> et en la résolvant pour <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> (à condition que la matrice <span class="math inline">\(p \times p\)</span> <span class="math inline">\(j(\widehat{\boldsymbol{\theta}})\)</span> soit inversible), nous obtenons <span class="math display">\[\begin{align*}
+\widehat{\boldsymbol{\theta}} \stackrel{\cdot}{\simeq} \boldsymbol{\theta}^{\dagger} +
+j^{-1}(\boldsymbol{\theta}^{\dagger})U(\boldsymbol{\theta}^{\dagger}),
+\end{align*}\]</span> ce qui suggère une procédure itérative à partir d’une valeur de départ <span class="math inline">\(\boldsymbol{\theta}^{\dagger}\)</span> dans le voisinage du mode, jusqu’à ce que le gradient soit approximativement zéro.</p>
+</section>
+<section id="loi-de-weibull" class="slide level2">
+<h2>Loi de Weibull</h2>
+<p>La fonction de répartition d’une variable aléatoire de loi <strong>Weibull</strong> avec paramètres d’échelle <span class="math inline">\(\lambda&gt;0\)</span> et de forme <span class="math inline">\(\alpha&gt;0\)</span> est <span class="math display">\[\begin{align*}
+F(x; \lambda, \alpha) &amp;= 1 - \exp\left\{-(x/\lambda)^\alpha\right\}, \qquad x \geq 0, \lambda&gt;0, \alpha&gt;0,
+\end{align*}\]</span> et la fonction de densité correspondante est <span class="math display">\[\begin{align*}
+f(x; \lambda, \alpha) &amp;= \frac{\alpha}{\lambda^\alpha} x^{\alpha-1}\exp\left\{-(x/\lambda)^\alpha\right\}, \qquad x \geq 0, \lambda&gt;0, \alpha&gt;0.
+\end{align*}\]</span> La loi de Weibull inclut la loi exponentielle comme cas particulier lorsque <span class="math inline">\(\alpha=1.\)</span> L’espérance de <span class="math inline">\(Y \sim \mathsf{Weibull}(\lambda, \alpha)\)</span> est <span class="math inline">\(\mathsf{E}(Y) = \lambda \Gamma(1+1/\alpha).\)</span></p>
+</section>
+<section id="maximum-de-vraisemblance-pour-un-échantillon-weibull" class="slide level2 smaller">
+<h2>Maximum de vraisemblance pour un échantillon Weibull</h2>
+<p>La log vraisemblance du modèle <span class="math inline">\(\mathsf{Weibull}(\lambda, \alpha)\)</span> est <span class="math display">\[\begin{align*}
+\ell(\lambda, \alpha) = n \ln(\alpha) - n\alpha\ln(\lambda) + (\alpha-1) \sum_{i=1}^n \ln y_i  - \lambda^{-\alpha}\sum_{i=1}^n y_i^\alpha.
+\end{align*}\]</span> Le gradient de cette fonction est obtenue par différentiation terme par terme, <span class="math display">\[\begin{align*}
+\frac{\partial \ell(\lambda, \alpha)}{\partial \lambda} &amp;= -\frac{n\alpha}{\lambda} +\alpha\lambda^{-\alpha-1}\sum_{i=1}^n y_i^\alpha \\
+\frac{\partial \ell(\lambda, \alpha)}{\partial \alpha} &amp;= \frac{n}{\alpha} - n \ln(\lambda) + \sum_{i=1}^n \ln y_i  - \sum_{i=1}^n \left(\frac{y_i}{\lambda}\right)^{\alpha} \times\ln\left(\frac{y_i}{\lambda}\right).
+\end{align*}\]</span></p>
+<div title="Démo **R**">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Démo <strong>R</strong></strong></p>
+</div>
+<div class="callout-content">
+<p>Optimisation numérique pour obtenir les estimations du maximum de vraisemblance de la loi Weibull.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="diagramme-quantile-quantile" class="slide level2">
+<h2>Diagramme quantile-quantile</h2>
+<p>Un diagramme quantile-quantile représente les données</p>
+<ul>
+<li>sur l’axe des abscisses, les quantiles théoriques <span class="math inline">\(\widehat{F}^{-1}\{i/(n+1)\}\)</span>, où <span class="math inline">\(F^{-1}\)</span> est l’estimation de la fonction quantile du modèle postulé.</li>
+<li>sur l’axe des ordonnées, les quantiles empiriques ordonnés en ordre croissant <span class="math inline">\(y_{(1)} \le \cdots \le y_{(n)}\)</span>.</li>
+</ul>
+<p>Si le modèle est adéquat, les valeurs ordonnées devraient suivre une droite de pente unitaire qui passe par l’origine.</p>
+</section>
+<section id="routines-doptimisation" class="slide level2">
+<h2>Routines d’optimisation</h2>
+<p>Le paquet <code>MASS</code> inclut des utilitaires pour estimer les paramètres de loi usuelles</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Estimer les paramètres</span></span>
+<span id="cb3-2"><a href=""></a>fit_weibull <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">fitdistr</span>(<span class="at">x =</span> attente, <span class="at">densfun =</span> <span class="st">"weibull"</span>)</span>
+<span id="cb3-3"><a href=""></a><span class="co"># Extraire les EMVs</span></span>
+<span id="cb3-4"><a href=""></a>fit_weibull<span class="sc">$</span>estimate</span>
+<span id="cb3-5"><a href=""></a><span class="do">## shape scale </span></span>
+<span id="cb3-6"><a href=""></a><span class="do">##   2.6  32.6</span></span>
+<span id="cb3-7"><a href=""></a></span>
+<span id="cb3-8"><a href=""></a><span class="co"># Calculer les positions pour le diagramme QQ</span></span>
+<span id="cb3-9"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(attente) <span class="co"># taille d'échantillon</span></span>
+<span id="cb3-10"><a href=""></a>xpos <span class="ot">&lt;-</span> <span class="fu">qweibull</span>( <span class="co"># fonction quantile</span></span>
+<span id="cb3-11"><a href=""></a>  <span class="at">p =</span> <span class="fu">ppoints</span>(n), <span class="co"># variables pseudo-uniformes</span></span>
+<span id="cb3-12"><a href=""></a>  <span class="at">shape =</span> fit_weibull<span class="sc">$</span>estimate[<span class="st">'shape'</span>],</span>
+<span id="cb3-13"><a href=""></a>  <span class="at">scale =</span> fit_weibull<span class="sc">$</span>estimate[<span class="st">'scale'</span>])</span>
+<span id="cb3-14"><a href=""></a>ypos <span class="ot">&lt;-</span> <span class="fu">sort</span>(attente) <span class="co"># données triées en ordre croissant</span></span>
+<span id="cb3-15"><a href=""></a><span class="co">#plot(x = xpos, y = ypos, panel.first = {abline(a = 0, b = 1)})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="vérification-de-ladéquation-des-modèles" class="slide level2">
+<h2>Vérification de l’adéquation des modèles</h2>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-qqplots-weibull-exp-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;3: Diagrammes quantile-quantile des modèles exponentiel (gauche) et Weibull (droite) avec intervalles de confiance ponctuels à 95% obtenus par autoamorçage.
+</p></section>
+<section id="loi-déchantillonage" class="slide level2">
+<h2>Loi d’échantillonage</h2>
+<p>La <strong>loi d’échantillonnage</strong> d’un estimateur <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est la loi de probabilité induite par les données aléatoire sous-jacentes (<em>rappelons que les intrants de l’estimateur sont aléatoires, donc la sortie l’est également</em>).</p>
+<p>Dénotons la vraie valeur du vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}_0.\)</span> Sous des conditions de régularité appropriées, le théorème central limite donne <span class="math display">\[\begin{align*}
+i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\mathsf{normale}_p(\boldsymbol{0}_p, \mathsf{I}_p).
+\end{align*}\]</span></p>
+<p>Des approximations similaires pour la loi d’échantillonnage de <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> montrent que <span class="math display">\[\begin{align*}
+\widehat{\boldsymbol{\theta}} \stackrel{\cdot}{\sim} \mathsf{normale}_p\{\boldsymbol{\theta}_0, i^{-1}(\boldsymbol{\theta})\}
+\end{align*}\]</span> où la matrice de covariance est l’inverse de l’information de Fisher.<sup>1</sup></p>
+<aside><ol class="aside-footnotes"><li id="fn2"><p> En pratique, la véritable valeur du paramètre <span class="math inline">\(\boldsymbol{\theta}_0\)</span> étant inconnue, nous évaluons l’information aux EMV <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span>. Cela se justifie par le fait que les matrices d’information de Fisher et observées, <span class="math inline">\(i(\widehat{\boldsymbol{\theta}})\)</span> et <span class="math inline">\(j(\widehat{\boldsymbol{\theta}})\)</span>, convergent vers <span class="math inline">\(i(\boldsymbol{\theta}_0)\)</span> quand <span class="math inline">\(n \to \infty\)</span>.</p></li></ol></aside></section>
+<section id="matrice-de-covariance-et-erreurs-type-pour-la-loi-de-weibull" class="slide level2">
+<h2>Matrice de covariance et erreurs-type pour la loi de Weibull</h2>
+<p>Nous pouvons utiliser ces résultats pour l’inférence statistique! Les erreurs-type sont simplement la racine carrée des entrées de la diagonale de la matrice hessienne inverse, <span class="math inline">\(\mathrm{se}(\widehat{\boldsymbol{\theta}})=[\mathrm{diag}\{j^{-1}(\widehat{\boldsymbol{\theta}})\}]^{1/2}\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># 'opt_weibull' contient les résultats de l'optimisation</span></span>
+<span id="cb4-2"><a href=""></a><span class="co"># où on a minimisé le négatif de la log vraisemblance</span></span>
+<span id="cb4-3"><a href=""></a><span class="co"># La matrice hessienne retournée est évaluée aux EMV</span></span>
+<span id="cb4-4"><a href=""></a><span class="co"># c'est donc l'information observée</span></span>
+<span id="cb4-5"><a href=""></a>(mle_weibull <span class="ot">&lt;-</span> opt_weibull<span class="sc">$</span>par)</span>
+<span id="cb4-6"><a href=""></a><span class="do">## [1] 32.6  2.6</span></span>
+<span id="cb4-7"><a href=""></a>(obsinfo_weibull <span class="ot">&lt;-</span> opt_weibull<span class="sc">$</span>hessian)</span>
+<span id="cb4-8"><a href=""></a><span class="do">##        [,1]   [,2]</span></span>
+<span id="cb4-9"><a href=""></a><span class="do">## [1,]  0.396 -0.818</span></span>
+<span id="cb4-10"><a href=""></a><span class="do">## [2,] -0.818 16.998</span></span>
+<span id="cb4-11"><a href=""></a><span class="co"># La matrice de covariance est l'inverse de l'information</span></span>
+<span id="cb4-12"><a href=""></a>(vmat_weibull <span class="ot">&lt;-</span> <span class="fu">solve</span>(obsinfo_weibull))</span>
+<span id="cb4-13"><a href=""></a><span class="do">##       [,1]   [,2]</span></span>
+<span id="cb4-14"><a href=""></a><span class="do">## [1,] 2.804 0.1349</span></span>
+<span id="cb4-15"><a href=""></a><span class="do">## [2,] 0.135 0.0653</span></span>
+<span id="cb4-16"><a href=""></a><span class="co"># Erreurs-type</span></span>
+<span id="cb4-17"><a href=""></a>(se_weibull <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(vmat_weibull)))</span>
+<span id="cb4-18"><a href=""></a><span class="do">## [1] 1.675 0.256</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="intervalles-de-confiance-de-wald" class="slide level2">
+<h2>Intervalles de confiance de Wald</h2>
+<p>À partir de ces résultats, il est possible d’obtenir des intervalles de confiance de niveau <span class="math inline">\((1-\alpha)\)</span> de Wald pour les paramètres de <span class="math inline">\(\boldsymbol{\theta}\)</span>, où pour <span class="math inline">\(\theta_j\)</span> <span class="math inline">\((j=1, \ldots, p)\)</span>, <span class="math display">\[\begin{align*}
+\widehat{\theta}_j \pm \mathfrak{z}_{1-\alpha/2}\mathrm{se}(\widehat{\theta}_j),
+\end{align*}\]</span> avec <span class="math inline">\(\mathfrak{z}_{1-\alpha/2}\)</span> le quantile <span class="math inline">\(1-\alpha/2\)</span> d’une loi normale standard.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Intervalles de confiance de Wald</span></span>
+<span id="cb5-2"><a href=""></a>mle_weibull[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">1</span>] <span class="co"># lambda</span></span>
+<span id="cb5-3"><a href=""></a><span class="do">## [1] 29.3 35.8</span></span>
+<span id="cb5-4"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>] <span class="co"># alpha</span></span>
+<span id="cb5-5"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ces intervalles de confiance sont symmétriques.</p>
+</section>
+<section id="méthodes-delta" class="slide level2">
+<h2>Méthodes delta</h2>
+<p>Le résultat sur la normalité asymptotique de l’estimateur peut être utilisé pour dériver les erreurs standard pour d’autres quantités d’intérêt.</p>
+<p>Si <span class="math inline">\(\phi = g(\boldsymbol{\theta})\)</span>, où <span class="math inline">\(g: \mathbb{R}^p \to \mathbb{R}^k\)</span> pourr <span class="math inline">\(k \leq p\)</span> est une fonction différentiable de <span class="math inline">\(\boldsymbol{\theta}\)</span> non-nulle à <span class="math inline">\(\boldsymbol{\theta}_0\)</span> alors <span class="math display">\[\widehat{\phi} \stackrel{\cdot}{\sim}\mathsf{normale}(\phi_0, \nabla \phi^\top i(\boldsymbol{\theta}_0)^{-1} \nabla \phi),\]</span> où <span class="math display">\[\nabla \phi=[\partial \phi/\partial \theta_1, \ldots, \partial \phi/\partial \theta_p]^\top.\]</span></p>
+<p>La matrice de variance et le Jacobien sont évalués à l’estimation du maximum de vraisemblance <span class="math inline">\(\widehat{\boldsymbol{\theta}}.\)</span></p>
+</section>
+<section id="probabilité-dattendre-plus-dune-minute-selon-le-modèle-exponentiel" class="slide level2">
+<h2>Probabilité d’attendre plus d’une minute selon le modèle exponentiel</h2>
+<p>Considérons la probabilité d’attendre plus d’une minute, <span class="math inline">\(\phi=g(\lambda) = \exp(-60/\lambda)\)</span>. L’estimation du maximum de vraisemblance est, par invariance, <span class="math inline">\(0.126\)</span> et le gradient de <span class="math inline">\(g\)</span> par rapport au paramètre d’échelle est <span class="math inline">\(\nabla \phi = \partial \phi / \partial \lambda = 60\exp(-60/\lambda)/\lambda^2.\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>lambda_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(attente)</span>
+<span id="cb6-2"><a href=""></a>phi_hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="sc">-</span><span class="dv">60</span><span class="sc">/</span>lambda_hat)</span>
+<span id="cb6-3"><a href=""></a><span class="co"># Dérivée de phi par rapport à  lambda</span></span>
+<span id="cb6-4"><a href=""></a>dphi <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda){<span class="dv">60</span><span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span><span class="dv">60</span><span class="sc">/</span>lambda)<span class="sc">/</span>(lambda<span class="sc">^</span><span class="dv">2</span>)}</span>
+<span id="cb6-5"><a href=""></a><span class="co"># Inverse de l'information observée</span></span>
+<span id="cb6-6"><a href=""></a>V_lambda <span class="ot">&lt;-</span> lambda_hat<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span><span class="fu">length</span>(attente)</span>
+<span id="cb6-7"><a href=""></a><span class="co"># Variance de phi</span></span>
+<span id="cb6-8"><a href=""></a>V_phi <span class="ot">&lt;-</span> <span class="fu">dphi</span>(lambda_hat)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> V_lambda</span>
+<span id="cb6-9"><a href=""></a><span class="co"># Erreurs-type de phi</span></span>
+<span id="cb6-10"><a href=""></a>(se_phi <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(V_phi))</span>
+<span id="cb6-11"><a href=""></a><span class="do">## [1] 0.0331</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="comparaison-de-modèles-emboîtés" class="slide level2">
+<h2>Comparaison de modèles emboîtés</h2>
+<ul>
+<li><p>Nous considérons une hypothèse nulle <span class="math inline">\(\mathscr{H}_0\)</span> qui impose des restrictions sur les valeurs possibles de <span class="math inline">\(\boldsymbol{\theta}\)</span>, par rapport à une alternative sans contrainte <span class="math inline">\(\mathscr{H}_a.\)</span></p></li>
+<li><p>Il existe deux modèles <strong>emboîtés</strong> : un modèle <em>complet</em> (hypothèse alternative) et un modèle <em>réduit</em> (hypothèse nulle) pour lequel l’espace des paramètres qui est un sous-ensemble de celui du modèle complet auquel nous imposons <span class="math inline">\(q\)</span> restrictions sur les paramètres.</p></li>
+<li><p>Par exemple, la loi exponentielle est un cas particulier de la loi de Weibull si <span class="math inline">\(\alpha=1\)</span>.</p></li>
+</ul>
+</section>
+<section id="tests-basés-sur-la-vraisemblance" class="slide level2">
+<h2>Tests basés sur la vraisemblance</h2>
+<p>L’hypothèse nulle <span class="math inline">\(\mathscr{H}_0\)</span> testée est “le modèle réduit est une <strong>simplification adéquate</strong> du modèle complet”. La vraisemblance fournit trois classes principales de statistiques pour tester cette hypothèse, soit</p>
+<ul>
+<li>les statistiques des tests du rapport de vraisemblance, notées <span class="math inline">\(R,\)</span> qui mesurent la différence de log vraisemblance (distance verticale) entre <span class="math inline">\(\ell(\widehat{\boldsymbol{\theta}})\)</span> et <span class="math inline">\(\ell(\widehat{\boldsymbol{\theta}}_0).\)</span></li>
+<li>les statistiques des tests de Wald, notées <span class="math inline">\(W,\)</span> qui considèrent la distance horizontale normalisée entre <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> et <span class="math inline">\(\widehat{\boldsymbol{\theta}}_0.\)</span></li>
+<li>les statistiques des tests de score de Rao, notées <span class="math inline">\(S,\)</span> qui examinent le gradient repondéré de <span class="math inline">\(\ell,\)</span> évaluée <em>uniquement</em> à <span class="math inline">\(\widehat{\boldsymbol{\theta}}_0\)</span>.</li>
+</ul>
+<p>où <span class="math inline">\(\widehat{\boldsymbol{\theta}}_0\)</span> sont les EMV contraints pour le modèle sous l’hypothèse nulle, et <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> les EMV du modèle complet.</p>
+</section>
+<section id="visualiser-les-tests-basés-sur-la-vraisemblance" class="slide level2">
+<h2>Visualiser les tests basés sur la vraisemblance</h2>
+
+<img data-src="fig/02/likelihood_tests_fr.png" width="300" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;4: Fonction de log vraisemblance et illustrations des éléments des statistique du score, de Wald et du rapport de vraisemblance.
+</p></section>
+<section id="statistiques-de-tests-dérivées-de-la-vraisemblance" class="slide level2">
+<h2>Statistiques de tests dérivées de la vraisemblance</h2>
+<p>Les trois principales classes de statistiques permettant de tester une hypothèse nulle simple <span class="math inline">\(\mathscr{H}_0 : \boldsymbol{\theta}=\boldsymbol{\theta}_0\)</span> par rapport à l’hypothèse alternative <span class="math inline">\(\mathscr{H}_a : \boldsymbol{\theta} \neq \boldsymbol{\theta}_0\)</span> sont <span class="math display">\[\begin{align*}
+W(\boldsymbol{\theta}_0) &amp;= (\widehat{\boldsymbol{\theta}}-\boldsymbol{\theta}_0)^\top j(\widehat{\boldsymbol{\theta}})(\widehat{\boldsymbol{\theta}}-\boldsymbol{\theta}_0), &amp;&amp;(\text{Wald}) \\
+R(\boldsymbol{\theta}_0) &amp;= 2 \left\{ \ell(\widehat{\boldsymbol{\theta}})-\ell(\boldsymbol{\theta}_0)\right\}, &amp;&amp;(\text{rapport de vraisemblance})\\
+S(\boldsymbol{\theta}_0) &amp;= U^\top(\boldsymbol{\theta}_0)i^{-1}(\boldsymbol{\theta}_0)U(\boldsymbol{\theta}_0), &amp;&amp; (\text{score})
+\end{align*}\]</span> où <span class="math inline">\(\boldsymbol{\theta}_0\)</span> est la valeur nulle postulée du paramètre avec <span class="math inline">\(q\)</span> restrictions. Si <span class="math inline">\(q \neq p\)</span>, alors on remplace <span class="math inline">\(\boldsymbol{\theta}_0\)</span> par l’estimation contrainte <span class="math inline">\(\widehat{\boldsymbol{\theta}}_0\)</span>.</p>
+<p>Sous <span class="math inline">\(\mathscr{H}_0\)</span>, les trois statistiques de test suivent une loi asymptotique <span class="math inline">\(\chi^2_q\)</span>, où les degrés de liberté <span class="math inline">\(q\)</span> indiquent le nombre de restrictions.</p>
+</section>
+<section id="version-unidimensionnelle-directionnelles-des-statistiques-de-vraisemblance" class="slide level2">
+<h2>Version unidimensionnelle directionnelles des statistiques de vraisemblance</h2>
+<p>Si <span class="math inline">\(\theta\)</span> est un scalaire (cas <span class="math inline">\(q=1\)</span>), des versions directionnelles de ces statistiques existent, <span class="math display">\[\begin{align*}
+w(\theta_0)&amp;=(\widehat{\theta}-\theta_0)/\mathsf{se}(\widehat{\theta}) &amp;&amp;(\text{Wald}) \\
+r({\theta_0}) &amp;= \mathrm{sign}(\widehat{\theta}-\theta)\left[2
+\left\{\ell(\widehat{\theta})-\ell(\theta)\right\}\right]^{1/2} &amp;&amp;(\text{racine directionnelle de vraisemblance}) \\
+s(\theta_0)&amp;=i^{-1/2}(\theta_0)U(\theta_0) &amp;&amp;(\text{score})
+\end{align*}\]</span></p>
+<p>Sous cette forme, si l’hypothèse nulle <span class="math inline">\(\mathscr{H}_0: \theta = \theta_0\)</span> est vraie, alors <span class="math inline">\(w(\theta_0)\stackrel{\cdot}{\sim} \mathsf{normale}(0,1)\)</span>, etc.</p>
+</section>
+<section id="comparaison-entre-les-tests" class="slide level2">
+<h2>Comparaison entre les tests</h2>
+<p>Asymptotiquement, toutes les statistiques de test sont équivalentes (dans le sens où elles conduisent aux mêmes conclusions sur <span class="math inline">\(\mathscr{H}_0\)</span>), mais elles ne sont pas identiques.</p>
+<ul>
+<li>La statistique du test du rapport de vraisemblance est normalement la plus puissante des trois tests (préférable).</li>
+<li>Le test du rapport de vraisemblance est invariant par rapport aux reparamétrages.</li>
+<li>La statistique de score <span class="math inline">\(S\)</span> ne nécessite que le calcul du score et de l’information de Fisher sous <span class="math inline">\(\mathscr{H}_0\)</span> (car par définition <span class="math inline">\(U(\widehat{\theta})=0\)</span>), elle peut donc être utile dans les problèmes où les calculs de l’estimateur du maximum de vraisemblance sous l’alternative sont coûteux ou impossibles.</li>
+<li>Le test de Wald est le plus facile à dériver, mais son taux de couverture empirique peut laisser à désirer si la loi d’échantillonnage de <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est fortement asymétrique.</li>
+</ul>
+</section>
+<section id="surface-de-vraisemblance-et-régions-de-confiance" class="slide level2">
+<h2>Surface de vraisemblance et régions de confiance</h2>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-weibull-surface-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
+Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des régions de confiance de 10 %, 20 %, , 90 % du rapport de vraisemblance (courbes de contour blanches). Les valeurs de log vraisemblance les plus élevées sont indiquées par des couleurs plus foncées.
+</p></section>
+<section id="test-de-wald-pour-comparer-les-modèles-weibull-et-exponentiel" class="slide level2">
+<h2>Test de Wald pour comparer les modèles Weibull et exponentiel</h2>
+<p>Nous pouvons tester si la loi exponentielle est une simplification adéquate de la loi de Weibull en imposant la restriction <span class="math inline">\(\mathscr{H}_0 : \alpha=1\)</span>. Nous comparons les statistiques de Wald <span class="math inline">\(W\)</span> à un <span class="math inline">\(\chi^2_1\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Calculer la statistique de Wald</span></span>
+<span id="cb7-2"><a href=""></a>wald_exp <span class="ot">&lt;-</span> (mle_weibull[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>se_weibull[<span class="dv">2</span>]</span>
+<span id="cb7-3"><a href=""></a><span class="co"># Calculer la valeur-p</span></span>
+<span id="cb7-4"><a href=""></a><span class="fu">pchisq</span>(wald_exp<span class="sc">^</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-5"><a href=""></a><span class="do">## [1] 3.61e-10</span></span>
+<span id="cb7-6"><a href=""></a><span class="co"># valeur-p inférieure à 5%, rejet de l'hypothèse nulle</span></span>
+<span id="cb7-7"><a href=""></a><span class="co"># Intervalles de confiance de niveau 95%</span></span>
+<span id="cb7-8"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>]</span>
+<span id="cb7-9"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span>
+<span id="cb7-10"><a href=""></a><span class="co"># La valeur 1 n'appartient pas à l'intervalle, rejeter H0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nous rejetons l’hypothèse nulle, ce qui signifie que le sous-modèle exponentiel n’est pas une simplification adéquate du modèle de Weibull <span class="math inline">\((\alpha \neq 1\)</span>).</p>
+</section>
+<section id="tests-de-vraisemblance-pour-les-paramètres-scalaires" class="slide level2">
+<h2>Tests de vraisemblance pour les paramètres scalaires</h2>
+<ul>
+<li>Parfois, nous pouvons vouloir effectuer des tests d’hypothèse ou dériver des intervalles de confiance pour des composantes spécifiques du modèle (un seul paramètre ou une transformation scalaire <span class="math inline">\(\phi = g(\boldsymbol{\theta})\)</span>.</li>
+<li>Dans ce cas, l’hypothèse nulle ne restreint qu’une partie de l’espace et les autres paramètres, dits de nuisance, ne sont pas spécifiés — la question est alors de savoir quelles valeurs utiliser pour la comparaison avec le modèle complet.</li>
+<li>Il s’avère que les valeurs qui maximisent la log-vraisemblance contrainte sont celles que l’on doit utiliser pour le test, et la fonction particulière dans laquelle ces paramètres de nuisance sont intégrés est appelée vraisemblance profilée.</li>
+</ul>
+</section>
+<section id="vraisemblance-profilée" class="slide level2">
+<h2>Vraisemblance profilée</h2>
+<p>Considérons un modèle paramétrique avec une fonction de log vraisemblance <span class="math inline">\(\ell(\boldsymbol{\theta})\)</span>. On partitionne le <span class="math inline">\(p\)</span>-vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}=(\boldsymbol{\psi}, \boldsymbol{\varphi})\)</span>, où les paramètres d’intérêt sont <span class="math inline">\(\boldsymbol{\psi}\)</span> de dimension <span class="math inline">\(q\)</span> et un vecteur de nuisance à <span class="math inline">\(\boldsymbol{\varphi}\)</span> de dimension <span class="math inline">\(p-q.\)</span></p>
+<p>Nous pouvons considérer la vraisemblance profilée <span class="math inline">\(\ell_{mathsf{p}},\)</span> une fonction de <span class="math inline">\(\boldsymbol{\psi}\)</span> uniquement, qui est obtenue en maximisant la vraisemblance ponctuellement à chaque valeur fixe <span class="math inline">\(\boldsymbol{\psi}_0\)</span> par rapport au vecteur de nuisance <span class="math inline">\(\boldsymbol{\varphi}_{\psi_0},\)</span> <span class="math display">\[\begin{align*}
+\ell_{\mathsf{p}}(\boldsymbol{\psi})=\max_{\boldsymbol{\varphi}}\ell(\boldsymbol{\psi}, \boldsymbol{\varphi})=\ell(\boldsymbol{\psi}, \widehat{\boldsymbol{\varphi}}_{\boldsymbol{\psi}}).
+\end{align*}\]</span></p>
+</section>
+<section id="vraisemblance-profilée-pour-le-paramètre-de-forme-dune-loi-weibull" class="slide level2">
+<h2>Vraisemblance profilée pour le paramètre de forme d’une loi Weibull</h2>
+<p>Considérons le paramètre de forme <span class="math inline">\(\psi \equiv\alpha\)</span> comme paramètre d’intérêt, et l’échelle <span class="math inline">\(\varphi\equiv\lambda\)</span> comme paramètre de nuisance. À l’aide du gradient <span class="math display">\[\begin{align*}
+\frac{\partial \ell(\lambda, \alpha)}{\partial \lambda} &amp;= -\frac{n\alpha}{\lambda} +\alpha\lambda^{-\alpha-1}\sum_{i=1}^n y_i^\alpha \\
+\end{align*}\]</span> on trouve que la valeur de l’échelle qui maximise le logarithme de la vraisemblance pour <span class="math inline">\(\alpha\)</span> donné est <span class="math display">\[\begin{align*}
+\widehat{\lambda}_\alpha = \left( \frac{1}{n}\sum_{i=1}^n y_i^\alpha\right)^{1/\alpha}.
+\end{align*}\]</span> et en introduisant cette valeur, on obtient une fonction de <span class="math inline">\(\alpha\)</span> uniquement. Cela permet de réduire le problème d’optimisation à une recherche linéaire de <span class="math inline">\(\ell_{\mathsf{p}}(\alpha)\)</span>.</p>
+</section>
+<section id="vraisemblance-profilée-pour-le-paramètre-de-forme" class="slide level2">
+<h2>Vraisemblance profilée pour le paramètre de forme</h2>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-weibull-profile-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
+Figure&nbsp;6: Vraisemblance profilée pour <span class="math inline">\(\alpha\)</span>, représentée par une ligne grise pointillée (à gauche) et par une coupe transversale (à droite). La vraisemblance profilée du le panneau de droite a été décalée verticalement pour être zéro quand évaluée aux EMV; les lignes horizontales en pointillé indiquent les points de coupure pour les intervalles de confiance à 95% et 99%.
+</p></section>
+<section id="analogie-pour-la-log-vraisemblance-profilée" class="slide level2">
+<h2>Analogie pour la log vraisemblance profilée</h2>
+<ul>
+<li>Si l’on considère ces courbes de niveau comme celles d’une carte topographique, la vraisemblance profilée correspond à une marche le long de la crête de la log vraisemblance dans la direction <span class="math inline">\(\psi\)</span>.</li>
+<li>Le panneau de droite de la <a href="#/fig-weibull-profile" class="quarto-xref">Figure&nbsp;6</a> montre le profil d’élévation.</li>
+<li>Il faudrait obtenir numériquement, à l’aide d’un algorithme de recherche linéaire, les limites de l’intervalle de confiance de part et d’autre de <span class="math inline">\(\widehat{\alpha}\)</span>, mais il est clair que <span class="math inline">\(\alpha=1\)</span> n’est même pas compris dans l’intervalle de confiance à 99%.</li>
+</ul>
+</section>
+<section id="vraisemblance-profilée-pour-lespérance-dune-loi-weibull" class="slide level2">
+<h2>Vraisemblance profilée pour l’espérance d’une loi Weibull</h2>
+<ul>
+<li>Nous pouvons également utiliser l’optimisation numérique pour profiler la vraisemblance pour d’autres paramètres. Par exemple, supposons que nous soyons intéressés par l’espérance du temps d’attente, <span class="math inline">\(\mu = \mathsf{E}(Y) = \lambda\Gamma(1+1/\alpha)\)</span>.</li>
+<li>À cet effet, nous reparamétrons le modèle en termes de <span class="math inline">\((\mu, \alpha)\)</span>, où <span class="math inline">\(\lambda=\mu/\Gamma(1+1/\alpha)\)</span>.</li>
+<li>Nous créons ensuite une fonction qui optimise le logarithme de la vraisemblance pour une valeur fixe de <span class="math inline">\(\mu\)</span>, puis renvoie <span class="math inline">\(\widehat{\alpha}_{\mu}\)</span>, <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\ell_{\mathrm{p}}(\mu)\)</span>.</li>
+</ul>
+<div title="Démo **R**">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Démo <strong>R</strong></strong></p>
+</div>
+<div class="callout-content">
+<p>Créer une fonction pour calculer les intervalles de confiance basés sur la log vraisemblance profilée.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="calcul-des-intervalles-de-confiance" class="slide level2">
+<h2>Calcul des intervalles de confiance</h2>
+<p>Pour obtenir les intervalles de confiance d’un paramètre scalaire, il existe une astuce qui facilite la dérivation.</p>
+<ol type="1">
+<li>Calculer la racine directionnelle du rapport de vraisemblance <span class="math display">\[r(\psi) = \mathrm{sign}(\psi - \widehat{\psi})\{2\ell_{\mathrm{p}}(\widehat{\psi}) -2 \ell_{\mathrm{p}}(\psi)\}^{1/2}\]</span> sur une grille fine de <span class="math inline">\(\psi\)</span></li>
+<li>Ajuster une spline cubique de lissage avec <span class="math inline">\(y=\psi\)</span> comme variable réponse et <span class="math inline">\(x=r(\psi)\)</span> comme variable explicative.</li>
+<li>Prédire la courbe aux quantiles normaux <span class="math inline">\(x_l=\mathfrak{z}_{\alpha/2}\)</span> et <span class="math inline">\(x_u=\mathfrak{z}_{1-\alpha/2}\)</span>.</li>
+<li>Retourner les prédictions sous forme d’intervalle de confiance.</li>
+</ol>
+</section>
+<section id="vraisemblance-profilée-pour-lespérance-dune-loi-weibull-1" class="slide level2">
+<h2>Vraisemblance profilée pour l’espérance d’une loi Weibull</h2>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-profile-mu-weibull-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
+Figure&nbsp;7: Racine directionnelle du rapport de vraisemblance (gauche) et log vraisemblance profilée (droite) en fonction de l’espérance <span class="math inline">\(\mu\)</span> pour un modèle Weibull.
+</p></section>
+<section id="comparaison-de-modèles" class="slide level2">
+<h2>Comparaison de modèles</h2>
+<p>La vraisemblance peut également servir d’élément de base pour la comparaison des modèles : plus <span class="math inline">\(\ell(\boldsymbol{\widehat{\theta}})\)</span> est grand, meilleure est l’adéquation. - Cependant, la vraisemblance ne tient pas compte de la complexité du modèle dans le sens où des modèles plus complexes avec plus de paramètres conduisent à une vraisemblance plus élevée. - Cela ne pose pas de problème pour la comparaison de modèles emboîtés à l’aide du test du rapport de vraisemblance, car nous ne tenons compte que de l’amélioration relative de l’adéquation. - Il existe un risque de <strong>surajustement</strong> si l’on ne tient compte que de la vraisemblance d’un modèle.</p>
+</section>
+<section id="critères-dinformation" class="slide level2">
+<h2>Critères d’information</h2>
+<p>Les critères d’information combinent la log vraisemblance, qui mesure l’adéquation du modèle aux données, avec une pénalité pour le nombre de paramètres. <span class="math display">\[\begin{align*}
+\mathsf{AIC}&amp;=-2\ell(\widehat{\boldsymbol{\theta}})+2p \\
+\mathsf{BIC}&amp;=-2\ell(\widehat{\boldsymbol{\theta}})+p\ln(n),
+\end{align*}\]</span> où <span class="math inline">\(p\)</span> dénote le nombre de paramètres du modèle.</p>
+<p>Le plus petit la valeur du critère d’information d’Akaike (AIC) ou du critère bayésien d’information (BIC), le meilleur le modèle.</p>
+<p>Notez que les critères d’information ne constituent pas des tests d’hypothèse formels sur les paramètres, mais qu’ils peuvent être utilisés pour comparer des modèles non imbriqués (mais ils sont alors très imprécis!)</p>
+</section>
+<section id="objectifs-dapprentissage" class="slide level2">
+<h2>Objectifs d’apprentissage</h2>
+<div title="Objectifs d'apprentissage">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Objectifs d’apprentissage</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Apprendre la terminologie associée à l’inférence basée sur la vraisemblance.</li>
+<li>Dériver des expressions explicites pour l’estimateur du maximum de vraisemblance de modèles simples.</li>
+<li>En utilisant l’optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.</li>
+<li>Utiliser les propriétés de la vraisemblance pour les grands échantillons afin d’obtenir des intervalles de confiance et les propriétés des tests statistiques.</li>
+<li>Utiliser les critères d’information pour la sélection des modèles.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="références" class="slide level2">
+<h2>Références</h2>
+<div class="quarto-auto-generated-content">
+<p><img src="fig/logo_hec_montreal_bleu_web.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div>
+</section>
+
+    </div>
+  </div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="MATH60604-diapos2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>

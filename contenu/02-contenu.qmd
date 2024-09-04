@@ -1,0 +1,44 @@
+---
+title: "Inférence basée sur la vraisemblance"
+---
+
+### Objectifs d'apprentissage
+
+
+* Apprendre la terminologie associée à l'inférence basée sur la vraisemblance.
+* Dériver des expressions explicites pour l'estimateur du maximum de vraisemblance de modèles simples.
+* En utilisant l'optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.
+* Utiliser les propriétés de la vraisemblance pour les grands échantillons afin d'obtenir des intervalles de confiance et les propriétés des tests statistiques.
+* Utiliser les critères d'information pour la sélection des modèles.
+
+
+### Contenu
+
+
+- Notes de cours: chapitre [3 (Inférence basée sur la vraisemblance)](https://lbelzile.github.io/math60604a/likelihood.html)
+
+
+### En classe
+
+- [Diapositives](../diapos/MATH60604-diapos2.html) ([pdf](../diapos/MATH60604-diapos2.pdf) et [code](MATH60604-diapos2.R))
+
+
+
+### Diapositives
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH6060-diapos2.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH6060-diapos2.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos2.html"></iframe>
+</div>
+
+### Après le cours
+
+- [Série d'exercices 3](../exercices/index.qmd)
+
+### Lectures additionnelles
+
+- [*Understanding Maximum Likelihood* par Kristoffer Magnusson](https://rpsychologist.com/d3/likelihood/)
+- @Davison:2003, chapitre 4
+

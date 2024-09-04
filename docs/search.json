@@ -133,6 +133,17 @@
     ]
   },
   {
+    "objectID": "contenu/02-contenu.html",
+    "href": "contenu/02-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nApprendre la terminologie associée à l’inférence basée sur la vraisemblance.\nDériver des expressions explicites pour l’estimateur du maximum de vraisemblance de modèles simples.\nEn utilisant l’optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.\nUtiliser les propriétés de la vraisemblance pour les grands échantillons afin d’obtenir des intervalles de confiance et les propriétés des tests statistiques.\nUtiliser les critères d’information pour la sélection des modèles.\n\n\n\nContenu\n\nNotes de cours: chapitre 3 (Inférence basée sur la vraisemblance)\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 3\n\n\n\nLectures additionnelles\n\nUnderstanding Maximum Likelihood par Kristoffer Magnusson\nDavison (2003), chapitre 4\n\n\n\n\n\n\nRéférences\n\nDavison, A. C. (2003). Statistical models. Cambridge University Press.",
+    "crumbs": [
+      "Contenu",
+      "Semaine 2"
+    ]
+  },
+  {
     "objectID": "contenu/01-contenu.html",
     "href": "contenu/01-contenu.html",
     "title": "Modélisation statistique",
