@@ -11,7 +11,7 @@ coder <- list.files(path = exdir, pattern = "MATH60604-Exercice[[:digit:]].R",
                       full.names = fn)
 rc <- rep("",7)
 rc[as.integer(substr(coder, start = 19, stop = 19))] <- 
-  paste0("[<span style='color: #276dc2;'><i class='fab fa-r-project fa-lg'></i></span>](", linkgithub, "exercices/", coder, ")")
+  paste0("[<span style='color: #276dc2;'><i class='fab fa-r-project fa-lg'></i></span>](", linkgithub, coder, ")")
 
 
 so <- list.files(path = exdir, pattern = "MATH60604-Exercice[[:digit:]]-sol.pdf", 
