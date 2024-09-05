@@ -12,7 +12,7 @@ Le contenu du cours est divisé en chapitres: des notes de cours, du code,  et d
 - [Bases de l'inférence statistique](https://lbelzile.github.io/math60604/inference.html)
 <!-- - [Régression linéaire (incomplet)](https://lbelzile.github.io/math60604/regression-lineaire.html) -->
 <!-- - [Régression linéaire (anglais)](https://lbelzile.github.io/math60604a/linear-regression.html) -->
-<!-- - [Vraisemblance (anglais)](https://lbelzile.github.io/math60604a/likelihood.html) -->
+- [Inférence basée sur la vraisemblance](https://lbelzile.github.io/math60604/vraisemblance.html)
 <!-- - [Modèles linéaires généralisés (anglais)](https://lbelzile.github.io/math60604a/generalized-linear-models.html) -->
 <!-- - [Données corrélées et longitudinales (incomplet)](https://lbelzile.github.io/math60604/donnees-correlees-longitudinales.html) -->
 <!-- - [Modèles linéaires mixtes (incomplet)](https://lbelzile.github.io/math60604/modeles-lineaires-mixtes.html) -->

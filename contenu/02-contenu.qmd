@@ -15,7 +15,7 @@ title: "Inférence basée sur la vraisemblance"
 ### Contenu
 
 
-- Notes de cours: chapitre [3 (Inférence basée sur la vraisemblance)](https://lbelzile.github.io/math60604a/likelihood.html)
+- Notes de cours: chapitre [3 (Inférence basée sur la vraisemblance)](https://lbelzile.github.io/math60604/vraisemblance.html)
 
 
 ### En classe
