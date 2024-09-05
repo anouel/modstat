@@ -74,7 +74,7 @@ g1 <- ggplot(data = data.frame(time = attente),
        mapping = aes(x = time)) +
   geom_histogram(bins = 10) +
   geom_rug() +
-  labs(x = "attente time (in seconds)")
+  labs(x = "temps d'attente (en secondes)")
 exp_loglik <- function(lambda){
  sum(dexp(attente, rate = 1/lambda, log = TRUE))
 }
@@ -140,15 +140,33 @@ L'**estimateur du maximum de vraisemblance** (EMV) $\widehat{\boldsymbol{\theta}
 :::
 
 
+## log-vraisemblance exponentielle et EMV
+
+```{r}
+#| label: fig-loglik-exp
+#| fig-align: 'center'
+#| eval: true
+#| echo: false
+#| fig-cap: "Fonction de log-vraisemblance exponentielle pour le temps d'attente, avec l'estimation du maximum de vraisemblance données par la ligne verticale pointillée (droite)."
+lambda_cand <- seq(min(attente)+10, max(attente), by = 1)
+ll_attente <- sapply(lambda_cand, exp_loglik)
+g2 <- ggplot(data = data.frame(x = lambda_cand, y = ll_attente),
+       mapping = aes(x = x, y = y)) +
+  geom_line() + 
+  geom_vline(xintercept = mean(attente), linetype = "dashed") +   labs(x = expression(lambda), y = "log-vraisemblance")
+g2
+```
+
+
 ## Compréhension du maximum de vraisemblance
 
-
-Dans le cadre discret, la fonction de masse donne la probabilité d'un résultat.
 
 Nous voulons trouver les valeurs des paramètres qui rendent les données les plus **probables** d'avoir été générées par notre modèle.
 
 
 > Pensée scientifique: tout ce que nous observons, nous nous attendions à l'obtenir.
+
+Partout tous les modèles considérés dans la famille $\mathcal{F} = \{f(\boldsymbol{x}; \boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}\}$, on prend celui le plus compatible avec les observations.
 
 
 ## Dérivation des EMV
@@ -162,24 +180,7 @@ En prenant la dérivée première et en fixant le résultat à zéro, nous trouv
 \end{align*}
 Si on résout pour $\lambda$, on trouve $\widehat{\lambda} = \sum_{i=1}^n y_i / n.$ 
 
-La dérivée seconde de la log vraisemblance est $\mathrm{d}^2 \ell(\lambda)/\mathrm{d} \lambda^2 = n(\lambda^{-2} - 2\lambda^{-3}\overline{y}),$ et en substituant $\lambda = \overline{y}$, on obtient $-n/\overline{y}^2$. Puisque cette valeur est négative, $\widehat{\lambda}$ maximise la fonction.
-
-## Log vraisemblance exponentielle et EMV
-
-```{r}
-#| label: fig-loglik-exp
-#| fig-align: 'center'
-#| eval: true
-#| echo: false
-#| fig-cap: "Fonction de log-vraisemblance exponentielle pour le temps d'attente, avec l'estimation du maximum de vraisemblance données par la ligne verticale pointillée (droite)."
-lambda_cand <- seq(min(attente)+10, max(attente), by = 1)
-ll_attente <- sapply(lambda_cand, exp_loglik)
-g2 <- ggplot(data = data.frame(x = lambda_cand, y = ll_attente),
-       mapping = aes(x = x, y = y)) +
-  geom_line() + 
-  geom_vline(xintercept = mean(attente), linetype = "dashed") +   labs(x = expression(lambda), y = "log vraisemblance")
-g2
-```
+La dérivée seconde de la log-vraisemblance est $\mathrm{d}^2 \ell(\lambda)/\mathrm{d} \lambda^2 = n(\lambda^{-2} - 2\lambda^{-3}\overline{y}),$ et en substituant $\lambda = \overline{y}$, on obtient $-n/\overline{y}^2$. Puisque cette valeur est négative, $\widehat{\lambda}$ maximise la fonction.
 
 ## Invariance des estimateurs du maximum de vraisemblance
 
@@ -200,7 +201,7 @@ On peut sélectionner la paramétrisation qui facilite le plus l'optimisation!
 
 ## Fonction de score
 
-Le gradient (ou vecteur de dérivées première) de la log vraisemblance
+Le gradient (ou vecteur de dérivées première) de la log-vraisemblance
 \begin{align*}
 U(\boldsymbol{\theta}) = \frac{\partial \ell(\boldsymbol{\theta}; \boldsymbol{y})}{\partial \boldsymbol{\theta}}
 \end{align*}
@@ -213,9 +214,9 @@ U(\widehat{\boldsymbol{\theta}})=0.
 
 ## Information 
 
-Comment mesurer la précision de notre estimateur ? Les matrices d'observation encodent la courbure de la log vraisemblance et fournissent de l'information sur la variabilité de $\widehat{\boldsymbol{\theta}}.$
+Comment mesurer la précision de notre estimateur ? Les matrices d'observation encodent la courbure de la log-vraisemblance et fournissent de l'information sur la variabilité de $\widehat{\boldsymbol{\theta}}.$
 
-La **matrice d'information observée** est le négatif de la hessienne de la log vraisemblance,
+La **matrice d'information observée** est le négatif de la hessienne de la log-vraisemblance,
 \begin{align*}
 j(\boldsymbol{\theta}; \boldsymbol{y})=-\frac{\partial^2 \ell(\boldsymbol{\theta}; \boldsymbol{y})}{\partial \boldsymbol{\theta} \partial \boldsymbol{\theta}^\top},
 \end{align*}
@@ -231,7 +232,7 @@ i(\boldsymbol{\theta}) = \mathsf{E}\left\{U(\boldsymbol{\theta}; \boldsymbol{Y})
 
 L'information de Fisher et l'observation observée pour un échantillon aléatoire simple de loi exponentielle $Y_1, \ldots, Y_n,$ paramétrée en terme d'échelle $\lambda,$ sont
 \begin{align*}
-j(\lambda; \boldsymbol{y}) &= -\frac{\partial^2 \ell(\lambda)}{\partial \lambda^2} = \frac{n}{\lambda^{2}} + \frac{2}{n\lambda^{3}}\sum_{i=1}^n y_i \\
+j(\lambda; \boldsymbol{y}) &= -\frac{\partial^2 \ell(\lambda)}{\partial \lambda^2} =  -n \left(\lambda^{-2} + 2\lambda^{-3}\sum_{i=1}^n y_i\right) \\
 i(\lambda) &= \frac{n}{\lambda^{2}} + \frac{2}{n\lambda^{3}}\sum_{i=1}^n \mathsf{E}(Y_i)  = \frac{n}{\lambda^{2}}
 \end{align*}
 puisque $\mathsf{E}(Y_i) = \lambda$ et que l'espérance est un opérateur linéaire. Les deux versions de l'information coïncident lorsque évaluées à l'EMV, $i(\widehat{\lambda}) = j(\widehat{\lambda}) = n/\overline{y}^2$ pour $\widehat{\lambda}=\overline{y}$ la moyenne de l'échantillon. Ce n'est généralement pas le cas.
@@ -275,7 +276,7 @@ La loi de Weibull inclut la loi exponentielle comme cas particulier lorsque $\al
 
 ## Maximum de vraisemblance pour un échantillon Weibull {.smaller}
 
-La log vraisemblance du modèle $\mathsf{Weibull}(\lambda, \alpha)$ est
+La log-vraisemblance du modèle $\mathsf{Weibull}(\lambda, \alpha)$ est
 \begin{align*}
 \ell(\lambda, \alpha) = n \ln(\alpha) - n\alpha\ln(\lambda) + (\alpha-1) \sum_{i=1}^n \ln y_i  - \lambda^{-\alpha}\sum_{i=1}^n y_i^\alpha.
 \end{align*}
@@ -341,9 +342,11 @@ ptwise_confint_exp <- apply(
   X = apply(boot_dat_exp, 1, sort),
   MARGIN = 1, FUN = quantile, probs = c(0.025, 0.975))
 g1 <- ggplot() +
-  stat_qq(data = data.frame(y = attente), 
-          mapping = aes(sample = y),
-          loi = qexp, dparams  = list(rate = 1 / mean(attente))) +
+  geom_point(data = data.frame(
+      y = sort(attente),
+      x = qexp(ppoints(n), rate = 1/mean(attente))
+      ),
+    mapping = aes(x = x, y = y)) +
   geom_abline(intercept = 0, slope = 1) +
   geom_line(linetype = "dashed", data = data.frame(x = ptwise_confint_exp[1,], y = sort(attente)),
  mapping = aes(x = x, y = y)) +
@@ -419,12 +422,22 @@ opt_weibull <- optim(
 mle_weibull <- opt_weibull$par
 ```
 
-## Loi d'échantillonage
+## Convergence
 
+Dénotons la vraie valeur du vecteur de paramètres $\boldsymbol{\theta}_0.$ 
+
+L'estimateur du maximum de vraisemblance est 
+
+- asymptotique efficace (c'est à dire qu'il a la plus petite erreur quadratique moyenne parmi tous les estimateurs similaires).
+- convergent, donc $\widehat{\boldsymbol{\theta}} \stackrel{p}{\to} \boldsymbol{\theta}_0$ (approche la vraie valeur quand la taille de l'échantillon croît, biais asymptotique nul).
+
+Les matrices d'information de Fisher et observées, $i(\widehat{\boldsymbol{\theta}})$ et $j(\widehat{\boldsymbol{\theta}})$, convergent aussi vers $i(\boldsymbol{\theta}_0)$ quand $n \to \infty$.
+
+## Loi d'échantillonnage
 
 La **loi d'échantillonnage** d'un estimateur $\widehat{\boldsymbol{\theta}}$ est la loi de probabilité induite par les données aléatoire sous-jacentes (*rappelons que les intrants de l'estimateur sont aléatoires, donc la sortie l'est également*).
 
-Dénotons la vraie valeur du vecteur de paramètres $\boldsymbol{\theta}_0.$ Sous des conditions de régularité appropriées, le théorème central limite donne
+Sous des conditions de régularité appropriées, le théorème central limite donne
 \begin{align*}
 i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\mathsf{normale}_p(\boldsymbol{0}_p, \mathsf{I}_p).
 \end{align*}
@@ -433,8 +446,10 @@ Des approximations similaires pour la loi d'échantillonnage de $\widehat{\bolds
 \begin{align*}
 \widehat{\boldsymbol{\theta}} \stackrel{\cdot}{\sim} \mathsf{normale}_p\{\boldsymbol{\theta}_0, i^{-1}(\boldsymbol{\theta})\}
 \end{align*}
-où la matrice de covariance est l'inverse de l'information de Fisher.^[
-En pratique, la véritable valeur du paramètre $\boldsymbol{\theta}_0$ étant inconnue, nous évaluons l'information aux EMV $\widehat{\boldsymbol{\theta}}$. Cela se justifie par le fait que les matrices d'information de Fisher et observées, $i(\widehat{\boldsymbol{\theta}})$ et $j(\widehat{\boldsymbol{\theta}})$, convergent vers $i(\boldsymbol{\theta}_0)$ quand $n \to \infty$.]
+où la matrice de covariance est l'inverse de l'information de Fisher.
+
+
+En pratique, la véritable valeur du paramètre $\boldsymbol{\theta}_0$ étant inconnue, nous remplaçons $i(\boldsymbol{\theta}_0)$ par $i(\widehat{\boldsymbol{\theta}})$ ou $j(\widehat{\boldsymbol{\theta}})$.
 
 
 
@@ -447,7 +462,7 @@ Nous pouvons utiliser ces résultats pour l'inférence statistique! Les erreurs-
 #| eval: true
 #| echo: true
 # 'opt_weibull' contient les résultats de l'optimisation
-# où on a minimisé le négatif de la log vraisemblance
+# où on a minimisé le négatif de la log-vraisemblance
 # La matrice hessienne retournée est évaluée aux EMV
 # c'est donc l'information observée
 (mle_weibull <- opt_weibull$par)
@@ -457,6 +472,18 @@ Nous pouvons utiliser ces résultats pour l'inférence statistique! Les erreurs-
 # Erreurs-type
 (se_weibull <- sqrt(diag(vmat_weibull)))
 ```
+
+
+## Méthodes delta 
+
+Le résultat sur la normalité asymptotique de l'estimateur peut être utilisé pour dériver les erreurs standard pour d'autres quantités d'intérêt. 
+
+Si $\phi = g(\boldsymbol{\theta})$, où $g: \mathbb{R}^p \to \mathbb{R}^k$ pour $k \leq p$ est une fonction différentiable de $\boldsymbol{\theta}$ non-nulle à $\boldsymbol{\theta}_0$ alors
+$$\widehat{\phi} \stackrel{\cdot}{\sim}\mathsf{normale}(\phi_0, \nabla \phi^\top i(\boldsymbol{\theta}_0)^{-1} \nabla \phi),$$
+où $$\nabla \phi=[\partial \phi/\partial \theta_1, \ldots, \partial \phi/\partial \theta_p]^\top.$$ 
+
+La matrice de variance et le Jacobien sont évalués à l'estimation du maximum de vraisemblance $\widehat{\boldsymbol{\theta}}.$
+
 
 ## Intervalles de confiance de Wald
 
@@ -470,22 +497,12 @@ avec $\mathfrak{z}_{1-\alpha/2}$ le quantile $1-\alpha/2$ d'une loi normale stan
 ```{r}
 #| eval: true
 #| echo: true
-# Intervalles de confiance de Wald
+# Intervalles de confiance de Wald 95% (niveau = 0.05)
 mle_weibull[1] + qnorm(c(0.025, 0.975))*se_weibull[1] # lambda
 mle_weibull[2] + qnorm(c(0.025, 0.975))*se_weibull[2] # alpha
 ```
 
 Ces intervalles de confiance sont symmétriques.
-
-## Méthodes delta 
-
-Le résultat sur la normalité asymptotique de l'estimateur peut être utilisé pour dériver les erreurs standard pour d'autres quantités d'intérêt. 
-
-Si $\phi = g(\boldsymbol{\theta})$, où $g: \mathbb{R}^p \to \mathbb{R}^k$ pourr $k \leq p$ est une fonction différentiable de $\boldsymbol{\theta}$ non-nulle à $\boldsymbol{\theta}_0$ alors
-$$\widehat{\phi} \stackrel{\cdot}{\sim}\mathsf{normale}(\phi_0, \nabla \phi^\top i(\boldsymbol{\theta}_0)^{-1} \nabla \phi),$$
-où $$\nabla \phi=[\partial \phi/\partial \theta_1, \ldots, \partial \phi/\partial \theta_p]^\top.$$ 
-
-La matrice de variance et le Jacobien sont évalués à l'estimation du maximum de vraisemblance $\widehat{\boldsymbol{\theta}}.$
 
 ## Probabilité d'attendre plus d'une minute selon le modèle exponentiel
 
@@ -506,6 +523,30 @@ V_phi <- dphi(lambda_hat)^2 * V_lambda
 (se_phi <- sqrt(V_phi))
 ```
 
+## Intervalles de confiance de Wald
+
+On fait le même calcul avec le modèle Weibull...
+
+
+```{r}
+#| eval: true
+#| echo: true
+fit <- MASS::fitdistr(x = attente, densfun = "weibull", 
+               start = list(scale = mean(attente), shape = 1))
+g <- function(pars){ 
+  pweibull(q = 60, shape = pars[2], scale = pars[1], lower.tail = FALSE)
+}
+# Calcul du jacobien de la transformation
+grad_g <- function(pars){numDeriv::grad(func = g, x = pars)}
+nabla <- grad_g(pars = fit$estimate)
+# Calcul des erreurs-type
+se_p60_weib <- sqrt(t(nabla) %*% fit$vcov %*% nabla)
+# Intervalle de confiance de Wald pour Pr(Y > 60)
+g(fit$estimate) + qnorm(c(0.025, 0.975))*c(se_p60_weib)
+```
+
+L'intervalle de confiance inclut des valeurs négatives pour les probabilités!
+
 ## Comparaison de modèles emboîtés
 
 
@@ -521,7 +562,7 @@ V_phi <- dphi(lambda_hat)^2 * V_lambda
 
  L'hypothèse nulle $\mathscr{H}_0$ testée est "le modèle réduit est une **simplification adéquate** du modèle complet". La vraisemblance fournit trois classes principales de statistiques pour tester cette hypothèse, soit
 
-- les statistiques des tests du rapport de vraisemblance, notées $R,$ qui mesurent la différence de log vraisemblance (distance verticale) entre $\ell(\widehat{\boldsymbol{\theta}})$ et $\ell(\widehat{\boldsymbol{\theta}}_0).$
+- les statistiques des tests du rapport de vraisemblance, notées $R,$ qui mesurent la différence de log-vraisemblance (distance verticale) entre $\ell(\widehat{\boldsymbol{\theta}})$ et $\ell(\widehat{\boldsymbol{\theta}}_0).$
 - les statistiques des tests de Wald, notées $W,$ qui considèrent la distance horizontale normalisée entre $\widehat{\boldsymbol{\theta}}$ et $\widehat{\boldsymbol{\theta}}_0.$
 - les statistiques des tests de score de Rao, notées $S,$ qui examinent le gradient repondéré de $\ell,$ évaluée *uniquement* à $\widehat{\boldsymbol{\theta}}_0$.
 
@@ -532,7 +573,7 @@ où $\widehat{\boldsymbol{\theta}}_0$ sont les EMV contraints pour le modèle so
 ```{r}
 #| label: fig-variablesquanti
 #| echo: false
-#| fig-cap: 'Fonction de log vraisemblance et illustrations des éléments des statistique du score, de Wald et du rapport de vraisemblance.'
+#| fig-cap: 'Fonction de log-vraisemblance et illustrations des éléments des statistique du score, de Wald et du rapport de vraisemblance.'
 knitr::include_graphics('fig/02/likelihood_tests_fr.png')
 ```
 
@@ -559,11 +600,14 @@ Si $\theta$ est un scalaire (cas $q=1$), des versions directionnelles de ces sta
 \begin{align*}
 w(\theta_0)&=(\widehat{\theta}-\theta_0)/\mathsf{se}(\widehat{\theta}) &&(\text{Wald}) \\
 r({\theta_0}) &= \mathrm{sign}(\widehat{\theta}-\theta)\left[2
-\left\{\ell(\widehat{\theta})-\ell(\theta)\right\}\right]^{1/2} &&(\text{racine directionnelle de vraisemblance}) \\
+\left\{\ell(\widehat{\theta})-\ell(\theta)\right\}\right]^{1/2} &&(\text{vraisemblance}) \\
 s(\theta_0)&=i^{-1/2}(\theta_0)U(\theta_0) &&(\text{score}) 
 \end{align*}
+En français, $r$ est appelée racine directionnelle du rapport de vraisemblance.
+
 
 Sous cette forme, si l'hypothèse nulle $\mathscr{H}_0: \theta = \theta_0$ est vraie, alors $w(\theta_0)\stackrel{\cdot}{\sim} \mathsf{normale}(0,1)$, etc.
+
 
 ## Comparaison entre les tests
 
@@ -571,15 +615,17 @@ Asymptotiquement, toutes les statistiques de test sont équivalentes (dans le se
 
 - La statistique du test du rapport de vraisemblance est normalement la plus puissante des trois tests (préférable). 
 - Le test du rapport de vraisemblance est invariant par rapport aux reparamétrages.
-- La statistique de score $S$ ne nécessite que le calcul du score et de l'information de Fisher sous $\mathscr{H}_0$ (car par définition $U(\widehat{\theta})=0$), elle peut donc être utile dans les problèmes où les calculs de l'estimateur du maximum de vraisemblance sous l'alternative sont coûteux ou impossibles.
+- La statistique de score $S$ ne nécessite que le calcul du score et de l'information de Fisher sous $\mathscr{H}_0$ (car par définition $U(\widehat{\boldsymbol{\theta}})=\boldsymbol{0}_p$), elle peut donc être utile dans les problèmes où les calculs de l'estimateur du maximum de vraisemblance sous l'alternative sont coûteux ou impossibles.
 - Le test de Wald est le plus facile à dériver, mais son taux de couverture empirique peut laisser à désirer si la loi d'échantillonnage de $\widehat{\boldsymbol{\theta}}$ est fortement asymétrique.
+
+
 
 ## Surface de vraisemblance et régions de confiance
 
 
 ```{r}
 #| label: fig-weibull-surface
-#| fig-cap: "Surface de log-vraisemblance pour le modèle de Weibull avec des régions de confiance de 10 %, 20 %, \\ldots, 90 % du rapport de vraisemblance (courbes de contour blanches). Les valeurs de log vraisemblance les plus élevées sont indiquées par des couleurs plus foncées. "
+#| fig-cap: "Surface de log-vraisemblance pour le modèle de Weibull avec des régions de confiance de 10 %, 20 %, \\ldots, 90 % du rapport de vraisemblance (courbes de contour blanches). Les valeurs de log-vraisemblance les plus élevées sont indiquées par des couleurs plus foncées. "
 #| fig-align: 'center'
 #| eval: true
 #| echo: false
@@ -660,9 +706,9 @@ Nous rejetons l'hypothèse nulle, ce qui signifie que le sous-modèle exponentie
 ## Vraisemblance profilée
 
 
-Considérons un modèle paramétrique avec une fonction de log vraisemblance $\ell(\boldsymbol{\theta})$. On partitionne le $p$-vecteur de paramètres  $\boldsymbol{\theta}=(\boldsymbol{\psi}, \boldsymbol{\varphi})$, où les paramètres d'intérêt sont $\boldsymbol{\psi}$ de dimension $q$ et un vecteur de nuisance à $\boldsymbol{\varphi}$ de dimension $p-q.$
+Considérons un modèle paramétrique avec une fonction de log-vraisemblance $\ell(\boldsymbol{\theta})$. On partitionne le $p$-vecteur de paramètres  $\boldsymbol{\theta}=(\boldsymbol{\psi}, \boldsymbol{\varphi})$, où les paramètres d'intérêt sont $\boldsymbol{\psi}$ de dimension $q$ et un vecteur de nuisance à $\boldsymbol{\varphi}$ de dimension $p-q.$
 
-Nous pouvons considérer la vraisemblance profilée $\ell_{mathsf{p}},$ une fonction de $\boldsymbol{\psi}$ uniquement, qui est obtenue en maximisant la vraisemblance ponctuellement à chaque valeur fixe $\boldsymbol{\psi}_0$ par rapport au vecteur de nuisance $\boldsymbol{\varphi}_{\psi_0},$
+Nous pouvons considérer la vraisemblance profilée $\ell_{\mathsf{p}},$ une fonction de $\boldsymbol{\psi}$ uniquement, qui est obtenue en maximisant la vraisemblance ponctuellement à chaque valeur fixe $\boldsymbol{\psi}_0$ par rapport au vecteur de nuisance $\boldsymbol{\varphi}_{\psi_0},$
 \begin{align*}
 \ell_{\mathsf{p}}(\boldsymbol{\psi})=\max_{\boldsymbol{\varphi}}\ell(\boldsymbol{\psi}, \boldsymbol{\varphi})=\ell(\boldsymbol{\psi}, \widehat{\boldsymbol{\varphi}}_{\boldsymbol{\psi}}).
 \end{align*}
@@ -685,7 +731,7 @@ et en introduisant cette valeur, on obtient une fonction de $\alpha$ uniquement.
 
 ```{r}
 #| label: fig-weibull-profile
-#| fig-cap: "Vraisemblance profilée pour $\\alpha$, représentée par une ligne grise pointillée (à gauche) et par une coupe transversale (à droite). La vraisemblance profilée du le panneau de droite a été décalée verticalement pour être zéro quand évaluée aux EMV; les lignes horizontales en pointillé indiquent les points de coupure pour les intervalles de confiance à 95% et 99%."
+#| fig-cap: "Vraisemblance profilée pour $\\alpha$, représentée par une ligne grise pointillée (à gauche) et par une coupe transversale (à droite). La vraisemblance profilée du panneau de droite a été décalée verticalement pour être zéro quand évaluée aux EMV; les lignes horizontales en pointillé indiquent les points de coupure pour les intervalles de confiance à 95% et 99%."
 #| fig-align: 'center'
 #| eval: true
 #| echo: false
@@ -730,14 +776,14 @@ g2 <- ggplot() +
                 xlim = c(1.8,3.5), n = 1001L) +
 geom_hline(yintercept = -qchisq(c(0.95,0.99), df = 1)/2, linetype = "dashed") + 
 labs(x = expression(paste("forme ", alpha)),
-     y = "log vraisemblance profilée")
+     y = "log-vraisemblance profilée")
 g1 + g2
 ```
 
 
-## Analogie pour la log vraisemblance profilée
+## Analogie pour la log-vraisemblance profilée
 
-- Si l'on considère ces courbes de niveau comme celles d'une carte topographique, la vraisemblance profilée correspond à une marche le long de la crête de la log vraisemblance dans la direction $\psi$.
+- Si l'on considère ces courbes de niveau comme celles d'une carte topographique, la vraisemblance profilée correspond à une marche le long de la crête de la log-vraisemblance dans la direction $\psi$.
 - Le panneau de droite de la @fig-weibull-profile montre le profil d'élévation. 
 - Il faudrait obtenir numériquement, à l'aide d'un algorithme de recherche linéaire, les limites de l'intervalle de confiance de part et d'autre de $\widehat{\alpha}$, mais il est clair que $\alpha=1$ n'est même pas compris dans l'intervalle de confiance à 99%.
 
@@ -748,7 +794,7 @@ g1 + g2
 - Nous créons ensuite une fonction qui optimise le logarithme de la vraisemblance pour une valeur fixe de $\mu$, puis renvoie $\widehat{\alpha}_{\mu}$, $\mu$ et $\ell_{\mathrm{p}}(\mu)$.
 
 ::: {.callout-note title="Démo **R**"}
-Créer une fonction pour calculer les intervalles de confiance basés sur la log vraisemblance profilée.
+Créer une fonction pour calculer les intervalles de confiance basés sur la log-vraisemblance profilée.
 :::
 
 ## Calcul des intervalles de confiance
@@ -770,7 +816,7 @@ sur une grille fine de $\psi$
 #| eval: true
 #| echo: false
 #| label: fig-profile-mu-weibull
-#| fig-cap: "Racine directionnelle du rapport de vraisemblance (gauche) et log vraisemblance profilée (droite) en fonction de l'espérance $\\mu$ pour un modèle Weibull."
+#| fig-cap: "Racine directionnelle du rapport de vraisemblance (gauche) et log-vraisemblance profilée (droite) en fonction de l'espérance $\\mu$ pour un modèle Weibull."
 #| fig-align: 'center'
 # Compute the MLE for the expected value via plug-in
 mu_hat <- mle_weibull[1]*gamma(1+1/mle_weibull[2])
@@ -818,7 +864,7 @@ g2 <- ggplot(data = prof,
   geom_vline(linetype = "dotted",
   xintercept = pr) + 
   labs(x = expression(paste("espérance ", mu)),
-       y = "log vraisemblance profilée")
+       y = "log-vraisemblance profilée")
 
 g1 + g2
 ```
@@ -826,7 +872,8 @@ g1 + g2
 ## Comparaison de modèles
 
 
-La vraisemblance peut également servir d'élément de base pour la comparaison des modèles : plus $\ell(\boldsymbol{\widehat{\theta}})$ est grand, meilleure est l'adéquation. 
+La vraisemblance peut également servir d'élément de base pour la comparaison des modèles: plus $\ell(\boldsymbol{\widehat{\theta}})$ est grand, meilleure est l'adéquation. 
+
 - Cependant, la vraisemblance ne tient pas compte de la complexité du modèle dans le sens où des modèles plus complexes avec plus de paramètres conduisent à une vraisemblance plus élevée. 
 - Cela ne pose pas de problème pour la comparaison de modèles emboîtés à l'aide du test du rapport de vraisemblance, car nous ne tenons compte que de l'amélioration relative de l'adéquation. 
 - Il existe un risque de **surajustement** si l'on ne tient compte que de la vraisemblance d'un modèle.
@@ -834,7 +881,7 @@ La vraisemblance peut également servir d'élément de base pour la comparaison 
 
 ## Critères d'information
 
-Les critères d'information combinent la log vraisemblance, qui mesure l'adéquation du modèle aux données, avec une pénalité pour le nombre de paramètres.
+Les critères d'information combinent la log-vraisemblance, qui mesure l'adéquation du modèle aux données, avec une pénalité pour le nombre de paramètres.
 \begin{align*}
 \mathsf{AIC}&=-2\ell(\widehat{\boldsymbol{\theta}})+2p \\
 \mathsf{BIC}&=-2\ell(\widehat{\boldsymbol{\theta}})+p\ln(n),
@@ -843,7 +890,18 @@ où $p$ dénote le nombre de paramètres du modèle.
 
 Le plus petit la valeur du critère d'information d'Akaike (AIC) ou du critère bayésien d'information (BIC), le meilleur le modèle.
 
-Notez que les critères d'information ne constituent pas des tests d'hypothèse formels sur les paramètres, mais qu'ils peuvent être utilisés pour comparer des modèles non imbriqués (mais ils sont alors très imprécis!)
+## Commentaires sur les critères d'information
+
+- Notez que les critères d'information ne constituent pas des tests d'hypothèse formels sur les paramètres si les modèles sont emboîtés.
+- Le BIC est un critère convergent (parmi un ensemble de modèles, il sélectionnera avec probabilité 1 le vrai modèle s'il a été ajusté, quand $n\to\infty$).
+- Le AIC est davantage utilisé pour les modèles prédictifs, le BIC pour les modèles explicatifs (modèles plus simples sélectionnés).
+
+
+## Commentaires sur les critères d'information
+
+- L'estimateur de l'AIC a une variabilité de $\mathrm{O}_p(n^{1/2})$ (donc plus variable à mesure que la taille de l'échantillon augmente). Pour les différences entre modèles emboîtés, cela se réduit à $\mathrm{O}_p(1)$.
+- Vous pouvez comparer des modèles non-emboîtés, mais il faut utiliser la fonction de densité (en incluant les constantes!) Plusieurs logiciels omettent les constantes.
+- Vous devez avoir les mêmes données et la même variable modélisée. On ne peut comparer un modèle pour $Y$ et un pour $\ln(Y)$ (sinon avec la transformation de Box--Cox, qui prend en compte le jacobien de la transformation).
 
 ## Objectifs d'apprentissage
 

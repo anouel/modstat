@@ -21,7 +21,7 @@ title: "Inférence basée sur la vraisemblance"
 ### En classe
 
 - [Diapositives](../diapos/MATH60604-diapos2.html) ([pdf](../diapos/MATH60604-diapos2.pdf) et [code](MATH60604-diapos2.R))
-
+- [Démo **R**](MATH60604-contenu2.R)
 
 
 ### Diapositives
@@ -36,6 +36,13 @@ title: "Inférence basée sur la vraisemblance"
 ### Après le cours
 
 - [Série d'exercices 3](../exercices/index.qmd)
+
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+source("../files/get_slide_data.R")
+knitr::kable(sldat[which(sldat$S %in% c("3")),-3], align = "llccccc", row.names = FALSE)
+```
+
 
 ### Lectures additionnelles
 
