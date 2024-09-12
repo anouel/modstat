@@ -1,0 +1,33 @@
+---
+title: "Modèles linéaires"
+---
+
+
+### Objectifs d'apprentissage
+
+
+- interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);
+- estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);
+
+### Contenu
+
+
+- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604a/linearmodels.html), Sections 4.1--4.4.
+
+
+### En classe
+
+- [Diapositives](../diapos/MATH60604-diapos3.html) ([pdf](../diapos/MATH60604-diapos3.pdf))
+
+
+
+### Diapositives
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH6060-diapos3.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos3.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos3.html"></iframe>
+</div>
+
+

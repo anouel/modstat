@@ -61,6 +61,8 @@ website:
               file: contenu/01-contenu.qmd
             - text: "Semaine 2"
               file: contenu/02-contenu.qmd
+            - text: "Semaine 3"
+              file: contenu/03-contenu.qmd
     - title: "Exercices"
       style: "docked"
       search: false

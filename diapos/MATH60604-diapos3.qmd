@@ -1,0 +1,731 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "03. Modèles linéaires"
+date: today
+date-format: YYYY
+eval: true
+cache: true
+echo: true
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecbleu <- c("#002855")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(digits = 3, width = 75)
+```
+
+
+## Quels sont les éléments d'un modèle
+
+Un modèle stochastique (ou aléatoire) combine typiquement
+
+- une loi pour les données avec
+- une formule liant les paramètres ou la moyenne conditionnelle d'une variable réponse $Y$ à des variables explicatives $\mathbf{X}$
+
+Les modèles sont des "golems" qui servent à obtenir des réponses à nos questions.
+
+## Objectifs de la modélisation
+
+1. Évaluer les effets des variables explicatives sur la moyenne d'une variable réponse.
+2. Tester les effets de manipulations expérimentales ou d'autres variables explicatives sur une réponse.
+3. Prédire la réponse pour de nouvelles combinaisons de variables explicatives.
+
+## Modèle linéaire
+
+Un modèle linéaire est un modèle qui décrit la moyenne d'une **variable réponse** continue $Y_i$ d'un échantillon aléatoire de taille $n$ comme **fonction linéaire** des **variables explicatives** (également appelés prédicteurs, régresseurs ou covariables) $X_1, \ldots, X_p$,
+\begin{align}
+\underset{\text{moyenne conditionnelle}}{\mathsf{E}(Y_i \mid \boldsymbol{X}_i=\boldsymbol{x}_i)}=\mu_i=\underset{\substack{\text{combinaison linéaire (somme pondérée)}\\ \text{de variables explicatives}}}{\beta_0 + \beta_1x_{i1} + \cdots + \beta_p x_{ip}}\equiv \mathbf{x}_i\boldsymbol{\beta}.
+\end{align}
+où
+
+- $\mathbf{x}_i = (1, x_{i1}, \ldots, x_{ip})$ est un vecteur ligne de taille $(p+1)$ contenant les variables explicatives de l'observation $i$
+- $\boldsymbol{\beta} = (\beta_0, \ldots, \beta_p)^\top$ est un vecteur colonne de longeur $p+1$ contenant les coefficients de la moyenne.
+
+## Formulation alternative
+
+Pour l'observation $i$, on peut écrire
+\begin{align*}
+\underset{\text{observation}\vphantom{\mu_i}}{Y_i} = \underset{\text{moyenne } \mu_i}{\vphantom{Y_i}\mathbf{x}_i\boldsymbol{\beta}} + \underset{\text{aléa}\vphantom{\mu_i}}{\vphantom{Y_i}\varepsilon_i},
+\end{align*}
+où $\varepsilon_i$ sont des aléas indépendents additifs satisfaisant:
+
+- $\mathsf{E}(\varepsilon_i \mid \mathbf{x}_i) = 0$; on fixe l'espérance de l'aléa à zéro car on postule qu’il n’y a pas d’erreur systématique.
+- $\mathsf{Var}(\varepsilon_i \mid \mathbf{x}_i) = \sigma^2$;  la variance $\sigma^2$ sert à tenir compte du fait qu’aucune relation linéaire exacte ne lie $\mathbf{x}_i$ et $Y_i$, ou que les mesures de $Y_i$ sont variables.
+
+
+Le modèle linéaire normal $$Y_i \mid \boldsymbol{X}_i=\boldsymbol{x}_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2).$$
+
+## Commentaires sur la formulation
+
+- la moyenne est conditionnelle aux valeurs de  $\mathbf{X}$
+  implique simplement que l’on considère les variables explicatives comme connues à l'avance, ou que $X_1, \ldots, X_p$ sont fixes (non-aléatoires).
+- Les coefficients $\boldsymbol{\beta}$ sont les mêmes pour toutes les observations, mais le vecteurs de variables explicatives $\mathbf{x}_i$ peut différer d'une observation à l'autre.
+- Le modèle est **linéaire** en $\beta_0, \ldots, \beta_p$, pas nécessairement dans les variables explicatives.
+
+## Notation
+
+
+
+Pour simplifier la notation, nous agrégeons les observations en utilisant la notation vectorielle et matricielle suivante:
+\begin{align*}
+\boldsymbol{Y} =
+ \begin{pmatrix}
+  Y_1 \\
+  Y_2 \\
+  \vdots \\
+  Y_n
+ \end{pmatrix},
+ \;
+% \boldsymbol{\varepsilon} =
+%\begin{pmatrix}
+%  \varepsilon_1 \\
+%  \varepsilon_2 \\
+%  \vdots \\
+%  \varepsilon_n
+% \end{pmatrix},
+ \;
+\mathbf{X} = \begin{pmatrix}
+1 & x_{11} & x_{12} & \cdots & x_{1p} \\
+1 & x_{21} & x_{22} & \cdots & x_{2p} \\
+\vdots & \vdots & \ddots & \vdots \\
+1 & x_{n1} & x_{n2} & \cdots & x_{np}
+\end{pmatrix} , \;
+\boldsymbol{\beta} =
+ \begin{pmatrix}
+ \beta_0 \\
+  \beta_1 \\
+  \beta_2 \\
+  \vdots \\
+  \beta_p
+ \end{pmatrix}
+\end{align*}
+On désigne par $\mathbf{X}$ la **matrice du modèle** $n \times (p+1)$ constituée d'une colonne de uns, concaténée aux $p$ vecteurs colonnes de variables explicatives.
+
+La $i$e ligne de $\mathbf{X}$ est dénotée $\mathbf{x}_i$.
+
+## Exemple 1 --- cohérence de description de produits  {.smaller}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+L'étude 1 de @Lee.Choi:2019 (base de données `LC19_S1`, paquet `hecedsm`) considère l'impact sur la perception d'un produit de la divergence entre la description textuelle et l'image.
+
+
+Dans leur première expérience, un paquet de six brosses à dents est vendu, mais l'image montre soit un paquet de six, soit une seule).
+
+
+Les auteurs ont également mesuré la familiarité préalable avec la marque de l'article. Les participants ont été recrutés à l'aide d'un panel en ligne.
+
+:::
+
+
+::: {.column width="60%"}
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/03/LeeChoi_toothbrush.jpg")
+```
+
+Variables:
+
+- `prodeval`: score moyen d'évaluation du produit sur trois échelles de 9 points (les valeurs les plus élevées sont les meilleures)
+- `familiarity`: échelle de Likert de 1 à 7 pour la familiarité avec la marque
+- `consistency`: groupes d'images et de textes, soit « cohérents », soit « incohérents ».
+:::
+
+::::
+
+## Exemple 2 -- apprendre à lire {.smaller}
+
+La base de données `BSJ92` du paquet `hecedsm` contient les résultats d'une expérience de @Baumann:1992 sur l'efficacité de différentes stratégies de lecture sur la compréhension d'enfants.
+
+
+> Soixante-six élèves de quatrième année ont été assignés au hasard à l'un des trois groupes expérimentaux suivants : (a) un groupe « Think-Aloud » (TA), dans lequel les élèves ont appris diverses stratégies de contrôle de la compréhension pour la lecture d'histoires (par exemple : auto-questionnement, prédiction, relecture) par le biais de la réflexion à haute voix; (b) un groupe lecture dirigée-activité de réflexion (DRTA), dans lequel les élèves ont appris une stratégie de prédiction-vérification pour lire et répondre aux histoires; ou (c) un groupe activité de lecture dirigée (DRA), un groupe contrôle dans lequel les élèves se sont engagés dans une lecture guidée non interactive d'histoires.
+
+Variables:
+
+- `group`: facteur pour le groupe expérimental, soit `DRTA`, `TA` et `DR`.
+- `pretest1`: score (sur 16) sur le test pré-expérience pour la tâche de détection des erreurs
+- `posttest1`: score (sur 16) sur le test post-expérience pour la tâche de détection des erreurs
+
+## Exemple 3 --- Salaire dans un collège {.smaller}
+
+On s'intéresse à la discrimination salariale dans un collège américain, au sein duquel une étude a été réalisée pour investiguer s'il existait des inégalités salariales entre hommes et femmes. Les données observationnelles `college` du paquet `hecmodstat` incluent les variables suivantes
+
+-   `salaire`: salaire de professeurs pendant l'année académique 2008--2009 (en milliers de dollars USD).
+-   `echelon`: échelon académique, soit adjoint (`adjoint`), aggrégé (`aggrege`) ou titulaire (`titulaire`).
+-   `domaine`: variable catégorielle indiquant le champ d'expertise du professeur, soit appliqué (`applique`) ou théorique (`theorique`).
+-   `sexe`: indicateur binaire pour le sexe, `homme` ou `femme`.
+-   `service`: nombre d'années de service.
+-   `annees`: nombre d'années depuis l'obtention du doctorat.
+
+
+## Exemple 4 --- suggestion de montants de dons {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+L'étude 1 de @Moon.VanEpps:2023 (données `MV23_E1`, paquet `hecedsm`) porte sur la proportion de donateurs à un organisme de charité. Les participants au panel en ligne avaient la possibilité de gagner 25$ et de faire don d'une partie de cette somme à l'organisme de leur choix. Les données fournies incluent uniquement les personnes qui n'ont pas dépassé ce montant et qui ont indiqué avoir fait un don d'un montant non nul.
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+knitr::include_graphics("fig/01/Moon_VanEpps-giving.png")
+```
+
+Variables:
+
+- `before`: est-ce que la personne a déjà donné à l'organisme de charité (0 pour non, 1 pour oui)
+- `condition`: facteur pour le groupe expérimental, soit `open-ended` pour un montant libre ou `quantity` pour le groupe avec montants suggérés
+- `amount`: montant du don, `NA` si la personne n'a rien donné.
+
+:::
+
+::::
+
+## Analyse exploratoire des données
+
+L'analyse exploratoire des données est une procédure itérative par laquelle nous interrogeons les données, en utilisant des informations auxiliaires, des statistiques descriptives et des graphiques, afin de mieux informer notre modélisation.
+
+Elle est utile pour mieux comprendre
+
+- les caractéristiques des données (plan d'échantillonnage, valeurs manquantes, valeurs aberrantes)
+- la nature des observations, qu'il s'agisse de variables réponse ou explicatives
+- la relation entre les variables.
+
+
+Voir le [Chapitre 11 de Alexander (2023)](https://tellingstorieswithdata.com/11-eda.html) pour des exemples.
+
+
+## Liste de vérifications pour l'analyse exploratoire
+
+Vérifier
+
+
+- que les variables catégorielles sont adéquatement traitées comme des facteurs (`factor`).
+- que les valeurs manquantes sont adéquatement déclarées comme telles (code d’erreur, 999, etc.)
+- s’il ne vaudrait mieux pas retirer certaines variables explicatives avec beaucoup de valeurs manquantes.
+- s’il ne vaudrait mieux pas fusionner des modalités de variables catégorielles si le nombre d’observation par modalité est trop faible.
+- qu’il n’y a pas de variable explicative dérivée de la variable réponse
+- que le sous-ensemble des observations employé pour l’analyse statistique est adéquat.
+- qu’il n’y a pas d’anomalies ou de valeurs aberrantes (par ex., 999 pour valeurs manquantes) qui viendraient fausser les résultats.
+
+
+
+## Analyse exploratoire pour l'exemple 1
+
+Considérons un modèle linéaire pour la note moyenne d'évaluation du produit, `prodeval`, en fonction de la familiarité de la marque et du facteur expérimental `consistency`.
+
+
+```{r}
+#| eval: true
+#| echo: true
+data(LC19_S1, package = "hecedsm")
+str(LC19_S1)
+length(unique(LC19_S1$prodeval))
+```
+
+ 
+La variable réponse `prodeval` est fortement discrétisée, avec seulement 19 valeurs uniques comprises entre 2.33 et 9.
+
+## Matrice du modèle pour l'exemple 1
+
+La variable `consistency` vaut `0` si la description du texte est cohérente avec l'image, et `1` si elle est incohérente. 
+
+```{r}
+#| eval: true
+#| echo: true
+modmat <- model.matrix(
+     ~ familiarity + consistency,
+     data = LC19_S1)
+tail(modmat, n = 5L) # cinq dernières lignes
+dim(modmat) # dimension de la matrice du modèle
+```
+
+## Analyse exploratoire de l'exemple 3
+
+Le salaire augmente avec les années de service, mais il y a une plus grande hétérogénéité dans le salaire des professeurs titulaires.
+
+```{r}
+#| label: fig-edacollege
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-width: 14
+#| fig-height: 4
+#| fig-cap: "Répartition des salaires en fonction de l'échelon et du nombre d'années de service"
+data(college, package = "hecmodstat")
+p1 <- ggplot(college, aes(y = salaire, x = echelon)) +
+  geom_boxplot() +
+  xlab("échelon académique") +
+  ylab("salaire (en milliers de dollars USD)")
+p2 <- ggplot(college, aes(x = service, y = salaire, col = sexe)) +
+  geom_point() +
+  facet_wrap(~ echelon, scales = "free") +
+  MetBrewer::scale_color_met_d("Hiroshige") +
+  xlab("années de service") +
+  ylab("salaire (en milliers de dollars USD)") + theme(legend.position = "bottom")
+library(patchwork)
+p1 + p2 + plot_layout(width = c(1,3))
+```
+
+Les professeurs adjoints qui ne sont pas promus sont généralement mis à la porte, aussi il y a moins d'occasions pour que les salaires varient sur cette échelle.
+
+
+Les variables `annees` et `service` sont fortement corrélées, avec une corrélation linéaire de `r with(hecmodstat::college, cor(annees, service))`.
+
+## Analyse exploratoire pour l'exemple 3
+
+Il y a peu de femmes dans l'échantillon. Si on fait un tableau de contingence de l'échelon et du sexe, on peut calculer la proportion relative homme/femme dans chaque échelon: `r round(100*11/(56+11),0)`% des profs adjoints, `r round(100*10/(54+10),0)`% pour les aggrégés, mais seulement `r round(100*18/(248+18),0)`% des titulaires alors que ces derniers sont mieux payés en moyenne.
+
+```{r}
+#| label: tableaucontingence
+#| eval: true
+#| echo: false
+#| fig-align: center
+knitr::kable(table(college$sexe, college$echelon),
+             caption = "Tableau de contingence donnant le nombre de professeurs du collège par sexe et par échelon académique.",
+             booktabs = TRUE)
+```
+
+
+## Analyse exploratoire pour l'exemple 4 {.smaller}
+
+```{r}
+data(MV23_S1, package = "hecedsm")
+str(MV23_S1)
+summary(MV23_S1)
+```
+
+
+Si nous incluons `amount` comme variable réponse, les 235 observations manquantes seront supprimées.
+
+- Cela ne pose pas de problème si nous voulons comparer le montant moyen des personnes qui ont fait un don
+- Dans le cas contraire, nous devons transformer les `NA` en zéros.
+
+Les variables binaires `donate` et `before` sont toutes deux des facteurs encodés comme `0`/`1`.
+
+
+## Quelles explications ?
+
+Avec des données **expérimentales**, seules les variables manipulées expérimentalement (affectation aléatoire aux groupes) sont nécessaires.
+
+- Des covariables antécédantes ou concomitantes sont ajoutées si elles sont corrélées avec la réponse pour augmenter la puissance (par exemple, le résultat du pré-test pour @Baumann:1992, qui donne une mesure de la capacité individuelle de l'élève).
+
+Pour les données observationnelles, nous avons besoin d'un modèle pour prendre en compte les facteurs de confusion potentiels.
+
+## Interprétation des coefficients
+
+En régression linéaire, le paramètre $\beta_j$ mesure l'effet de la variable $X_j$ sur la variable $Y$ une fois que l'on tient compte des effets des autres variables explicatives. 
+
+
+- pour chaque augmentation d'une unité de $X_j$, la réponse $Y$ augmente en moyenne de $\beta_j$ lorsque les autres variables
+demeurent inchangées.
+
+\begin{align*}
+\beta_1 &= \mathsf{E}(Y \mid X_1=x_1+1,X_2=x_2, \ldots, X_p=x_p) \\
+& \qquad \qquad - \mathsf{E}(Y \mid X_1=x_1,X_2=x_2,\ldots,X_p=x_p) \\
+&= \left\{\beta_1 (x_1+1) + \beta_2 x_2 + \cdots \beta_p x_p \right\} \\
+& \qquad \qquad -\left\{\beta_1 x_1 + \beta_2 x_2 + \cdots \beta_p x_p \right\}
+\end{align*}
+
+## Effet marginal
+
+On définit l'effet marginal comme la dérivée première de la moyenne conditionnelle par rapport à $X_j$, soit
+$$\text{effet marginal de }X_j =  \frac{\partial \mathsf{E}(Y \mid \boldsymbol{X})}{ \partial X_j}.$$ 
+
+Le coefficient $\beta_j$ est aussi l'*effet marginal* de la variable $X_j$.
+
+
+## Interprétation de l'ordonnée à l'origine
+
+La spécification de la moyenne est
+\begin{align*}
+\mathsf{E}(Y_i \mid \boldsymbol{X}_i = \boldsymbol{x}_i) = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip}.
+\end{align*}
+L'**ordonnée à l'origine** $\beta_0$ est la **valeur moyenne de $Y$** lorsque toutes les variables explicatives du modèles sont nulles, soit $\boldsymbol{x}_i=\boldsymbol{0}_p$.
+\begin{align*}
+\beta_0 &= \mathsf{E}(Y \mid X_1=0,X_2=0,\ldots,X_p=0) \\
+&= \beta_0 + \beta_1 \times 0 + \beta_2 \times 0 + \cdots + \beta_p \times 0
+\end{align*}
+Bien sur, il se peut que cette interprétation n'ait aucun sens dans le contexte étudié. Centrer les variables explicatives numériques (pour que leurs moyennes soit zéro) permet de rendre l'ordonnée à l'origine plus interprétable.
+
+
+## Modèle linéaire avec une seule variable indicatrice
+
+Considérons par exemple un modèle linéaire pour les données de @Moon.VanEpps:2023 qui inclut le montant (`amount`) (en dollars, de 0 pour les personnes qui n'ont pas fait de don, jusqu'à 25 dollars).
+
+L'équation du modèle linéaire simple qui inclut la variable binaire `condition` est 
+\begin{align*}
+\mathsf{E}(\texttt{amount} \mid \texttt{condition})&= \beta_0 + \beta_1 \mathbf{1}_{\texttt{condition}=\texttt{quantity}}.
+\\&= \begin{cases}
+\beta_0, & \texttt{condition}=0, \\
+\beta_0 + \beta_1 & \texttt{condition}=1.
+\end{cases}
+\end{align*}
+
+- L'ordonnée à l'origine $\beta_0$ est la moyenne du groupe contrôle (`open-ended`).
+- La moyenne du groupe traitement (`quantity`) est $\beta_0 + \beta_1 = \mu_1$ et 
+- $\beta_1=\mu_1-\mu_0$ est la différence du montant moyen de dons entre le groupe `open-ended`  et le groupe `quantity`.
+
+## Régression linéaire simple avec variable indicatrice
+
+```{r}
+#| label: fig-donation-moon
+#| eval: true
+#| echo: false
+#| fig-align: 'center'
+#| fig-cap: "Modèle linéaire simple pour les données `MV23_S1` avec `condition` comme variable explicative binaire, avec nuage de points décalés et un diagramme en demi-violin. Les cercles indiquent les moyennes de l'échantillon."
+data("MV23_S1", package = "hecedsm")
+MV23_S1 <- MV23_S1 |>
+  dplyr::mutate(amount2 = ifelse(is.na(amount), 0, amount),
+                condbin = ifelse(condition == "quantity",1,0))
+coefs <- coef(lm(data = MV23_S1, amount2 ~ condbin))
+ggplot(data = MV23_S1, 
+   aes(x = condbin, y = amount2, group = condition)) +
+  see::geom_violindot(aes(col = condition), position_dots = position_jitter(width = 0.05)) +
+  MetBrewer::scale_color_met_d("Hiroshige") +
+  geom_abline(intercept = coefs[1], slope = coefs[2]) +
+   scale_x_continuous(breaks = 0:1,
+                     limits = c(-0.1,1.5),
+                     labels = 0:1) +
+  theme(legend.position = "inside", 
+        legend.position.inside = c(.95, .95),
+        legend.justification = c("right", "top")) +
+  labs(x = "condition", y = "montant (en dollars)") +
+  stat_summary(fun = mean, aes(col = condition))
+```
+
+
+Même si le modèle linéaire définit une droite, cette dernière ne peut être évaluée qu'à $0$ ou $1$
+
+Les données sont fortement discrétisées, avec beaucoup de doublons et de zéros, mais la taille de l'échantillon $(n=`r nrow(MV23_S1)`)$ est conséquente.
+
+## Courbe quadratique pour données automobile
+
+Nous considérons un modèle de régression linéaire pour l'autonomie en carburant des voitures en fonction de la puissance de leur moteur (mesurée en chevaux-vapeur) à partir de l'ensemble de données `automobile`. Le modèle postulé est
+\begin{align*}
+\texttt{autonomie}_i = \beta_0 + \beta_1 \texttt{puissance}_i + \beta_2 \texttt{puissance}_i^2 + \varepsilon_i.
+\end{align*} 
+ 
+ 
+ 
+- Pour chaque augmentation d'un cheval-vapeur de la puissance, l'autonomie moyenne en augmente de $(\beta_1 + \beta_2) + 2\beta_2\texttt{puissance}$ miles par gallon.
+- L'effet marginal (dérivée) d'une augmentation de la `puissance`, qui dépend de la valeur de la variable explicative, est $\beta_1 + 2\beta_2 \texttt{puissance}$.
+
+
+## Modèle linéaire avec équation quadratique
+
+```{r}
+#| label: fig-autoquad2d
+#| echo: false
+#| eval: true
+#| fig-cap: Fonction de régression linéaire pour l'autonomie en fonction de la puissance.
+data(automobile, package = "hecmodstat")
+mod <- lm(autonomie ~ puissance + I(puissance^2),  data = automobile)
+ggplot(data = automobile, aes(x = puissance, y = autonomie)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE, col = "grey") +
+  labs(#title = "Caractéristiques d'automobiles, circa 1983",
+       x = "puissance du moteur (en chevaux-vapeurs)",
+             y = "autonomie d'essence (en miles par gallon)") +
+      geom_line(data = data.frame(puissance = automobile$puissance, fitted = mod$fitted),
+                aes(puissance, fitted), show.legend = FALSE)
+```
+
+## Discrétisation de variables continues
+
+On peut toujours transformer une variable continue en une variable catégorielle.
+
+- elle permet d'ajuster des relations fonctionnelles plus souples entre $X$ et $Y$
+- au prix de coefficients supplémentaires.
+
+```{r}
+#| label: fig-auto-discre
+#| echo: false
+#| eval: true
+#| fig-cap: Fonction affine par morceaux de l'autonomie d'un véhicule en fonction de sa puissance.
+hp_cut <- with(automobile, cut(puissance, 
+              breaks = c(0, quantile(puissance, probs = c(0.2, 0.4, 0.6, 0.8)), 300)))
+mod <- lm(autonomie ~ hp_cut, data = automobile)
+hp_seq <- seq(50, 250, by = 0.1)
+cut_seq <- cut(hp_seq, breaks = c(0, quantile(automobile$puissance, probs = c(0.2, 0.4, 0.6, 0.8)), 300))
+pred_seq <- c(model.matrix(~cut_seq) %*% coef(mod))
+ggplot() +
+  geom_point(data = automobile, aes(x = puissance, y = autonomie)) +
+   geom_line(
+     data = data.frame(
+        puissance = hp_seq, 
+        fitted = pred_seq),
+    mapping = aes(x = puissance, y = fitted), 
+    show.legend = FALSE) + 
+  labs(x = "puissance",
+       y = "autonomie (en miles par gallon)") 
+```
+
+
+## Codage binaire pour les variables catégorielles
+
+Considérons l'étude de @Baumann:1992 et la seule variable `group`. Les données sont classées par groupe : les 22 premières observations concernent le groupe `DR`, les 22 suivantes le groupe `DRTA` et les 22 dernières le groupe `TA`. Si nous ajustons un modèle avec `groupe` comme variable catégorielle
+
+```{r}
+#| eval: true
+#| echo: true
+data(BSJ92, package = "hecedsm")
+class(BSJ92$group) # Vérifier que group est un facteur
+levels(BSJ92$group) # première valeur est la catégorie de référence
+# Imprimer trois lignes de la matrice du modèle
+# (trois enfants de groupes différents)
+model.matrix(~ group, data = BSJ92)[c(1,23,47),]
+# Comparer avec les niveaux des facteurs
+BSJ92$group[c(1,23,47)]
+```
+
+
+## Analyse de variance
+
+La spécification de la moyenne du modèle est $$\mathsf{E}(Y \mid \texttt{group})= \beta_0 + \beta_1\mathbf{1}_{\texttt{group}=\texttt{DRTA}} + \beta_2\mathbf{1}_{\texttt{group}=\texttt{TA}}.$$
+Puisque la variable `group` est catégorielle avec $K=3$ niveaux, il nous faut mettre $K-1 = 2$ variables indicatrices.
+
+Avec la paramétrisation en termes de **traitements** (option par défaut), on obtient
+
+-  $\mathbf{1}_{\texttt{group}=\texttt{DRTA}}=1$  si `group=DRTA` et zéro sinon,
+-  $\mathbf{1}_{\texttt{group}=\texttt{TA}}=1$ si `group=TA` et zéro sinon.
+
+Étant donné que le modèle comprend une ordonnée à l'origine et que le modèle décrit en fin de compte trois moyennes de groupe, nous n'avons besoin que de deux variables supplémentaires. 
+
+## Variables catégorielles
+
+Avec la paramétrisation en termes de **traitements**, la moyenne du groupe de référence est l'ordonnée à l'origine,  $\mu_{\texttt{DR}}=\beta_0$, 
+```{r}
+#| eval: true
+#| echo: false
+#| label: tbl-dummies-tr
+#| tbl-cap: "Paramétrisation des variables indicatrices pour le modèle en termes de traitements."
+modmat_tr <- model.matrix(
+    ~ group, 
+    data = BSJ92)[c(1,23,47),]
+rownames(modmat_tr) <- BSJ92$group[c(1,23,47)]
+knitr::kable(modmat_tr, booktabs = TRUE, row.names = TRUE)
+```
+
+## Interprétation des paramètres
+
+Si `group`=`DR` (référence), les deux variables indicatrices binaires `groupDRTA` et `groupTA` sont nulles. La moyenne de chaque groupe est
+
+- $\mu_{\texttt{DR}} = \beta_0$, 
+- $\mu_{\texttt{DRTA}}=\beta_0 + \beta_1$ et
+- $\mu_{\texttt{TA}} = \beta_0 + \beta_2$. 
+
+Ainsi, $\beta_1$ est la différence de moyenne entre les groupes `DRTA` et`DR`, et de la même façon $\beta_2=\mu_{\texttt{TA}}- \mu_{\texttt{DR}}$. 
+
+
+## Interprétation des paramètres {.smaller}
+
+```{r}
+# Ajuster une régression linéaire
+linmod <- lm(
+   posttest1 ~ pretest1 + group, 
+   data = BSJ92 |> 
+      dplyr::mutate( # centrer le pré-test
+        pretest1 = pretest1 - mean(pretest1)))
+coef(linmod) # Coefficients de la moyenne
+```  
+
+- Pour chaque augmentation du score d'un point sur le pré-test, le post-test augmente en moyenne de `r as.numeric(coef(linmod)[1])` points peu importe le groupe. 
+- La moyenne du groupe `DRTA` est de `r as.numeric(coef(linmod)[3])` supérieure à celle du groupe `DR`, pour des élèves avec le même score pré-test.
+- Les élèves du groupe `TA`, *ceteris paribus*, ont un score  qui est de  `r as.numeric(coef(linmod)[4])` points supérieurs en moyenne à ceux du groupe `DR`.
+- À cause du recentrage du score `pretest1`, l'ordonnée à l'origine $\beta_0$ représente la moyenne du test post-score d'une personne dans le groupe `DR` qui a la moyenne globale de 66 élèves au pré-test.
+
+
+## Estimation des paramètres
+
+Considérons une matrice de modèle $\mathbf{X}$ et une équation pour la moyenne du modèle linéaire de la forme $\mathsf{E}(Y_i) = \mathbf{x}_i\boldsymbol{\beta}$.
+
+Le modèle linéaire comprend
+
+- $p+1$ paramètres pour la moyenne, $\boldsymbol{\beta}$, et
+- un paramètre de variance $\sigma^2$.
+
+## Problème des moindres carrés ordinaires
+
+Nous voulons trouver le vecteur de paramètres $\boldsymbol{\beta} \in \mathbb{R}^{p+1}$ qui minimise l'erreur quadratique moyenne, c'est-à-dire la distance verticale entre les valeurs ajustées $\widehat{y}_i=\mathbf{x}_i\widehat{\boldsymbol{\beta}}$ et les observations $y_i$.
+
+
+Le problème d'optimisation est
+\begin{align*}
+\widehat{\boldsymbol{\beta}}&=\mathrm{arg min}_{\boldsymbol{\beta} \in \mathbb{R}^{p+1}}\sum_{i=1}^n (y_i-\mathbf{x}_i\boldsymbol{\beta})^2
+\\&=(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}).
+\end{align*}
+
+
+## Estimateur des moindres carrés ordinaires
+
+Si la matrice $n \times p$ $\mathbf{X}$ est de plein rang, c'est-à-dire que ses colonnes ne sont pas des combinaisons linéaires les unes des autres, la forme quadratique $\mathbf{X}^\top \mathbf{X}$ est inversible et nous obtenons
+$$
+\widehat{\boldsymbol{\beta}} = \left(\mathbf{X}^\top \mathbf{X}\right)^{-1}\mathbf{X}^\top \boldsymbol{y}.
+$$ {#eq-ols}
+Cette formule est celle de l'estimateur des **moindres carrés ordinaires** (MCO). Puisqu'il existe une solution analytique, aucune optimisation numérique n'est requise.
+
+## Décomposition orthogonale
+
+
+- Le vecteur de **valeurs ajustées** $\widehat{\boldsymbol{y}} =\mathbf{X} \widehat{\boldsymbol{\beta}} = \mathbf{H}_{\mathbf{X}}\boldsymbol{y}$ est la projection de la variable réponse $\boldsymbol{y}$ dans l'espace linéaire engendré par les colonnes de $\mathbf{X}$.
+- Les résidus ordinaires $\boldsymbol{e} = \boldsymbol{y} - \widehat{\boldsymbol{y}}$ sont la différence entre observations et prédictions.
+- On peut montrer que les produit scalaire entre résidus et valeurs ajustés, $$\widehat{\boldsymbol{y}}^\top \boldsymbol{e} = \sum_{i=1}^n \widehat{y}_ie_i=0,$$ ce qui implique que la corrélation entre les deux vecteurs est nulle, $\widehat{\mathsf{cor}}(\widehat{\boldsymbol{y}}, \boldsymbol{e})=0$
+   - De manière équivalente, $\mathbf{X}^\top\boldsymbol{e}=\boldsymbol{0}_{p+1}$.
+   - La moyenne empirique de $\boldsymbol{e}$ est zéro si le vecteur constant $\mathbf{1}_n$ est dans l'espace linéaire engendré par $\mathbf{X}$.
+
+## Représentation graphique des résidus
+
+```{r}
+#| eval: true
+#| echo: false
+#| label: fig-vertdist
+#| fig-cap: Résidus ordinaires $e_i$ (vecteurs verticaux) ajoutés à la droite de régression passant dans le plan $(x, y)$ (gauche) et ajustement de la réponse $y_i$ contre les valeurs ajustées $\widehat{y}_i$. La droite des moindres carrés ordinaires minimise la distance au carré des résidus ordinaires.
+set.seed(1234)
+n <- 100L
+x <- rexp(n = n, rate = 1/100)
+y <- 100*rt(n, df = 10) + 40 + 2*x
+ols <- lm(y ~ x)
+res <- resid(ols)
+yhat <- fitted(ols)
+df <- data.frame(x = x, y = y, res = res, fitted = yhat)
+vlines <- data.frame(x1 = x,
+    y1 = yhat,
+    y2 = yhat + res)
+vlines2 <- data.frame(x1 = yhat,
+    y1 = y,
+    y2 = y - res)
+g1 <- ggplot(data = df,
+       aes(x = x, y = y)) +
+        geom_point() +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE,
+              col ="black") +
+   labs(x = "variable explicative",
+       y = "variable réponse") +
+        geom_segment(aes(x = x1, y = y1, xend = x1, yend = y2), arrow= arrow(length = unit(0.2,"cm")), color = "grey",
+                     data = vlines, show.legend = FALSE)
+g2 <- ggplot(data = df, aes(x = yhat, y = y)) +
+        geom_point() +
+geom_abline(intercept = 0, slope = 1) +
+   labs(x = "valeurs ajustées",
+       y = "variable réponse") +
+scale_x_continuous(limits = range(c(yhat, y)),
+                   expand = expansion()) + scale_y_continuous(limits = range(c(yhat, y)),
+                   expand = expansion()) +
+geom_segment(aes(x = x1, y = y1, xend = x1, yend = y2),
+arrow= arrow(length = unit(0.2,"cm")), color = "grey",
+                     data = vlines2, show.legend = FALSE)
+g1 + g2
+```
+
+
+## EMV de la moyenne du modèle linéaire normal
+
+Si $Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)$ et les données sont indépendantes, la log-vraisemblance du modèle linéaire normal s'écrit
+\begin{align*}
+\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{1}{2\sigma^2}\left\{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})\right\}^2.
+\end{align*}
+Maximiser la log-vraisemblance par rapport à $\boldsymbol{\beta}$ équivaut à minimiser la somme du carré des erreurs $\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2$, indépendamment de la valeur de $\sigma$. On recouvre l'estimateur des MCO $\widehat{\boldsymbol{\beta}}$.
+
+## EMV de la variance
+
+Pour obtenir les EMV de $\sigma^2$, on se sert de la log vraisemblance profilée. En excluant les termes constants qui ne dépendent pas de $\sigma^2$, on trouve
+\begin{align*}
+\ell_{\mathrm{p}}(\sigma^2)
+&\propto-\frac{1}{2}\left\{n\ln\sigma^2+\frac{1}{\sigma^2}(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})\right\}.
+\end{align*}
+
+## EMV pour la variance
+
+En différenciant chaque terme par rapport à $\sigma^2$ et en fixant le gradient à zéro, on obtient l'estimateur du maximum de vraisemblance
+\begin{align*}
+\widehat{\sigma}^2&=\frac{1}{n}(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})\\&= \frac{1}{n} \sum_{i=1}^n (y_i - \mathbf{x}_i\widehat{\boldsymbol{\beta}})^2\\&= \frac{\mathsf{SC}_e}{n};
+\end{align*}
+où $\mathsf{SC}_e$ est la somme des carrés des résidus. L'estimateur sans biais habituel de $\sigma^2$ calculé par le logiciel est $S^2=\mathsf{SS}_e/(n-p-1)$, où le dénominateur est la taille de l'échantillon $n$ moins le nombre de paramètres de la moyenne $\boldsymbol{\beta}$, soit $p+1$.
+
+## Information observée pour le modèle linéaire normal
+
+Les entrées de la matrice d'information observée sont
+\begin{align*}
+-\frac{\partial^2 \ell(\boldsymbol{\beta}, \sigma^2)}{\partial \boldsymbol{\beta}\partial \boldsymbol{\beta}^\top} &= \frac{1}{\sigma^2} \frac{\partial \mathbf{X}^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{\partial \boldsymbol{\beta}^\top} =  \frac{\mathbf{X}^\top\mathbf{X}}{\sigma^2}\\
+-\frac{\partial^2 \ell(\boldsymbol{\beta}, \sigma^2)}{\partial \boldsymbol{\beta}\partial \sigma^2} &=- \frac{\mathbf{X}^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{\sigma^4}\\
+-\frac{\partial^2 \ell(\boldsymbol{\beta}, \sigma^2)}{\partial (\sigma^2)^2} &= -\frac{n}{2\sigma^4} + \frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{\sigma^6}.
+\end{align*}
+
+## Matrices d'information du modèle linéaire normal
+
+Si on évalue l'information observée aux EMV,
+\begin{align*}
+j(\widehat{\boldsymbol{\beta}}, \widehat{\sigma^2}) =
+\begin{pmatrix}
+\frac{\mathbf{X}^\top\mathbf{X}}{\widehat{\sigma^2}} & \boldsymbol{0}_{p+1} \\  \boldsymbol{0}_{p+1}^\top & \frac{n}{2\widehat{\sigma^4}}
+\end{pmatrix}
+\end{align*}
+car $\widehat{\sigma}^2=\mathsf{SS}_e/n$ et les résidus sont orthogonaux à la matrice du modèle.
+
+Puisque $\mathsf{E}(Y \mid \mathbf{X})=\mathbf{X}\boldsymbol{\beta}$, l'information de Fisher est
+\begin{align*}
+i(\boldsymbol{\beta}, \sigma^2) =
+\begin{pmatrix}
+\frac{\mathbf{X}^\top\mathbf{X}}{\sigma^2} & \boldsymbol{0}_{p+1} \\  \boldsymbol{0}_{p+1}^\top & \frac{n}{2\sigma^4}
+\end{pmatrix}
+\end{align*}
+
+## Remarques
+
+Puisqu'une corrélation de zéro dans un modèle normal équivaut à de l'indépendances, les EMV de $\sigma^2$ et $\boldsymbol{\beta}$ sont indépendants.
+
+
+Pourvu que la matrice carrée $(p+1)$, $\mathbf{X}^\top\mathbf{X}$ soit inversible, la variance en grand échantillon
+
+- de l'estimateur des moindres carrés ordinaires est $\mathsf{Var}(\widehat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}$ et
+- de l'EMV de la variance $\mathsf{Var}(\widehat{\sigma}^2)=2\sigma^4/n$.
+
+## Références
