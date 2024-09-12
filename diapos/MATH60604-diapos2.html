@@ -95,7 +95,27 @@
     code span.va { color: #111111; } /* Variable */
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="MATH60604-diapos2_files/libs/revealjs/dist/theme/quarto.css">
   <link href="MATH60604-diapos2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="MATH60604-diapos2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -451,13 +471,19 @@ L(\boldsymbol{\theta}; \boldsymbol{y}) = f(\boldsymbol{y}; \boldsymbol{\theta}),
 \end{align*}\]</span></p>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Le logarithme naturel <span class="math inline">\(\ln\)</span> est une transformation monotone, il est donc préférable de calculer les EMV sur l’échelle logarithmique pour éviter les imprécisions numériques</p></li></ol></aside></section>
+<section id="log-vraisemblance-exponentielle-et-emv" class="slide level2">
+<h2>log-vraisemblance exponentielle et EMV</h2>
+
+<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-loglik-exp-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
+Figure&nbsp;2: Fonction de log-vraisemblance exponentielle pour le temps d’attente, avec l’estimation du maximum de vraisemblance données par la ligne verticale pointillée (droite).
+</p></section>
 <section id="compréhension-du-maximum-de-vraisemblance" class="slide level2">
 <h2>Compréhension du maximum de vraisemblance</h2>
-<p>Dans le cadre discret, la fonction de masse donne la probabilité d’un résultat.</p>
 <p>Nous voulons trouver les valeurs des paramètres qui rendent les données les plus <strong>probables</strong> d’avoir été générées par notre modèle.</p>
 <blockquote>
 <p>Pensée scientifique: tout ce que nous observons, nous nous attendions à l’obtenir.</p>
 </blockquote>
+<p>Partout tous les modèles considérés dans la famille <span class="math inline">\(\mathcal{F} = \{f(\boldsymbol{x}; \boldsymbol{\theta}), \boldsymbol{\theta} \in \boldsymbol{\Theta}\}\)</span>, on prend celui le plus compatible avec les observations.</p>
 </section>
 <section id="dérivation-des-emv" class="slide level2">
 <h2>Dérivation des EMV</h2>
@@ -465,14 +491,8 @@ L(\boldsymbol{\theta}; \boldsymbol{y}) = f(\boldsymbol{y}; \boldsymbol{\theta}),
 <p>En prenant la dérivée première et en fixant le résultat à zéro, nous trouvons <span class="math display">\[\begin{align*}
 \frac{\mathrm{d} \ell(\lambda)}{\mathrm{d} \lambda}  = -\frac{n}{\lambda} + \frac{1}{\lambda^2} \sum_{i=1}^n y_i = 0.
 \end{align*}\]</span> Si on résout pour <span class="math inline">\(\lambda\)</span>, on trouve <span class="math inline">\(\widehat{\lambda} = \sum_{i=1}^n y_i / n.\)</span></p>
-<p>La dérivée seconde de la log vraisemblance est <span class="math inline">\(\mathrm{d}^2 \ell(\lambda)/\mathrm{d} \lambda^2 = n(\lambda^{-2} - 2\lambda^{-3}\overline{y}),\)</span> et en substituant <span class="math inline">\(\lambda = \overline{y}\)</span>, on obtient <span class="math inline">\(-n/\overline{y}^2\)</span>. Puisque cette valeur est négative, <span class="math inline">\(\widehat{\lambda}\)</span> maximise la fonction.</p>
+<p>La dérivée seconde de la log-vraisemblance est <span class="math inline">\(\mathrm{d}^2 \ell(\lambda)/\mathrm{d} \lambda^2 = n(\lambda^{-2} - 2\lambda^{-3}\overline{y}),\)</span> et en substituant <span class="math inline">\(\lambda = \overline{y}\)</span>, on obtient <span class="math inline">\(-n/\overline{y}^2\)</span>. Puisque cette valeur est négative, <span class="math inline">\(\widehat{\lambda}\)</span> maximise la fonction.</p>
 </section>
-<section id="log-vraisemblance-exponentielle-et-emv" class="slide level2">
-<h2>Log vraisemblance exponentielle et EMV</h2>
-
-<img data-src="MATH60604-diapos2_files/figure-revealjs/fig-loglik-exp-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
-Figure&nbsp;2: Fonction de log-vraisemblance exponentielle pour le temps d’attente, avec l’estimation du maximum de vraisemblance données par la ligne verticale pointillée (droite).
-</p></section>
 <section id="invariance-des-estimateurs-du-maximum-de-vraisemblance" class="slide level2">
 <h2>Invariance des estimateurs du maximum de vraisemblance</h2>
 <p>Si <span class="math inline">\(g(\boldsymbol{\theta}): \mathbb{R}^p \mapsto \mathbb{R}^k\)</span> pour <span class="math inline">\(k \leq p\)</span> est une fonction du vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}\)</span>, alors <span class="math inline">\(g(\widehat{\boldsymbol{\theta}})\)</span> est un estimateur du maximum de vraisemblance de <span class="math inline">\(g(\boldsymbol{\theta})\)</span>.</p>
@@ -487,17 +507,17 @@ Figure&nbsp;2: Fonction de log-vraisemblance exponentielle pour le temps d’att
 </section>
 <section id="fonction-de-score" class="slide level2">
 <h2>Fonction de score</h2>
-<p>Le gradient (ou vecteur de dérivées première) de la log vraisemblance <span class="math display">\[\begin{align*}
+<p>Le gradient (ou vecteur de dérivées première) de la log-vraisemblance <span class="math display">\[\begin{align*}
 U(\boldsymbol{\theta}) = \frac{\partial \ell(\boldsymbol{\theta}; \boldsymbol{y})}{\partial \boldsymbol{\theta}}
 \end{align*}\]</span> est dénommé fonction de <strong>score</strong>.</p>
-<p>Sous conditions de régularité (voir par ex. le chapitre 4 de <span class="citation" data-cites="Davison:2003">(<a href="" role="doc-biblioref" onclick="return false;"><strong>Davison:2003?</strong></a>)</span>), les EMV satisfont l’équation du score <span class="math display">\[\begin{align*}
+<p>Sous conditions de régularité (voir par ex. le chapitre 4 de <span class="citation" data-cites="Davison:2003">Davison (<a href="#/références" role="doc-biblioref" onclick="">2003</a>)</span>), les EMV satisfont l’équation du score <span class="math display">\[\begin{align*}
 U(\widehat{\boldsymbol{\theta}})=0.
 \end{align*}\]</span></p>
 </section>
 <section id="information" class="slide level2">
 <h2>Information</h2>
-<p>Comment mesurer la précision de notre estimateur ? Les matrices d’observation encodent la courbure de la log vraisemblance et fournissent de l’information sur la variabilité de <span class="math inline">\(\widehat{\boldsymbol{\theta}}.\)</span></p>
-<p>La <strong>matrice d’information observée</strong> est le négatif de la hessienne de la log vraisemblance, <span class="math display">\[\begin{align*}
+<p>Comment mesurer la précision de notre estimateur ? Les matrices d’observation encodent la courbure de la log-vraisemblance et fournissent de l’information sur la variabilité de <span class="math inline">\(\widehat{\boldsymbol{\theta}}.\)</span></p>
+<p>La <strong>matrice d’information observée</strong> est le négatif de la hessienne de la log-vraisemblance, <span class="math display">\[\begin{align*}
 j(\boldsymbol{\theta}; \boldsymbol{y})=-\frac{\partial^2 \ell(\boldsymbol{\theta}; \boldsymbol{y})}{\partial \boldsymbol{\theta} \partial \boldsymbol{\theta}^\top},
 \end{align*}\]</span> évaluée à l’estimation du maximum de vraisemblance <span class="math inline">\(\widehat{\boldsymbol{\theta}},\)</span> soit <span class="math inline">\(j(\widehat{\boldsymbol{\theta}}).\)</span> Sous des conditions de régularité, la <strong>matrice d’information de Fisher</strong> est <span class="math display">\[\begin{align*}
 i(\boldsymbol{\theta}) = \mathsf{E}\left\{U(\boldsymbol{\theta}; \boldsymbol{Y}) U(\boldsymbol{\theta}; \boldsymbol{Y})^\top\right\} = \mathsf{E}\left\{j(\boldsymbol{\theta}; \boldsymbol{Y})\right\}
@@ -506,7 +526,7 @@ i(\boldsymbol{\theta}) = \mathsf{E}\left\{U(\boldsymbol{\theta}; \boldsymbol{Y})
 <section id="matrices-dinformation-pour-données-exponentielles" class="slide level2">
 <h2>Matrices d’information pour données exponentielles</h2>
 <p>L’information de Fisher et l’observation observée pour un échantillon aléatoire simple de loi exponentielle <span class="math inline">\(Y_1, \ldots, Y_n,\)</span> paramétrée en terme d’échelle <span class="math inline">\(\lambda,\)</span> sont <span class="math display">\[\begin{align*}
-j(\lambda; \boldsymbol{y}) &amp;= -\frac{\partial^2 \ell(\lambda)}{\partial \lambda^2} = \frac{n}{\lambda^{2}} + \frac{2}{n\lambda^{3}}\sum_{i=1}^n y_i \\
+j(\lambda; \boldsymbol{y}) &amp;= -\frac{\partial^2 \ell(\lambda)}{\partial \lambda^2} =  -n \left(\lambda^{-2} + 2\lambda^{-3}\sum_{i=1}^n y_i\right) \\
 i(\lambda) &amp;= \frac{n}{\lambda^{2}} + \frac{2}{n\lambda^{3}}\sum_{i=1}^n \mathsf{E}(Y_i)  = \frac{n}{\lambda^{2}}
 \end{align*}\]</span> puisque <span class="math inline">\(\mathsf{E}(Y_i) = \lambda\)</span> et que l’espérance est un opérateur linéaire. Les deux versions de l’information coïncident lorsque évaluées à l’EMV, <span class="math inline">\(i(\widehat{\lambda}) = j(\widehat{\lambda}) = n/\overline{y}^2\)</span> pour <span class="math inline">\(\widehat{\lambda}=\overline{y}\)</span> la moyenne de l’échantillon. Ce n’est généralement pas le cas.</p>
 </section>
@@ -539,7 +559,7 @@ f(x; \lambda, \alpha) &amp;= \frac{\alpha}{\lambda^\alpha} x^{\alpha-1}\exp\left
 </section>
 <section id="maximum-de-vraisemblance-pour-un-échantillon-weibull" class="slide level2 smaller">
 <h2>Maximum de vraisemblance pour un échantillon Weibull</h2>
-<p>La log vraisemblance du modèle <span class="math inline">\(\mathsf{Weibull}(\lambda, \alpha)\)</span> est <span class="math display">\[\begin{align*}
+<p>La log-vraisemblance du modèle <span class="math inline">\(\mathsf{Weibull}(\lambda, \alpha)\)</span> est <span class="math display">\[\begin{align*}
 \ell(\lambda, \alpha) = n \ln(\alpha) - n\alpha\ln(\lambda) + (\alpha-1) \sum_{i=1}^n \ln y_i  - \lambda^{-\alpha}\sum_{i=1}^n y_i^\alpha.
 \end{align*}\]</span> Le gradient de cette fonction est obtenue par différentiation terme par terme, <span class="math display">\[\begin{align*}
 \frac{\partial \ell(\lambda, \alpha)}{\partial \lambda} &amp;= -\frac{n\alpha}{\lambda} +\alpha\lambda^{-\alpha-1}\sum_{i=1}^n y_i^\alpha \\
@@ -597,22 +617,33 @@ f(x; \lambda, \alpha) &amp;= \frac{\alpha}{\lambda^\alpha} x^{\alpha-1}\exp\left
 <img data-src="MATH60604-diapos2_files/figure-revealjs/fig-qqplots-weibull-exp-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;3: Diagrammes quantile-quantile des modèles exponentiel (gauche) et Weibull (droite) avec intervalles de confiance ponctuels à 95% obtenus par autoamorçage.
 </p></section>
-<section id="loi-déchantillonage" class="slide level2">
-<h2>Loi d’échantillonage</h2>
+<section id="convergence" class="slide level2">
+<h2>Convergence</h2>
+<p>Dénotons la vraie valeur du vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}_0.\)</span></p>
+<p>L’estimateur du maximum de vraisemblance est</p>
+<ul>
+<li>asymptotique efficace (c’est à dire qu’il a la plus petite erreur quadratique moyenne parmi tous les estimateurs similaires).</li>
+<li>convergent, donc <span class="math inline">\(\widehat{\boldsymbol{\theta}} \stackrel{p}{\to} \boldsymbol{\theta}_0\)</span> (approche la vraie valeur quand la taille de l’échantillon croît, biais asymptotique nul).</li>
+</ul>
+<p>Les matrices d’information de Fisher et observées, <span class="math inline">\(i(\widehat{\boldsymbol{\theta}})\)</span> et <span class="math inline">\(j(\widehat{\boldsymbol{\theta}})\)</span>, convergent aussi vers <span class="math inline">\(i(\boldsymbol{\theta}_0)\)</span> quand <span class="math inline">\(n \to \infty\)</span>.</p>
+</section>
+<section id="loi-déchantillonnage" class="slide level2">
+<h2>Loi d’échantillonnage</h2>
 <p>La <strong>loi d’échantillonnage</strong> d’un estimateur <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est la loi de probabilité induite par les données aléatoire sous-jacentes (<em>rappelons que les intrants de l’estimateur sont aléatoires, donc la sortie l’est également</em>).</p>
-<p>Dénotons la vraie valeur du vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}_0.\)</span> Sous des conditions de régularité appropriées, le théorème central limite donne <span class="math display">\[\begin{align*}
+<p>Sous des conditions de régularité appropriées, le théorème central limite donne <span class="math display">\[\begin{align*}
 i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\mathsf{normale}_p(\boldsymbol{0}_p, \mathsf{I}_p).
 \end{align*}\]</span></p>
 <p>Des approximations similaires pour la loi d’échantillonnage de <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> montrent que <span class="math display">\[\begin{align*}
 \widehat{\boldsymbol{\theta}} \stackrel{\cdot}{\sim} \mathsf{normale}_p\{\boldsymbol{\theta}_0, i^{-1}(\boldsymbol{\theta})\}
-\end{align*}\]</span> où la matrice de covariance est l’inverse de l’information de Fisher.<sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn2"><p> En pratique, la véritable valeur du paramètre <span class="math inline">\(\boldsymbol{\theta}_0\)</span> étant inconnue, nous évaluons l’information aux EMV <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span>. Cela se justifie par le fait que les matrices d’information de Fisher et observées, <span class="math inline">\(i(\widehat{\boldsymbol{\theta}})\)</span> et <span class="math inline">\(j(\widehat{\boldsymbol{\theta}})\)</span>, convergent vers <span class="math inline">\(i(\boldsymbol{\theta}_0)\)</span> quand <span class="math inline">\(n \to \infty\)</span>.</p></li></ol></aside></section>
+\end{align*}\]</span> où la matrice de covariance est l’inverse de l’information de Fisher.</p>
+<p>En pratique, la véritable valeur du paramètre <span class="math inline">\(\boldsymbol{\theta}_0\)</span> étant inconnue, nous remplaçons <span class="math inline">\(i(\boldsymbol{\theta}_0)\)</span> par <span class="math inline">\(i(\widehat{\boldsymbol{\theta}})\)</span> ou <span class="math inline">\(j(\widehat{\boldsymbol{\theta}})\)</span>.</p>
+</section>
 <section id="matrice-de-covariance-et-erreurs-type-pour-la-loi-de-weibull" class="slide level2">
 <h2>Matrice de covariance et erreurs-type pour la loi de Weibull</h2>
 <p>Nous pouvons utiliser ces résultats pour l’inférence statistique! Les erreurs-type sont simplement la racine carrée des entrées de la diagonale de la matrice hessienne inverse, <span class="math inline">\(\mathrm{se}(\widehat{\boldsymbol{\theta}})=[\mathrm{diag}\{j^{-1}(\widehat{\boldsymbol{\theta}})\}]^{1/2}\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># 'opt_weibull' contient les résultats de l'optimisation</span></span>
-<span id="cb4-2"><a href=""></a><span class="co"># où on a minimisé le négatif de la log vraisemblance</span></span>
+<span id="cb4-2"><a href=""></a><span class="co"># où on a minimisé le négatif de la log-vraisemblance</span></span>
 <span id="cb4-3"><a href=""></a><span class="co"># La matrice hessienne retournée est évaluée aux EMV</span></span>
 <span id="cb4-4"><a href=""></a><span class="co"># c'est donc l'information observée</span></span>
 <span id="cb4-5"><a href=""></a>(mle_weibull <span class="ot">&lt;-</span> opt_weibull<span class="sc">$</span>par)</span>
@@ -631,25 +662,25 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <span id="cb4-18"><a href=""></a><span class="do">## [1] 1.675 0.256</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="méthodes-delta" class="slide level2">
+<h2>Méthodes delta</h2>
+<p>Le résultat sur la normalité asymptotique de l’estimateur peut être utilisé pour dériver les erreurs standard pour d’autres quantités d’intérêt.</p>
+<p>Si <span class="math inline">\(\phi = g(\boldsymbol{\theta})\)</span>, où <span class="math inline">\(g: \mathbb{R}^p \to \mathbb{R}^k\)</span> pour <span class="math inline">\(k \leq p\)</span> est une fonction différentiable de <span class="math inline">\(\boldsymbol{\theta}\)</span> non-nulle à <span class="math inline">\(\boldsymbol{\theta}_0\)</span> alors <span class="math display">\[\widehat{\phi} \stackrel{\cdot}{\sim}\mathsf{normale}(\phi_0, \nabla \phi^\top i(\boldsymbol{\theta}_0)^{-1} \nabla \phi),\]</span> où <span class="math display">\[\nabla \phi=[\partial \phi/\partial \theta_1, \ldots, \partial \phi/\partial \theta_p]^\top.\]</span></p>
+<p>La matrice de variance et le Jacobien sont évalués à l’estimation du maximum de vraisemblance <span class="math inline">\(\widehat{\boldsymbol{\theta}}.\)</span></p>
+</section>
 <section id="intervalles-de-confiance-de-wald" class="slide level2">
 <h2>Intervalles de confiance de Wald</h2>
 <p>À partir de ces résultats, il est possible d’obtenir des intervalles de confiance de niveau <span class="math inline">\((1-\alpha)\)</span> de Wald pour les paramètres de <span class="math inline">\(\boldsymbol{\theta}\)</span>, où pour <span class="math inline">\(\theta_j\)</span> <span class="math inline">\((j=1, \ldots, p)\)</span>, <span class="math display">\[\begin{align*}
 \widehat{\theta}_j \pm \mathfrak{z}_{1-\alpha/2}\mathrm{se}(\widehat{\theta}_j),
 \end{align*}\]</span> avec <span class="math inline">\(\mathfrak{z}_{1-\alpha/2}\)</span> le quantile <span class="math inline">\(1-\alpha/2\)</span> d’une loi normale standard.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Intervalles de confiance de Wald</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Intervalles de confiance de Wald 95% (niveau = 0.05)</span></span>
 <span id="cb5-2"><a href=""></a>mle_weibull[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">1</span>] <span class="co"># lambda</span></span>
 <span id="cb5-3"><a href=""></a><span class="do">## [1] 29.3 35.8</span></span>
 <span id="cb5-4"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>] <span class="co"># alpha</span></span>
 <span id="cb5-5"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ces intervalles de confiance sont symmétriques.</p>
-</section>
-<section id="méthodes-delta" class="slide level2">
-<h2>Méthodes delta</h2>
-<p>Le résultat sur la normalité asymptotique de l’estimateur peut être utilisé pour dériver les erreurs standard pour d’autres quantités d’intérêt.</p>
-<p>Si <span class="math inline">\(\phi = g(\boldsymbol{\theta})\)</span>, où <span class="math inline">\(g: \mathbb{R}^p \to \mathbb{R}^k\)</span> pourr <span class="math inline">\(k \leq p\)</span> est une fonction différentiable de <span class="math inline">\(\boldsymbol{\theta}\)</span> non-nulle à <span class="math inline">\(\boldsymbol{\theta}_0\)</span> alors <span class="math display">\[\widehat{\phi} \stackrel{\cdot}{\sim}\mathsf{normale}(\phi_0, \nabla \phi^\top i(\boldsymbol{\theta}_0)^{-1} \nabla \phi),\]</span> où <span class="math display">\[\nabla \phi=[\partial \phi/\partial \theta_1, \ldots, \partial \phi/\partial \theta_p]^\top.\]</span></p>
-<p>La matrice de variance et le Jacobien sont évalués à l’estimation du maximum de vraisemblance <span class="math inline">\(\widehat{\boldsymbol{\theta}}.\)</span></p>
 </section>
 <section id="probabilité-dattendre-plus-dune-minute-selon-le-modèle-exponentiel" class="slide level2">
 <h2>Probabilité d’attendre plus d’une minute selon le modèle exponentiel</h2>
@@ -668,6 +699,26 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <span id="cb6-11"><a href=""></a><span class="do">## [1] 0.0331</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
+<section id="intervalles-de-confiance-de-wald-1" class="slide level2">
+<h2>Intervalles de confiance de Wald</h2>
+<p>On fait le même calcul avec le modèle Weibull…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>fit <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">fitdistr</span>(<span class="at">x =</span> attente, <span class="at">densfun =</span> <span class="st">"weibull"</span>, </span>
+<span id="cb7-2"><a href=""></a>               <span class="at">start =</span> <span class="fu">list</span>(<span class="at">scale =</span> <span class="fu">mean</span>(attente), <span class="at">shape =</span> <span class="dv">1</span>))</span>
+<span id="cb7-3"><a href=""></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(pars){ </span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">pweibull</span>(<span class="at">q =</span> <span class="dv">60</span>, <span class="at">shape =</span> pars[<span class="dv">2</span>], <span class="at">scale =</span> pars[<span class="dv">1</span>], <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-5"><a href=""></a>}</span>
+<span id="cb7-6"><a href=""></a><span class="co"># Calcul du jacobien de la transformation</span></span>
+<span id="cb7-7"><a href=""></a>grad_g <span class="ot">&lt;-</span> <span class="cf">function</span>(pars){numDeriv<span class="sc">::</span><span class="fu">grad</span>(<span class="at">func =</span> g, <span class="at">x =</span> pars)}</span>
+<span id="cb7-8"><a href=""></a>nabla <span class="ot">&lt;-</span> <span class="fu">grad_g</span>(<span class="at">pars =</span> fit<span class="sc">$</span>estimate)</span>
+<span id="cb7-9"><a href=""></a><span class="co"># Calcul des erreurs-type</span></span>
+<span id="cb7-10"><a href=""></a>se_p60_weib <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">t</span>(nabla) <span class="sc">%*%</span> fit<span class="sc">$</span>vcov <span class="sc">%*%</span> nabla)</span>
+<span id="cb7-11"><a href=""></a><span class="co"># Intervalle de confiance de Wald pour Pr(Y &gt; 60)</span></span>
+<span id="cb7-12"><a href=""></a><span class="fu">g</span>(fit<span class="sc">$</span>estimate) <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span><span class="fu">c</span>(se_p60_weib)</span>
+<span id="cb7-13"><a href=""></a><span class="do">## [1] -0.00475  0.01956</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>L’intervalle de confiance inclut des valeurs négatives pour les probabilités!</p>
+</section>
 <section id="comparaison-de-modèles-emboîtés" class="slide level2">
 <h2>Comparaison de modèles emboîtés</h2>
 <ul>
@@ -680,7 +731,7 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <h2>Tests basés sur la vraisemblance</h2>
 <p>L’hypothèse nulle <span class="math inline">\(\mathscr{H}_0\)</span> testée est “le modèle réduit est une <strong>simplification adéquate</strong> du modèle complet”. La vraisemblance fournit trois classes principales de statistiques pour tester cette hypothèse, soit</p>
 <ul>
-<li>les statistiques des tests du rapport de vraisemblance, notées <span class="math inline">\(R,\)</span> qui mesurent la différence de log vraisemblance (distance verticale) entre <span class="math inline">\(\ell(\widehat{\boldsymbol{\theta}})\)</span> et <span class="math inline">\(\ell(\widehat{\boldsymbol{\theta}}_0).\)</span></li>
+<li>les statistiques des tests du rapport de vraisemblance, notées <span class="math inline">\(R,\)</span> qui mesurent la différence de log-vraisemblance (distance verticale) entre <span class="math inline">\(\ell(\widehat{\boldsymbol{\theta}})\)</span> et <span class="math inline">\(\ell(\widehat{\boldsymbol{\theta}}_0).\)</span></li>
 <li>les statistiques des tests de Wald, notées <span class="math inline">\(W,\)</span> qui considèrent la distance horizontale normalisée entre <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> et <span class="math inline">\(\widehat{\boldsymbol{\theta}}_0.\)</span></li>
 <li>les statistiques des tests de score de Rao, notées <span class="math inline">\(S,\)</span> qui examinent le gradient repondéré de <span class="math inline">\(\ell,\)</span> évaluée <em>uniquement</em> à <span class="math inline">\(\widehat{\boldsymbol{\theta}}_0\)</span>.</li>
 </ul>
@@ -690,7 +741,7 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <h2>Visualiser les tests basés sur la vraisemblance</h2>
 
 <img data-src="fig/02/likelihood_tests_fr.png" width="300" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;4: Fonction de log vraisemblance et illustrations des éléments des statistique du score, de Wald et du rapport de vraisemblance.
+Figure&nbsp;4: Fonction de log-vraisemblance et illustrations des éléments des statistique du score, de Wald et du rapport de vraisemblance.
 </p></section>
 <section id="statistiques-de-tests-dérivées-de-la-vraisemblance" class="slide level2">
 <h2>Statistiques de tests dérivées de la vraisemblance</h2>
@@ -706,9 +757,9 @@ S(\boldsymbol{\theta}_0) &amp;= U^\top(\boldsymbol{\theta}_0)i^{-1}(\boldsymbol{
 <p>Si <span class="math inline">\(\theta\)</span> est un scalaire (cas <span class="math inline">\(q=1\)</span>), des versions directionnelles de ces statistiques existent, <span class="math display">\[\begin{align*}
 w(\theta_0)&amp;=(\widehat{\theta}-\theta_0)/\mathsf{se}(\widehat{\theta}) &amp;&amp;(\text{Wald}) \\
 r({\theta_0}) &amp;= \mathrm{sign}(\widehat{\theta}-\theta)\left[2
-\left\{\ell(\widehat{\theta})-\ell(\theta)\right\}\right]^{1/2} &amp;&amp;(\text{racine directionnelle de vraisemblance}) \\
+\left\{\ell(\widehat{\theta})-\ell(\theta)\right\}\right]^{1/2} &amp;&amp;(\text{vraisemblance}) \\
 s(\theta_0)&amp;=i^{-1/2}(\theta_0)U(\theta_0) &amp;&amp;(\text{score})
-\end{align*}\]</span></p>
+\end{align*}\]</span> En français, <span class="math inline">\(r\)</span> est appelée racine directionnelle du rapport de vraisemblance.</p>
 <p>Sous cette forme, si l’hypothèse nulle <span class="math inline">\(\mathscr{H}_0: \theta = \theta_0\)</span> est vraie, alors <span class="math inline">\(w(\theta_0)\stackrel{\cdot}{\sim} \mathsf{normale}(0,1)\)</span>, etc.</p>
 </section>
 <section id="comparaison-entre-les-tests" class="slide level2">
@@ -717,7 +768,7 @@ s(\theta_0)&amp;=i^{-1/2}(\theta_0)U(\theta_0) &amp;&amp;(\text{score})
 <ul>
 <li>La statistique du test du rapport de vraisemblance est normalement la plus puissante des trois tests (préférable).</li>
 <li>Le test du rapport de vraisemblance est invariant par rapport aux reparamétrages.</li>
-<li>La statistique de score <span class="math inline">\(S\)</span> ne nécessite que le calcul du score et de l’information de Fisher sous <span class="math inline">\(\mathscr{H}_0\)</span> (car par définition <span class="math inline">\(U(\widehat{\theta})=0\)</span>), elle peut donc être utile dans les problèmes où les calculs de l’estimateur du maximum de vraisemblance sous l’alternative sont coûteux ou impossibles.</li>
+<li>La statistique de score <span class="math inline">\(S\)</span> ne nécessite que le calcul du score et de l’information de Fisher sous <span class="math inline">\(\mathscr{H}_0\)</span> (car par définition <span class="math inline">\(U(\widehat{\boldsymbol{\theta}})=\boldsymbol{0}_p\)</span>), elle peut donc être utile dans les problèmes où les calculs de l’estimateur du maximum de vraisemblance sous l’alternative sont coûteux ou impossibles.</li>
 <li>Le test de Wald est le plus facile à dériver, mais son taux de couverture empirique peut laisser à désirer si la loi d’échantillonnage de <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est fortement asymétrique.</li>
 </ul>
 </section>
@@ -725,22 +776,22 @@ s(\theta_0)&amp;=i^{-1/2}(\theta_0)U(\theta_0) &amp;&amp;(\text{score})
 <h2>Surface de vraisemblance et régions de confiance</h2>
 
 <img data-src="MATH60604-diapos2_files/figure-revealjs/fig-weibull-surface-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
-Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des régions de confiance de 10 %, 20 %, , 90 % du rapport de vraisemblance (courbes de contour blanches). Les valeurs de log vraisemblance les plus élevées sont indiquées par des couleurs plus foncées.
+Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des régions de confiance de 10 %, 20 %, , 90 % du rapport de vraisemblance (courbes de contour blanches). Les valeurs de log-vraisemblance les plus élevées sont indiquées par des couleurs plus foncées.
 </p></section>
 <section id="test-de-wald-pour-comparer-les-modèles-weibull-et-exponentiel" class="slide level2">
 <h2>Test de Wald pour comparer les modèles Weibull et exponentiel</h2>
 <p>Nous pouvons tester si la loi exponentielle est une simplification adéquate de la loi de Weibull en imposant la restriction <span class="math inline">\(\mathscr{H}_0 : \alpha=1\)</span>. Nous comparons les statistiques de Wald <span class="math inline">\(W\)</span> à un <span class="math inline">\(\chi^2_1\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Calculer la statistique de Wald</span></span>
-<span id="cb7-2"><a href=""></a>wald_exp <span class="ot">&lt;-</span> (mle_weibull[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>se_weibull[<span class="dv">2</span>]</span>
-<span id="cb7-3"><a href=""></a><span class="co"># Calculer la valeur-p</span></span>
-<span id="cb7-4"><a href=""></a><span class="fu">pchisq</span>(wald_exp<span class="sc">^</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb7-5"><a href=""></a><span class="do">## [1] 3.61e-10</span></span>
-<span id="cb7-6"><a href=""></a><span class="co"># valeur-p inférieure à 5%, rejet de l'hypothèse nulle</span></span>
-<span id="cb7-7"><a href=""></a><span class="co"># Intervalles de confiance de niveau 95%</span></span>
-<span id="cb7-8"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>]</span>
-<span id="cb7-9"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span>
-<span id="cb7-10"><a href=""></a><span class="co"># La valeur 1 n'appartient pas à l'intervalle, rejeter H0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># Calculer la statistique de Wald</span></span>
+<span id="cb8-2"><a href=""></a>wald_exp <span class="ot">&lt;-</span> (mle_weibull[<span class="dv">2</span>] <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>se_weibull[<span class="dv">2</span>]</span>
+<span id="cb8-3"><a href=""></a><span class="co"># Calculer la valeur-p</span></span>
+<span id="cb8-4"><a href=""></a><span class="fu">pchisq</span>(wald_exp<span class="sc">^</span><span class="dv">2</span>, <span class="at">df =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-5"><a href=""></a><span class="do">## [1] 3.61e-10</span></span>
+<span id="cb8-6"><a href=""></a><span class="co"># valeur-p inférieure à 5%, rejet de l'hypothèse nulle</span></span>
+<span id="cb8-7"><a href=""></a><span class="co"># Intervalles de confiance de niveau 95%</span></span>
+<span id="cb8-8"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>]</span>
+<span id="cb8-9"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span>
+<span id="cb8-10"><a href=""></a><span class="co"># La valeur 1 n'appartient pas à l'intervalle, rejeter H0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nous rejetons l’hypothèse nulle, ce qui signifie que le sous-modèle exponentiel n’est pas une simplification adéquate du modèle de Weibull <span class="math inline">\((\alpha \neq 1\)</span>).</p>
 </section>
@@ -754,8 +805,8 @@ Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des 
 </section>
 <section id="vraisemblance-profilée" class="slide level2">
 <h2>Vraisemblance profilée</h2>
-<p>Considérons un modèle paramétrique avec une fonction de log vraisemblance <span class="math inline">\(\ell(\boldsymbol{\theta})\)</span>. On partitionne le <span class="math inline">\(p\)</span>-vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}=(\boldsymbol{\psi}, \boldsymbol{\varphi})\)</span>, où les paramètres d’intérêt sont <span class="math inline">\(\boldsymbol{\psi}\)</span> de dimension <span class="math inline">\(q\)</span> et un vecteur de nuisance à <span class="math inline">\(\boldsymbol{\varphi}\)</span> de dimension <span class="math inline">\(p-q.\)</span></p>
-<p>Nous pouvons considérer la vraisemblance profilée <span class="math inline">\(\ell_{mathsf{p}},\)</span> une fonction de <span class="math inline">\(\boldsymbol{\psi}\)</span> uniquement, qui est obtenue en maximisant la vraisemblance ponctuellement à chaque valeur fixe <span class="math inline">\(\boldsymbol{\psi}_0\)</span> par rapport au vecteur de nuisance <span class="math inline">\(\boldsymbol{\varphi}_{\psi_0},\)</span> <span class="math display">\[\begin{align*}
+<p>Considérons un modèle paramétrique avec une fonction de log-vraisemblance <span class="math inline">\(\ell(\boldsymbol{\theta})\)</span>. On partitionne le <span class="math inline">\(p\)</span>-vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta}=(\boldsymbol{\psi}, \boldsymbol{\varphi})\)</span>, où les paramètres d’intérêt sont <span class="math inline">\(\boldsymbol{\psi}\)</span> de dimension <span class="math inline">\(q\)</span> et un vecteur de nuisance à <span class="math inline">\(\boldsymbol{\varphi}\)</span> de dimension <span class="math inline">\(p-q.\)</span></p>
+<p>Nous pouvons considérer la vraisemblance profilée <span class="math inline">\(\ell_{\mathsf{p}},\)</span> une fonction de <span class="math inline">\(\boldsymbol{\psi}\)</span> uniquement, qui est obtenue en maximisant la vraisemblance ponctuellement à chaque valeur fixe <span class="math inline">\(\boldsymbol{\psi}_0\)</span> par rapport au vecteur de nuisance <span class="math inline">\(\boldsymbol{\varphi}_{\psi_0},\)</span> <span class="math display">\[\begin{align*}
 \ell_{\mathsf{p}}(\boldsymbol{\psi})=\max_{\boldsymbol{\varphi}}\ell(\boldsymbol{\psi}, \boldsymbol{\varphi})=\ell(\boldsymbol{\psi}, \widehat{\boldsymbol{\varphi}}_{\boldsymbol{\psi}}).
 \end{align*}\]</span></p>
 </section>
@@ -774,9 +825,9 @@ Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des 
 Figure&nbsp;6: Vraisemblance profilée pour <span class="math inline">\(\alpha\)</span>, représentée par une ligne grise pointillée (à gauche) et par une coupe transversale (à droite). La vraisemblance profilée du le panneau de droite a été décalée verticalement pour être zéro quand évaluée aux EMV; les lignes horizontales en pointillé indiquent les points de coupure pour les intervalles de confiance à 95% et 99%.
 </p></section>
 <section id="analogie-pour-la-log-vraisemblance-profilée" class="slide level2">
-<h2>Analogie pour la log vraisemblance profilée</h2>
+<h2>Analogie pour la log-vraisemblance profilée</h2>
 <ul>
-<li>Si l’on considère ces courbes de niveau comme celles d’une carte topographique, la vraisemblance profilée correspond à une marche le long de la crête de la log vraisemblance dans la direction <span class="math inline">\(\psi\)</span>.</li>
+<li>Si l’on considère ces courbes de niveau comme celles d’une carte topographique, la vraisemblance profilée correspond à une marche le long de la crête de la log-vraisemblance dans la direction <span class="math inline">\(\psi\)</span>.</li>
 <li>Le panneau de droite de la <a href="#/fig-weibull-profile" class="quarto-xref">Figure&nbsp;6</a> montre le profil d’élévation.</li>
 <li>Il faudrait obtenir numériquement, à l’aide d’un algorithme de recherche linéaire, les limites de l’intervalle de confiance de part et d’autre de <span class="math inline">\(\widehat{\alpha}\)</span>, mais il est clair que <span class="math inline">\(\alpha=1\)</span> n’est même pas compris dans l’intervalle de confiance à 99%.</li>
 </ul>
@@ -798,7 +849,7 @@ Figure&nbsp;6: Vraisemblance profilée pour <span class="math inline">\(\alpha\)
 <p><strong>Démo <strong>R</strong></strong></p>
 </div>
 <div class="callout-content">
-<p>Créer une fonction pour calculer les intervalles de confiance basés sur la log vraisemblance profilée.</p>
+<p>Créer une fonction pour calculer les intervalles de confiance basés sur la log-vraisemblance profilée.</p>
 </div>
 </div>
 </div>
@@ -818,20 +869,40 @@ Figure&nbsp;6: Vraisemblance profilée pour <span class="math inline">\(\alpha\)
 <h2>Vraisemblance profilée pour l’espérance d’une loi Weibull</h2>
 
 <img data-src="MATH60604-diapos2_files/figure-revealjs/fig-profile-mu-weibull-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
-Figure&nbsp;7: Racine directionnelle du rapport de vraisemblance (gauche) et log vraisemblance profilée (droite) en fonction de l’espérance <span class="math inline">\(\mu\)</span> pour un modèle Weibull.
+Figure&nbsp;7: Racine directionnelle du rapport de vraisemblance (gauche) et log-vraisemblance profilée (droite) en fonction de l’espérance <span class="math inline">\(\mu\)</span> pour un modèle Weibull.
 </p></section>
 <section id="comparaison-de-modèles" class="slide level2">
 <h2>Comparaison de modèles</h2>
-<p>La vraisemblance peut également servir d’élément de base pour la comparaison des modèles : plus <span class="math inline">\(\ell(\boldsymbol{\widehat{\theta}})\)</span> est grand, meilleure est l’adéquation. - Cependant, la vraisemblance ne tient pas compte de la complexité du modèle dans le sens où des modèles plus complexes avec plus de paramètres conduisent à une vraisemblance plus élevée. - Cela ne pose pas de problème pour la comparaison de modèles emboîtés à l’aide du test du rapport de vraisemblance, car nous ne tenons compte que de l’amélioration relative de l’adéquation. - Il existe un risque de <strong>surajustement</strong> si l’on ne tient compte que de la vraisemblance d’un modèle.</p>
+<p>La vraisemblance peut également servir d’élément de base pour la comparaison des modèles: plus <span class="math inline">\(\ell(\boldsymbol{\widehat{\theta}})\)</span> est grand, meilleure est l’adéquation.</p>
+<ul>
+<li>Cependant, la vraisemblance ne tient pas compte de la complexité du modèle dans le sens où des modèles plus complexes avec plus de paramètres conduisent à une vraisemblance plus élevée.</li>
+<li>Cela ne pose pas de problème pour la comparaison de modèles emboîtés à l’aide du test du rapport de vraisemblance, car nous ne tenons compte que de l’amélioration relative de l’adéquation.</li>
+<li>Il existe un risque de <strong>surajustement</strong> si l’on ne tient compte que de la vraisemblance d’un modèle.</li>
+</ul>
 </section>
 <section id="critères-dinformation" class="slide level2">
 <h2>Critères d’information</h2>
-<p>Les critères d’information combinent la log vraisemblance, qui mesure l’adéquation du modèle aux données, avec une pénalité pour le nombre de paramètres. <span class="math display">\[\begin{align*}
+<p>Les critères d’information combinent la log-vraisemblance, qui mesure l’adéquation du modèle aux données, avec une pénalité pour le nombre de paramètres. <span class="math display">\[\begin{align*}
 \mathsf{AIC}&amp;=-2\ell(\widehat{\boldsymbol{\theta}})+2p \\
 \mathsf{BIC}&amp;=-2\ell(\widehat{\boldsymbol{\theta}})+p\ln(n),
 \end{align*}\]</span> où <span class="math inline">\(p\)</span> dénote le nombre de paramètres du modèle.</p>
 <p>Le plus petit la valeur du critère d’information d’Akaike (AIC) ou du critère bayésien d’information (BIC), le meilleur le modèle.</p>
-<p>Notez que les critères d’information ne constituent pas des tests d’hypothèse formels sur les paramètres, mais qu’ils peuvent être utilisés pour comparer des modèles non imbriqués (mais ils sont alors très imprécis!)</p>
+</section>
+<section id="commentaires-sur-les-critères-dinformation" class="slide level2">
+<h2>Commentaires sur les critères d’information</h2>
+<ul>
+<li>Notez que les critères d’information ne constituent pas des tests d’hypothèse formels sur les paramètres si les modèles sont emboîtés.</li>
+<li>Le BIC est un critère convergent (parmi un ensemble de modèles, il sélectionnera avec probabilité 1 le vrai modèle s’il a été ajusté, quand <span class="math inline">\(n\to\infty\)</span>).</li>
+<li>Le AIC est davantage utilisé pour les modèles prédictifs, le BIC pour les modèles explicatifs (modèles plus simples sélectionnés).</li>
+</ul>
+</section>
+<section id="commentaires-sur-les-critères-dinformation-1" class="slide level2">
+<h2>Commentaires sur les critères d’information</h2>
+<ul>
+<li>L’estimateur de l’AIC a une variabilité de <span class="math inline">\(\mathrm{O}_p(n^{1/2})\)</span> (donc plus variable à mesure que la taille de l’échantillon augmente). Pour les différences entre modèles emboîtés, cela se réduit à <span class="math inline">\(\mathrm{O}_p(1)\)</span>.</li>
+<li>Vous pouvez comparer des modèles non-emboîtés, mais il faut utiliser la fonction de densité (en incluant les constantes!) Plusieurs logiciels omettent les constantes.</li>
+<li>Vous devez avoir les mêmes données et la même variable modélisée. On ne peut comparer un modèle pour <span class="math inline">\(Y\)</span> et un pour <span class="math inline">\(\ln(Y)\)</span> (sinon avec la transformation de Box–Cox, qui prend en compte le jacobien de la transformation).</li>
+</ul>
 </section>
 <section id="objectifs-dapprentissage" class="slide level2">
 <h2>Objectifs d’apprentissage</h2>
@@ -857,12 +928,17 @@ Figure&nbsp;7: Racine directionnelle du rapport de vraisemblance (gauche) et log
 </div>
 </div>
 </section>
-<section id="références" class="slide level2">
+<section id="références" class="slide level2 smaller scrollable">
 <h2>Références</h2>
 <div class="quarto-auto-generated-content">
 <p><img src="fig/logo_hec_montreal_bleu_web.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
+</div>
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Davison:2003" class="csl-entry" role="listitem">
+Davison, A. C. 2003. <em>Statistical Models</em>. Cambridge University Press.
 </div>
 </div>
 </section>

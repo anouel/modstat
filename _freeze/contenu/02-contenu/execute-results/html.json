@@ -1,0 +1,15 @@
+{
+  "hash": "c251b5eaed23ad4f1f46c4a2b59f4ccf",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Inférence basée sur la vraisemblance\"\n---\n\n\n\n### Objectifs d'apprentissage\n\n\n* Apprendre la terminologie associée à l'inférence basée sur la vraisemblance.\n* Dériver des expressions explicites pour l'estimateur du maximum de vraisemblance de modèles simples.\n* En utilisant l'optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.\n* Utiliser les propriétés de la vraisemblance pour les grands échantillons afin d'obtenir des intervalles de confiance et les propriétés des tests statistiques.\n* Utiliser les critères d'information pour la sélection des modèles.\n\n\n### Contenu\n\n\n- Notes de cours: chapitre [3 (Inférence basée sur la vraisemblance)](https://lbelzile.github.io/math60604/vraisemblance.html)\n\n\n### En classe\n\n- [Diapositives](../diapos/MATH60604-diapos2.html) ([pdf](../diapos/MATH60604-diapos2.pdf) et [code](MATH60604-diapos2.R))\n- [Démo **R**](MATH60604-contenu2.R)\n\n\n### Diapositives\n\n\n<p class=\"text-center\"><a class=\"btn btn-success btn-lg\" target=\"_blank\" href=\"../diapos/MATH6060-diapos2.html\">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class=\"btn btn-success btn-lg\" target=\"_blank\" href=\"../diapos/MATH6060-diapos2.pdf\" role=\"button\">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>\n\n<div class=\"ratio ratio-16x9\">\n<iframe class=\"slide-deck\" src=\"../diapos/MATH60604-diapos2.html\"></iframe>\n</div>\n\n### Après le cours\n\n- [Série d'exercices 3](../exercices/index.qmd)\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n\n\n|S  |Contenu       |                                   Diapos                                   |                                Vidéos                                 |                                      R                                      |\n|:--|:-------------|:--------------------------------------------------------------------------:|:---------------------------------------------------------------------:|:---------------------------------------------------------------------------:|\n|3  |Vraisemblance |[<span style='color: #4b5357;'><i class='fas fa-file-pdf fa-lg'></i></span>](https://lbelzile.github.io/MATH60604-diapos/MATH60604_d3_vraisemblance.pdf)|[<span style='color: red;'><i class='fab fa-youtube fa-lg'></i></span>](https://youtu.be/VJItA6EX5-s)|[<span style='color: #276dc2;'><i class='fab fa-r-project fa-lg'></i></span>](https://raw.githubusercontent.com/lbelzile/modstat/main/files/code/MATH60604_3_vraisemblance.R)|\n\n\n:::\n:::\n\n\n\n\n### Lectures additionnelles\n\n- [*Understanding Maximum Likelihood* par Kristoffer Magnusson](https://rpsychologist.com/d3/likelihood/)\n- @Davison:2003, chapitre 4\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

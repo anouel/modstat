@@ -147,5 +147,5 @@ sldat <- data.frame('S' = index0,
                     HTML = sl,
                     Diapos = slpdf,
                     Vidéos = videosl,
-                    "SAS" = codestr,
+                    #"SAS" = codestr,
                     "R" = codeRstr)
