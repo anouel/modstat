@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos3_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos3_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.1">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -449,7 +449,7 @@ Léo Belzile, HEC Montréal
 \end{align}\]</span> où</p>
 <ul>
 <li><span class="math inline">\(\mathbf{x}_i = (1, x_{i1}, \ldots, x_{ip})\)</span> est un vecteur ligne de taille <span class="math inline">\((p+1)\)</span> contenant les variables explicatives de l’observation <span class="math inline">\(i\)</span></li>
-<li><span class="math inline">\(\boldsymbol{\beta} = (\beta_0, \ldots, \beta_p)^\top\)</span> est un vecteur colonne de longeur <span class="math inline">\(p+1\)</span> contenant les coefficients de la moyenne.</li>
+<li><span class="math inline">\(\boldsymbol{\beta} = (\beta_0, \ldots, \beta_p)^\top\)</span> est un vecteur colonne de longueur <span class="math inline">\(p+1\)</span> contenant les coefficients de la moyenne.</li>
 </ul>
 </section>
 <section id="formulation-alternative" class="slide level2">
@@ -561,7 +561,7 @@ Léo Belzile, HEC Montréal
 <h2>Exemple 4 — suggestion de montants de dons</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>L’étude 1 de <span class="citation" data-cites="Moon.VanEpps:2023">Moon and VanEpps (<a href="#/références" role="doc-biblioref" onclick="">2023</a>)</span> (données <code>MV23_E1</code>, paquet <code>hecedsm</code>) porte sur la proportion de donateurs à un organisme de charité. Les participants au panel en ligne avaient la possibilité de gagner 25$ et de faire don d’une partie de cette somme à l’organisme de leur choix. Les données fournies incluent uniquement les personnes qui n’ont pas dépassé ce montant et qui ont indiqué avoir fait un don d’un montant non nul.</p>
+<p>L’étude 1 de <span class="citation" data-cites="Moon.VanEpps:2023">Moon and VanEpps (<a href="#/références" role="doc-biblioref" onclick="">2023</a>)</span> (données <code>MV23_S1</code>, paquet <code>hecedsm</code>) porte sur la proportion de donateurs à un organisme de charité. Les participants au panel en ligne avaient la possibilité de gagner 25$ et de faire don d’une partie de cette somme à l’organisme de leur choix. Les données fournies incluent uniquement les personnes qui n’ont pas dépassé ce montant et qui ont indiqué avoir fait un don d’un montant non nul.</p>
 </div><div class="column" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
@@ -708,13 +708,22 @@ Figure&nbsp;1: Répartition des salaires en fonction de l’échelon et du nombr
 </ul>
 <p>Les variables binaires <code>donate</code> et <code>before</code> sont toutes deux des facteurs encodés comme <code>0</code>/<code>1</code>.</p>
 </section>
-<section id="quelles-explications" class="slide level2">
-<h2>Quelles explications ?</h2>
+<section id="quelles-variables-explicatives-inclure" class="slide level2">
+<h2>Quelles variables explicatives inclure?</h2>
 <p>Avec des données <strong>expérimentales</strong>, seules les variables manipulées expérimentalement (affectation aléatoire aux groupes) sont nécessaires.</p>
 <ul>
 <li>Des covariables antécédantes ou concomitantes sont ajoutées si elles sont corrélées avec la réponse pour augmenter la puissance (par exemple, le résultat du pré-test pour <span class="citation" data-cites="Baumann:1992">Baumann, Seifert-Kessell, and Jones (<a href="#/références" role="doc-biblioref" onclick="">1992</a>)</span>, qui donne une mesure de la capacité individuelle de l’élève).</li>
 </ul>
 <p>Pour les données observationnelles, nous avons besoin d’un modèle pour prendre en compte les facteurs de confusion potentiels.</p>
+</section>
+<section id="interprétation-des-coefficients---ordonnée-à-lorigine" class="slide level2">
+<h2>Interprétation des coefficients - ordonnée à l’origine</h2>
+<p>La spécification de la moyenne est <span class="math display">\[\begin{align*}
+\mathsf{E}(Y_i \mid \boldsymbol{X}_i = \boldsymbol{x}_i) = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip}.
+\end{align*}\]</span> L’<strong>ordonnée à l’origine</strong> <span class="math inline">\(\beta_0\)</span> est la <strong>valeur moyenne de <span class="math inline">\(Y\)</span></strong> lorsque toutes les variables explicatives du modèles sont nulles, soit <span class="math inline">\(\boldsymbol{x}_i=\boldsymbol{0}_p\)</span>. <span class="math display">\[\begin{align*}
+\beta_0 &amp;= \mathsf{E}(Y \mid X_1=0,X_2=0,\ldots,X_p=0) \\
+&amp;= \beta_0 + \beta_1 \times 0 + \beta_2 \times 0 + \cdots + \beta_p \times 0
+\end{align*}\]</span> Bien sur, il se peut que cette interprétation n’ait aucun sens dans le contexte étudié. Centrer les variables explicatives numériques (pour que leurs moyennes soit zéro) permet de rendre l’ordonnée à l’origine plus interprétable.</p>
 </section>
 <section id="interprétation-des-coefficients" class="slide level2">
 <h2>Interprétation des coefficients</h2>
@@ -733,15 +742,6 @@ Figure&nbsp;1: Répartition des salaires en fonction de l’échelon et du nombr
 <h2>Effet marginal</h2>
 <p>On définit l’effet marginal comme la dérivée première de la moyenne conditionnelle par rapport à <span class="math inline">\(X_j\)</span>, soit <span class="math display">\[\text{effet marginal de }X_j =  \frac{\partial \mathsf{E}(Y \mid \boldsymbol{X})}{ \partial X_j}.\]</span></p>
 <p>Le coefficient <span class="math inline">\(\beta_j\)</span> est aussi l’<em>effet marginal</em> de la variable <span class="math inline">\(X_j\)</span>.</p>
-</section>
-<section id="interprétation-de-lordonnée-à-lorigine" class="slide level2">
-<h2>Interprétation de l’ordonnée à l’origine</h2>
-<p>La spécification de la moyenne est <span class="math display">\[\begin{align*}
-\mathsf{E}(Y_i \mid \boldsymbol{X}_i = \boldsymbol{x}_i) = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip}.
-\end{align*}\]</span> L’<strong>ordonnée à l’origine</strong> <span class="math inline">\(\beta_0\)</span> est la <strong>valeur moyenne de <span class="math inline">\(Y\)</span></strong> lorsque toutes les variables explicatives du modèles sont nulles, soit <span class="math inline">\(\boldsymbol{x}_i=\boldsymbol{0}_p\)</span>. <span class="math display">\[\begin{align*}
-\beta_0 &amp;= \mathsf{E}(Y \mid X_1=0,X_2=0,\ldots,X_p=0) \\
-&amp;= \beta_0 + \beta_1 \times 0 + \beta_2 \times 0 + \cdots + \beta_p \times 0
-\end{align*}\]</span> Bien sur, il se peut que cette interprétation n’ait aucun sens dans le contexte étudié. Centrer les variables explicatives numériques (pour que leurs moyennes soit zéro) permet de rendre l’ordonnée à l’origine plus interprétable.</p>
 </section>
 <section id="modèle-linéaire-avec-une-seule-variable-indicatrice" class="slide level2">
 <h2>Modèle linéaire avec une seule variable indicatrice</h2>
@@ -767,33 +767,6 @@ Figure&nbsp;2: Modèle linéaire simple pour les données <code>MV23_S1</code> a
 </p><p>Même si le modèle linéaire définit une droite, cette dernière ne peut être évaluée qu’à <span class="math inline">\(0\)</span> ou <span class="math inline">\(1\)</span></p>
 <p>Les données sont fortement discrétisées, avec beaucoup de doublons et de zéros, mais la taille de l’échantillon <span class="math inline">\((n=869)\)</span> est conséquente.</p>
 </section>
-<section id="courbe-quadratique-pour-données-automobile" class="slide level2">
-<h2>Courbe quadratique pour données automobile</h2>
-<p>Nous considérons un modèle de régression linéaire pour l’autonomie en carburant des voitures en fonction de la puissance de leur moteur (mesurée en chevaux-vapeur) à partir de l’ensemble de données <code>automobile</code>. Le modèle postulé est <span class="math display">\[\begin{align*}
-\texttt{autonomie}_i = \beta_0 + \beta_1 \texttt{puissance}_i + \beta_2 \texttt{puissance}_i^2 + \varepsilon_i.
-\end{align*}\]</span></p>
-<ul>
-<li>Pour chaque augmentation d’un cheval-vapeur de la puissance, l’autonomie moyenne en augmente de <span class="math inline">\((\beta_1 + \beta_2) + 2\beta_2\texttt{puissance}\)</span> miles par gallon.</li>
-<li>L’effet marginal (dérivée) d’une augmentation de la <code>puissance</code>, qui dépend de la valeur de la variable explicative, est <span class="math inline">\(\beta_1 + 2\beta_2 \texttt{puissance}\)</span>.</li>
-</ul>
-</section>
-<section id="modèle-linéaire-avec-équation-quadratique" class="slide level2">
-<h2>Modèle linéaire avec équation quadratique</h2>
-
-<img data-src="MATH60604-diapos3_files/figure-revealjs/fig-autoquad2d-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;3: Fonction de régression linéaire pour l’autonomie en fonction de la puissance.
-</p></section>
-<section id="discrétisation-de-variables-continues" class="slide level2">
-<h2>Discrétisation de variables continues</h2>
-<p>On peut toujours transformer une variable continue en une variable catégorielle.</p>
-<ul>
-<li>elle permet d’ajuster des relations fonctionnelles plus souples entre <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span></li>
-<li>au prix de coefficients supplémentaires.</li>
-</ul>
-
-<img data-src="MATH60604-diapos3_files/figure-revealjs/fig-auto-discre-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;4: Fonction affine par morceaux de l’autonomie d’un véhicule en fonction de sa puissance.
-</p></section>
 <section id="codage-binaire-pour-les-variables-catégorielles" class="slide level2">
 <h2>Codage binaire pour les variables catégorielles</h2>
 <p>Considérons l’étude de <span class="citation" data-cites="Baumann:1992">Baumann, Seifert-Kessell, and Jones (<a href="#/références" role="doc-biblioref" onclick="">1992</a>)</span> et la seule variable <code>group</code>. Les données sont classées par groupe : les 22 premières observations concernent le groupe <code>DR</code>, les 22 suivantes le groupe <code>DRTA</code> et les 22 dernières le groupe <code>TA</code>. Si nous ajustons un modèle avec <code>groupe</code> comme variable catégorielle</p>
@@ -942,12 +915,12 @@ Table&nbsp;1: Paramétrisation des variables indicatrices pour le modèle en ter
 <h2>Représentation graphique des résidus</h2>
 
 <img data-src="MATH60604-diapos3_files/figure-revealjs/fig-vertdist-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;5: Résidus ordinaires <span class="math inline">\(e_i\)</span> (vecteurs verticaux) ajoutés à la droite de régression passant dans le plan <span class="math inline">\((x, y)\)</span> (gauche) et ajustement de la réponse <span class="math inline">\(y_i\)</span> contre les valeurs ajustées <span class="math inline">\(\widehat{y}_i\)</span>. La droite des moindres carrés ordinaires minimise la distance au carré des résidus ordinaires.
+Figure&nbsp;3: Résidus ordinaires <span class="math inline">\(e_i\)</span> (vecteurs verticaux) ajoutés à la droite de régression passant dans le plan <span class="math inline">\((x, y)\)</span> (gauche) et ajustement de la réponse <span class="math inline">\(y_i\)</span> contre les valeurs ajustées <span class="math inline">\(\widehat{y}_i\)</span>. La droite des moindres carrés ordinaires minimise la distance au carré des résidus ordinaires.
 </p></section>
 <section id="emv-de-la-moyenne-du-modèle-linéaire-normal" class="slide level2">
 <h2>EMV de la moyenne du modèle linéaire normal</h2>
 <p>Si <span class="math inline">\(Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)\)</span> et les données sont indépendantes, la log-vraisemblance du modèle linéaire normal s’écrit <span class="math display">\[\begin{align*}
-\ell(\boldsymbol{\beta}, \sigma)&amp;\propto-\frac{n}{2} \ln (\sigma^2) -\frac{1}{2\sigma^2}\left\{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})\right\}^2.
+\ell(\boldsymbol{\beta}, \sigma)&amp;\propto-\frac{n}{2} \ln (\sigma^2) -\frac{\ell(\boldsymbol{\beta}, \sigma)&amp;\propto-\frac{n}{2} \ln (\sigma^2) -\frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{2\sigma^2}}{2\sigma^2}.
 \end{align*}\]</span> Maximiser la log-vraisemblance par rapport à <span class="math inline">\(\boldsymbol{\beta}\)</span> équivaut à minimiser la somme du carré des erreurs <span class="math inline">\(\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2\)</span>, indépendamment de la valeur de <span class="math inline">\(\sigma\)</span>. On recouvre l’estimateur des MCO <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>.</p>
 </section>
 <section id="emv-de-la-variance" class="slide level2">

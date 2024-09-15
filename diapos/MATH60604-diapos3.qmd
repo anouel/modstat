@@ -74,7 +74,7 @@ Un modèle linéaire est un modèle qui décrit la moyenne d'une **variable rép
 où
 
 - $\mathbf{x}_i = (1, x_{i1}, \ldots, x_{ip})$ est un vecteur ligne de taille $(p+1)$ contenant les variables explicatives de l'observation $i$
-- $\boldsymbol{\beta} = (\beta_0, \ldots, \beta_p)^\top$ est un vecteur colonne de longeur $p+1$ contenant les coefficients de la moyenne.
+- $\boldsymbol{\beta} = (\beta_0, \ldots, \beta_p)^\top$ est un vecteur colonne de longueur $p+1$ contenant les coefficients de la moyenne.
 
 ## Formulation alternative
 
@@ -203,7 +203,7 @@ On s'intéresse à la discrimination salariale dans un collège américain, au s
 
 ::: {.column width="50%"}
 
-L'étude 1 de @Moon.VanEpps:2023 (données `MV23_E1`, paquet `hecedsm`) porte sur la proportion de donateurs à un organisme de charité. Les participants au panel en ligne avaient la possibilité de gagner 25$ et de faire don d'une partie de cette somme à l'organisme de leur choix. Les données fournies incluent uniquement les personnes qui n'ont pas dépassé ce montant et qui ont indiqué avoir fait un don d'un montant non nul.
+L'étude 1 de @Moon.VanEpps:2023 (données `MV23_S1`, paquet `hecedsm`) porte sur la proportion de donateurs à un organisme de charité. Les participants au panel en ligne avaient la possibilité de gagner 25$ et de faire don d'une partie de cette somme à l'organisme de leur choix. Les données fournies incluent uniquement les personnes qui n'ont pas dépassé ce montant et qui ont indiqué avoir fait un don d'un montant non nul.
 
 :::
 
@@ -349,13 +349,27 @@ Si nous incluons `amount` comme variable réponse, les 235 observations manquant
 Les variables binaires `donate` et `before` sont toutes deux des facteurs encodés comme `0`/`1`.
 
 
-## Quelles explications ?
+## Quelles variables explicatives inclure?
 
 Avec des données **expérimentales**, seules les variables manipulées expérimentalement (affectation aléatoire aux groupes) sont nécessaires.
 
 - Des covariables antécédantes ou concomitantes sont ajoutées si elles sont corrélées avec la réponse pour augmenter la puissance (par exemple, le résultat du pré-test pour @Baumann:1992, qui donne une mesure de la capacité individuelle de l'élève).
 
 Pour les données observationnelles, nous avons besoin d'un modèle pour prendre en compte les facteurs de confusion potentiels.
+
+
+## Interprétation des coefficients - ordonnée à l'origine
+
+La spécification de la moyenne est
+\begin{align*}
+\mathsf{E}(Y_i \mid \boldsymbol{X}_i = \boldsymbol{x}_i) = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip}.
+\end{align*}
+L'**ordonnée à l'origine** $\beta_0$ est la **valeur moyenne de $Y$** lorsque toutes les variables explicatives du modèles sont nulles, soit $\boldsymbol{x}_i=\boldsymbol{0}_p$.
+\begin{align*}
+\beta_0 &= \mathsf{E}(Y \mid X_1=0,X_2=0,\ldots,X_p=0) \\
+&= \beta_0 + \beta_1 \times 0 + \beta_2 \times 0 + \cdots + \beta_p \times 0
+\end{align*}
+Bien sur, il se peut que cette interprétation n'ait aucun sens dans le contexte étudié. Centrer les variables explicatives numériques (pour que leurs moyennes soit zéro) permet de rendre l'ordonnée à l'origine plus interprétable.
 
 ## Interprétation des coefficients
 
@@ -379,19 +393,6 @@ $$\text{effet marginal de }X_j =  \frac{\partial \mathsf{E}(Y \mid \boldsymbol{X
 
 Le coefficient $\beta_j$ est aussi l'*effet marginal* de la variable $X_j$.
 
-
-## Interprétation de l'ordonnée à l'origine
-
-La spécification de la moyenne est
-\begin{align*}
-\mathsf{E}(Y_i \mid \boldsymbol{X}_i = \boldsymbol{x}_i) = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip}.
-\end{align*}
-L'**ordonnée à l'origine** $\beta_0$ est la **valeur moyenne de $Y$** lorsque toutes les variables explicatives du modèles sont nulles, soit $\boldsymbol{x}_i=\boldsymbol{0}_p$.
-\begin{align*}
-\beta_0 &= \mathsf{E}(Y \mid X_1=0,X_2=0,\ldots,X_p=0) \\
-&= \beta_0 + \beta_1 \times 0 + \beta_2 \times 0 + \cdots + \beta_p \times 0
-\end{align*}
-Bien sur, il se peut que cette interprétation n'ait aucun sens dans le contexte étudié. Centrer les variables explicatives numériques (pour que leurs moyennes soit zéro) permet de rendre l'ordonnée à l'origine plus interprétable.
 
 
 ## Modèle linéaire avec une seule variable indicatrice
@@ -443,69 +444,6 @@ ggplot(data = MV23_S1,
 Même si le modèle linéaire définit une droite, cette dernière ne peut être évaluée qu'à $0$ ou $1$
 
 Les données sont fortement discrétisées, avec beaucoup de doublons et de zéros, mais la taille de l'échantillon $(n=`r nrow(MV23_S1)`)$ est conséquente.
-
-## Courbe quadratique pour données automobile
-
-Nous considérons un modèle de régression linéaire pour l'autonomie en carburant des voitures en fonction de la puissance de leur moteur (mesurée en chevaux-vapeur) à partir de l'ensemble de données `automobile`. Le modèle postulé est
-\begin{align*}
-\texttt{autonomie}_i = \beta_0 + \beta_1 \texttt{puissance}_i + \beta_2 \texttt{puissance}_i^2 + \varepsilon_i.
-\end{align*} 
- 
- 
- 
-- Pour chaque augmentation d'un cheval-vapeur de la puissance, l'autonomie moyenne en augmente de $(\beta_1 + \beta_2) + 2\beta_2\texttt{puissance}$ miles par gallon.
-- L'effet marginal (dérivée) d'une augmentation de la `puissance`, qui dépend de la valeur de la variable explicative, est $\beta_1 + 2\beta_2 \texttt{puissance}$.
-
-
-## Modèle linéaire avec équation quadratique
-
-```{r}
-#| label: fig-autoquad2d
-#| echo: false
-#| eval: true
-#| fig-cap: Fonction de régression linéaire pour l'autonomie en fonction de la puissance.
-data(automobile, package = "hecmodstat")
-mod <- lm(autonomie ~ puissance + I(puissance^2),  data = automobile)
-ggplot(data = automobile, aes(x = puissance, y = autonomie)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = "y ~ x", se = FALSE, col = "grey") +
-  labs(#title = "Caractéristiques d'automobiles, circa 1983",
-       x = "puissance du moteur (en chevaux-vapeurs)",
-             y = "autonomie d'essence (en miles par gallon)") +
-      geom_line(data = data.frame(puissance = automobile$puissance, fitted = mod$fitted),
-                aes(puissance, fitted), show.legend = FALSE)
-```
-
-## Discrétisation de variables continues
-
-On peut toujours transformer une variable continue en une variable catégorielle.
-
-- elle permet d'ajuster des relations fonctionnelles plus souples entre $X$ et $Y$
-- au prix de coefficients supplémentaires.
-
-```{r}
-#| label: fig-auto-discre
-#| echo: false
-#| eval: true
-#| fig-cap: Fonction affine par morceaux de l'autonomie d'un véhicule en fonction de sa puissance.
-hp_cut <- with(automobile, cut(puissance, 
-              breaks = c(0, quantile(puissance, probs = c(0.2, 0.4, 0.6, 0.8)), 300)))
-mod <- lm(autonomie ~ hp_cut, data = automobile)
-hp_seq <- seq(50, 250, by = 0.1)
-cut_seq <- cut(hp_seq, breaks = c(0, quantile(automobile$puissance, probs = c(0.2, 0.4, 0.6, 0.8)), 300))
-pred_seq <- c(model.matrix(~cut_seq) %*% coef(mod))
-ggplot() +
-  geom_point(data = automobile, aes(x = puissance, y = autonomie)) +
-   geom_line(
-     data = data.frame(
-        puissance = hp_seq, 
-        fitted = pred_seq),
-    mapping = aes(x = puissance, y = fitted), 
-    show.legend = FALSE) + 
-  labs(x = "puissance",
-       y = "autonomie (en miles par gallon)") 
-```
-
 
 ## Codage binaire pour les variables catégorielles
 
@@ -670,7 +608,7 @@ g1 + g2
 
 Si $Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)$ et les données sont indépendantes, la log-vraisemblance du modèle linéaire normal s'écrit
 \begin{align*}
-\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{1}{2\sigma^2}\left\{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})\right\}^2.
+\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{2\sigma^2}}{2\sigma^2}.
 \end{align*}
 Maximiser la log-vraisemblance par rapport à $\boldsymbol{\beta}$ équivaut à minimiser la somme du carré des erreurs $\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2$, indépendamment de la valeur de $\sigma$. On recouvre l'estimateur des MCO $\widehat{\boldsymbol{\beta}}$.
 
