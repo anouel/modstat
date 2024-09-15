@@ -661,9 +661,9 @@ i(\boldsymbol{\beta}, \sigma^2) =
 Puisqu'une corrélation de zéro dans un modèle normal équivaut à de l'indépendances, les EMV de $\sigma^2$ et $\boldsymbol{\beta}$ sont indépendants.
 
 
-Pourvu que la matrice carrée $(p+1)$, $\mathbf{X}^\top\mathbf{X}$ soit inversible, la variance en grand échantillon
+Pourvu que la matrice carrée $(p+1)$, $\mathbf{X}^\top\mathbf{X}$ soit inversible, la variance asymptotique des estimateurs est
 
-- de l'estimateur des moindres carrés ordinaires est $\mathsf{Var}(\widehat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}$ et
-- de l'EMV de la variance $\mathsf{Var}(\widehat{\sigma}^2)=2\sigma^4/n$.
+- $\mathsf{Var}(\widehat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}$,
+- $\mathsf{Var}(\widehat{\sigma}^2) = 2\sigma^4/n$.
 
 ## Références
