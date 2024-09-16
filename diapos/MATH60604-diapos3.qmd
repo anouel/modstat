@@ -96,6 +96,48 @@ Le modèle linéaire normal $$Y_i \mid \boldsymbol{X}_i=\boldsymbol{x}_i \sim \m
   implique simplement que l’on considère les variables explicatives comme connues à l'avance, ou que $X_1, \ldots, X_p$ sont fixes (non-aléatoires).
 - Les coefficients $\boldsymbol{\beta}$ sont les mêmes pour toutes les observations, mais le vecteurs de variables explicatives $\mathbf{x}_i$ peut différer d'une observation à l'autre.
 - Le modèle est **linéaire** en $\beta_0, \ldots, \beta_p$, pas nécessairement dans les variables explicatives.
+     - la spécification $\mathsf{E}(Y \mid X =x) = \beta_0 + \beta_1 x^\beta_2$ est nonlinéaire
+     - tandis que $\mathsf{E}(Y \mid X =x) = \beta_0 + \beta_1 x + \beta_2 x^2$ est un modèle linéaire
+     - tout comme $\mathsf{E}(Y \mid X =x) = \beta_0 + \sum_{j=1}^p\beta_j \mathbf{1}_{x \in (a_j, a_{j+1}]}$ où $a_1 < \cdots < a_{p+1}$, avec $\mathbf{1}_{\cdot}$ une variable indicatrice binaire qui vaut un si l'énoncé est vrai et zéro sinon.
+
+## Illustration de modèle linéaires complexes
+
+```{r}
+#| label: fig-autoquad2d
+#| echo: false
+#| eval: true
+#| fig-cap: Régression linéaire avec terme quadratique (gauche) et modèle avec fonction de moyenne affine par morceaux pour chaque quintile (droite), pour l'autonomie d'essence de véhicules en fonction de la puissance de leur moteur.
+data(auto, package = "hecstatmod")
+hecblue <- rgb(red = 0, green = 60, blue = 113, max = 255)
+mod <- lm(mpg ~ horsepower + I(horsepower^2),  data = auto)
+g1 <- ggplot(data = auto, aes(x = horsepower, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = mgcv::gam, formula = y ~ se(x, bs = "cs"), se = FALSE, col = "gray") +
+  labs(x = "puissance (en chevaux-vapeur)",
+       y = "autonomie (en miles par gallon)") +
+      geom_line(data = data.frame(horsepower = auto$horsepower, fitted = mod$fitted),
+                aes(horsepower, fitted), show.legend = FALSE)
+hp_cut <- with(auto, cut(horsepower,
+              breaks = c(0, quantile(horsepower, probs = c(0.2, 0.4, 0.6, 0.8)), 300)))
+mod <- lm(mpg ~ hp_cut, data = auto)
+hp_seq <- seq(50, 250, by = 0.1)
+cut_seq <- cut(hp_seq, breaks = c(0, quantile(auto$horsepower, probs = c(0.2, 0.4, 0.6, 0.8)), 300))
+pred_seq <- c(model.matrix(~cut_seq) %*% coef(mod))
+g2 <- ggplot() +
+  geom_point(data = auto, aes(x = horsepower, y = mpg)) +
+   geom_line(
+     data = data.frame(
+        horsepower = hp_seq,
+        fitted = pred_seq),
+    mapping = aes(x = horsepower, y = fitted),
+    show.legend = FALSE) +
+  labs(x = "puissance (en chevaux-vapeur)",
+       y = "autonomie (en miles par gallon)")
+g1 + g2
+```
+
+On peut toujours transformer une variable continue en variable catégorielle pour un modèle pour $Y$ en fonction de $X$, mais au prix de coefficients supplémentaires.
+
 
 ## Notation
 
@@ -188,7 +230,7 @@ Variables:
 
 On s'intéresse à la discrimination salariale dans un collège américain, au sein duquel une étude a été réalisée pour investiguer s'il existait des inégalités salariales entre hommes et femmes. Les données observationnelles `college` du paquet `hecmodstat` incluent les variables suivantes
 
--   `salaire`: salaire de professeurs pendant l'année académique 2008--2009 (en milliers de dollars USD).
+-   `salaire`: salaire de professeurs pendant l'année académique 2008--2009 (en dollars USD).
 -   `echelon`: échelon académique, soit adjoint (`adjoint`), aggrégé (`aggrege`) ou titulaire (`titulaire`).
 -   `domaine`: variable catégorielle indiquant le champ d'expertise du professeur, soit appliqué (`applique`) ou théorique (`theorique`).
 -   `sexe`: indicateur binaire pour le sexe, `homme` ou `femme`.
@@ -301,13 +343,13 @@ data(college, package = "hecmodstat")
 p1 <- ggplot(college, aes(y = salaire, x = echelon)) +
   geom_boxplot() +
   xlab("échelon académique") +
-  ylab("salaire (en milliers de dollars USD)")
+  ylab("salaire (en dollars USD)")
 p2 <- ggplot(college, aes(x = service, y = salaire, col = sexe)) +
   geom_point() +
   facet_wrap(~ echelon, scales = "free") +
   MetBrewer::scale_color_met_d("Hiroshige") +
   xlab("années de service") +
-  ylab("salaire (en milliers de dollars USD)") + theme(legend.position = "bottom")
+  ylab("salaire (en dollars USD)") + theme(legend.position = "bottom")
 library(patchwork)
 p1 + p2 + plot_layout(width = c(1,3))
 ```
@@ -358,7 +400,7 @@ Avec des données **expérimentales**, seules les variables manipulées expérim
 Pour les données observationnelles, nous avons besoin d'un modèle pour prendre en compte les facteurs de confusion potentiels.
 
 
-## Interprétation des coefficients - ordonnée à l'origine
+## Interprétation des coefficients --- ordonnée à l'origine
 
 La spécification de la moyenne est
 \begin{align*}
@@ -388,10 +430,10 @@ demeurent inchangées.
 
 ## Effet marginal
 
-On définit l'effet marginal comme la dérivée première de la moyenne conditionnelle par rapport à $X_j$, soit
+On définit l'**effet marginal** comme la dérivée première de la moyenne conditionnelle par rapport à $X_j$, soit
 $$\text{effet marginal de }X_j =  \frac{\partial \mathsf{E}(Y \mid \boldsymbol{X})}{ \partial X_j}.$$ 
 
-Le coefficient $\beta_j$ est aussi l'*effet marginal* de la variable $X_j$.
+Le coefficient $\beta_j$ est aussi l'effet marginal de la variable $X_j$.
 
 
 
@@ -447,8 +489,7 @@ Les données sont fortement discrétisées, avec beaucoup de doublons et de zér
 
 ## Codage binaire pour les variables catégorielles
 
-Considérons l'étude de @Baumann:1992 et la seule variable `group`. Les données sont classées par groupe : les 22 premières observations concernent le groupe `DR`, les 22 suivantes le groupe `DRTA` et les 22 dernières le groupe `TA`. Si nous ajustons un modèle avec `groupe` comme variable catégorielle
-
+Considérons l'étude de @Baumann:1992 et la seule variable `group`. Les données sont classées par groupe : les 22 premières observations concernent le groupe `DR`, les 22 suivantes le groupe `DRTA` et les 22 dernières le groupe `TA`.
 ```{r}
 #| eval: true
 #| echo: true
@@ -465,7 +506,7 @@ BSJ92$group[c(1,23,47)]
 
 ## Analyse de variance
 
-La spécification de la moyenne du modèle est $$\mathsf{E}(Y \mid \texttt{group})= \beta_0 + \beta_1\mathbf{1}_{\texttt{group}=\texttt{DRTA}} + \beta_2\mathbf{1}_{\texttt{group}=\texttt{TA}}.$$
+Si nous ajustons un modèle avec `groupe` comme variable catégorielle, la spécification de la moyenne du modèle est $$\mathsf{E}(Y \mid \texttt{group})= \beta_0 + \beta_1\mathbf{1}_{\texttt{group}=\texttt{DRTA}} + \beta_2\mathbf{1}_{\texttt{group}=\texttt{TA}}.$$
 Puisque la variable `group` est catégorielle avec $K=3$ niveaux, il nous faut mettre $K-1 = 2$ variables indicatrices.
 
 Avec la paramétrisation en termes de **traitements** (option par défaut), on obtient
@@ -477,7 +518,7 @@ Avec la paramétrisation en termes de **traitements** (option par défaut), on o
 
 ## Variables catégorielles
 
-Avec la paramétrisation en termes de **traitements**, la moyenne du groupe de référence est l'ordonnée à l'origine,  $\mu_{\texttt{DR}}=\beta_0$, 
+Avec la paramétrisation en termes de **traitements**, la moyenne du groupe de référence est l'ordonnée à l'origine,  $\mu_{\texttt{DR}}=\beta_0$.
 ```{r}
 #| eval: true
 #| echo: false
@@ -500,23 +541,39 @@ Si `group`=`DR` (référence), les deux variables indicatrices binaires `groupDR
 
 Ainsi, $\beta_1$ est la différence de moyenne entre les groupes `DRTA` et`DR`, et de la même façon $\beta_2=\mu_{\texttt{TA}}- \mu_{\texttt{DR}}$. 
 
+## Modèle linéaire pour données du collège
 
-## Interprétation des paramètres {.smaller}
+On considère un modèle de régression pour les données `college` qui inclut le sexe, l'échelon académique, le nombre d'années de service et le domaine d'expertise (appliquée ou théorique).
+
+
+Le modèle linéaire postulé s'écrit
+
+\begin{align*}
+\texttt{salaire} &= \beta_0 + \beta_1 \mathbf{1}_{\texttt{sexe}=\texttt{femme}} +\beta_2 \mathbf{1}_{\texttt{domaine}=\texttt{theorique}} \\&\quad +\beta_3 \mathbf{1}_{\texttt{echelon}=\texttt{aggrege}}
++\beta_4 \mathbf{1}_{\texttt{echelon}=\texttt{titulaire}}  +\beta_5 \texttt{service} + \varepsilon.
+\end{align*}
 
 ```{r}
-# Ajuster une régression linéaire
-linmod <- lm(
-   posttest1 ~ pretest1 + group, 
-   data = BSJ92 |> 
-      dplyr::mutate( # centrer le pré-test
-        pretest1 = pretest1 - mean(pretest1)))
-coef(linmod) # Coefficients de la moyenne
-```  
+#| label: tbl-collegecoefs
+#| tbl-cap: "Estimations des coefficients du modèle linéaire pour les données $\\texttt{college}$ (en dollars USD, arrondis à l'unité)."
+#| eval: true
+#| echo: false
+college$sexe <- relevel(x = college$sexe, ref = "homme")
+college_lm <- lm(salaire ~  sexe + domaine + echelon + service , data = college)
+coefs_college_lm <- sprintf(round(coef(college_lm)*1000,0), fmt = "%0.f")
+names(coefs_college_lm) <- paste0("$\\widehat{\\beta}_",0:5,"$")
+knitr::kable(t(coefs_college_lm),
+     booktabs = TRUE, escape = FALSE)
+```
 
-- Pour chaque augmentation du score d'un point sur le pré-test, le post-test augmente en moyenne de `r as.numeric(coef(linmod)[1])` points peu importe le groupe. 
-- La moyenne du groupe `DRTA` est de `r as.numeric(coef(linmod)[3])` supérieure à celle du groupe `DR`, pour des élèves avec le même score pré-test.
-- Les élèves du groupe `TA`, *ceteris paribus*, ont un score  qui est de  `r as.numeric(coef(linmod)[4])` points supérieurs en moyenne à ceux du groupe `DR`.
-- À cause du recentrage du score `pretest1`, l'ordonnée à l'origine $\beta_0$ représente la moyenne du test post-score d'une personne dans le groupe `DR` qui a la moyenne globale de 66 élèves au pré-test.
+## Interprétation de coefficients des données du collège {.smaller}
+
+- L'ordonnée à l'origine $\beta_0$ correspond au salaire moyen d'un professeur adjoint (un homme) qui vient de compléter ses études et qui travaille dans un domaine appliqué: on estime ce salaire à $\widehat{\beta}_0=`r coefs_college_lm[1]`$ dollars.
+- toutes choses étant égales par ailleurs (même domaine, échelon et années depuis le dernier diplôme), l'écart de salaire entre un homme et un femme est estimé à  $\widehat{\beta}_1=`r coefs_college_lm[2]`$ dollars.
+- *ceteris paribus*, un(e) professeur(e) qui oeuvre dans un domaine théorique gagne $\beta_2$ dollars de plus qu'une personne du même sexe dans un domaine appliqué; on estime cette différence à $`r coefs_college_lm[3]`$ dollars.
+- *ceteris paribus*, la différence moyenne de salaire entre professeurs adjoints et aggrégés est estimée à  $\widehat{\beta}_3=`r coefs_college_lm[4]`$ dollars.
+- *ceteris paribus*, la différence moyenne de salaire entre professeurs adjoints et titulaires est de $\widehat{\beta}_4=`r coefs_college_lm[5]`$ dollars.
+- au sein d'un même échelon, chaque année supplémentaire de service mène à une augmentation de salaire annuelle moyenne de $\widehat{\beta}_5=`r coefs_college_lm[6]`$ dollars.
 
 
 ## Estimation des paramètres
@@ -608,25 +665,37 @@ g1 + g2
 
 Si $Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)$ et les données sont indépendantes, la log-vraisemblance du modèle linéaire normal s'écrit
 \begin{align*}
-\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{2\sigma^2}}{2\sigma^2}.
+\ell(\boldsymbol{\beta}, \sigma)&\propto-\frac{n}{2} \ln (\sigma^2) -\frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{2\sigma^2}.
 \end{align*}
-Maximiser la log-vraisemblance par rapport à $\boldsymbol{\beta}$ équivaut à minimiser la somme du carré des erreurs $\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2$, indépendamment de la valeur de $\sigma$. On recouvre l'estimateur des MCO $\widehat{\boldsymbol{\beta}}$.
+
+Maximiser la log-vraisemblance par rapport à $\boldsymbol{\beta}$ équivaut à minimiser la somme du carré des erreurs $\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2$, indépendamment de la valeur de $\sigma$.
+
+
+On recouvre l'estimateur des moindres carrés ordinaires $\widehat{\boldsymbol{\beta}}$.
 
 ## EMV de la variance
 
-Pour obtenir les EMV de $\sigma^2$, on se sert de la log vraisemblance profilée. En excluant les termes constants qui ne dépendent pas de $\sigma^2$, on trouve
+Pour obtenir les EMV de $\sigma^2$, on se sert de la log vraisemblance profilée. En excluant les termes constants qui ne dépendent pas de $\sigma^2$,
 \begin{align*}
 \ell_{\mathrm{p}}(\sigma^2)
 &\propto-\frac{1}{2}\left\{n\ln\sigma^2+\frac{1}{\sigma^2}(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})\right\}.
 \end{align*}
 
+En différenciant chaque terme par rapport à $\sigma^2$ et en fixant le gradient à zéro, on obtient
+\begin{align*}
+\frac{\partial \ell_{\mathrm{p}}(\sigma^2)}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})}{2\sigma^4} = 0
+\end{align*}
+
 ## EMV pour la variance
 
-En différenciant chaque terme par rapport à $\sigma^2$ et en fixant le gradient à zéro, on obtient l'estimateur du maximum de vraisemblance
+On déduit que l'estimateur du maximum de vraisemblance est la moyenne des carrés des résidus,
 \begin{align*}
-\widehat{\sigma}^2&=\frac{1}{n}(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})\\&= \frac{1}{n} \sum_{i=1}^n (y_i - \mathbf{x}_i\widehat{\boldsymbol{\beta}})^2\\&= \frac{\mathsf{SC}_e}{n};
+\widehat{\sigma}^2&=\frac{1}{n}(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})\\&= \frac{1}{n} \sum_{i=1}^n (y_i - \mathbf{x}_i\widehat{\boldsymbol{\beta}})^2= \frac{\mathsf{SC}_e}{n};
 \end{align*}
-où $\mathsf{SC}_e$ est la somme des carrés des résidus. L'estimateur sans biais habituel de $\sigma^2$ calculé par le logiciel est $S^2=\mathsf{SS}_e/(n-p-1)$, où le dénominateur est la taille de l'échantillon $n$ moins le nombre de paramètres de la moyenne $\boldsymbol{\beta}$, soit $p+1$.
+
+
+
+L'estimateur sans biais habituel de $\sigma^2$ calculé par le logiciel est $$S^2=\mathsf{SC}_e/(n-p-1),$$ où le dénominateur est la taille de l'échantillon moins le nombre de paramètres de la moyenne.
 
 ## Information observée pour le modèle linéaire normal
 
@@ -641,12 +710,12 @@ Les entrées de la matrice d'information observée sont
 
 Si on évalue l'information observée aux EMV,
 \begin{align*}
-j(\widehat{\boldsymbol{\beta}}, \widehat{\sigma^2}) =
+j(\widehat{\boldsymbol{\beta}}, \widehat{\sigma}^2) =
 \begin{pmatrix}
 \frac{\mathbf{X}^\top\mathbf{X}}{\widehat{\sigma^2}} & \boldsymbol{0}_{p+1} \\  \boldsymbol{0}_{p+1}^\top & \frac{n}{2\widehat{\sigma^4}}
 \end{pmatrix}
 \end{align*}
-car $\widehat{\sigma}^2=\mathsf{SS}_e/n$ et les résidus sont orthogonaux à la matrice du modèle.
+car $\widehat{\sigma}^2=\mathsf{SC}_e/n$ et les résidus sont orthogonaux à la matrice du modèle.
 
 Puisque $\mathsf{E}(Y \mid \mathbf{X})=\mathbf{X}\boldsymbol{\beta}$, l'information de Fisher est
 \begin{align*}
@@ -658,7 +727,7 @@ i(\boldsymbol{\beta}, \sigma^2) =
 
 ## Remarques
 
-Puisqu'une corrélation de zéro dans un modèle normal équivaut à de l'indépendances, les EMV de $\sigma^2$ et $\boldsymbol{\beta}$ sont indépendants.
+Puisque la loi asymptotique de l'estimateur est normale, les EMV de $\sigma^2$ et $\boldsymbol{\beta}$ sont asymptotiquement indépendants car leur corrélation asymptotique est nulle.
 
 
 Pourvu que la matrice carrée $(p+1)$, $\mathbf{X}^\top\mathbf{X}$ soit inversible, la variance asymptotique des estimateurs est

@@ -5,14 +5,14 @@ title: "Modèles linéaires"
 
 ### Objectifs d'apprentissage
 
-
+- réaliser une analyse exploratoire et formuler des questions en lien avec une base de données;
 - interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);
-- estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);
+- estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).
 
 ### Contenu
 
 
-- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604a/linearmodels.html), Sections 4.1--4.4.
+- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.1--4.4.
 
 
 ### En classe

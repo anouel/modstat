@@ -236,7 +236,7 @@
     "href": "contenu/03-contenu.html",
     "title": "Modélisation statistique",
     "section": "",
-    "text": "Objectifs d’apprentissage\n\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.4.\n\n\n\nEn classe\n\nDiapositives (pdf)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.4.\n\n\n\nEn classe\n\nDiapositives (pdf)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
     "crumbs": [
       "Contenu",
       "Semaine 3"

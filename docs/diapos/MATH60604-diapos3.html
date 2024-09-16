@@ -468,8 +468,20 @@ Léo Belzile, HEC Montréal
 <ul>
 <li>la moyenne est conditionnelle aux valeurs de <span class="math inline">\(\mathbf{X}\)</span> implique simplement que l’on considère les variables explicatives comme connues à l’avance, ou que <span class="math inline">\(X_1, \ldots, X_p\)</span> sont fixes (non-aléatoires).</li>
 <li>Les coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span> sont les mêmes pour toutes les observations, mais le vecteurs de variables explicatives <span class="math inline">\(\mathbf{x}_i\)</span> peut différer d’une observation à l’autre.</li>
-<li>Le modèle est <strong>linéaire</strong> en <span class="math inline">\(\beta_0, \ldots, \beta_p\)</span>, pas nécessairement dans les variables explicatives.</li>
+<li>Le modèle est <strong>linéaire</strong> en <span class="math inline">\(\beta_0, \ldots, \beta_p\)</span>, pas nécessairement dans les variables explicatives.
+<ul>
+<li>la spécification <span class="math inline">\(\mathsf{E}(Y \mid X =x) = \beta_0 + \beta_1 x^\beta_2\)</span> est nonlinéaire</li>
+<li>tandis que <span class="math inline">\(\mathsf{E}(Y \mid X =x) = \beta_0 + \beta_1 x + \beta_2 x^2\)</span> est un modèle linéaire</li>
+<li>tout comme <span class="math inline">\(\mathsf{E}(Y \mid X =x) = \beta_0 + \sum_{j=1}^p\beta_j \mathbf{1}_{x \in (a_j, a_{j+1}]}\)</span> où <span class="math inline">\(a_1 &lt; \cdots &lt; a_{p+1}\)</span>, avec <span class="math inline">\(\mathbf{1}_{\cdot}\)</span> une variable indicatrice binaire qui vaut un si l’énoncé est vrai et zéro sinon.</li>
+</ul></li>
 </ul>
+</section>
+<section id="illustration-de-modèle-linéaires-complexes" class="slide level2">
+<h2>Illustration de modèle linéaires complexes</h2>
+
+<img data-src="MATH60604-diapos3_files/figure-revealjs/fig-autoquad2d-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;1: Régression linéaire avec terme quadratique (gauche) et modèle avec fonction de moyenne affine par morceaux pour chaque quintile (droite), pour l’autonomie d’essence de véhicules en fonction de la puissance de leur moteur.
+</p><p>On peut toujours transformer une variable continue en variable catégorielle pour un modèle pour <span class="math inline">\(Y\)</span> en fonction de <span class="math inline">\(X\)</span>, mais au prix de coefficients supplémentaires.</p>
 </section>
 <section id="notation" class="slide level2">
 <h2>Notation</h2>
@@ -549,7 +561,7 @@ Léo Belzile, HEC Montréal
 <h2>Exemple 3 — Salaire dans un collège</h2>
 <p>On s’intéresse à la discrimination salariale dans un collège américain, au sein duquel une étude a été réalisée pour investiguer s’il existait des inégalités salariales entre hommes et femmes. Les données observationnelles <code>college</code> du paquet <code>hecmodstat</code> incluent les variables suivantes</p>
 <ul>
-<li><code>salaire</code>: salaire de professeurs pendant l’année académique 2008–2009 (en milliers de dollars USD).</li>
+<li><code>salaire</code>: salaire de professeurs pendant l’année académique 2008–2009 (en dollars USD).</li>
 <li><code>echelon</code>: échelon académique, soit adjoint (<code>adjoint</code>), aggrégé (<code>aggrege</code>) ou titulaire (<code>titulaire</code>).</li>
 <li><code>domaine</code>: variable catégorielle indiquant le champ d’expertise du professeur, soit appliqué (<code>applique</code>) ou théorique (<code>theorique</code>).</li>
 <li><code>sexe</code>: indicateur binaire pour le sexe, <code>homme</code> ou <code>femme</code>.</li>
@@ -644,7 +656,7 @@ Léo Belzile, HEC Montréal
 <p>Le salaire augmente avec les années de service, mais il y a une plus grande hétérogénéité dans le salaire des professeurs titulaires.</p>
 
 <img data-src="MATH60604-diapos3_files/figure-revealjs/fig-edacollege-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;1: Répartition des salaires en fonction de l’échelon et du nombre d’années de service
+Figure&nbsp;2: Répartition des salaires en fonction de l’échelon et du nombre d’années de service
 </p><p>Les professeurs adjoints qui ne sont pas promus sont généralement mis à la porte, aussi il y a moins d’occasions pour que les salaires varient sur cette échelle.</p>
 <p>Les variables <code>annees</code> et <code>service</code> sont fortement corrélées, avec une corrélation linéaire de 0.91.</p>
 </section>
@@ -716,8 +728,8 @@ Figure&nbsp;1: Répartition des salaires en fonction de l’échelon et du nombr
 </ul>
 <p>Pour les données observationnelles, nous avons besoin d’un modèle pour prendre en compte les facteurs de confusion potentiels.</p>
 </section>
-<section id="interprétation-des-coefficients---ordonnée-à-lorigine" class="slide level2">
-<h2>Interprétation des coefficients - ordonnée à l’origine</h2>
+<section id="interprétation-des-coefficients-ordonnée-à-lorigine" class="slide level2">
+<h2>Interprétation des coefficients — ordonnée à l’origine</h2>
 <p>La spécification de la moyenne est <span class="math display">\[\begin{align*}
 \mathsf{E}(Y_i \mid \boldsymbol{X}_i = \boldsymbol{x}_i) = \beta_0 + \beta_1 x_{i1} + \ldots + \beta_p x_{ip}.
 \end{align*}\]</span> L’<strong>ordonnée à l’origine</strong> <span class="math inline">\(\beta_0\)</span> est la <strong>valeur moyenne de <span class="math inline">\(Y\)</span></strong> lorsque toutes les variables explicatives du modèles sont nulles, soit <span class="math inline">\(\boldsymbol{x}_i=\boldsymbol{0}_p\)</span>. <span class="math display">\[\begin{align*}
@@ -740,8 +752,8 @@ Figure&nbsp;1: Répartition des salaires en fonction de l’échelon et du nombr
 </section>
 <section id="effet-marginal" class="slide level2">
 <h2>Effet marginal</h2>
-<p>On définit l’effet marginal comme la dérivée première de la moyenne conditionnelle par rapport à <span class="math inline">\(X_j\)</span>, soit <span class="math display">\[\text{effet marginal de }X_j =  \frac{\partial \mathsf{E}(Y \mid \boldsymbol{X})}{ \partial X_j}.\]</span></p>
-<p>Le coefficient <span class="math inline">\(\beta_j\)</span> est aussi l’<em>effet marginal</em> de la variable <span class="math inline">\(X_j\)</span>.</p>
+<p>On définit l’<strong>effet marginal</strong> comme la dérivée première de la moyenne conditionnelle par rapport à <span class="math inline">\(X_j\)</span>, soit <span class="math display">\[\text{effet marginal de }X_j =  \frac{\partial \mathsf{E}(Y \mid \boldsymbol{X})}{ \partial X_j}.\]</span></p>
+<p>Le coefficient <span class="math inline">\(\beta_j\)</span> est aussi l’effet marginal de la variable <span class="math inline">\(X_j\)</span>.</p>
 </section>
 <section id="modèle-linéaire-avec-une-seule-variable-indicatrice" class="slide level2">
 <h2>Modèle linéaire avec une seule variable indicatrice</h2>
@@ -763,13 +775,13 @@ Figure&nbsp;1: Répartition des salaires en fonction de l’échelon et du nombr
 <h2>Régression linéaire simple avec variable indicatrice</h2>
 
 <img data-src="MATH60604-diapos3_files/figure-revealjs/fig-donation-moon-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
-Figure&nbsp;2: Modèle linéaire simple pour les données <code>MV23_S1</code> avec <code>condition</code> comme variable explicative binaire, avec nuage de points décalés et un diagramme en demi-violin. Les cercles indiquent les moyennes de l’échantillon.
+Figure&nbsp;3: Modèle linéaire simple pour les données <code>MV23_S1</code> avec <code>condition</code> comme variable explicative binaire, avec nuage de points décalés et un diagramme en demi-violin. Les cercles indiquent les moyennes de l’échantillon.
 </p><p>Même si le modèle linéaire définit une droite, cette dernière ne peut être évaluée qu’à <span class="math inline">\(0\)</span> ou <span class="math inline">\(1\)</span></p>
 <p>Les données sont fortement discrétisées, avec beaucoup de doublons et de zéros, mais la taille de l’échantillon <span class="math inline">\((n=869)\)</span> est conséquente.</p>
 </section>
 <section id="codage-binaire-pour-les-variables-catégorielles" class="slide level2">
 <h2>Codage binaire pour les variables catégorielles</h2>
-<p>Considérons l’étude de <span class="citation" data-cites="Baumann:1992">Baumann, Seifert-Kessell, and Jones (<a href="#/références" role="doc-biblioref" onclick="">1992</a>)</span> et la seule variable <code>group</code>. Les données sont classées par groupe : les 22 premières observations concernent le groupe <code>DR</code>, les 22 suivantes le groupe <code>DRTA</code> et les 22 dernières le groupe <code>TA</code>. Si nous ajustons un modèle avec <code>groupe</code> comme variable catégorielle</p>
+<p>Considérons l’étude de <span class="citation" data-cites="Baumann:1992">Baumann, Seifert-Kessell, and Jones (<a href="#/références" role="doc-biblioref" onclick="">1992</a>)</span> et la seule variable <code>group</code>. Les données sont classées par groupe : les 22 premières observations concernent le groupe <code>DR</code>, les 22 suivantes le groupe <code>DRTA</code> et les 22 dernières le groupe <code>TA</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">data</span>(BSJ92, <span class="at">package =</span> <span class="st">"hecedsm"</span>)</span>
 <span id="cb4-2"><a href=""></a><span class="fu">class</span>(BSJ92<span class="sc">$</span>group) <span class="co"># Vérifier que group est un facteur</span></span>
@@ -791,7 +803,7 @@ Figure&nbsp;2: Modèle linéaire simple pour les données <code>MV23_S1</code> a
 </section>
 <section id="analyse-de-variance" class="slide level2">
 <h2>Analyse de variance</h2>
-<p>La spécification de la moyenne du modèle est <span class="math display">\[\mathsf{E}(Y \mid \texttt{group})= \beta_0 + \beta_1\mathbf{1}_{\texttt{group}=\texttt{DRTA}} + \beta_2\mathbf{1}_{\texttt{group}=\texttt{TA}}.\]</span> Puisque la variable <code>group</code> est catégorielle avec <span class="math inline">\(K=3\)</span> niveaux, il nous faut mettre <span class="math inline">\(K-1 = 2\)</span> variables indicatrices.</p>
+<p>Si nous ajustons un modèle avec <code>groupe</code> comme variable catégorielle, la spécification de la moyenne du modèle est <span class="math display">\[\mathsf{E}(Y \mid \texttt{group})= \beta_0 + \beta_1\mathbf{1}_{\texttt{group}=\texttt{DRTA}} + \beta_2\mathbf{1}_{\texttt{group}=\texttt{TA}}.\]</span> Puisque la variable <code>group</code> est catégorielle avec <span class="math inline">\(K=3\)</span> niveaux, il nous faut mettre <span class="math inline">\(K-1 = 2\)</span> variables indicatrices.</p>
 <p>Avec la paramétrisation en termes de <strong>traitements</strong> (option par défaut), on obtient</p>
 <ul>
 <li><span class="math inline">\(\mathbf{1}_{\texttt{group}=\texttt{DRTA}}=1\)</span> si <code>group=DRTA</code> et zéro sinon,</li>
@@ -801,7 +813,7 @@ Figure&nbsp;2: Modèle linéaire simple pour les données <code>MV23_S1</code> a
 </section>
 <section id="variables-catégorielles" class="slide level2">
 <h2>Variables catégorielles</h2>
-<p>Avec la paramétrisation en termes de <strong>traitements</strong>, la moyenne du groupe de référence est l’ordonnée à l’origine, <span class="math inline">\(\mu_{\texttt{DR}}=\beta_0\)</span>,</p>
+<p>Avec la paramétrisation en termes de <strong>traitements</strong>, la moyenne du groupe de référence est l’ordonnée à l’origine, <span class="math inline">\(\mu_{\texttt{DR}}=\beta_0\)</span>.</p>
 <div class="cell">
 <div id="tbl-dummies-tr" class="cell quarto-float quarto-figure quarto-figure-center">
 <figure class="quarto-float quarto-float-tbl">
@@ -856,24 +868,67 @@ Table&nbsp;1: Paramétrisation des variables indicatrices pour le modèle en ter
 </ul>
 <p>Ainsi, <span class="math inline">\(\beta_1\)</span> est la différence de moyenne entre les groupes <code>DRTA</code> et<code>DR</code>, et de la même façon <span class="math inline">\(\beta_2=\mu_{\texttt{TA}}- \mu_{\texttt{DR}}\)</span>.</p>
 </section>
-<section id="interprétation-des-paramètres-1" class="slide level2 smaller">
-<h2>Interprétation des paramètres</h2>
+<section id="modèle-linéaire-pour-données-du-collège" class="slide level2">
+<h2>Modèle linéaire pour données du collège</h2>
+<p>On considère un modèle de régression pour les données <code>college</code> qui inclut le sexe, l’échelon académique, le nombre d’années de service et le domaine d’expertise (appliquée ou théorique).</p>
+<p>Le modèle linéaire postulé s’écrit</p>
+<p><span class="math display">\[\begin{align*}
+\texttt{salaire} &amp;= \beta_0 + \beta_1 \mathbf{1}_{\texttt{sexe}=\texttt{femme}} +\beta_2 \mathbf{1}_{\texttt{domaine}=\texttt{theorique}} \\&amp;\quad +\beta_3 \mathbf{1}_{\texttt{echelon}=\texttt{aggrege}}
++\beta_4 \mathbf{1}_{\texttt{echelon}=\texttt{titulaire}}  +\beta_5 \texttt{service} + \varepsilon.
+\end{align*}\]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Ajuster une régression linéaire</span></span>
-<span id="cb5-2"><a href=""></a>linmod <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
-<span id="cb5-3"><a href=""></a>   posttest1 <span class="sc">~</span> pretest1 <span class="sc">+</span> group, </span>
-<span id="cb5-4"><a href=""></a>   <span class="at">data =</span> BSJ92 <span class="sc">|&gt;</span> </span>
-<span id="cb5-5"><a href=""></a>      dplyr<span class="sc">::</span><span class="fu">mutate</span>( <span class="co"># centrer le pré-test</span></span>
-<span id="cb5-6"><a href=""></a>        <span class="at">pretest1 =</span> pretest1 <span class="sc">-</span> <span class="fu">mean</span>(pretest1)))</span>
-<span id="cb5-7"><a href=""></a><span class="fu">coef</span>(linmod) <span class="co"># Coefficients de la moyenne</span></span>
-<span id="cb5-8"><a href=""></a><span class="do">## (Intercept)    pretest1   groupDRTA     groupTA </span></span>
-<span id="cb5-9"><a href=""></a><span class="do">##       6.188       0.693       3.627       2.036</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-collegecoefs" class="cell quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-tbl">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-collegecoefs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Estimations des coefficients du modèle linéaire pour les données <span class="math inline">\(\texttt{college}\)</span> (en dollars USD, arrondis à l’unité).
+</figcaption>
+<div aria-describedby="tbl-collegecoefs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(\widehat{\beta}_0\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(\widehat{\beta}_1\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(\widehat{\beta}_2\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(\widehat{\beta}_3\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(\widehat{\beta}_4\)</span></th>
+<th style="text-align: left;"><span class="math inline">\(\widehat{\beta}_5\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">86596</td>
+<td style="text-align: left;">-4771</td>
+<td style="text-align: left;">-13473</td>
+<td style="text-align: left;">14560</td>
+<td style="text-align: left;">49160</td>
+<td style="text-align: left;">-89</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="interprétation-de-coefficients-des-données-du-collège" class="slide level2 smaller">
+<h2>Interprétation de coefficients des données du collège</h2>
 <ul>
-<li>Pour chaque augmentation du score d’un point sur le pré-test, le post-test augmente en moyenne de 6.188 points peu importe le groupe.</li>
-<li>La moyenne du groupe <code>DRTA</code> est de 3.627 supérieure à celle du groupe <code>DR</code>, pour des élèves avec le même score pré-test.</li>
-<li>Les élèves du groupe <code>TA</code>, <em>ceteris paribus</em>, ont un score qui est de 2.036 points supérieurs en moyenne à ceux du groupe <code>DR</code>.</li>
-<li>À cause du recentrage du score <code>pretest1</code>, l’ordonnée à l’origine <span class="math inline">\(\beta_0\)</span> représente la moyenne du test post-score d’une personne dans le groupe <code>DR</code> qui a la moyenne globale de 66 élèves au pré-test.</li>
+<li>L’ordonnée à l’origine <span class="math inline">\(\beta_0\)</span> correspond au salaire moyen d’un professeur adjoint (un homme) qui vient de compléter ses études et qui travaille dans un domaine appliqué: on estime ce salaire à <span class="math inline">\(\widehat{\beta}_0=86596\)</span> dollars.</li>
+<li>toutes choses étant égales par ailleurs (même domaine, échelon et années depuis le dernier diplôme), l’écart de salaire entre un homme et un femme est estimé à <span class="math inline">\(\widehat{\beta}_1=-4771\)</span> dollars.</li>
+<li><em>ceteris paribus</em>, un(e) professeur(e) qui oeuvre dans un domaine théorique gagne <span class="math inline">\(\beta_2\)</span> dollars de plus qu’une personne du même sexe dans un domaine appliqué; on estime cette différence à <span class="math inline">\(-13473\)</span> dollars.</li>
+<li><em>ceteris paribus</em>, la différence moyenne de salaire entre professeurs adjoints et aggrégés est estimée à <span class="math inline">\(\widehat{\beta}_3=14560\)</span> dollars.</li>
+<li><em>ceteris paribus</em>, la différence moyenne de salaire entre professeurs adjoints et titulaires est de <span class="math inline">\(\widehat{\beta}_4=49160\)</span> dollars.</li>
+<li>au sein d’un même échelon, chaque année supplémentaire de service mène à une augmentation de salaire annuelle moyenne de <span class="math inline">\(\widehat{\beta}_5=-89\)</span> dollars.</li>
 </ul>
 </section>
 <section id="estimation-des-paramètres" class="slide level2">
@@ -915,26 +970,32 @@ Table&nbsp;1: Paramétrisation des variables indicatrices pour le modèle en ter
 <h2>Représentation graphique des résidus</h2>
 
 <img data-src="MATH60604-diapos3_files/figure-revealjs/fig-vertdist-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;3: Résidus ordinaires <span class="math inline">\(e_i\)</span> (vecteurs verticaux) ajoutés à la droite de régression passant dans le plan <span class="math inline">\((x, y)\)</span> (gauche) et ajustement de la réponse <span class="math inline">\(y_i\)</span> contre les valeurs ajustées <span class="math inline">\(\widehat{y}_i\)</span>. La droite des moindres carrés ordinaires minimise la distance au carré des résidus ordinaires.
+Figure&nbsp;4: Résidus ordinaires <span class="math inline">\(e_i\)</span> (vecteurs verticaux) ajoutés à la droite de régression passant dans le plan <span class="math inline">\((x, y)\)</span> (gauche) et ajustement de la réponse <span class="math inline">\(y_i\)</span> contre les valeurs ajustées <span class="math inline">\(\widehat{y}_i\)</span>. La droite des moindres carrés ordinaires minimise la distance au carré des résidus ordinaires.
 </p></section>
 <section id="emv-de-la-moyenne-du-modèle-linéaire-normal" class="slide level2">
 <h2>EMV de la moyenne du modèle linéaire normal</h2>
 <p>Si <span class="math inline">\(Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)\)</span> et les données sont indépendantes, la log-vraisemblance du modèle linéaire normal s’écrit <span class="math display">\[\begin{align*}
-\ell(\boldsymbol{\beta}, \sigma)&amp;\propto-\frac{n}{2} \ln (\sigma^2) -\frac{\ell(\boldsymbol{\beta}, \sigma)&amp;\propto-\frac{n}{2} \ln (\sigma^2) -\frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{2\sigma^2}}{2\sigma^2}.
-\end{align*}\]</span> Maximiser la log-vraisemblance par rapport à <span class="math inline">\(\boldsymbol{\beta}\)</span> équivaut à minimiser la somme du carré des erreurs <span class="math inline">\(\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2\)</span>, indépendamment de la valeur de <span class="math inline">\(\sigma\)</span>. On recouvre l’estimateur des MCO <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>.</p>
+\ell(\boldsymbol{\beta}, \sigma)&amp;\propto-\frac{n}{2} \ln (\sigma^2) -\frac{(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})}{2\sigma^2}.
+\end{align*}\]</span></p>
+<p>Maximiser la log-vraisemblance par rapport à <span class="math inline">\(\boldsymbol{\beta}\)</span> équivaut à minimiser la somme du carré des erreurs <span class="math inline">\(\sum_{i=1}^n (y_i - \mathbf{x}_i\boldsymbol{\beta})^2\)</span>, indépendamment de la valeur de <span class="math inline">\(\sigma\)</span>.</p>
+<p>On recouvre l’estimateur des moindres carrés ordinaires <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>.</p>
 </section>
 <section id="emv-de-la-variance" class="slide level2">
 <h2>EMV de la variance</h2>
-<p>Pour obtenir les EMV de <span class="math inline">\(\sigma^2\)</span>, on se sert de la log vraisemblance profilée. En excluant les termes constants qui ne dépendent pas de <span class="math inline">\(\sigma^2\)</span>, on trouve <span class="math display">\[\begin{align*}
+<p>Pour obtenir les EMV de <span class="math inline">\(\sigma^2\)</span>, on se sert de la log vraisemblance profilée. En excluant les termes constants qui ne dépendent pas de <span class="math inline">\(\sigma^2\)</span>, <span class="math display">\[\begin{align*}
 \ell_{\mathrm{p}}(\sigma^2)
 &amp;\propto-\frac{1}{2}\left\{n\ln\sigma^2+\frac{1}{\sigma^2}(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})\right\}.
+\end{align*}\]</span></p>
+<p>En différenciant chaque terme par rapport à <span class="math inline">\(\sigma^2\)</span> et en fixant le gradient à zéro, on obtient <span class="math display">\[\begin{align*}
+\frac{\partial \ell_{\mathrm{p}}(\sigma^2)}{\partial \sigma^2} = -\frac{n}{2\sigma^2} + \frac{(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{y}-\mathbf{X}\hat{\boldsymbol{\beta}})}{2\sigma^4} = 0
 \end{align*}\]</span></p>
 </section>
 <section id="emv-pour-la-variance" class="slide level2">
 <h2>EMV pour la variance</h2>
-<p>En différenciant chaque terme par rapport à <span class="math inline">\(\sigma^2\)</span> et en fixant le gradient à zéro, on obtient l’estimateur du maximum de vraisemblance <span class="math display">\[\begin{align*}
-\widehat{\sigma}^2&amp;=\frac{1}{n}(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})\\&amp;= \frac{1}{n} \sum_{i=1}^n (y_i - \mathbf{x}_i\widehat{\boldsymbol{\beta}})^2\\&amp;= \frac{\mathsf{SC}_e}{n};
-\end{align*}\]</span> où <span class="math inline">\(\mathsf{SC}_e\)</span> est la somme des carrés des résidus. L’estimateur sans biais habituel de <span class="math inline">\(\sigma^2\)</span> calculé par le logiciel est <span class="math inline">\(S^2=\mathsf{SS}_e/(n-p-1)\)</span>, où le dénominateur est la taille de l’échantillon <span class="math inline">\(n\)</span> moins le nombre de paramètres de la moyenne <span class="math inline">\(\boldsymbol{\beta}\)</span>, soit <span class="math inline">\(p+1\)</span>.</p>
+<p>On déduit que l’estimateur du maximum de vraisemblance est la moyenne des carrés des résidus, <span class="math display">\[\begin{align*}
+\widehat{\sigma}^2&amp;=\frac{1}{n}(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})^\top(\boldsymbol{Y}-\mathbf{X}\hat{\boldsymbol{\beta}})\\&amp;= \frac{1}{n} \sum_{i=1}^n (y_i - \mathbf{x}_i\widehat{\boldsymbol{\beta}})^2= \frac{\mathsf{SC}_e}{n};
+\end{align*}\]</span></p>
+<p>L’estimateur sans biais habituel de <span class="math inline">\(\sigma^2\)</span> calculé par le logiciel est <span class="math display">\[S^2=\mathsf{SC}_e/(n-p-1),\]</span> où le dénominateur est la taille de l’échantillon moins le nombre de paramètres de la moyenne.</p>
 </section>
 <section id="information-observée-pour-le-modèle-linéaire-normal" class="slide level2">
 <h2>Information observée pour le modèle linéaire normal</h2>
@@ -947,11 +1008,11 @@ Figure&nbsp;3: Résidus ordinaires <span class="math inline">\(e_i\)</span> (vec
 <section id="matrices-dinformation-du-modèle-linéaire-normal" class="slide level2">
 <h2>Matrices d’information du modèle linéaire normal</h2>
 <p>Si on évalue l’information observée aux EMV, <span class="math display">\[\begin{align*}
-j(\widehat{\boldsymbol{\beta}}, \widehat{\sigma^2}) =
+j(\widehat{\boldsymbol{\beta}}, \widehat{\sigma}^2) =
 \begin{pmatrix}
 \frac{\mathbf{X}^\top\mathbf{X}}{\widehat{\sigma^2}} &amp; \boldsymbol{0}_{p+1} \\  \boldsymbol{0}_{p+1}^\top &amp; \frac{n}{2\widehat{\sigma^4}}
 \end{pmatrix}
-\end{align*}\]</span> car <span class="math inline">\(\widehat{\sigma}^2=\mathsf{SS}_e/n\)</span> et les résidus sont orthogonaux à la matrice du modèle.</p>
+\end{align*}\]</span> car <span class="math inline">\(\widehat{\sigma}^2=\mathsf{SC}_e/n\)</span> et les résidus sont orthogonaux à la matrice du modèle.</p>
 <p>Puisque <span class="math inline">\(\mathsf{E}(Y \mid \mathbf{X})=\mathbf{X}\boldsymbol{\beta}\)</span>, l’information de Fisher est <span class="math display">\[\begin{align*}
 i(\boldsymbol{\beta}, \sigma^2) =
 \begin{pmatrix}
@@ -961,11 +1022,11 @@ i(\boldsymbol{\beta}, \sigma^2) =
 </section>
 <section id="remarques" class="slide level2">
 <h2>Remarques</h2>
-<p>Puisqu’une corrélation de zéro dans un modèle normal équivaut à de l’indépendances, les EMV de <span class="math inline">\(\sigma^2\)</span> et <span class="math inline">\(\boldsymbol{\beta}\)</span> sont indépendants.</p>
-<p>Pourvu que la matrice carrée <span class="math inline">\((p+1)\)</span>, <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> soit inversible, la variance en grand échantillon</p>
+<p>Puisque la loi asymptotique de l’estimateur est normale, les EMV de <span class="math inline">\(\sigma^2\)</span> et <span class="math inline">\(\boldsymbol{\beta}\)</span> sont asymptotiquement indépendants car leur corrélation asymptotique est nulle.</p>
+<p>Pourvu que la matrice carrée <span class="math inline">\((p+1)\)</span>, <span class="math inline">\(\mathbf{X}^\top\mathbf{X}\)</span> soit inversible, la variance asymptotique des estimateurs est</p>
 <ul>
-<li>de l’estimateur des moindres carrés ordinaires est <span class="math inline">\(\mathsf{Var}(\widehat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span> et</li>
-<li>de l’EMV de la variance <span class="math inline">\(\mathsf{Var}(\widehat{\sigma}^2)=2\sigma^4/n\)</span>.</li>
+<li><span class="math inline">\(\mathsf{Var}(\widehat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>,</li>
+<li><span class="math inline">\(\mathsf{Var}(\widehat{\sigma}^2) = 2\sigma^4/n\)</span>.</li>
 </ul>
 </section>
 <section id="références" class="slide level2 smaller scrollable">
