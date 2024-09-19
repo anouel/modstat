@@ -124,5 +124,8 @@
   },
   "exercices/01-exercice.qmd": {
     "01-exercice.html": "9cecdce0"
+  },
+  "exercices/modeles-lineaires-contrastes.qmd": {
+    "modeles-lineaires-contrastes.html": "e95360c3"
   }
 }

@@ -7,6 +7,7 @@ date-format: YYYY
 eval: true
 cache: true
 echo: true
+lang: fr
 standalone: true
 bibliography: MATH60604A.bib
 format:

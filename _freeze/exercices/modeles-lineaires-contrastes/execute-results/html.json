@@ -1,0 +1,15 @@
+{
+  "hash": "c0cdb22e3900ba7ee8898e4349839502",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Tests d'hypothèses pour modèles linéaires\"\n---\n\n\n\nLa base de données `HBSC24_S4` du paquet `hecedsm` contient des données pour l'étude 4 de @Huang:2024.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nremotes::install_github(\"lbelzile/hecedsm\")\ndata(HBSC24_S4, package = \"hecedsm\")\n?hecedsm::HBSC24_S4\n# Ajuster un modèle pour l'authenticité selon l'état d'esprit\nmod <- lm(authenticity ~ cond, data = HBSC24_S4)\n(emm <- emmeans::emmeans(mod, specs = \"cond\"))\nemm |>\n  contrasts(\n    method = list(C1 = c(),  # spécifier contraste 1 ici\n                  C2 = c())) # spécifier contraste 2 ici\n```\n:::\n\n\n\nLes résultats suivants sont extraits de la section D *Authenticity and Social Learning Behavior* des annexes en ligne.\n\n> We ran a regression with contrast coding to examine the role of mindset on perceived authenticity. Participants who reflected on their goal attainment as a transformation perceived their current state to be more authentic $(M = 5.98$, $\\text{SD} =  .82)$ compared to participants who wrote about distancing from old state or arriving at a new state $(M_{\\text{old}} = 5.62$, $\\text{SD} =  1.18$; $M_{\\text{new}} = 5.74$, $\\text{SD} =  1.07$, contrast 1: $b = .10$, $\\text{SE} =  .04$, $t(259) = 2.21$,  $p = .028).$\n\n> Further, there was no difference between participants who reflected on their goal attainment as distancing from an old state compared to arriving at a new state (contrast 2: $b = .06$, $\\text{SE} =  .08$, $t(259) = .79$,  $p = .433).$\n\n> We next examined how perceived authenticity affects information sharing. As expected, authenticity positively predicted information sharing ($b = 6.84$, $\\text{SE} =  1.87$, $t(260) = 3.66$, $p <.001$).\n\n1. En utilisant la description du texte, écrivez les poids pour les deux contrastes énumérés ci-dessus si l'ordre des conditions est `change`, `new` et `old` (ordre alphabétique).\n2. Effectuez un test global de l'authenticité en fonction de la condition expérimentale (`cond`).\n3. Calculez les contrastes et rapportez les valeurs des tests. Vérifiez les moyennes marginales et les statistiques des tests: pouvez-vous reproduire les résultats des auteurs?\n4. Effectuez une régression linéaire simple de `words` sur `authenticity` et vérifiez si la corrélation est significative.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

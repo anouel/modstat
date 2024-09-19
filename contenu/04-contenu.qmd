@@ -1,0 +1,35 @@
+---
+title: "Modèles linéaires"
+---
+
+
+### Objectifs d'apprentissage
+
+
+* effectuer des tests d'hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),
+* obtenir des prédictions à partir d'un modèle linéaire à l'aide d'un logiciel,
+* comprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,
+* tester l'égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.
+
+### Contenu
+
+
+- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.4--4.5
+
+
+### En classe
+
+- [Diapositives](../diapos/MATH60604-diapos4.html) ([pdf](../diapos/MATH60604-diapos4.pdf) et [code](MATH60604-diapos4.R))
+- [Exercice](../exercices/modeles-lineaires-contrastes.qmd) et [code pour la solution](../exercices/modeles-lineaires-contrastes.R^)
+
+
+### Diapositives
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos4.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos4.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos4.html"></iframe>
+</div>
+
+

@@ -1,0 +1,698 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "04. Modèles linéaires"
+date: today
+date-format: YYYY
+eval: true
+cache: true
+echo: true
+lang: fr
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecbleu <- c("#002855")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(digits = 3, width = 75)
+```
+
+## Loi des estimateurs
+
+En supposant que $Y_i \sim \mathsf{normal}(\mathbf{x}_i \boldsymbol{\beta}, \sigma^2)$ pour $i=1, \ldots, n$ sont des observations indépendantes, l'estimateur des moindres carrés ordinaires suit une loi normale
+\begin{align*}
+\widehat{\boldsymbol{\beta}} = \left(\mathbf{X}^\top \mathbf{X}\right)^{-1}\mathbf{X}^\top \boldsymbol{y} \sim \mathsf{normal}\left\{\boldsymbol{\beta}, \sigma^2 (\mathbf{X}^\top\mathbf{X})^{-1}\right\}.
+\end{align*}
+
+
+- On définit le $i$e résidu ordinaire $e_i = y_i - \mathbf{x}_i \widehat{\boldsymbol{\beta}}$.
+- La **somme du carré des erreurs** est $\sum_{i=1}^n e_i^2 = \mathsf{SC}_e$.
+- On peut montrer que $S^2=\mathsf{SS}_e/(n-p-1)$ est un estimateur non-biaisé de la variance $\sigma^2$.
+- Aussi, $\mathsf{SS}_e \sim \sigma^2 \chi^2_{n-p-1}$ et $\mathsf{SS}_e$ est indépendant de $\widehat{\boldsymbol{\beta}}$.
+
+## Prédiction
+
+Si l'on veut prédire la valeur d'une nouvelle observation, disons $Y^*$, dont le vecteur de variables explicatives $\mathbf{x}^* = (1, x^*_1, \ldots, x^*_p)$ sont connues, la prédiction sera  $\widehat{y}^* = \mathbf{x}^*\widehat{\boldsymbol{\beta}}$ parce que
+\begin{align*}
+\mathsf{E}(\widehat{Y}^* \mid \mathbf{X}, \mathbf{x}^*) = \mathsf{E}(\mathbf{x}^*\widehat{\boldsymbol{\beta}}\mid \mathbf{X}, \mathbf{x}^*) = \mathbf{x}^*\boldsymbol{\beta}.
+\end{align*}
+
+
+## Incertitude de la prédiction
+
+Les observations individuelles varient davantage que les moyennes: en supposant que la nouvelle observation est indépendante de celles utilisées pour estimer les coefficients,
+\begin{align*}
+\mathsf{Va}(Y^*-\widehat{Y}^* \mid \mathbf{X}, \mathbf{x}^*) &= \mathsf{Va}(Y^*  - \mathbf{x}^*\widehat{\boldsymbol{\beta}} \mid \mathbf{X}, \mathbf{x}^*)
+\\&=\mathsf{Va}(Y^* \mid \mathbf{X}, \mathbf{x}^*) + \mathsf{Va}(\mathbf{x}^*\widehat{\boldsymbol{\beta}} \mid \mathbf{X}, \mathbf{x}^*)
+\\& = \sigma^2 + \sigma^2\mathbf{x}^{*\vphantom{\top}}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}.
+\end{align*}
+
+
+La variabilité des prédictions est la somme de l'incertitude
+
+- due aux estimateurs (basés sur des données aléatoires) et
+- de la variance intrinsèque des observations.
+
+## Loi des prédictions
+
+Puisque $Y^*$ est tiré du modèle, on a $Y^* \mid \mathbf{x}^* \sim \mathsf{normal}(\mathbf{x}^*\boldsymbol{\beta}, \sigma^2)$.
+
+En se basant sur les propriétés des estimateurs, on peut obtenir les intervalles de prédictions de la loi Student-$t$,
+\begin{align*}
+\frac{Y^*-\mathbf{x}^*\widehat{\boldsymbol{\beta}}}{\sqrt{S^2\{1+\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}\}}}\sim \mathsf{Student}(n-p-1).
+\end{align*}
+où $S^2=\mathsf{SS}_e/(n-p-1)$ est l'estimateur sans biais de la variance $\sigma^2$.
+
+
+On obtient l'**intervalle de prédiction** de niveau $1-\alpha$ pour $Y^*$ en inversant la statistique de test
+\begin{align*}
+\mathbf{x}^*\widehat{\boldsymbol{\beta}}\pm \mathfrak{t}_{n-p-1}(\alpha/2)\sqrt{S^2\{1+\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}\}}.
+\end{align*}
+
+## Inférence pour la moyenne
+
+Étant donné un vecteur ligne de taille $(p+1)$, disons $\mathbf{x}$, contenant des variables explicatives, on peut calculer la moyenne $\mu(\mathbf{x})=\mathbf{x}\boldsymbol{\beta}$.
+
+
+
+Des calculs similaires pour les **intervalles de confiance** ponctuels pour la moyenne donnent
+\begin{align*}
+\mathbf{x}^*\widehat{\boldsymbol{\beta}}\pm \mathfrak{t}_{n-p-1}(\alpha/2)\sqrt{S^2\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}}.
+\end{align*}
+Les deux formules diffèrent uniquement au niveau de la variabilité.
+
+
+## Example
+
+@Sokolova:2023 tient compte des préjugés des consommateurs lorsqu'il s'agit d'évaluer le caractère écologique des emballages. Les auteurs  supposent (et constatent) que, paradoxalement, les consommateurs ont tendance à considérer l'emballage comme plus écologique lorsque la quantité de carton ou de papier entourant la boîte est plus importante.
+
+Les données de l'étude 2A contiennent des mesures de
+
+- la perception du respect de l'environnement (PEF, variable `pef`)
+- en fonction de la `proportion` d'emballage en papier (soit aucun, soit la moitié de la surface du plastique, soit la même, soit le double).
+
+## Modèle pour l'étude
+
+ On ajuste un modèle de régression linéaire simple avec $$\texttt{pef} = \beta_0 + \beta_1 \texttt{proportion} + \varepsilon,$$
+ où $\varepsilon \sim \mathsf{normal}(0,\sigma^2)$ et on suppose les observations indépendantes.
+
+## Prédiction pour la régression linéaire simple
+
+```{r}
+#| label: fig-predinterval
+#| cache: true
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Prédictions avec intervalles de prédiction (à gauche) et intervalles de confiance pour la moyenne (à droite) de niveau 80%.
+data(SKD23_S2A, package = "hecedsm") # load data
+lm_simple <- lm(pef ~ proportion, data = SKD23_S2A) # fit simple linear regression
+# <- lm(intention ~ fixation, data = intention)
+predci <- data.frame(cbind(proportion = seq(0, 2, by = 0.1),
+                predict(lm_simple, newdata = data.frame(proportion = seq(0, 2, by = 0.1)),
+                        interval = "c", level = 0.8)))
+predpi <- data.frame(cbind(proportion = seq(0, 2, by = 0.1),
+                predict(lm_simple, newdata = data.frame(proportion = seq(0, 2, by = 0.1)),
+                        interval = "p", level = 0.8)))
+nsim <- 25L
+boot_dat <- data.frame(id = 1:nsim,
+                     mvtnorm::rmvnorm(n = nsim, mean = coef(lm_simple), sigma = vcov(lm_simple)))
+colnames(boot_dat) <- c("id","intercept", "slope")
+ggplot() +
+    geom_point(data = SKD23_S2A, aes(x=proportion, y=pef), col = "grey", alpha = 0.8,
+               #position = position_jitter(width = 0.1, height = 0)
+               ) +
+    geom_ribbon(data = predpi, aes(x = proportion, ymin = lwr, ymax = upr), fill = "grey70", alpha = 0.2) +
+    geom_ribbon(data = predci, aes(x = proportion, ymin = lwr, ymax = upr), fill = "grey70", alpha = 0.5) +
+    geom_abline(slope = coef(lm_simple)[2], intercept = coef(lm_simple)[1]) +
+    scale_y_continuous(limits = c(1,7), oob = scales::squish, breaks = 1:7, labels = 1:7) +
+    scale_x_continuous(limits = c(0,2), oob = scales::squish) +
+    labs(x = "proportion de carton/plastique", subtitle = "perception du respect de l'environnement",
+         y = "")
+
+```
+
+## Forme des intervalles de prédiction
+
+```{r}
+#| label: fig-predinterval2
+#| cache: true
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-cap: Prédictions avec intervalles de confiance à 95% pour la moyenne et droites potentielles. Les observations sont décalées horizontalement.
+predci <- data.frame(cbind(proportion = seq(0, 2, by = 0.1),
+                predict(lm_simple, newdata = data.frame(proportion = seq(0, 2, by = 0.1)),
+                        interval = "c", level = 0.95)))
+ggplot(data = boot_dat) +
+    geom_point(data = SKD23_S2A, aes(x=proportion, y=pef), col = "grey", alpha = 0.8,
+               position = position_jitter(width = 0.1, height = 0)
+               ) +
+    geom_ribbon(data = predci, aes(x = proportion, ymin = lwr, ymax = upr), fill = "grey70", alpha = 0.5) +
+    geom_abline(slope = coef(lm_simple)[2], intercept = coef(lm_simple)[1]) +
+    geom_abline(mapping = aes(slope = slope, intercept = intercept), col = "gray10",
+                linetype = "dashed", alpha = 0.4) +
+    scale_y_continuous(oob = scales::squish, breaks = 1:7, labels = 1:7, limits = c(2,4)) +
+    scale_x_continuous(limits = c(0,2), oob = scales::squish) +
+    labs(x = "proportion de carton/plastique", subtitle = "perception du respect de l'environnement",
+         y = "")
+```
+
+## Largeur des intervalles
+
+
+```{r}
+#| label: tbl-predints-soko
+#| eval: true
+#| echo: false
+#| layout-ncol: 2
+#| tbl-cap: "Prédictions avec intervalles de prédiction (gauche) et intervalles de confiance pour la moyenne (droite)."
+data(SKD23_S2A, package = "hecedsm") # load data
+lm_simple <- lm(pef ~ proportion, data = SKD23_S2A) # fit simple linear regression
+tab1 <- predict(lm_simple,
+        newdata = data.frame(proportion = c(0, 0.5, 1, 2)),
+        interval = "prediction") # prediction intervals
+tab2 <- predict(lm_simple,
+        newdata = data.frame(proportion = c(0, 0.5, 1, 2)),
+        interval = "confidence") # confidence for mean
+knitr::kable(cbind(proportion = c(0, 0.5, 1, 2), tab1), align = c("cccc"),
+             col.names = c("`proportion`", "prédiction", "borne inf.","borne sup."),
+             booktabs = TRUE, caption = "Intervalles de prédiction")
+knitr::kable(tab2,
+             col.names = c("moyenne", "borne inf. (IC 95%)","borne sup. (IC 95%)"),
+             booktabs = TRUE, align = c("ccc"),
+             caption = "Intervalles de confiance pour la moyenne")
+```
+
+## Prédictions dans **R**
+
+Dans **R**, la fonction générique `predict` prend comme arguments
+
+- un modèle
+- une nouvelle base de données `newdata` contenant un tableau avec la même structure que les données qui ont servi à l'ajustement du modèle
+- un `type`, indiquant l'échelle (`"response"` pour les modèles linéaires).
+- un `interval`, soit `"prediction"` ou `"confidence"`, pour les objets de classe `lm`.
+
+
+
+```{r}
+#| eval: false
+#| echo: true
+data(SKD23_S2A, package = "hecedsm") # charger les données
+lm_simple <- lm(pef ~ proportion, data = SKD23_S2A) # régression linéaire simple
+predict(lm_simple,
+        newdata = data.frame(proportion = c(0, 0.5, 1, 2)),
+        interval = "prediction") # intervalles de prédiction
+predict(lm_simple,
+        newdata = data.frame(proportion = c(0, 0.5, 1, 2)),
+        interval = "confidence") # IC de confiance pour la moyenne
+```
+
+
+## Tests d'hypothèses pour les modèles linéaires
+
+Les tests d'hypothèses dans les modèles linéaires  suivent la procédure usuelle: nous comparons deux modèles emboîtés, dont l'un (le modèle nul) est une simplification d'un modèle plus complexe (modèle alternatif) obtenu en imposant des restrictions sur les coefficients de la moyenne.
+
+- Généralement, nous testons l'effet des variables explicatives (c'est-à-dire que nous fixons les coefficients moyens de $\boldsymbol{\beta}$ correspondant à cette variable à $0$), ce qui équivaut à comparer les modèles avec et sans la variable explicative.
+   - Pour les variables continues ou binaires, il s'agit d'un seul coefficient, disons $\beta_j$.
+   - Pour les variables catégorielles avec $K$ niveaux, il y a $K-1$ coefficients à mettre simultanément à zéro.
+
+
+## Tests de  Wald
+Rappelons que la statistique du test de Wald pour l'hypothèse $\mathscr{H}_0: \beta_j=b$ est
+$$W = \frac{\widehat{\beta}_j - b}{\mathsf{se}(\widehat{\beta}_j)}.$$
+La statistique du test de Wald est rapportée par la plupart des logiciels pour l'hypothèse  $b=0$.
+
+Puisque $\mathsf{Var}(\widehat{\beta}_j) = \sigma^2 [(\mathbf{X}^\top\mathbf{X})^{-1}]_{j,j}$, nous pouvons estimer l'erreur type à partir de $S^2$ et en déduire que la distribution de $W$ sous l'hypothèse nulle est  $\mathsf{Student}(n-p-1)$.  Cela explique la terminologie tests $t$.
+
+## Intervalles de confiance pour les paramètres
+
+Les intervalles de confiance de Wald de niveau $1-\alpha$ pour $\beta_j$ sont $$\widehat{\beta}_j \pm \mathfrak{t}_{n-p-1,\alpha/2} \mathsf{se}(\widehat{\beta}_j),$$ avec $\mathfrak{t}_{n-p-1,\alpha/2}$ le quantile de niveau $1-\alpha/2$ d'une loi $\mathsf{Student}({n-p-1})$.
+
+
+```{r}
+#| eval: true
+#| echo: true
+# tests-t (Wald) pour beta=0 avec valeurs-p
+summary(lm_simple)$coefficients
+confint(lm_simple) # intervalles de confiance pour betas
+```
+
+Le test pour l'ordonnée à l'origine est sans intérêt puisque les données sont mesurées sur une échelle de 1 à 7.
+
+## Comparaison de modèles emboîtés
+
+
+
+
+Considérons le modèle linéaire *complet* qui contient $p$ variables explicatives,
+\begin{align*}
+\mathbb{M}_1: Y=\beta_0+\beta_1 x_1 + \cdots + \beta_g x_g + \beta_{k+1}x_{k+1} + \ldots + \beta_p x_p + \varepsilon.
+\end{align*}
+Supposons sans perte de généralité que nous voulions tester $$\mathscr{H}_0 : \beta_{k+1}=\beta_{k+2}=\cdots=\beta_p=0.$$
+L'hypothèse globale spécifie que $(p-k)$ des paramètres $\beta$ sont nuls. Le *modèle restreint* correspondant à l'hypothèse nulle ne contient que les covariables pour lesquelles $\beta_j \neq 0$,
+\begin{align*}
+\mathbb{M}_0: Y=\beta_0+\beta_1 x_1 + \ldots + \beta_k x_k + \varepsilon.
+\end{align*}
+
+## Décomposition en somme de carrés
+
+Soit $\mathsf{SS}_e(\mathbb{M}_1)$ la somme du carré des résidus du modèle complet $\mathbb{M}_1$,
+\begin{align*}
+\mathsf{SC}_e(\mathbb{M}_1)=\sum_{i=1}^n (Y_i-\widehat{Y}_i^{\mathbb{M}_1})^2,
+\end{align*}
+où $\hat{Y}_i^{\mathbb{M}_1}$ est la  $i$e valeur ajustée du  modèle $\mathbb{M}_1$. On définit de la même façon la somme du carré des résidus,  $\mathsf{SS}_e(\mathbb{M}_0)$, pour le modèle $\mathbb{M}_0$.
+
+## Statistique *F*
+
+La statistique $F$ est
+\begin{align*}
+F=\frac{\{\mathsf{SC}_e(\mathbb{M}_0)-\mathsf{SC}_e(\mathbb{M}_1)\}/(p-k)}{\mathsf{SC}_e(\mathbb{M}_1)/(n-p-1)}.
+\end{align*}
+Sous $\mathscr{H}_0$, la statistique $F$  suit une loi de Fisher  avec $(p-k)$ et $(n-p-1)$ degrés de liberté, $\mathsf{Fisher}(p-k, n-p-1)$.
+
+- $p-k$ le nombre de restrictions ou la différence du nombre de paramètres entre $\mathbb{M}_1$ et $\mathbb{M}_0$.
+- $n-p-1$ est la taille de l'échantillons moins le nombre de paramères pour la moyenne du modèle $\mathbb{M}_1$.
+
+## Quid des tests de rapport de vraisemblance?
+
+
+Pour la régression linéaire normale, le test du rapport de vraisemblance pour comparer les modèles $\mathbb{M}_1$ et $\mathbb{M}_0$ est une fonction de la somme des carrés des résidus: la formule habituelle se simplifie à
+\begin{align*}
+R &= 2( \ell_{\mathbb{M}_1} - \ell_{\mathbb{M}_0})
+\\&=n\ln\{\mathsf{SS}_e(\mathbb{M}_0)/\mathsf{SS}_e(\mathbb{M}_1)\}\\
+&= n \ln \left( 1+ \frac{p-k}{n-p-1}F\right)
+\end{align*}
+Le test du rapport de vraisemblance et les tests $F$ sont liés par une transformation monotone, donc équivalents à loi nulle près.
+
+
+
+## Exemple 1 - Montants de dons
+
+
+@Moon.VanEpps:2023 considère le montant de dons (`amount`) dans un formulaire avec des suggestions (`quantity`) versus un montant au choix (`open-ended`).
+
+Ici, on s'intéresse à $\mathscr{H}_0: \beta_1=0$, où $\beta_1=\mu_{\texttt{oe}} - \mu_{\texttt{qty}}$ est la différence de moyenne des dons entre le groupe contrôle `open-ended` et le groupe traitement (`quantity`).
+
+```{r}
+#| eval: true
+#| echo: true
+data("MV23_S1", package = "hecedsm")
+MV23_S1 <- MV23_S1 |>
+    dplyr::mutate(amount2 = ifelse(is.na(amount), 0, amount))
+mod_lin_MV23 <- lm(amount2 ~ condition, data = MV23_S1)
+# Tests de Wald avec coefficients
+summary(mod_lin_MV23)$coefficients
+```
+On rejette l'hypothèse nulle $\beta_1=0$ en faveur de l'alternative bilatérale $\beta_1 \neq 0$ : il y a une différence significative dans les dons moyens, les participants à qui on suggère des montants donnant en moyenne 1,93\$ de plus sur 25\$.
+
+
+## Tests *F* versus tests *t*
+
+Les statistiques $F$ et $t$ sont équivalentes pour tester un seul coefficient $\beta_j=b$ : la statistique $F$ est le carré de la statistique de Wald.
+
+
+```{r}
+#| eval: true
+#| echo: true
+# Tests de Wald avec coefficients
+summary(mod_lin_MV23)$coefficients
+# Analyse de variance avec tests F
+anova(mod_lin_MV23)
+```
+
+On peut montrer que si $Z \sim \mathsf{Student}(\nu)$, alors $Z^2 \sim \mathsf{Fisher}(1, \nu)$, il s'ensuit que les deux tests sont équivalents et que les valeurs-$p$ sont exactement les mêmes.
+
+## Exemple 2 - Test pour la linéarité
+
+Soit $\mu_{0}, \mu_{0.5}, \mu_{1}, \mu_2$ la vraie moyenne du score PEF en fonction de la proportion de papier pour les données de @Sokolova:2023.
+
+ Nous pouvons comparer le modèle de régression linéaire (dans lequel le score PEF augmente linéairement avec la proportion de papier par rapport au plastique),
+  \begin{align*}
+ \mathsf{E}(\texttt{pef} \mid \texttt{proportion}) = \beta_0 + \beta_1\texttt{proportion},
+ \end{align*}
+ à l'ANOVA qui permet à chacun des quatre groupes d'avoir des moyennes différentes.
+\begin{align*}
+ \mathsf{E}(\texttt{pef} \mid \texttt{proportion}) &= \alpha_0 + \alpha_1 \mathbf{1}_{\texttt{proportion}=0.5} + \alpha_2 \mathbf{1}_{\texttt{proportion}=1}\\& \qquad  + \alpha_3\mathbf{1}_{\texttt{proportion}=2}.
+\end{align*}
+
+
+## Contraintes sur les paramètres
+
+Si on veut obtenir l'hypothèse nulle en terme de contraintes sur les paramètres $\boldsymbol{\alpha}$, on trouve
+\begin{align*}
+\mu_0 &= \beta_0=\alpha_0 \\
+\mu_{0.5} &= \beta_0 + 0.5 \beta_1 = \alpha_0 + \alpha_1\\
+\mu_1 &= \beta_0 + \beta_1 = \alpha_0 + \alpha_2 \\
+\mu_2 &= \beta_0 + 2 \beta_1= \alpha_0 + \alpha_3.
+\end{align*}
+Le test comparant la régression linéaire simple à l'analyse de la variance impose deux restrictions simultanées, avec $\mathscr{H}_0 : \alpha_3 = 2\alpha_2= 4\alpha_1$.
+
+## Comparaison de modèles
+
+
+```{r}
+#| eval: true
+#| echo: true
+data(SKD23_S2A, package = "hecedsm")
+mod_lin <- lm(pef ~ proportion, data = SKD23_S2A)
+coef(mod_lin) # extraire coefficients
+# ANOVA à un facteur
+mod_anova <- lm(pef ~ factor(proportion),
+               data = SKD23_S2A)
+# Comparer les deux modèles emboîtés
+anova(mod_lin, mod_anova) # est-ce que l'effet est linéaire?
+```
+
+## Tester pour des restrictions linéaires
+
+```{r}
+# Test avec code alternatif (poids pour chaque coefficient)
+car::linearHypothesis(model = mod_anova,
+   hypothesis = rbind(c(0, -2, 1, 0),
+                      c(0, 0, -2, 1)))
+```
+
+## Plus de tests
+
+
+
+Supposons que nous effectuions une analyse de la variance et que le test $F$ pour l'hypothèse nulle (globale) selon laquelle les moyennes de tous les groupes sont égales, et qu'on rejette l'hypothèse en faveur de $\mathscr{H}_a$: au moins une des moyennes de groupe est différente.
+
+Nous pourrions être intéressés
+
+- par la comparaison de différentes options par rapport à un groupe de contrôle ou
+- à déterminer si des combinaisons spécifiques fonctionnent mieux que séparément, ou
+- trouver le meilleur traitement en comparant toutes les paires.
+
+
+## Contrastes
+
+Un **contraste** un contraste est une combinaison linéaire de moyennes. Nous attribuons un poids à chaque moyenne de groupe et nous les additionnons, puis nous comparons ce résumé à une valeur postulée $a$, généralement zéro.
+
+
+Si $c_i$ représente le poids de la moyenne du groupe $\mu_i$ $(i=1, \ldots, K)$, alors nous pouvons écrire le contraste comme $C = c_1 \mu_1 + \cdots + c_K \mu_K$ avec l'hypothèse nulle $\mathscr{H}_0 : C=a$ pour une alternative bilatérale.
+
+
+Si nous nous intéressons uniquement à la différence entre groupes (par opposition à l'effet global de tous les traitements), nous imposons une contrainte de somme à zéro sur les poids, de sorte que $c_1 + \cdots + c_K=0$.
+
+## Tester pour les contrastes
+
+
+L'estimation du contraste est obtenue en remplaçant la moyenne inconnue de la population $\mu_i$ par
+
+- la moyenne de l'échantillon de ce groupe, $\widehat{\mu}_i = \overline{y}_{i}$ (aucune autre variable explicative)
+- la prédiction des moyennes de groupe pour une valeur commune des autres variables explicatives.
+
+ La variance du contraste avec des sous-échantillons de tailel $n_1, \ldots, n_K$ et une variance commune $\sigma^2$, est
+\begin{align*}
+\mathsf{Va}(\widehat{C}) = \widehat{\sigma}^2\left(\frac{c_1^2}{n_1} + \cdots + \frac{c_K^2}{n_K}\right).
+\end{align*}
+
+
+On peut construire une statistique $t$ de Wald comme d'ordinaire en remplaçant $\sigma^2$ par $S^2$.
+
+
+
+
+## Exemple 1 - contrastes pour les méthodes de compréhension de la lecture
+
+L'objectif de @Baumann:1992 était de faire une comparaison particulière entre des groupes de traitement. Selon le résumé de l'article:
+
+> Les analyses quantitatives principales comportaient deux contrastes orthogonaux planifiés: l'effet de l'enseignement (TA + DRTA vs. 2 x DR) et l'intensité de l'enseignement (TA vs. DRTA).
+
+Avec un modèle pré-post, nous allons comparer les moyennes pour une valeur commune de `pretest1`, ci-dessous la moyenne globale du score `pretest1`.
+
+## Test global
+
+```{r}
+#| label: pairwise-baumann
+#| echo: true
+#| eval: true
+library(emmeans) # moyennes marginales
+data(BSJ92, package = "hecedsm")
+mod_post <- lm(posttest1 ~ group + pretest1,
+               data = BSJ92)
+mod_post0 <- lm(posttest1 ~ pretest1,
+               data = BSJ92)
+anova(mod_post0, mod_post) # tests F
+```
+
+
+Le résultat du tableau d'analyse de la variance montre qu'il y a bien des différences entre les groupes.
+
+## Estimations des moyennes marginales
+
+On obtient les estimations des moyennes marginales (ici en fixant `pretest1` à la moyenne globale des scores pré-tests).
+
+```{r}
+emmeans_post <- emmeans(object = mod_post,
+                        specs = "group")
+```
+
+
+
+```{r}
+#| label: tbl-print-pairwise-baumann
+#| echo: false
+#| eval: true
+#| tbl-cap: "Moyennes estimées des groupes avec erreurs-types et intervalles de confiance à 95 % pour le post-test 1 pour un score moyen au pré-test 1."
+mod_post <- lm(posttest1 ~ group + pretest1, data = BSJ92)
+emmeans_post <- emmeans(object = mod_post,
+                        specs = "group") # which variable to keep
+# the `pretest1` covariate is fixed to it's overall mean
+knitr::kable(emmeans_post,
+      digits = c(2,2,2, 0,2,2),
+      booktabs = TRUE,
+      col.names = c("termes",
+                    "moyennes",
+                    "erreur-type",
+                     "ddl",
+                    "borne inf.",
+                    "borne sup."))
+```
+
+## Poids pour les contrastes
+
+- L'ordre des niveaux de traitement est
+($\mathrm{DR}$, $\mathrm{DRTA}$, $\mathrm{TA}$) et ce dernier doit correspond à celui des poids pour les contrastes.
+- Le premier contraste de @Baumann:1992 est $\mathscr{H}_0: \mu_{\mathrm{TA}} + \mu_{\mathrm{DRTA}} = 2 \mu_{\mathrm{DR}}$
+ou
+\begin{align*}
+\mathscr{H}_0: - 2 \mu_{\mathrm{DR}} + \mu_{\mathrm{DRTA}} + \mu_{\mathrm{TA}} = 0.
+\end{align*}
+avec poids $c_1=(-2, 1, 1)$.
+- Pour $\mathscr{H}_0:  \mu_{\mathrm{TA}} = \mu_{\mathrm{DRTA}}$, un vecteur de poids
+est $c_2=(0, -1, 1)$: le zéro apparaît parce que la première composante, $\mathrm{DR}$ n'apparaît pas.
+- Les poids ne sont pas uniques: par exemple $(2, -1, -1)$ ou $(-1, 1/2, 1/2)$. Si les estimations changent, les erreurs-types sont ajustées d'autant.
+
+
+
+## Calcul des contrastes
+```{r}
+#| label: contrasts
+#| echo: true
+#| eval: true
+# Identifier l'ordre de niveau du facteur
+with(BSJ92, levels(group))
+# DR, DRTA, TA (alphabetical)
+contrastes_list <- list(
+  # Contrastes: combo linéaire de moyennes,
+  # la somme des coefficients doit être nulle
+  "C1: moy(DRTA+TA) vs DR" = c(-1, 0.5, 0.5),
+  "C2: DRTA vs TA" = c(0, 1, -1)
+)
+contrastes_post <-
+  contrast(object = emmeans_post,
+           method = contrastes_list)
+contrastes_summary_post <- summary(contrastes_post)
+```
+
+
+## Conclusions de l'analyse des contrastes
+
+```{r}
+#| label: tbl-print-contrasts
+#| echo: false
+#| eval: true
+#| tbl-cap: "Contrastes estimés pour le post-test 1."
+knitr::kable(contrastes_post,
+      booktabs = TRUE,
+      digits = c(2,2,2,0,2,2),
+      col.names = c("contraste",
+                    "estimation",
+                    "erreur-type",
+                    "ddl",
+                    "stat",
+                    "valeur-p")) |>
+  kableExtra::kable_styling()
+```
+
+
+- Il semble que les méthodes impliquant la réflexion à haute voix aient un impact important sur la compréhension de la lecture par rapport à la seule lecture dirigée.
+- Les preuves ne sont pas aussi solides lorsque nous comparons la méthode qui combine la lecture dirigée, l'activité de réflexion et la réflexion à haute voix, mais la différence est néanmoins significative à niveau 5%.
+
+## Tester pour un décalage
+
+
+Une autre hypothèse potentielle intéressante consiste à tester si le coefficient de `pretest1` est égal à l'unité.
+
+Cela équivaut à l'hypothèse $b=1$ pour le test de Wald,  $$w = (\widehat{\beta}_{\texttt{pretest1}}-1)/\mathsf{se}(\widehat{\beta}_{\texttt{pretest1}}).$$
+
+```{r}
+#| echo: true
+#| eval: true
+# Extraire les coefficients et les erreurs-type
+beta_pre <- coefficients(mod_post)['pretest1']
+se_pre <- sqrt(c(vcov(mod_post)['pretest1', 'pretest1']))
+wald <- (beta_pre - 1)/se_pre # test de Wald directionnel
+# Valeur-p basée sur la référence nulle Student-t avec n-p-1 ddl
+pval <- 2*pt(abs(wald), df = mod_post$df.residual, lower.tail = FALSE)
+# Comparaison de modèles emboîtés avec appel à 'anova'
+mod0 <- lm(posttest1 ~ offset(pretest1) + group, data = BSJ92)
+# Le décalage (`offset`) fixe le terme, ce qui équivaut à un coefficient de 1.
+aov_tab <- anova(mod0, mod_post)
+```
+
+La statistique de test de Wald est  $`r wald`$ et la valeur-$p$ de $`r pval`$.
+
+
+## Exemple 2 - contrastes pour différences par rapport à une référence
+
+es auteurs souhaitaient comparer zéro carton avec d'autres choix: nous nous intéressons aux différences par paire, mais uniquement par rapport à la référence $\mu_{0}$:
+\begin{align*}
+\mu_0 = \mu_{0.5}  & \iff 1\mu_0 - 1\mu_{0.5} + 0\mu_{1} + 0 \mu_{2} = 0\\
+\mu_0 = \mu_{1} & \iff 1\mu_0 + 0\mu_{0.5} -1\mu_{1} + 0 \mu_{2} = 0\\
+\mu_0 = \mu_{2} & \iff 1\mu_0 + 0\mu_{0.5} + 0\mu_{1} -1 \mu_{2} = 0.
+\end{align*}
+Les vecteurs de poids pour les contrastes linéaires sont $(1, -1, 0, 0)$, $(1, 0, -1, 0)$ et $(1, 0, 0, -1)$ pour les moyennes marginales.
+
+## Données brutes
+
+```{r}
+#| eval: true
+#| echo: false
+mean_prop <- SKD23_S2A |>
+   dplyr::group_by(factor(proportion)) |>
+   dplyr::summarize(mean = mean(pef)) |>
+   dplyr::select(mean) |>
+   unlist()
+ggplot(data = SKD23_S2A) +
+    geom_segment(data = data.frame(x = c(0,0.5,1,2),
+                                   y = mean_prop),
+                mapping = aes(x = x - 0.1, y = y, xend = x + 0.1),
+                linewidth = 1.5) +
+    geom_point(mapping = aes(x = proportion, y=pef),
+               col = "grey",
+               alpha = 0.8,
+               position = position_jitter(width = 0.1, height = 0)) +
+    scale_y_continuous(limits = c(1,7),
+                       oob = scales::squish,
+                       breaks = 1:7,
+                       labels = 1:7) +
+    scale_x_continuous(limits = c(-0.25,2.25),
+                       oob = scales::squish) +
+    labs(x = "proportion carton/plastique",
+         subtitle = "perception du respect de l'environnement",
+         y = "") +
+    theme_classic()
+
+```
+
+## Code pour contrastes
+
+```{r}
+#| eval: true
+#| echo: true
+mod_anova <- lm(pef ~ factor(proportion), data = SKD23_S2A) # ANOVA à un facteur
+moy_marg <- mod_anova |>
+  emmeans::emmeans(specs = "proportion") # moyennes de groupes
+contrastes_list <- list( # liste de vecteurs de contrastes
+   refvsdemi = c(1, -1, 0, 0),
+   refvsun =  c(1, 0, -1, 0),
+   refvsdeux =  c(1, 0, 0, -1))
+# calculer différences relativement à la référence
+contrastes <- moy_marg |> emmeans::contrast(method = contrastes_list)
+```
+
+## Moyennes marginales
+
+
+
+```{r}
+#| label: tbl-print-groupmeans-PEF
+#| echo: false
+#| eval: true
+#| tbl-cap: "Moyennes estimées du score PEF par proportion pour les groupes, avec erreurs-types"
+knitr::kable(moy_marg,
+      digits = c(2,2,3,0,2,4),
+      booktabs = TRUE,
+      col.names = c("proportion",
+                    "moyenne",
+                    "erreur-type",
+                    "ddl",
+                    "borne inf.",
+                    "borne sup.")) |>
+    kableExtra::kable_styling()
+```
+
+Les moyennes des groupes suggèrent que la perception du respect de l'environnement augmente avec la quantité de carton utilisée dans l'emballage.
+
+## Contrastes
+
+
+```{r}
+#| label: tbl-print-contrast-PEF
+#| echo: false
+#| eval: true
+#| tbl-cap: "Estimations des contrastes pour les différences du score PEF relativement à plastique seulement."
+knitr::kable(contrastes,
+      booktabs = TRUE,
+      digits = c(2,2,2,0,2,2),
+      col.names = c("contraste",
+                    "estimation",
+                    "erreur-type",
+                    "ddl",
+                    "stat",
+                    "valeur-p")) |>
+  kableExtra::kable_styling()
+```
+
+- Toutes les différences pour plastique seul versus du carton additionnel sont significativement différentes de zéro. Les différences sont positives, conformément à l'hypothèse des chercheurs.
+- L'effet du rapport carton/plastique sur le score `pef` n'est cependant pas linéaire.
+
+## Références
+

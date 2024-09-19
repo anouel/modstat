@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="fr"><head>
 <script src="MATH60604-diapos2_files/libs/clipboard/clipboard.min.js"></script>
 <script src="MATH60604-diapos2_files/libs/quarto-html/tabby.min.js"></script>
 <script src="MATH60604-diapos2_files/libs/quarto-html/popper.min.js"></script>
@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos2_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos2_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.56">
+  <meta name="generator" content="quarto-1.6.1">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -429,7 +429,7 @@ Léo Belzile, HEC Montréal
 <h2>Motivation</h2>
 <p>La base de données <code>attente</code> contient le temps en secondes entre 17h59 et l’heure de départ de la prochain rame de métro à la station Université de Montréal sur la ligne bleue du métro de Montréal. Les données ont été collectées sur trois mois (62 jours en semaine). Les observations sont positives et vont de <span class="math inline">\(4\)</span> à <span class="math inline">\(57\)</span> secondes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">data</span>(attente, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">data</span>(attente, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <img data-src="MATH60604-diapos2_files/figure-revealjs/fig-attente-hist-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p class="caption">
@@ -457,7 +457,7 @@ f(\boldsymbol{y}) = \prod_{i=1}^n f(y_i) =\prod_{i=1}^n  \lambda^{-1} \exp(- y_i
 <section id="vraisemblance" class="slide level2">
 <h2>Vraisemblance</h2>
 <div id="def-vraisemblance" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 1</strong></span> La <strong>vraisemblance</strong> <span class="math inline">\(L(\boldsymbol{\theta})\)</span> est une fonction des paramètres <span class="math inline">\(\boldsymbol{\theta}\)</span> qui donne la probabilité (ou densité) d’observer un échantillon selon une loi postulée, en traitant les observations comme fixes, <span class="math display">\[\begin{align*}
+<p><span class="theorem-title"><strong>Définition 1</strong></span> La <strong>vraisemblance</strong> <span class="math inline">\(L(\boldsymbol{\theta})\)</span> est une fonction des paramètres <span class="math inline">\(\boldsymbol{\theta}\)</span> qui donne la probabilité (ou densité) d’observer un échantillon selon une loi postulée, en traitant les observations comme fixes, <span class="math display">\[\begin{align*}
 L(\boldsymbol{\theta}; \boldsymbol{y}) = f(\boldsymbol{y}; \boldsymbol{\theta}),
 \end{align*}\]</span> où <span class="math inline">\(f(\boldsymbol{y}; \boldsymbol{\theta})\)</span> désigne la densité ou la fonction de masse conjointe du <span class="math inline">\(n\)</span>-vecteur des observations.</p>
 </div>
@@ -466,7 +466,7 @@ L(\boldsymbol{\theta}; \boldsymbol{y}) = f(\boldsymbol{y}; \boldsymbol{\theta}),
 <section id="estimateur-du-maximum-de-vraisemblance" class="slide level2">
 <h2>Estimateur du maximum de vraisemblance</h2>
 <div id="def-emv" class="theorem definition">
-<p><span class="theorem-title"><strong>Definition 2</strong></span> L’<strong>estimateur du maximum de vraisemblance</strong> (EMV) <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est la valeur du vecteur qui maximise la vraisemblance,<sup>1</sup>. <span class="math display">\[\begin{align*}
+<p><span class="theorem-title"><strong>Définition 2</strong></span> L’<strong>estimateur du maximum de vraisemblance</strong> (EMV) <span class="math inline">\(\widehat{\boldsymbol{\theta}}\)</span> est la valeur du vecteur qui maximise la vraisemblance,<sup>1</sup>. <span class="math display">\[\begin{align*}
 \widehat{\boldsymbol{\theta}} = \mathrm{arg max}_{\boldsymbol{\theta} \in \boldsymbol{\Theta}} L(\boldsymbol{\theta}; \boldsymbol{y}) = \mathrm{arg max}_{\boldsymbol{\theta} \in \boldsymbol{\Theta}} \ell(\boldsymbol{\theta}; \boldsymbol{y}).
 \end{align*}\]</span></p>
 </div>
@@ -501,7 +501,7 @@ Figure&nbsp;2: Fonction de log-vraisemblance exponentielle pour le temps d’att
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Note: la paramétrisation usuelle dans R pour la loi exponentielle</span></span>
 <span id="cb2-2"><a href=""></a><span class="co"># est en terme d'intensité (réciproque du paramètre d'échelle)</span></span>
 <span id="cb2-3"><a href=""></a><span class="fu">pexp</span>(<span class="at">q =</span> <span class="dv">60</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">mean</span>(attente), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-4"><a href=""></a><span class="do">## [1] 0.126</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href=""></a><span class="do">## [1] 0.126</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On peut sélectionner la paramétrisation qui facilite le plus l’optimisation!</p>
 </section>
@@ -608,7 +608,7 @@ f(x; \lambda, \alpha) &amp;= \frac{\alpha}{\lambda^\alpha} x^{\alpha-1}\exp\left
 <span id="cb3-12"><a href=""></a>  <span class="at">shape =</span> fit_weibull<span class="sc">$</span>estimate[<span class="st">'shape'</span>],</span>
 <span id="cb3-13"><a href=""></a>  <span class="at">scale =</span> fit_weibull<span class="sc">$</span>estimate[<span class="st">'scale'</span>])</span>
 <span id="cb3-14"><a href=""></a>ypos <span class="ot">&lt;-</span> <span class="fu">sort</span>(attente) <span class="co"># données triées en ordre croissant</span></span>
-<span id="cb3-15"><a href=""></a><span class="co">#plot(x = xpos, y = ypos, panel.first = {abline(a = 0, b = 1)})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href=""></a><span class="co">#plot(x = xpos, y = ypos, panel.first = {abline(a = 0, b = 1)})</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="vérification-de-ladéquation-des-modèles" class="slide level2">
@@ -659,7 +659,7 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <span id="cb4-15"><a href=""></a><span class="do">## [2,] 0.135 0.0653</span></span>
 <span id="cb4-16"><a href=""></a><span class="co"># Erreurs-type</span></span>
 <span id="cb4-17"><a href=""></a>(se_weibull <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(vmat_weibull)))</span>
-<span id="cb4-18"><a href=""></a><span class="do">## [1] 1.675 0.256</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-18"><a href=""></a><span class="do">## [1] 1.675 0.256</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="méthodes-delta" class="slide level2">
@@ -678,7 +678,7 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <span id="cb5-2"><a href=""></a>mle_weibull[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">1</span>] <span class="co"># lambda</span></span>
 <span id="cb5-3"><a href=""></a><span class="do">## [1] 29.3 35.8</span></span>
 <span id="cb5-4"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>] <span class="co"># alpha</span></span>
-<span id="cb5-5"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Ces intervalles de confiance sont symmétriques.</p>
 </section>
@@ -696,7 +696,7 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <span id="cb6-8"><a href=""></a>V_phi <span class="ot">&lt;-</span> <span class="fu">dphi</span>(lambda_hat)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> V_lambda</span>
 <span id="cb6-9"><a href=""></a><span class="co"># Erreurs-type de phi</span></span>
 <span id="cb6-10"><a href=""></a>(se_phi <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(V_phi))</span>
-<span id="cb6-11"><a href=""></a><span class="do">## [1] 0.0331</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-11"><a href=""></a><span class="do">## [1] 0.0331</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="intervalles-de-confiance-de-wald-1" class="slide level2">
@@ -715,7 +715,7 @@ i(\boldsymbol{\theta}_0)^{-1/2}U(\boldsymbol{\theta}_0) \stackrel{\cdot}{\sim}\m
 <span id="cb7-10"><a href=""></a>se_p60_weib <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">t</span>(nabla) <span class="sc">%*%</span> fit<span class="sc">$</span>vcov <span class="sc">%*%</span> nabla)</span>
 <span id="cb7-11"><a href=""></a><span class="co"># Intervalle de confiance de Wald pour Pr(Y &gt; 60)</span></span>
 <span id="cb7-12"><a href=""></a><span class="fu">g</span>(fit<span class="sc">$</span>estimate) <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span><span class="fu">c</span>(se_p60_weib)</span>
-<span id="cb7-13"><a href=""></a><span class="do">## [1] -0.00475  0.01956</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-13"><a href=""></a><span class="do">## [1] -0.00475  0.01956</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>L’intervalle de confiance inclut des valeurs négatives pour les probabilités!</p>
 </section>
@@ -791,7 +791,7 @@ Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des 
 <span id="cb8-7"><a href=""></a><span class="co"># Intervalles de confiance de niveau 95%</span></span>
 <span id="cb8-8"><a href=""></a>mle_weibull[<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))<span class="sc">*</span>se_weibull[<span class="dv">2</span>]</span>
 <span id="cb8-9"><a href=""></a><span class="do">## [1] 2.1 3.1</span></span>
-<span id="cb8-10"><a href=""></a><span class="co"># La valeur 1 n'appartient pas à l'intervalle, rejeter H0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-10"><a href=""></a><span class="co"># La valeur 1 n'appartient pas à l'intervalle, rejeter H0</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nous rejetons l’hypothèse nulle, ce qui signifie que le sous-modèle exponentiel n’est pas une simplification adéquate du modèle de Weibull <span class="math inline">\((\alpha \neq 1\)</span>).</p>
 </section>
@@ -822,7 +822,7 @@ Figure&nbsp;5: Surface de log-vraisemblance pour le modèle de Weibull avec des 
 <h2>Vraisemblance profilée pour le paramètre de forme</h2>
 
 <img data-src="MATH60604-diapos2_files/figure-revealjs/fig-weibull-profile-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p class="caption">
-Figure&nbsp;6: Vraisemblance profilée pour <span class="math inline">\(\alpha\)</span>, représentée par une ligne grise pointillée (à gauche) et par une coupe transversale (à droite). La vraisemblance profilée du le panneau de droite a été décalée verticalement pour être zéro quand évaluée aux EMV; les lignes horizontales en pointillé indiquent les points de coupure pour les intervalles de confiance à 95% et 99%.
+Figure&nbsp;6: Vraisemblance profilée pour <span class="math inline">\(\alpha\)</span>, représentée par une ligne grise pointillée (à gauche) et par une coupe transversale (à droite). La vraisemblance profilée du panneau de droite a été décalée verticalement pour être zéro quand évaluée aux EMV; les lignes horizontales en pointillé indiquent les points de coupure pour les intervalles de confiance à 95% et 99%.
 </p></section>
 <section id="analogie-pour-la-log-vraisemblance-profilée" class="slide level2">
 <h2>Analogie pour la log-vraisemblance profilée</h2>
@@ -1231,12 +1231,12 @@ Davison, A. C. 2003. <em>Statistical Models</em>. Cambridge University Press.
         // flash "checked"
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
+        button.setAttribute("title", "Copié");
         let tooltip;
         if (window.bootstrap) {
           button.setAttribute("data-bs-toggle", "tooltip");
           button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
+          button.setAttribute("data-bs-title", "Copié");
           tooltip = new bootstrap.Tooltip(button, 
             { trigger: "manual", 
               customClass: "code-copy-button-tooltip",

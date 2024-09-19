@@ -63,6 +63,8 @@ website:
               file: contenu/02-contenu.qmd
             - text: "Semaine 3"
               file: contenu/03-contenu.qmd
+            - text: "Semaine 4"
+              file: contenu/04-contenu.qmd
     - title: "Exercices"
       style: "docked"
       search: false
@@ -76,6 +78,10 @@ website:
               file: exercices/01-exercice.qmd
             - text: "Solution 1"
               file: exercices/01-solution.qmd
+        - section: "Activités en classe"
+          contents:
+            - text: "Tests d'hypothèse, modèles linéaires"
+              file: exercices/modeles-lineaires-contrastes.qmd
   page-footer:
     left: |
       Contenu {{< fa brands creative-commons >}} {{< var course.copyright_year >}} by [{{< var instructor1.name_no_title >}}]({{< var instructor1.url >}}), [{{< var instructor2.name_no_title >}}]({{< var instructor2.url >}})<br>; canevas du site par [Dr. Andrew Heiss](https://www.andrewheiss.com/) sous [licence MIT](https://mit-license.org/) <br>

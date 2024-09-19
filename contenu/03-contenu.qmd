@@ -12,12 +12,12 @@ title: "Modèles linéaires"
 ### Contenu
 
 
-- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.1--4.4.
+- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.1--4.3
 
 
 ### En classe
 
-- [Diapositives](../diapos/MATH60604-diapos3.html) ([pdf](../diapos/MATH60604-diapos3.pdf))
+- [Diapositives](../diapos/MATH60604-diapos3.html) ([pdf](../diapos/MATH60604-diapos3.pdf) et [code](MATH60604-diapos3.R))
 
 
 
