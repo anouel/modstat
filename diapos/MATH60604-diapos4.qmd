@@ -60,8 +60,8 @@ En supposant que $Y_i \sim \mathsf{normal}(\mathbf{x}_i \boldsymbol{\beta}, \sig
 
 - On définit le $i$e résidu ordinaire $e_i = y_i - \mathbf{x}_i \widehat{\boldsymbol{\beta}}$.
 - La **somme du carré des erreurs** est $\sum_{i=1}^n e_i^2 = \mathsf{SC}_e$.
-- On peut montrer que $S^2=\mathsf{SS}_e/(n-p-1)$ est un estimateur non-biaisé de la variance $\sigma^2$.
-- Aussi, $\mathsf{SS}_e \sim \sigma^2 \chi^2_{n-p-1}$ et $\mathsf{SS}_e$ est indépendant de $\widehat{\boldsymbol{\beta}}$.
+- On peut montrer que $S^2=\mathsf{SC}_e/(n-p-1)$ est un estimateur non-biaisé de la variance $\sigma^2$.
+- Aussi, $\mathsf{SC}_e \sim \sigma^2 \chi^2_{n-p-1}$ et $\mathsf{SC}_e$ est indépendant de $\widehat{\boldsymbol{\beta}}$.
 
 ## Prédiction
 
@@ -94,7 +94,7 @@ En se basant sur les propriétés des estimateurs, on peut obtenir les intervall
 \begin{align*}
 \frac{Y^*-\mathbf{x}^*\widehat{\boldsymbol{\beta}}}{\sqrt{S^2\{1+\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}\}}}\sim \mathsf{Student}(n-p-1).
 \end{align*}
-où $S^2=\mathsf{SS}_e/(n-p-1)$ est l'estimateur sans biais de la variance $\sigma^2$.
+où $S^2=\mathsf{SC}_e/(n-p-1)$ est l'estimateur sans biais de la variance $\sigma^2$.
 
 
 On obtient l'**intervalle de prédiction** de niveau $1-\alpha$ pour $Y^*$ en inversant la statistique de test
@@ -108,7 +108,7 @@ On obtient l'**intervalle de prédiction** de niveau $1-\alpha$ pour $Y^*$ en in
 
 
 
-Des calculs similaires pour les **intervalles de confiance** ponctuels pour la moyenne donnent
+Des calculs similaires pour les **intervalles de confiance** ponctuels pour la moyenne $\mathbf{x}^*\boldsymbol{\beta}$ donnent
 \begin{align*}
 \mathbf{x}^*\widehat{\boldsymbol{\beta}}\pm \mathfrak{t}_{n-p-1}(\alpha/2)\sqrt{S^2\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}}.
 \end{align*}
@@ -280,21 +280,21 @@ Le test pour l'ordonnée à l'origine est sans intérêt puisque les données so
 
 Considérons le modèle linéaire *complet* qui contient $p$ variables explicatives,
 \begin{align*}
-\mathbb{M}_1: Y=\beta_0+\beta_1 x_1 + \cdots + \beta_g x_g + \beta_{k+1}x_{k+1} + \ldots + \beta_p x_p + \varepsilon.
+\mathbb{M}_1: Y=\beta_0+\beta_1 x_1 + \cdots +  \beta_p x_p + \varepsilon.
 \end{align*}
 Supposons sans perte de généralité que nous voulions tester $$\mathscr{H}_0 : \beta_{k+1}=\beta_{k+2}=\cdots=\beta_p=0.$$
 L'hypothèse globale spécifie que $(p-k)$ des paramètres $\beta$ sont nuls. Le *modèle restreint* correspondant à l'hypothèse nulle ne contient que les covariables pour lesquelles $\beta_j \neq 0$,
 \begin{align*}
-\mathbb{M}_0: Y=\beta_0+\beta_1 x_1 + \ldots + \beta_k x_k + \varepsilon.
+\mathbb{M}_0: Y=\beta_0+\beta_1 x_1 + \cdots + \beta_k x_k + \varepsilon.
 \end{align*}
 
 ## Décomposition en somme de carrés
 
-Soit $\mathsf{SS}_e(\mathbb{M}_1)$ la somme du carré des résidus du modèle complet $\mathbb{M}_1$,
+Soit $\mathsf{SC}_e(\mathbb{M}_1)$ la somme du carré des résidus du modèle complet $\mathbb{M}_1$,
 \begin{align*}
-\mathsf{SC}_e(\mathbb{M}_1)=\sum_{i=1}^n (Y_i-\widehat{Y}_i^{\mathbb{M}_1})^2,
+\mathsf{SC}_e(\mathbb{M}_1)=\sum_{i=1}^n (Y_i-\widehat{Y}_i^{\mathbb{M}_1})^2 = \sum_{i=1}^n (Y_i-\mathbf{x}_i\widehat{\boldsymbol{\beta}}^{\mathbb{M}_1})^2,
 \end{align*}
-où $\hat{Y}_i^{\mathbb{M}_1}$ est la  $i$e valeur ajustée du  modèle $\mathbb{M}_1$. On définit de la même façon la somme du carré des résidus,  $\mathsf{SS}_e(\mathbb{M}_0)$, pour le modèle $\mathbb{M}_0$.
+où $\hat{Y}_i^{\mathbb{M}_1}$ est la  $i$e valeur ajustée du  modèle $\mathbb{M}_1$. On définit de la même façon la somme du carré des résidus,  $\mathsf{SC}_e(\mathbb{M}_0)$, pour le modèle $\mathbb{M}_0$.
 
 ## Statistique *F*
 
@@ -313,7 +313,7 @@ Sous $\mathscr{H}_0$, la statistique $F$  suit une loi de Fisher  avec $(p-k)$ e
 Pour la régression linéaire normale, le test du rapport de vraisemblance pour comparer les modèles $\mathbb{M}_1$ et $\mathbb{M}_0$ est une fonction de la somme des carrés des résidus: la formule habituelle se simplifie à
 \begin{align*}
 R &= 2( \ell_{\mathbb{M}_1} - \ell_{\mathbb{M}_0})
-\\&=n\ln\{\mathsf{SS}_e(\mathbb{M}_0)/\mathsf{SS}_e(\mathbb{M}_1)\}\\
+\\&=n\ln\{\mathsf{SC}_e(\mathbb{M}_0)/\mathsf{SC}_e(\mathbb{M}_1)\}\\
 &= n \ln \left( 1+ \frac{p-k}{n-p-1}F\right)
 \end{align*}
 Le test du rapport de vraisemblance et les tests $F$ sont liés par une transformation monotone, donc équivalents à loi nulle près.
@@ -358,9 +358,9 @@ On peut montrer que si $Z \sim \mathsf{Student}(\nu)$, alors $Z^2 \sim \mathsf{F
 
 ## Exemple 2 - Test pour la linéarité
 
-Soit $\mu_{0}, \mu_{0.5}, \mu_{1}, \mu_2$ la vraie moyenne du score PEF en fonction de la proportion de papier pour les données de @Sokolova:2023.
+Soit $\mu_{0}, \mu_{0.5}, \mu_{1}, \mu_2$ la vraie moyenne du score PEF en fonction de la proportion de papier pour les données de @Sokolova:2023, en traitant la proportion de variable catégorielle.
 
- Nous pouvons comparer le modèle de régression linéaire (dans lequel le score PEF augmente linéairement avec la proportion de papier par rapport au plastique),
+ Nous pouvons comparer les contraintes de moyennes du modèle de régression linéaire (dans lequel le score PEF augmente linéairement avec la proportion de papier par rapport au plastique),
   \begin{align*}
  \mathsf{E}(\texttt{pef} \mid \texttt{proportion}) = \beta_0 + \beta_1\texttt{proportion},
  \end{align*}
@@ -437,9 +437,9 @@ L'estimation du contraste est obtenue en remplaçant la moyenne inconnue de la p
 - la moyenne de l'échantillon de ce groupe, $\widehat{\mu}_i = \overline{y}_{i}$ (aucune autre variable explicative)
 - la prédiction des moyennes de groupe pour une valeur commune des autres variables explicatives.
 
- La variance du contraste avec des sous-échantillons de tailel $n_1, \ldots, n_K$ et une variance commune $\sigma^2$, est
+ La variance du contraste avec des sous-échantillons de tailles $n_1, \ldots, n_K$ et une variance commune $\sigma^2$, est
 \begin{align*}
-\mathsf{Va}(\widehat{C}) = \widehat{\sigma}^2\left(\frac{c_1^2}{n_1} + \cdots + \frac{c_K^2}{n_K}\right).
+\mathsf{Va}(\widehat{C}) = \sigma^2\left(\frac{c_1^2}{n_1} + \cdots + \frac{c_K^2}{n_K}\right).
 \end{align*}
 
 
@@ -592,7 +592,7 @@ La statistique de test de Wald est  $`r wald`$ et la valeur-$p$ de $`r pval`$.
 
 ## Exemple 2 - contrastes pour différences par rapport à une référence
 
-es auteurs souhaitaient comparer zéro carton avec d'autres choix: nous nous intéressons aux différences par paire, mais uniquement par rapport à la référence $\mu_{0}$:
+Les auteurs souhaitaient comparer zéro carton avec d'autres choix: nous nous intéressons aux différences par paire, mais uniquement par rapport à la référence $\mu_{0}$:
 \begin{align*}
 \mu_0 = \mu_{0.5}  & \iff 1\mu_0 - 1\mu_{0.5} + 0\mu_{1} + 0 \mu_{2} = 0\\
 \mu_0 = \mu_{1} & \iff 1\mu_0 + 0\mu_{0.5} -1\mu_{1} + 0 \mu_{2} = 0\\

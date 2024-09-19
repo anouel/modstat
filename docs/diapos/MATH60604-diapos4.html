@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos4_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos4_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.1">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -435,8 +435,8 @@ Léo Belzile, HEC Montréal
 <ul>
 <li>On définit le <span class="math inline">\(i\)</span>e résidu ordinaire <span class="math inline">\(e_i = y_i - \mathbf{x}_i \widehat{\boldsymbol{\beta}}\)</span>.</li>
 <li>La <strong>somme du carré des erreurs</strong> est <span class="math inline">\(\sum_{i=1}^n e_i^2 = \mathsf{SC}_e\)</span>.</li>
-<li>On peut montrer que <span class="math inline">\(S^2=\mathsf{SS}_e/(n-p-1)\)</span> est un estimateur non-biaisé de la variance <span class="math inline">\(\sigma^2\)</span>.</li>
-<li>Aussi, <span class="math inline">\(\mathsf{SS}_e \sim \sigma^2 \chi^2_{n-p-1}\)</span> et <span class="math inline">\(\mathsf{SS}_e\)</span> est indépendant de <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>.</li>
+<li>On peut montrer que <span class="math inline">\(S^2=\mathsf{SC}_e/(n-p-1)\)</span> est un estimateur non-biaisé de la variance <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>Aussi, <span class="math inline">\(\mathsf{SC}_e \sim \sigma^2 \chi^2_{n-p-1}\)</span> et <span class="math inline">\(\mathsf{SC}_e\)</span> est indépendant de <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>.</li>
 </ul>
 </section>
 <section id="prédiction" class="slide level2">
@@ -463,7 +463,7 @@ Léo Belzile, HEC Montréal
 <p>Puisque <span class="math inline">\(Y^*\)</span> est tiré du modèle, on a <span class="math inline">\(Y^* \mid \mathbf{x}^* \sim \mathsf{normal}(\mathbf{x}^*\boldsymbol{\beta}, \sigma^2)\)</span>.</p>
 <p>En se basant sur les propriétés des estimateurs, on peut obtenir les intervalles de prédictions de la loi Student-<span class="math inline">\(t\)</span>, <span class="math display">\[\begin{align*}
 \frac{Y^*-\mathbf{x}^*\widehat{\boldsymbol{\beta}}}{\sqrt{S^2\{1+\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}\}}}\sim \mathsf{Student}(n-p-1).
-\end{align*}\]</span> où <span class="math inline">\(S^2=\mathsf{SS}_e/(n-p-1)\)</span> est l’estimateur sans biais de la variance <span class="math inline">\(\sigma^2\)</span>.</p>
+\end{align*}\]</span> où <span class="math inline">\(S^2=\mathsf{SC}_e/(n-p-1)\)</span> est l’estimateur sans biais de la variance <span class="math inline">\(\sigma^2\)</span>.</p>
 <p>On obtient l’<strong>intervalle de prédiction</strong> de niveau <span class="math inline">\(1-\alpha\)</span> pour <span class="math inline">\(Y^*\)</span> en inversant la statistique de test <span class="math display">\[\begin{align*}
 \mathbf{x}^*\widehat{\boldsymbol{\beta}}\pm \mathfrak{t}_{n-p-1}(\alpha/2)\sqrt{S^2\{1+\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}\}}.
 \end{align*}\]</span></p>
@@ -471,7 +471,7 @@ Léo Belzile, HEC Montréal
 <section id="inférence-pour-la-moyenne" class="slide level2">
 <h2>Inférence pour la moyenne</h2>
 <p>Étant donné un vecteur ligne de taille <span class="math inline">\((p+1)\)</span>, disons <span class="math inline">\(\mathbf{x}\)</span>, contenant des variables explicatives, on peut calculer la moyenne <span class="math inline">\(\mu(\mathbf{x})=\mathbf{x}\boldsymbol{\beta}\)</span>.</p>
-<p>Des calculs similaires pour les <strong>intervalles de confiance</strong> ponctuels pour la moyenne donnent <span class="math display">\[\begin{align*}
+<p>Des calculs similaires pour les <strong>intervalles de confiance</strong> ponctuels pour la moyenne <span class="math inline">\(\mathbf{x}^*\boldsymbol{\beta}\)</span> donnent <span class="math display">\[\begin{align*}
 \mathbf{x}^*\widehat{\boldsymbol{\beta}}\pm \mathfrak{t}_{n-p-1}(\alpha/2)\sqrt{S^2\mathbf{x}^*(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{x}^{*\top}}.
 \end{align*}\]</span> Les deux formules diffèrent uniquement au niveau de la variabilité.</p>
 </section>
@@ -642,16 +642,16 @@ Table&nbsp;1: Prédictions avec intervalles de prédiction (gauche) et intervall
 <section id="comparaison-de-modèles-emboîtés" class="slide level2">
 <h2>Comparaison de modèles emboîtés</h2>
 <p>Considérons le modèle linéaire <em>complet</em> qui contient <span class="math inline">\(p\)</span> variables explicatives, <span class="math display">\[\begin{align*}
-\mathbb{M}_1: Y=\beta_0+\beta_1 x_1 + \cdots + \beta_g x_g + \beta_{k+1}x_{k+1} + \ldots + \beta_p x_p + \varepsilon.
+\mathbb{M}_1: Y=\beta_0+\beta_1 x_1 + \cdots +  \beta_p x_p + \varepsilon.
 \end{align*}\]</span> Supposons sans perte de généralité que nous voulions tester <span class="math display">\[\mathscr{H}_0 : \beta_{k+1}=\beta_{k+2}=\cdots=\beta_p=0.\]</span> L’hypothèse globale spécifie que <span class="math inline">\((p-k)\)</span> des paramètres <span class="math inline">\(\beta\)</span> sont nuls. Le <em>modèle restreint</em> correspondant à l’hypothèse nulle ne contient que les covariables pour lesquelles <span class="math inline">\(\beta_j \neq 0\)</span>, <span class="math display">\[\begin{align*}
-\mathbb{M}_0: Y=\beta_0+\beta_1 x_1 + \ldots + \beta_k x_k + \varepsilon.
+\mathbb{M}_0: Y=\beta_0+\beta_1 x_1 + \cdots + \beta_k x_k + \varepsilon.
 \end{align*}\]</span></p>
 </section>
 <section id="décomposition-en-somme-de-carrés" class="slide level2">
 <h2>Décomposition en somme de carrés</h2>
-<p>Soit <span class="math inline">\(\mathsf{SS}_e(\mathbb{M}_1)\)</span> la somme du carré des résidus du modèle complet <span class="math inline">\(\mathbb{M}_1\)</span>, <span class="math display">\[\begin{align*}
-\mathsf{SC}_e(\mathbb{M}_1)=\sum_{i=1}^n (Y_i-\widehat{Y}_i^{\mathbb{M}_1})^2,
-\end{align*}\]</span> où <span class="math inline">\(\hat{Y}_i^{\mathbb{M}_1}\)</span> est la <span class="math inline">\(i\)</span>e valeur ajustée du modèle <span class="math inline">\(\mathbb{M}_1\)</span>. On définit de la même façon la somme du carré des résidus, <span class="math inline">\(\mathsf{SS}_e(\mathbb{M}_0)\)</span>, pour le modèle <span class="math inline">\(\mathbb{M}_0\)</span>.</p>
+<p>Soit <span class="math inline">\(\mathsf{SC}_e(\mathbb{M}_1)\)</span> la somme du carré des résidus du modèle complet <span class="math inline">\(\mathbb{M}_1\)</span>, <span class="math display">\[\begin{align*}
+\mathsf{SC}_e(\mathbb{M}_1)=\sum_{i=1}^n (Y_i-\widehat{Y}_i^{\mathbb{M}_1})^2 = \sum_{i=1}^n (Y_i-\mathbf{x}_i\widehat{\boldsymbol{\beta}}^{\mathbb{M}_1})^2,
+\end{align*}\]</span> où <span class="math inline">\(\hat{Y}_i^{\mathbb{M}_1}\)</span> est la <span class="math inline">\(i\)</span>e valeur ajustée du modèle <span class="math inline">\(\mathbb{M}_1\)</span>. On définit de la même façon la somme du carré des résidus, <span class="math inline">\(\mathsf{SC}_e(\mathbb{M}_0)\)</span>, pour le modèle <span class="math inline">\(\mathbb{M}_0\)</span>.</p>
 </section>
 <section id="statistique-f" class="slide level2">
 <h2>Statistique <em>F</em></h2>
@@ -667,7 +667,7 @@ F=\frac{\{\mathsf{SC}_e(\mathbb{M}_0)-\mathsf{SC}_e(\mathbb{M}_1)\}/(p-k)}{\math
 <h2>Quid des tests de rapport de vraisemblance?</h2>
 <p>Pour la régression linéaire normale, le test du rapport de vraisemblance pour comparer les modèles <span class="math inline">\(\mathbb{M}_1\)</span> et <span class="math inline">\(\mathbb{M}_0\)</span> est une fonction de la somme des carrés des résidus: la formule habituelle se simplifie à <span class="math display">\[\begin{align*}
 R &amp;= 2( \ell_{\mathbb{M}_1} - \ell_{\mathbb{M}_0})
-\\&amp;=n\ln\{\mathsf{SS}_e(\mathbb{M}_0)/\mathsf{SS}_e(\mathbb{M}_1)\}\\
+\\&amp;=n\ln\{\mathsf{SC}_e(\mathbb{M}_0)/\mathsf{SC}_e(\mathbb{M}_1)\}\\
 &amp;= n \ln \left( 1+ \frac{p-k}{n-p-1}F\right)
 \end{align*}\]</span> Le test du rapport de vraisemblance et les tests <span class="math inline">\(F\)</span> sont liés par une transformation monotone, donc équivalents à loi nulle près.</p>
 </section>
@@ -712,8 +712,8 @@ R &amp;= 2( \ell_{\mathbb{M}_1} - \ell_{\mathbb{M}_0})
 </section>
 <section id="exemple-2---test-pour-la-linéarité" class="slide level2">
 <h2>Exemple 2 - Test pour la linéarité</h2>
-<p>Soit <span class="math inline">\(\mu_{0}, \mu_{0.5}, \mu_{1}, \mu_2\)</span> la vraie moyenne du score PEF en fonction de la proportion de papier pour les données de <span class="citation" data-cites="Sokolova:2023">Sokolova, Krishna, et Döring (<a href="#/références" role="doc-biblioref" onclick="">2023</a>)</span>.</p>
-<p>Nous pouvons comparer le modèle de régression linéaire (dans lequel le score PEF augmente linéairement avec la proportion de papier par rapport au plastique), <span class="math display">\[\begin{align*}
+<p>Soit <span class="math inline">\(\mu_{0}, \mu_{0.5}, \mu_{1}, \mu_2\)</span> la vraie moyenne du score PEF en fonction de la proportion de papier pour les données de <span class="citation" data-cites="Sokolova:2023">Sokolova, Krishna, et Döring (<a href="#/références" role="doc-biblioref" onclick="">2023</a>)</span>, en traitant la proportion de variable catégorielle.</p>
+<p>Nous pouvons comparer les contraintes de moyennes du modèle de régression linéaire (dans lequel le score PEF augmente linéairement avec la proportion de papier par rapport au plastique), <span class="math display">\[\begin{align*}
 \mathsf{E}(\texttt{pef} \mid \texttt{proportion}) = \beta_0 + \beta_1\texttt{proportion},
 \end{align*}\]</span> à l’ANOVA qui permet à chacun des quatre groupes d’avoir des moyennes différentes. <span class="math display">\[\begin{align*}
 \mathsf{E}(\texttt{pef} \mid \texttt{proportion}) &amp;= \alpha_0 + \alpha_1 \mathbf{1}_{\texttt{proportion}=0.5} + \alpha_2 \mathbf{1}_{\texttt{proportion}=1}\\&amp; \qquad  + \alpha_3\mathbf{1}_{\texttt{proportion}=2}.
@@ -798,8 +798,8 @@ R &amp;= 2( \ell_{\mathbb{M}_1} - \ell_{\mathbb{M}_0})
 <li>la moyenne de l’échantillon de ce groupe, <span class="math inline">\(\widehat{\mu}_i = \overline{y}_{i}\)</span> (aucune autre variable explicative)</li>
 <li>la prédiction des moyennes de groupe pour une valeur commune des autres variables explicatives.</li>
 </ul>
-<p>La variance du contraste avec des sous-échantillons de tailel <span class="math inline">\(n_1, \ldots, n_K\)</span> et une variance commune <span class="math inline">\(\sigma^2\)</span>, est <span class="math display">\[\begin{align*}
-\mathsf{Va}(\widehat{C}) = \widehat{\sigma}^2\left(\frac{c_1^2}{n_1} + \cdots + \frac{c_K^2}{n_K}\right).
+<p>La variance du contraste avec des sous-échantillons de tailles <span class="math inline">\(n_1, \ldots, n_K\)</span> et une variance commune <span class="math inline">\(\sigma^2\)</span>, est <span class="math display">\[\begin{align*}
+\mathsf{Va}(\widehat{C}) = \sigma^2\left(\frac{c_1^2}{n_1} + \cdots + \frac{c_K^2}{n_K}\right).
 \end{align*}\]</span></p>
 <p>On peut construire une statistique <span class="math inline">\(t\)</span> de Wald comme d’ordinaire en remplaçant <span class="math inline">\(\sigma^2\)</span> par <span class="math inline">\(S^2\)</span>.</p>
 </section>
@@ -994,7 +994,7 @@ Table&nbsp;3: Contrastes estimés pour le post-test 1.
 </section>
 <section id="exemple-2---contrastes-pour-différences-par-rapport-à-une-référence" class="slide level2">
 <h2>Exemple 2 - contrastes pour différences par rapport à une référence</h2>
-<p>es auteurs souhaitaient comparer zéro carton avec d’autres choix: nous nous intéressons aux différences par paire, mais uniquement par rapport à la référence <span class="math inline">\(\mu_{0}\)</span>: <span class="math display">\[\begin{align*}
+<p>Les auteurs souhaitaient comparer zéro carton avec d’autres choix: nous nous intéressons aux différences par paire, mais uniquement par rapport à la référence <span class="math inline">\(\mu_{0}\)</span>: <span class="math display">\[\begin{align*}
 \mu_0 = \mu_{0.5}  &amp; \iff 1\mu_0 - 1\mu_{0.5} + 0\mu_{1} + 0 \mu_{2} = 0\\
 \mu_0 = \mu_{1} &amp; \iff 1\mu_0 + 0\mu_{0.5} -1\mu_{1} + 0 \mu_{2} = 0\\
 \mu_0 = \mu_{2} &amp; \iff 1\mu_0 + 0\mu_{0.5} + 0\mu_{1} -1 \mu_{2} = 0.
