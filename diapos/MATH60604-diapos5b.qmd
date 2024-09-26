@@ -1,0 +1,322 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "05. Modèles linéaires (complément d'information)"
+date: today
+date-format: YYYY
+eval: true
+cache: true
+echo: true
+lang: fr
+knitr.digits.signif: true
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecbleu <- c("#002855")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(digits = 2, width = 75)
+```
+
+
+## Géomérie
+
+
+L'équation du modèle linéaire est
+$$\boldsymbol{Y} = \underset{\text{moyenne } \boldsymbol{\mu}}{\mathbf{X}\boldsymbol{\beta}} + \underset{\text{aléa}}{\boldsymbol{\varepsilon}}$$
+tandis que la décomposition du modèle en termes de résidus et de valeurs ajustées est
+\begin{align*}
+\underset{\text{observations}}{\boldsymbol{y}} = \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} + \underset{\text{résidus}}{\boldsymbol{e}}
+\end{align*}
+
+## Matrices de projection
+
+Pour une matrice de modèle de dimension $n\times p$, le sous-espace vectoriel engendré  engendré par les colonnes de $\mathbf{X}$ est
+\begin{align*}
+\mathcal{S}(\mathbf{X}) =\{\mathbf{X}\boldsymbol{a}, \boldsymbol{a} \in \mathbb{R}^p\}
+\end{align*}
+
+On peut écrire les valeurs ajustées comme la projection du vecteur réponse $\boldsymbol{y}$ dans sous-espace vectoriel engendré de $\mathbf{X}$,
+\begin{align*}
+ \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} = \underset{\substack{\text{matrice du modèle $\times$}\\\text{estimateur des MCO}}}{\mathbf{X} \widehat{\boldsymbol{\beta}}} = \underset{\text{matrice de projection}}{\mathbf{X}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}}\boldsymbol{y} = \mathbf{H}_{\mathbf{X}}\boldsymbol{y}
+\end{align*}
+où $\mathbf{H}_{\mathbf{X}} = \mathbf{X}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}$ est une matrice de projection orthogonale.
+
+- $\mathbf{H}_{\mathbf{X}}$ est une matrice symmétrique $n \times n$ de rang $n-p$.
+- Une matrice de projection orthogonale est telle que $\mathbf{H}_{\mathbf{X}}\mathbf{H}_{\mathbf{X}} = \mathbf{H}_{\mathbf{X}}$ et $\mathbf{H}_{\mathbf{X}} = \mathbf{H}_{\mathbf{X}}^\top$.
+
+
+## Visualisation de la géométrie
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-align: 'center'
+knitr::include_graphics("fig/04/OLSgeometry.png")
+```
+
+## Conséquence de l'orthogonalité
+
+La représentation et les propriétés géométriques ont des corollaires importants pour l'inférence et la constructions de diagnostics.
+
+- Si $\mathbf{1}_n \in \mathcal{S}(\mathbf{X})$ (par ex., l'ordonnée à l'origine est inclus dans $\mathbf{X}$), la moyenne empirique de $\boldsymbol{e}$ est nulle.
+- Les valeurs ajustées $\widehat{\boldsymbol{y}}$ et les résidus ordinaires $\boldsymbol{e}$ ne sont pas corrélés.
+- Idem  pour toute colonne de $\mathbf{X}$, puisque $\mathbf{X}^\top\boldsymbol{e}=\boldsymbol{0}_{p+1}$.
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+#| knitr.digits.signif: true
+data(college, package = "hecmodstat")
+mod <- lm(salaire ~ sexe + domaine + echelon + service, data = college)
+# Corrélations nulles
+cor(resid(mod), model.matrix(mod))[-1]
+cor(resid(mod), fitted(mod))
+# Moyenne des résidus nulle
+mean(resid(mod))
+```
+
+
+## Diagnostics graphiques
+
+Une régression linéaire simple de $\widehat{\boldsymbol{y}}$ (ou de toute colonnede $\mathbf{X}$) avec réponse $\boldsymbol{e}$ a une ordonnée à l'origine et une pente de zéro.
+
+```{r}
+#| label: fig-zerocor
+#| eval: true
+#| echo: false
+#| fig-cap: "Diagramme des résidus versus valeurs ajustées (gauche), et variable explicative `service` (droite) pour le modèle avec les données `college`, L'ordonnée à l'origine et la pente sont nulles."
+mod <- lm(salary ~ sex + field + rank + service, data = college)
+g1 <- ggplot(data = data.frame(yhat = fitted(mod), 
+                         e = resid(mod)),
+       mapping = aes(x = yhat, y = e)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE, col = "grey") +
+  labs(x = "valeurs ajustées", y = "résidus ordinaires")
+g2 <- ggplot(data = data.frame(service = college$service, 
+                         e = resid(mod)),
+       mapping = aes(x = service, y = e)) +
+  geom_point() +
+  geom_smooth(formula = y ~ x, method = "lm", se = FALSE, col = "grey") +
+  labs(x = "années de service", y = "résidus ordinaires")
+g1 + g2
+```
+Les tendances résiduelles dues à des interactions, des termes nonlinéaires, etc. seront visibles dans les diagrammes.
+
+## Invariance
+
+Les valeurs ajustées $\widehat{y}_i$ pour deux matrices de modèle $\mathbf{X}_a$ et $\mathbf{X}_b$sont les mêmes si elles engendrent le même sous-espace vectoriel, $\mathcal{S}(\mathbf{X}_a) = \mathcal{S}(\mathbf{X}_b)$.
+
+```{r}
+# Centrer-rédurie une variable, changer la paramétrisation d'une variable catégorielle,
+# Enlever l'ordonnée à l'origine
+modB <- lm(salaire ~ 0 + sexe + domaine + echelon + service,
+           data = college |> 
+            dplyr::mutate(service = scale(service)),
+           contrasts = list(rank = contr.sum))
+head(model.matrix(mod), n = 3L)
+head(model.matrix(modB), n = 3L)
+# Invariance du modèle
+isTRUE(all.equal(fitted(mod), fitted(modB)))
+```
+
+
+## Corrélation linéaire de Pearson
+
+The Pearson correlation coefficient quantifies the strength of the linear relationship between two random variables $X$ and $Y$. 
+\begin{align*}
+\rho= \mathsf{cor}(X, Y) =  \frac{{\mathsf{Co}}(X,Y)}{\sqrt{{\mathsf{Va}}(X){\mathsf{Va}}(Y)}}. 
+\end{align*}
+
+- The sample correlation $\rho \in [-1, 1]$.
+- $|\rho|=1$ if and only if the $n$ observations fall exactly on a line.
+- The larger $|\rho|$, the less scattered the points are.
+
+## Properties of Pearson's linear correlation coefficient
+
+The sign determines the orientation of the slope (downward for negative, upward for positive). 
+
+If $\rho>0$ (or $\rho<0$), the two variables are positively (negatively) associated, meaning that $Y$ increases (decreases) on average with $X$.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-width: 12
+#| fig-height: 3
+#| out-width: '100%'
+#| label: fig-scatterplot-corr
+#| fig-cap: "Scatterplots of observations with correlations of $0.1$, $0.5$, $-0.75$ and $0.95$ from $A$ to $D$." 
+set.seed(1234)
+xdat <- rbind(
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.1), c(0.1,1))),
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.5), c(0.5,1))),
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, -0.75), c(-0.75,1))),
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.95), c(0.95,1)))
+)
+colnames(xdat) <- c("x","y")
+data.frame(dataset = factor(rep(LETTERS[1:4], each = 100)),
+           xdat) |>
+ggplot(mapping = aes(x = x, y = y, group = dataset)) +
+  geom_point() +
+  geom_smooth(se = FALSE, formula = y ~ x, method = "lm", col = "grey") + 
+  facet_wrap(~dataset, nrow = 1, ncol = 4, scales = "free") +
+  labs(x = "", y = "")
+
+```
+
+
+## Correlation and independence
+
+- Independent variables are uncorrelated (not the other way around).
+- A correlation of zero only implies that there is no *linear* dependence between two variables.
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-width: 12
+#| fig-height: 3
+#| label: fig-datasaurus
+#| fig-cap: "Four datasets with dependent data having identical summary statistics and a linear correlation of -0.06."
+datasauRus::datasaurus_dozen |>
+  dplyr::filter(dataset %in% c("dino","bullseye","star","x_shape")) |>
+  ggplot(mapping = aes(x = x, y = y, group = dataset)) +
+  geom_point() + 
+  geom_smooth(se = FALSE, formula = y ~ x, method = "lm", col = "grey") + 
+  facet_wrap(~dataset, nrow = 1, ncol = 4) + labs(x = "", y = "")
+```
+
+
+
+## Sum of squares decomposition
+
+Suppose that we do not use any explanatory variable (i.e., the intercept-only model). In this case, the fitted value for $Y$ is the overall mean and the sum of squared centered observations
+\begin{align*}
+\mathsf{SS}_c=\sum_{i=1}^n (Y_i-\overline{Y})^2                                              
+\end{align*}
+where $\overline{Y}$ represents the intercept-only fitted value.
+
+When we include the $p$ regressors,  we get rather
+\begin{align*}
+\mathsf{SS}_e=\sum_{i=1}^n (Y_i-\hat{Y}_i)^2 
+\end{align*}
+The $\mathsf{SS}_e$ is non-increasing when we include more variables.
+
+## Percentage of variance
+
+Consider the sum of squared residuals for two models:
+
+- $\mathsf{SS}_c$ is for the intercept-only model
+- $\mathsf{SS}_e$ for the linear regression with model matrix $\mathbf{X}$. 
+
+Consequently, $\mathsf{SS}_c-\mathsf{SS}_e$ is the reduction of the error associated with including $\mathbf{X}$ in the model
+\begin{align*}
+R^2=\frac{\mathsf{SS}_c-\mathsf{SS}_e}{\mathsf{SS}_c}                                                     
+\end{align*}
+This gives the proportion of the variability in $Y$ explained by $\mathbf{X}$.
+ 
+
+## Coefficient of determination
+
+We can show that the coefficient of determination is the square of Pearson's linear correlation between the response $\boldsymbol{y}$ and the fitted values $\widehat{\boldsymbol{y}}$,
+$$R^2 = \mathsf{cor}^2(\boldsymbol{y}, \widehat{\boldsymbol{y}}).$$
+
+  
+
+```{r}
+#| eval: true
+#| echo: true
+summary(mod)$r.squared
+y <- college$salary
+yhat <- fitted(mod)
+cor(y, yhat)^2 
+```
+
+- $R^2$ always takes a value between $0$ and $1$.
+- $R^2$ is not a goodness-of-fit criterion: the coefficient is non-decreasing in the dimension of $\mathbf{X}$, the more columns are added, the higher $R^2$.
+
+## Distribution of errors
+
+Since we define residuals as $(\mathbf{I}-\mathbf{H}_{\mathbf{X}})\mathbf{Y}$, it follows that $E_i \sim \mathsf{normal}\{0, \sigma^2(1-h_{ii})\}$. Since $(\mathbf{I}-\mathbf{H}_{\mathbf{X}})$ has rank $p$
+
+- The residuals are linearly related (there are $n-p$ free components).
+- The residuals are heteroscedastic, and their variance depends on the diagonal elements of the "hat matrix" $\mathbf{H}_{\mathbf{X}}$, the collection $\{h_{ii}\}$ for $(i=1, \ldots, n)$.
+- If we further estimate $\sigma^2$ by $S^2$, we introduce additional independence since $S^2 = \sum_{i=1}^n e_i^2/(n-p-1)$, so $e_i$ appears in the formula of the sample variance...
+
+## Externally studentized residuals
+
+- We consider estimation of the standard deviation $S_{(-i)}$ by fitting the model to but the $i$th observation (jackknife estimator) --- there are explicit formulas for this, no need to refit the model!
+- Then, $e_i$ is independent of $S_{(-i)}$
+- The standardized quantities (residuals divided by std. dev.)
+$$r_i = \frac{e_i}{S_{(-i)}(1-h_{ii})}$$
+are the jackknife (or externally) studentized residuals. In **R**, use `rstudent`.
+
+The distribution of $R \sim \mathsf{Student}(n-p-2)$, but the collection $R_1, \ldots, R_n$ are not independent.
+
+## Leverage
+
+- The diagonal elements of the hat matrix $h_{ii} = \partial \widehat{y}_i/\partial y_i$ represent the **leverage** of an observations.
+- Leverage values tell us how much each point impacts the fit: they are strictly positive, are bounded below by $1/n$ and above by $1$.
+- The sum of the leverage values is $\sum_{i=1}^n h_i=p+1$: in a good design, each point has approximately the same contribution, with average weight $(p+1)/n$.
+- Points with high leverage are those that have unusual combinations of explanatories. 
+- One condition for the OLS estimator $\widehat{\boldsymbol{\beta}}$ to be approximately normally distributed is that $\max_{i=1}^n h_{ii} \to 0$ as $n \to \infty$: no observation dominates the fit.
+
+## Influential observations vs outliers
+
+
+It is important to distinguish betwen **influential** observations (which have unusual $\mathbf{x}$ value, i.e., far from the overall mean) and **outliers** (unusual value of the response $y$).
+If an observation is both an outlier and has a high leverage, it is problematic.
+
+```{r}
+#| label: fig-outliers
+#| echo: false
+#| fig-cap: Outlier and influential observation. The left panel shows an outlier, whereas
+#|   the right panel shows an influential variable (rightmost $x$ value).
+set.seed(1)
+x <- c(rgamma(99, shape = 5), 20)
+y1 <- 0.4*x+3+rnorm(100, sd = 1)
+y2 <- 0.5*x[-100]+-6+rnorm(99, sd = 0.2)
+dat <- data.frame(x=c(c(x[-100], 5),x), y=c(c(y2, 0), y1), group = factor(rep(1:2, each = 100L)))
+ggplot(data = dat, aes(x=x, y=y), colour=group) +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE, col='grey') +
+  facet_wrap(~group, ncol = 2, scales = "free") +
+  theme(legend.position = "none", strip.text = element_blank(), )
+```
+
