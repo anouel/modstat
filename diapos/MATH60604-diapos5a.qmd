@@ -1,0 +1,752 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "05. Modèles linéaires"
+date: today
+date-format: YYYY
+eval: true
+cache: false
+echo: true
+fig-align: 'center'
+out-width: '100%'
+standalone: true
+lang: fr
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecbleu <- c("#002855")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+library(knitr)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(scipen=1, digits=2, width = 75)
+options(knitr.kable.NA = '')
+library(kableExtra)
+```
+
+## Interaction
+
+
+On parle d'**interaction** lorsque des combinaisons de variables explicatives affectent la variable réponse différemment que lorsqu'elles sont considérées individuellement.
+
+Si $X_j$ et $X_k$ interagissent, l'effet marginal de $\mathsf{E}(Y \mid \boldsymbol{X})$ par rapport à $X_j$ est une fonction de $X_k$, et vice-versa.
+
+On s'attarde au cas où au moins une des variables est catégorielle (facteur).
+
+## Primes d'assurance
+
+Les fumeurs dont l'indice de masse corporelle (IMC) est égal ou supérieur à 30 paient une prime élevée, mais il semble que le montant de la prime augmente de façon linéaire en fonction de l'IMC. Cette tarification ne semble pas s'appliquer aux non-fumeurs. 
+
+
+```{r}
+#| label: fig-insuranceinter1
+#| echo: false
+#| fig-align: 'center'
+#| fig-cap: "Nuage de points des données `assurance` avec les frais en fonction de l'`imc`, selon le status `fumeur`."
+data(assurance, package = "hecmodstat")
+assurance <- assurance |>
+  dplyr::mutate(obesite = factor(imc >= 30, labels = c("normal","obese"))) |>
+  dplyr::mutate(fumobese = droplevels(factor(interaction(obesite, fumeur),
+                          levels = c("normal.non","obese.non","normal.oui","obese.oui"),
+                          labels = c("non-fumeur","non-fumeur","fumeur non-obèse","fumeur obèse"))))
+
+ggplot(data = assurance,
+             aes(x = imc, y = frais, col = fumobese)) +
+  geom_point() +
+  geom_vline(xintercept = 30) +
+  MetBrewer::scale_color_met_d("Hiroshige") +
+  labs(x = "indice de masse corporelle",
+       y = "", subtitle = "frais médicaux d'assurance (en dollars américains)", col = "") +
+  scale_y_continuous(labels = scales::unit_format(unit = "K", scale = 1e-3),
+                     expand = c(0, 0), limits = c(0, max(assurance$frais)+100)) 
+```
+
+
+## Interaction entre variables continue et catégorielle
+
+On considère un exemple avec des données bidons `interaction`. Le modèle additif (sans interaction) a pour  moyenne
+\begin{align*}
+\mathsf{E}(\texttt{intention} \mid \cdot)=\beta_0 + \beta_1 \texttt{sexe} + \beta_2 \texttt{fixation},
+\end{align*}
+où $\texttt{sexe=1}$ pour les femmes et $\texttt{sexe=0}$ pour les hommes
+
+L'effet de la variable continue `fixation` est identique pour les deux sexes.
+
+Pour ajuster une pente différente par sexe, on crée une nouvelle variable égale au produit $\texttt{fixation}\times\texttt{sexe}$ et on l'ajoute à notre modèle,
+\begin{align*}
+\mathsf{E}(\texttt{intention} \mid \cdot)= \beta_0 + \beta_1 \texttt{sexe} + \beta_2\texttt{fixation}  + \beta_3 \texttt{fixation}\cdot \texttt{sexe}.
+\end{align*} 
+
+## Interaction ou pas?
+
+```{r}
+#| eval: true
+#| echo: false
+#| label: fig-interaction-slope
+#| fig-cap: "Nuages de points et droites ajustées pour un modèle sans interaction (gauche) et avec interaction (droite)." 
+data(interaction, package = "hecmodstat")
+interaction <- interaction |> 
+  dplyr::mutate(sexe = factor(sexe, levels = c(0,1),
+                             labels = c("homme","femme")))
+mod <- lm(intention ~ fixation + sexe, data = interaction)
+predmod <- predict(mod)
+g1 <- ggplot(data = interaction,   
+       mapping = aes(
+  x = fixation, 
+  y = intention,
+  color = sexe)) +
+ geom_point() +
+ geom_line(aes(y = predmod), linewidth = 1,
+           show.legend = FALSE) +
+ MetBrewer::scale_color_met_d(name = "Hiroshige") + 
+ labs(color = "sexe",
+     x = "temps de fixation (en secondes)", 
+     y = "intention d'achat")
+g2 <- ggplot(data = interaction,   
+       mapping = aes(x = fixation, 
+                     color = sexe, 
+                     y = intention)) +
+ geom_point() +
+ geom_smooth(formula = y ~ x, se = FALSE, method = "lm", linewidth = 1,
+             show.legend = FALSE) +
+ MetBrewer::scale_color_met_d(name = "Hiroshige") + 
+ labs(color = "sexe",
+     x = "temps de fixation (en secondes)", 
+     y = "intention d'achat")
+g1 + g2 + plot_layout(guides = 'collect') & theme(legend.position = "bottom") 
+```
+
+
+## Interprétation des paramètres
+
+Selon la valeur de $\texttt{sexe}$, on obtient
+\begin{align*}
+\mathsf{E}(\texttt{intention} \mid \cdot) = 
+\begin{cases}
+(\beta_0 + \beta_1) + (\beta_2 + \beta_3)\texttt{fixation}, & \texttt{sexe}=1 \text{ (femme)},\\
+  \beta_0 + \beta_2 \texttt{fixation}, & \texttt{sexe}=0 \text{ (homme)}.
+\end{cases}
+\end{align*} 
+L'interprétation des coefficients du modèle se fait comme d'habitude avec la paramétrisation (traitement):
+
+- $\beta_0$ est l'intention d'achat moyenne lorsque le temps de fixation est nul pour les hommes,
+- $\beta_1$ est la différence d'ordonnée à l'origine entre les femmes et les hommes,
+- $\beta_2$ est l'augmentation unitaire de l'intention d'achat par seconde de fixation pour les hommes,
+- $\beta_3$ est la différence de pente entre les femmes et les hommes.
+
+## Tester pour une interaction
+
+Tester la significativité de l'interaction revient à vérifier si $\mathscr{H}_0: \beta_3=0$.
+
+```{r}
+#| eval: true
+#| echo: true
+data(interaction, package = "hecmodstat")
+# Pour spécifier une interaction, utiliser :
+mod <- lm(intention ~ sexe + fixation +  sexe:fixation, 
+          data = interaction)
+# Un raccourci est sexe*fixation, qui donne la même chose
+summary(mod)$coefficients
+```
+Le modèle avec interaction est significativement meilleur, ce qui signifie que l'effet du temps de fixation sur l'intention d'achat varie en fonction du sexe.
+
+## Principe de marginalité
+
+Tous les termes d'ordre inférieurs devraient être inclus si l'interaction est présente.
+
+Par exemple, on ne retirera pas $\texttt{fixation}$ tout en conservant le terme d'interaction $\texttt{fixation*sexe}$, même si on ne rejette pas $\mathscr{H}_0:\beta_2=0$, puisqu'autrement
+\begin{align*}
+&\mathsf{E}(\texttt{intention} \mid \cdot) =
+\begin{cases}
+(\beta_0 + \beta_1) + \beta_3\texttt{fixation}, & \texttt{sexe}=1 \text{ (femme)},\\
+  \beta_0, &\texttt{sexe}=0 \text{ (homme)};                 
+\end{cases}
+\end{align*} 
+cela implique que l'intention d'achat est constante pour les hommes, quel que soit le temps de fixation.
+
+Comme le choix de catégorie de référence est arbitraire, changer la variable indicatrice \texttt{sexe} pour $\texttt{0}$ pour les femmes, $\texttt{1}$ pour les hommes, donnerait un autre modèle et potentiellement des inférences différentes.
+
+
+
+## Interaction catégoriel vs catégoriel
+
+Considérons un modèle linéaire avec les facteurs $A$, $B$ et leur interaction. C'est un modèle d'**analyse de variance** à deux facteurs, dans lequel chaque sous-groupe $(a_i, b_j)$ a sa propre moyenne $\mu_{ij}$. Par exemple, si $A$ a $n_a=3$ niveaux et $B$ a $n_b=2$ niveaux.
+
+
+| $\qquad B$<br> $A$ $\qquad$ | $b_1$ | $b_2$ | $\text{ligne}$ |
+|------------|:----------:|:-----:|:-----:|
+| $a_1$ | $\mu_{11}$ | $\mu_{12}$ | $\mu_{1.}$ |
+|  $a_2$  | $\mu_{21}$ | $\mu_{22}$ | $\mu_{2.}$ |
+| $a_3$|  $\mu_{31}$ | $\mu_{32}$ | $\mu_{3.}$ |
+|$\text{colonne}$ | $\mu_{.1}$ | $\mu_{.2}$ | $\mu$ |
+
+- Les estimations empiriques des cellules sont obtenues en remplaçant $\mu_{ij}$ par la moyenne des sous-groupes.
+- Les moyennes de lignes $\mu_{i.}$, de colonnes $\mu_{.j}$ et globale $\mu$ sont les moyennes **équipondérées** des éléments des cellules $\mu_{ij}$.
+
+
+
+## Exemple 1 - perception d'un emprunt
+
+@Sharma.Tully.Cryder:2021 ajuste un modèle factoriel 2 par 2 inter-sujets (ANOVA à deux facteurs) en variant
+
+- le type de dette (`debttype`), selon que l'argent est un prêt (`loan`) ou un crédit (`credit`)
+- le type d'achat auquel l'argent sert, soit dépense discrétionnaire (`discretionary`) ou pour des besoins essentiels (`need`). 
+
+```{r}
+#| eval: true
+#| echo: true
+data(STC21_SS5, package = "hecedsm")
+mod1 <- lm(likelihood ~ purchase * debttype, data = STC21_SS5)
+```
+
+La variable réponse est la vraisemblance moyenne, mesurée à l'échelle d'une échelle de Likert à 9 points
+allant de 1 à 9.
+
+
+## Exemple 2 - perception d'appropriation culturelle par idéologie politique
+
+On considère un modèle d'ANOVA à trois facteurs de @Lin.Kim.Uduehi.Keinan:2024. Leur étude 4 s'intéresse à l'appropriation culturelle pour une recette de *soul food*, un courant afro-américain, parue dans le livre du "Chef Dax". 
+
+
+Les auteurs manipulent l'ethnicité du chef, afro-Américain ou pas, et la façon dont la recette a été obtenue (furtivement, en demandant la permission ou sans mention dans le cas du groupe contrôle).
+
+```{r}
+#| eval: true
+#| echo: true
+data(LKUK24_S4, package = "hecedsm")
+mod <- lm(appropriation ~ politideo * chefdax * brandaction,
+   data = LKUK24_S4)
+```
+
+Les auteurs ont postulé que la perception de l'appropriation varie selon l'idéologie politique. L'étude utilise un devis expérimental $3 \times 2 \times 2$.
+
+## Diagramme des interactions
+
+Le diagramme des interactions présente les moyennes des sous-groupes (avec intervalles de confiance) en fonction des facteurs. Si les lignes sont parallèles, il n'y a pas d'interaction.
+
+
+
+```{r}
+#| label: fig-2by2-interaction-plot
+#| eval: true
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| out-width: "100%"
+#| fig-cap: "Diagramme d'interactions pour un devis 2 par 2. Image adaptée de la  Figure 10.2 de Crump, Navarro et Suzuki (2019) par Matthew Crump (CC BY-SA 4.0 license)"
+p1 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(5, 5, 5, 5)
+)
+p2 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(10, 10, 5, 5)
+)
+p3 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(5, 10, 5, 10)
+)
+p4 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(5, 10, 10, 15)
+)
+p5 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(5, 10, 10, 5)
+)
+p6 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(10, 13, 5, 2)
+)
+p7 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(2, 12, 5, 9)
+)
+p8 <- data.frame(
+  factorA = c("a1", "a1", "a2", "a2"),
+  factorB = c("b1", "b2", "b1", "b2"),
+  means = c(10, 18, 5, 7)
+)
+all_22s <- rbind(p1, p2, p3, p4, p5, p6, p7, p8)
+#table object to beincluded with ggplot
+
+type <- factor(rep(1:8, each = 4), 
+               labels = c("aucun effet",
+                          "effet principal de A",
+                          "effet principal de B",
+                          "deux effets principaux",
+                          "interaction seulement",
+                          "effet principal de A et interaction",
+                          "effet principal de B et interaction",
+                          "effets principaux et interaction" ))
+all_22s <- cbind(all_22s, type)
+options(ggplot2.discrete.colour= MetBrewer::met.brewer(name = "Hiroshige", 2))
+ggplot(all_22s, 
+       mapping = aes(x = factorA, 
+                     y = means, 
+                     type = type,
+                     group = factorB, 
+                     color = factorB))+
+  geom_point() +
+  geom_line() +
+  labs(x = "facteur A",
+       subtitle = "moyenne de la réponse",
+       y = "",
+       color = "facteur B") +
+  facet_wrap(~type, nrow = 2) +
+  theme_classic() +
+  theme(legend.position = "bottom")
+```
+
+
+
+
+
+## Moyennes de cellules pour 2 par 2
+
+Les scénarios sont les mêmes que sur la diapositive précédente
+
+```{r}
+#| label: tbl-2by2-interaction
+#| tbl-cap: "Moyennes de sous-groupes pour les combinaisons dans un devis 2 par 2."
+#| eval: true
+#| echo: false
+#| fig.width: 8
+#| fig.height: 3
+#| out.width: "70%"
+m1 <- matrix(p1$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab1 <- gridExtra::tableGrob(m1,rows = c("a1","a2"),)
+m2 <- matrix(p2$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab2 <- gridExtra::tableGrob(m2)
+m3 <- matrix(p3$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab3 <- gridExtra::tableGrob(m3)
+m4 <- matrix(p4$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab4 <- gridExtra::tableGrob(m4)
+m5 <- matrix(p5$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab5 <- gridExtra::tableGrob(m5)
+m6 <- matrix(p6$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab6 <- gridExtra::tableGrob(m6)
+m7 <- matrix(p7$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab7 <- gridExtra::tableGrob(m7)
+m8 <- matrix(p8$means, nrow = 2, byrow = TRUE, dimnames = list(A = c("a1", "a2"), B = c("b1","b2")))
+tab8 <- gridExtra::tableGrob(m8)
+gridExtra::grid.arrange(tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, nrow = 2)
+```
+
+
+
+
+ 
+## Diagramme d'interaction pour l'exemple 1
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+L'étude supplémentaire 5 de @Sharma.Tully.Cryder:2021 est une ANOVA inter-sujets $2 \times 2$ (sans mesure répété par individu), avec facteurs
+
+- type de dette (`debttype`), soit prêt (`loan`) ou crédit (`credit`)
+- type d'achat (`purchase`), soit discrétionnaire (`discretionary`) ou pas (`need`)
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-width: 5
+#| fig-height: 4
+options(contrasts = c("contr.sum","contr.poly"))
+data(STC21_SS5, package = "hecedsm")
+mod1 <- lm(likelihood ~ purchase * debttype, data = STC21_SS5)
+emm1 <- emmeans::emmeans(
+  mod1,
+  specs = c("debttype","purchase"))
+emmeans::emmip(emm1,  debttype ~ purchase, CIs = TRUE) +
+    MetBrewer::scale_color_met_d("Hiroshige") +
+  theme_classic() +
+  theme(legend.position = "bottom")
+```
+Aucune preuve visuelle d'une interaction
+
+:::
+
+::::
+
+
+
+## Diagramme d'interaction pour l'exemple 2
+
+:::: {.columns}
+
+::: {.column width="50%"}
+L'étude 4 de @Lin.Kim.Uduehi.Keinan:2024 utilise un devis $3 \times 2 \times 2$ inter-sujet pour étudier la perception d''appropriation culturelle, avec
+
+- L'ethnicité du `chefdax`: soit noir (`black`) ou pas (`not black`).
+- l'idéologie politique, `politideo`: soit `conservative` ou `liberal`
+- la façon dont les recettes ont été obtenues (`brandaction`):  furtivement, avec la permission, ou sans mention (groupe contrôle).
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-width: 5
+#| fig-height: 4
+# data(MP14_S1, package = "hecedsm")
+# mod2 <- lm(distance ~ station * direction, data = MP14_S1)
+# emm <- emmeans::emmeans(
+#   mod2,
+#   specs = c("station","direction"))
+# emmeans::emmip(emm,   direction ~ station, CIs = TRUE) +
+#   theme_classic() +
+#   theme(legend.position = "bottom")
+library(emmeans)
+data(LKUK24_S4, package = "hecedsm")
+mod2 <- lm(appropriation ~ politideo * chefdax * brandaction,
+          data = LKUK24_S4)
+emm2 <- emmeans(mod2, 
+        specs = c("chefdax", "brandaction", "politideo"))
+emmip(object = emm2, 
+        formula = politideo~ chefdax | brandaction, 
+        CIs = TRUE) +
+    MetBrewer::scale_color_met_d("Hiroshige") +
+    theme_classic() +
+  theme(legend.position = "bottom")
+```
+
+Interaction entre `chefdax` (ethnicité) et `ideology`.
+
+:::
+
+::::
+
+
+## Tableau d'analyse de variance
+
+Le modèle d'analyse de variance compare les modèles avec (ou sans) $A$, $B$, et l'interaction $AB$.
+
+Si l'échantillon est **balancé** (même nombre d'observations pour chaque sous-groupe), il existe une décomposition unique de la variabilité
+
+$$\underset{\text{total}}{\mathsf{SC}_{c}} = \underset{\text{facteu $A$}}{\mathsf{SC}_A} + \underset{\text{facteur $B$}}{\mathsf{SC}_B} + \underset{\text{interaction}}{\mathsf{SC}_{AB}} + \underset{\text{résidus}}{\mathsf{SC}_e}$$
+Ainsi, 
+
+- un modèle sans $AB$ aurait pour somme du carré des résidus $\mathsf{SC}_{AB} + \mathsf{SC}_e$, avec $n_a-1$ paramètres en moins.
+- un modèle sans $A$ (seulement le facteur $B$) aurait pour somme du carré des résidus de $\mathsf{SC}_{A} + \mathsf{SC}_{AB} + \mathsf{SC}_e$, versus $\mathsf{SC}_{AB} + \mathsf{SC}_e$ sous l'alternative.
+- la différence dans la somme des carrés est $\mathsf{SC}_A$ pour $A$, $\mathsf{SC}_{AB}$ pour l'interaction $A \times B$, etc.
+
+## Statistiques de test pour ANOVA
+
+
+Si le modèle alternatif a $n_an_b$ paramètres pour la moyenne, et que nous imposons $n_a-1$ restrictions linéaires sous l'hypothèse nulle au modèle estimé sur la base de $n$ observations indépendantes, la statistique de test $F$ est
+\begin{align*}
+F = \frac{\mathsf{SC}_A/(n_a-1)}{\mathsf{SC}_{e}/ (n-n_an_b)}
+\end{align*}
+
+- Le numérateur est la différence de sommes des carrés, notée $\mathsf{SC}_A$, entre les modèles ajustés selon $\mathscr{H}_0$ et $\mathscr{H}_a$, divisée par les degrés de liberté $n_a-1$ (différence du nombre de  paramètres).
+- Le dénominateur est $S^2$, l'estimateur sans biais de la variance.
+
+## Tableau d'analyse de variance
+
+| terme | degrés de liberté | carrés moyens | $F$ | 
+|------|--------|------|--------|
+| $A$  | $n_a-1$   | $\mathsf{MS}_{A}=\mathsf{SC}_A/(n_a-1)$ | $\mathsf{MS}_{A}/\mathsf{MS}_{\text{res}}$ |
+| $B$  | $n_b-1$   | $\mathsf{MS}_{B}=\mathsf{SC}_B/(n_b-1)$ | $\mathsf{MS}_{B}/\mathsf{MS}_{\text{res}}$ |
+| $AB$ | $(n_a-1)(n_b-1)$ | $\mathsf{MS}_{AB}=\mathsf{SC}_{AB}/\{(n_a-1)(n_b-1)\}$ | $\mathsf{MS}_{AB}/\mathsf{MS}_{\text{res}}$ |
+| résidus | $n-n_an_b$ | $\mathsf{MS}_{\text{res}}=\mathsf{SC}_{e}/ (n-ab)$ | |
+| total | $n-1$ | | 
+
+
+*Lire le tableau de bas en haut (en débutant avec l'interaction).*
+
+
+## Comparaison de modèles emboîtés avec des données débalancées
+
+Selon la décomposition, on compare des modèles différents!
+
+
+```{r}
+#| label: tbl-ssdecompo
+#| eval: true
+#| echo: false
+#| tbl-cap: "Décomposition de la somme des carrés dans les tableaux d'ANOVA (termes de l'hypothèse nulle vs l'alternative)."
+tabSS <- cbind("type I" = c("intercept vs $A$", "$A$ vs $(A,B)$","$(A,B)$ vs $(A,B,AB)$"),
+ "type II" = c("$B$ vs $(A,B)$","$A$ vs $(A,B)$","$(A,B)$ vs $(A,B,AB)$"),
+"type III" = c("$(B, AB)$ vs $(A,B, AB)$","$(A, AB)$ vs $(A,B,AB)$","$(A,B)$ vs $(A,B,AB)$"))
+rownames(tabSS) <- c("$\\boldsymbol{A}$","$\\boldsymbol{B}$","$\\boldsymbol{AB}$")
+knitr::kable(tabSS, booktabs = TRUE)
+```
+
+
+Utilisez la décomposition type 2 de la somme des carrés par défaut (avec `car::Anova`). La décomposition de type 1 (`anova`) dépend de l'ordre des termes, tandis que le type 3 ne respecte pas le principe de marginalité.
+
+## Modèle pour l'exemple 1
+
+La moyenne du modèle linéaire avec interaction (paramétrisation en terme de traitements) est
+\begin{align*}
+\mathsf{E}(\texttt{likelihood} \mid \cdot) &= \beta_0 + \beta_1\mathbf{1}_{\texttt{purchase=need}} + \beta_2\mathbf{1}_{\texttt{debttype=loan}} \\&\quad+ \beta_3\mathbf{1}_{\texttt{purchase=need}}\mathbf{1}_{\texttt{debttype=loan}}
+\end{align*}
+
+On peut calculer la moyenne de chaque groupe et déduire l'interprétation des coefficients:
+
+- $\mu_1 = \beta_0$ pour `purchase=discretionnary` et `debttype=credit`
+- $\mu_2 = \beta_0 + \beta_1$  pour `purchase=need` et `debttype=credit`
+- $\mu_1 = \beta_0 + \beta_2$ pour `purchase=discretionnary` et `debttype=loan`
+- $\mu_2 = \beta_0 + \beta_1 + \beta_2 + \beta_3$  pour `purchase=need` et `debttype=loan`
+
+Ainsi, $\beta_3$ représente la différence des moyennes $\mu_1 + \mu_4 - \mu_2 - \mu_3$.
+<!--
+## Modèle additif
+
+The **additive** model with the treatment contrast parametrization has $1 + (n_a-1) + (n_b-1)$ parameters, with $$\mathsf{E}(Y \mid A=a_i, B=b_j) = \mu+ \alpha_i + \beta_j.$$ 
+We need a suitable constraint on $\alpha$ and $\beta$, e.g., $\alpha_1=0$ (treatment contrast) or $\sum_{i=1}^{n_a}\alpha_i=0$ (sum-to-zero constraint).
+
+The last line of the ANOVA table with the $F$-statistics gives the $p$-value for the test comparing the model with and without the interaction term.
+-->
+
+## Ajustement de l'ANOVA et moyennes de groupes
+
+```{r}
+#| eval: true
+#| echo: true
+# Données de l'étude supp. 5
+# de Sharma, Tully, et Cryder (2021)
+data(STC21_SS5, package = "hecedsm")
+# La fonction 'aov' sert à ajuste des ANOVA
+# Équivalent à "lm" avec variables catégorielles, contrasts somme nulle
+mod1 <- aov(likelihood ~ purchase*debttype, 
+           data = STC21_SS5)
+# Calculer le décompte par sous-catégorie (données débalancées)
+xtabs(~purchase + debttype, data = STC21_SS5)
+# Calcul de la moyenne globale/lignes/colonnes/cellules
+means <- model.tables(mod1, type = "means")
+```
+
+## Comparaison de modèles
+
+
+```{r}
+#| eval: true
+#| echo: true
+car::Anova(mod1, type = 2)
+```
+
+Dans le tableau, on se concentre uniquement sur la ligne `purchase:debttype`. 
+
+La statistique $F$ vaut `r round(car::Anova(mod, type = 3)[4,3],2)`; avec la loi nulle $\mathsf{Fisher}$ (`r car::Anova(mod, type = 3)[4,2]`, `r car::Anova(mod, type = 3)[5,2]`), la valeur-$p$ est `r format.pval(car::Anova(mod, type = 3)[4,4], digits=2)`. Il n'y a pas d'effet du type d'achat sur la dette.
+
+
+## Effets principaux et marginalisation
+
+Les **effets principaux** représentent les moyennes des lignes ou des colonnes.
+
+On les obtient par voie de *marginalisation*, en prenant la moyenne sur les autres facteurs.
+
+Les effets principaux sont trompeurs s'il y a une interaction.
+
+Par exemple, les effets principaux de $A$ sont:
+
+```{r}
+#| echo: false
+#| warning: false
+# list of all the icons used in table
+# making table with gt
+data.frame(A = c("\\(a_1\\)", "\\(a_2\\)", "\\(a_3\\)"),
+           response = c("\\(\\mu_{1.}\\)",
+                        "\\(\\mu_{2.}\\)",
+                        "\\(\\mu_{3.}\\)")) |> 
+  kbl(align = "c", 
+      escape = FALSE, 
+      col.names = c("\\(A\\)","\\(\\text{moyenne de ligne}\\)")) |>
+  kable_styling(full_width = FALSE) |>
+  column_spec(2, background = c("#bae1ff", "#ffdfba", "#ffb3ba"))
+```
+
+
+
+## Effets simples
+
+En présence d'interactions, l'effet de $A$ dépend de la valeur de $B$.
+
+Les **effets simples** sont des moyennes de cellules dans une ligne ou une colonne donnée.
+
+
+
+```{r}
+#| echo: false
+#| warning: false
+# list of all the icons used in table
+# making table with gt
+data.frame(A = c("\\(a_1\\)", "\\(a_2\\)", "\\(a_3\\)"),
+           response = c("\\(\\mu_{11}\\)",
+                        "\\(\\mu_{21}\\)",
+                        "\\(\\mu_{31}\\)")) |> 
+  kbl(align = "c", 
+      escape = FALSE, 
+      col.names = c("\\(A\\)","\\(b_1\\)")) |>
+  kable_styling(full_width = FALSE) |>
+  column_spec(2, background = c("#bae1ff", "#ffdfba", "#ffb3ba"))
+```
+
+## Exemple d'effets principaux
+
+Puisque l'interaction de l'exemple 1 n'est pas significative, on peut interpréter l'effet principal de `debttype` et comparer les deux types de dettes (différence de moyenne).
+
+```{r}
+#| eval: true
+#| echo: true
+# Comparaison entre paires pour le type de dette
+# Effets principaux  (on calcule la moyenne en ignorant "purchase")
+emmeans::emmeans(mod1, 
+                 # 'specs': quelle(s) variable(s) conserver
+                 specs = "debttype", 
+                 contr = "pairwise")
+```
+
+
+## Tableau d'analyse de variance pour l'exemple 2 
+
+Pour l'ANOVA à $K$ facteurs, nous commençons toujours par estimer le modèle complet avec toutes les interactions possibles (à condition qu'il y ait suffisamment de données pour estimer ces dernières, et donc des répétitions).
+
+```{r}
+#| eval: true
+#| echo: false
+#| label: tbl-anova-LKUK24
+#| tbl-cap: "Tableau d'analyse de variance (décomposition de type II) pour l'étude 4 de Lin et al. (2024)." 
+options(knitr.kable.na = '')
+broom::tidy(car::Anova(mod2, type = 2)) |>
+  dplyr::mutate(p.value = ifelse(is.na(p.value), NA, format.pval(p.value, digits = 2, eps = 1e-3))) |>
+  knitr::kable(digits = 2, 
+               col.names = c("terme", "somme de carrés","ddl","stat","valeur-p"),
+               booktabs = TRUE, 
+               linesep = "")
+```
+
+Il n'y a pas d'interaction d'ordre 3, et la seule interaction d'ordre 2 est entre l'idéologie politique et l'ethnicité du Chef Dax. On ne peut pas interpréter la valeur-$p$ de l'effet principal de `brandaction`, mais on pourrait considérer les moyennes marginales.
+
+## Réduction de la dimension et effets simples
+
+On réduit le problème à une ANOVA à deux facteurs $2 \times 2$, en marginalisant sur `brandaction`. 
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+# Moyenne marginales pour idéologie politique/ethnicité
+# On calcule les effets simples de ethnicité, pour chaque idéologie politique
+(emm2a <- emmeans(mod2, 
+         by = "chefdax", 
+         specs = "politideo"))
+```
+
+## Contrastes deux à deux ethnicité par idéologie politique
+
+```{r}
+#| eval: true
+#| echo: true
+emm2a |> contrast(method = "pairwise")
+```
+
+
+Nous constatons que les libéraux sont beaucoup plus susceptibles de considérer le livre de cuisine du chef Dax comme un exemple d'appropriation culturelle s'il n'est pas noir; il y a peu de preuves d'une différence entre les conservateurs et les libéraux lorsque le chef Dax est noir.
+
+On peut calculer les effets marginaux pour idéologie (afro-Américain ou pas). Les deux différences sont statistiquement significatives, mais la différence est beaucoup plus marquée pour les répondants de gauche.
+
+
+## Comparaison des effets de la méthode d'acquisition.
+
+Nous pensons que les participants verront le fait de copier furtivement moins favorablement que si le chef Dax demandait l'autorisation de publier la recette. Il est difficile de connaître l'effet du groupe contrôle, car nous n'omettons cette mention dans ce dernier.
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| message: false
+#| warning: false
+# Moyenne marginale de brandaction
+(emm_brand <- emmeans(mod, specs = c("brandaction"))) 
+# Test F pour les effets principaux de brandaction
+emm_brand |> 
+  contrast(method = "pairwise")|> 
+  joint_tests()
+```
+
+Le test $F$ permet de comparer le modèle avec une moyenne globale pour `brandaction` vs une par catégorie. Le test indique qu'au moins une des paires est différente des autres.
+
+## Contrastes
+
+On peut voir une analyse de variance à plusieurs facteurs comme un modèle d'analyse de variance à un facteur possédant $n_a \times n_b \times \cdots$ niveaux, un par sous-groupe.
+
+Les effets marginaux, les interactions et les effets simples sont tous des exemples de contrastes linéaires.
+
+```{r}
+#| eval: true
+#| echo: true
+mod <- lm(likelihood ~ group,
+          data = STC21_SS5 |> 
+            dplyr::mutate(group = interaction(debttype, purchase)))
+emmeans(mod, specs = "group") |>
+  contrast(method = list(main_pairwise = c(1,-1,1,-1)/2))
+```
+
+## Récapitulatif 1
+
+
+- Les interactions se produisent lorsque l'effet d'une variable dépend d'une autre: nous modélisons généralement cela en ajoutant le produit des deux (une ou plusieurs étant catégoriques avec des indicateurs binaires).
+- Les **diagrammes d'interaction**, qui montrent les moyennes des groupes, sont utiles d'un point de vue conceptuel pour la visualisation, mais des tests formels sont nécessaires.
+- Les tests statistiques prennent en compte l'élimination des interactions sur la base de l'ajustement du modèle complet (lorsque cela est possible).
+- Le principe de marginalité implique que nous conservons tous les termes d'ordre inférieur: utiliser les effets de type II.
+
+## Récapitulatif 2
+
+- Les modèles d'analyse de la variance sont simplement des modèles de régression linéaire avec des explications catégorielles.
+- Les modèles avec toutes les interactions correspondent à un modèle où chaque sous-groupe a sa propre moyenne.
+- Nous comparons les effets principaux (en l'absence d'interactions) ou les effets simples (lorsqu'ils sont présents), ou des contrastes plus généraux, sur la base du modèle complet.
+- Une ANOVA à plusieurs facteurs peut toujours être considérée comme une ANOVA à un facteur.
+
+## Références
+
