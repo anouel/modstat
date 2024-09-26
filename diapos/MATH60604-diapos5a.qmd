@@ -211,7 +211,7 @@ Considérons un modèle linéaire avec les facteurs $A$, $B$ et leur interaction
 | $a_3$|  $\mu_{31}$ | $\mu_{32}$ | $\mu_{3.}$ |
 |$\text{colonne}$ | $\mu_{.1}$ | $\mu_{.2}$ | $\mu$ |
 
-- Les estimations empiriques des cellules sont obtenues en remplaçant $\mu_{ij}$ par la moyenne des sous-groupes.
+- On estime $\mu_{ij}$ par la moyenne empirique des données du groupe $(i,j)$.
 - Les moyennes de lignes $\mu_{i.}$, de colonnes $\mu_{.j}$ et globale $\mu$ sont les moyennes **équipondérées** des éléments des cellules $\mu_{ij}$.
 
 
@@ -245,7 +245,7 @@ Les auteurs manipulent l'ethnicité du chef, afro-Américain ou pas, et la faço
 #| eval: true
 #| echo: true
 data(LKUK24_S4, package = "hecedsm")
-mod <- lm(appropriation ~ politideo * chefdax * brandaction,
+mod2 <- lm(appropriation ~ politideo * chefdax * brandaction,
    data = LKUK24_S4)
 ```
 
@@ -467,21 +467,20 @@ Interaction entre `chefdax` (ethnicité) et `ideology`.
 
 ## Tableau d'analyse de variance
 
-Le modèle d'analyse de variance compare les modèles avec (ou sans) $A$, $B$, et l'interaction $AB$.
+Le modèle d'analyse de variance compare les modèles avec/sans $A$, $B$, et l'interaction $AB$.
 
 Si l'échantillon est **balancé** (même nombre d'observations pour chaque sous-groupe), il existe une décomposition unique de la variabilité
 
-$$\underset{\text{total}}{\mathsf{SC}_{c}} = \underset{\text{facteu $A$}}{\mathsf{SC}_A} + \underset{\text{facteur $B$}}{\mathsf{SC}_B} + \underset{\text{interaction}}{\mathsf{SC}_{AB}} + \underset{\text{résidus}}{\mathsf{SC}_e}$$
+$$\underset{\text{total}}{\mathsf{SC}_{c}} = \underset{\text{facteur $A$}}{\mathsf{SC}_A} + \underset{\text{facteur $B$}}{\mathsf{SC}_B} + \underset{\text{interaction}}{\mathsf{SC}_{AB}} + \underset{\text{résidus}}{\mathsf{SC}_e}$$
 Ainsi, 
 
-- un modèle sans $AB$ aurait pour somme du carré des résidus $\mathsf{SC}_{AB} + \mathsf{SC}_e$, avec $n_a-1$ paramètres en moins.
-- un modèle sans $A$ (seulement le facteur $B$) aurait pour somme du carré des résidus de $\mathsf{SC}_{A} + \mathsf{SC}_{AB} + \mathsf{SC}_e$, versus $\mathsf{SC}_{AB} + \mathsf{SC}_e$ sous l'alternative.
-- la différence dans la somme des carrés est $\mathsf{SC}_A$ pour $A$, $\mathsf{SC}_{AB}$ pour l'interaction $A \times B$, etc.
+- un modèle sans $AB$ aurait pour somme du carré des résidus $\mathsf{SC}_{AB} + \mathsf{SC}_e$ ( versus $\mathsf{SC}_e$ sous l'alternative), avec $(n_a-1)(n_b-1)$ paramètres en moins.
+- un modèle sans $A$ (seulement le facteur $B$) aurait pour somme du carré des résidus de $\mathsf{SC}_{A} + \mathsf{SC}_{AB} + \mathsf{SC}_e$, versus $\mathsf{SC}_{AB} + \mathsf{SC}_e$ sous l'alternative, avec une différence de $(n_a-1)$ paramètres.
+- la différence dans la somme des carrés est $\mathsf{SC}_A$ pour $A$, $\mathsf{SC}_{AB}$ pour l'interaction $AB$, etc.
 
 ## Statistiques de test pour ANOVA
 
-
-Si le modèle alternatif a $n_an_b$ paramètres pour la moyenne, et que nous imposons $n_a-1$ restrictions linéaires sous l'hypothèse nulle au modèle estimé sur la base de $n$ observations indépendantes, la statistique de test $F$ est
+Considérons le retrait de $A$ du modèle balancé: si le modèle alternatif a $n_an_b$ paramètres pour la moyenne, et que nous imposons $n_a-1$ restrictions linéaires sous l'hypothèse nulle au modèle estimé sur la base de $n$ observations indépendantes, la statistique de test $F$ est
 \begin{align*}
 F = \frac{\mathsf{SC}_A/(n_a-1)}{\mathsf{SC}_{e}/ (n-n_an_b)}
 \end{align*}
@@ -562,7 +561,7 @@ mod1 <- aov(likelihood ~ purchase*debttype,
 # Calculer le décompte par sous-catégorie (données débalancées)
 xtabs(~purchase + debttype, data = STC21_SS5)
 # Calcul de la moyenne globale/lignes/colonnes/cellules
-means <- model.tables(mod1, type = "means")
+moy_groupes <- model.tables(mod1, type = "means")
 ```
 
 ## Comparaison de modèles
@@ -576,7 +575,7 @@ car::Anova(mod1, type = 2)
 
 Dans le tableau, on se concentre uniquement sur la ligne `purchase:debttype`. 
 
-La statistique $F$ vaut `r round(car::Anova(mod, type = 3)[4,3],2)`; avec la loi nulle $\mathsf{Fisher}$ (`r car::Anova(mod, type = 3)[4,2]`, `r car::Anova(mod, type = 3)[5,2]`), la valeur-$p$ est `r format.pval(car::Anova(mod, type = 3)[4,4], digits=2)`. Il n'y a pas d'effet du type d'achat sur la dette.
+La statistique $F$ vaut `r round(car::Anova(mod1, type = 3)[4,3],2)`; avec la loi nulle $\mathsf{Fisher}$ (`r car::Anova(mod1, type = 3)[4,2]`, `r car::Anova(mod1, type = 3)[5,2]`), la valeur-$p$ est `r format.pval(car::Anova(mod1, type = 3)[4,4], digits=2)`. Il n'y a pas d'effet du type d'achat sur la dette.
 
 
 ## Effets principaux et marginalisation
@@ -647,7 +646,7 @@ emmeans::emmeans(mod1,
 ```
 
 
-## Tableau d'analyse de variance pour l'exemple 2 
+## Tableau d'analyse de variance pour l'exemple 2 {.smaller}
 
 Pour l'ANOVA à $K$ facteurs, nous commençons toujours par estimer le modèle complet avec toutes les interactions possibles (à condition qu'il y ait suffisamment de données pour estimer ces dernières, et donc des répétitions).
 
@@ -708,7 +707,7 @@ Nous pensons que les participants verront le fait de copier furtivement moins fa
 #| message: false
 #| warning: false
 # Moyenne marginale de brandaction
-(emm_brand <- emmeans(mod, specs = c("brandaction"))) 
+(emm_brand <- emmeans(mod2, specs = c("brandaction"))) 
 # Test F pour les effets principaux de brandaction
 emm_brand |> 
   contrast(method = "pairwise")|> 

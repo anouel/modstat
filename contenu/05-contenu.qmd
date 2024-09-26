@@ -1,0 +1,34 @@
+---
+title: "Modèles linéaires"
+---
+
+
+### Objectifs d'apprentissage
+
+
+- interpréter et de tester si des termes d’interactions sont significatifs
+- interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;
+- tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;
+
+### Contenu
+
+
+- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.4--4.5
+
+
+### En classe
+
+- [Diapositives](../diapos/MATH60604-diapos5a.html) ([pdf](../diapos/MATH60604-diapos5a.pdf) et [code](MATH60604-diapos5a.R))
+- [Exercice](../exercices/interactions.qmd)
+
+
+### Diapositives
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5a.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5a.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos5a.html"></iframe>
+</div>
+
+

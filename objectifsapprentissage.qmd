@@ -22,7 +22,8 @@ title: Objectifs d’apprentissage
 - obtenir des prédictions du modèle linéaire par le biais d’un logiciel;
 - comprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);
 - interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;
-- interpréter et de tester si des termes d’interactions sont significatifs et interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;
+- interpréter et de tester si des termes d’interactions sont significatifs
+- interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;
 - tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;
 - comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;
 - lister les postulats de validité du modèle linéaire;

@@ -1,0 +1,49 @@
+---
+title: "Interactions"
+---
+
+La base de données `assurance` du paquet `hecmodstat` contient les informations de primes d'assurance médicales de 1338 américains datant de 2003. La @fig-insuranceinter1 montre deux graphiques tirés d'une analyse exploratoire, indiquant une potentielle interaction entre le statut de fumeur et l'indice de masse corporelle.
+
+```{r}
+#| label: fig-insuranceinter1
+#| echo: false
+#| fig-align: 'center'
+#| out-width: '100%'
+#| fig-width: 12
+#| fig-height: 6
+#| fig-cap: "Nuages de points de frais médicaux en fonction de l'IMC et de l'âge, colorée par statut de fumeur."
+library(ggplot2)
+theme_set(theme_classic())
+library(patchwork)
+data(insurance, package = "hecstatmod")
+insurance <- insurance |>
+  dplyr::mutate(obesity = factor(bmi >= 30, labels = c("normal","obese"))) |>
+  dplyr::mutate(smobese = droplevels(factor(interaction(obesity, smoker),
+                          levels = c("normal.no","obese.no","normal.yes","obese.yes"),
+                          labels = c("non-fumeur","non-fumeur","fumeur non-obèse","fumeur obèse"))))
+g1 <- ggplot(data = insurance,
+             aes(x = bmi, y = charges, col = smobese)) +
+  geom_point() +
+  geom_vline(xintercept = 30) +
+  MetBrewer::scale_color_met_d("Hiroshige") +
+  labs(x = "indice de masse corporelle",
+       y = "", subtitle = "frais médicaux annuels (en USD)", col = "") +
+  scale_y_continuous(labels = scales::unit_format(unit = "K", scale = 1e-3),
+                     expand = c(0, 0), limits = c(0, max(insurance$charges)+100)) 
+g2 <- ggplot(data = insurance,
+             aes(x = age, y = charges, col = smobese)) +
+  geom_point() +
+  MetBrewer::scale_color_met_d("Hiroshige") +
+  labs(x = "age (en années)",
+       y = "", subtitle = "frais médicaux annuels (en USD)", col = "") +
+  scale_y_continuous(labels = scales::unit_format(unit = "K", scale = 1e-3),
+                     expand = c(0, 0), limits = c(0, max(insurance$charges)+100)) 
+g1 + g2 + plot_layout(guides = 'collect') & theme(legend.position = "bottom")
+```
+
+1. Créez une variable indicatrice binaire `obesite` qui indique si l'`imc` d'une personne est supérieur ou égale à 30.^[Selon l'organisation mondiale de la santé, une personne avec un $\texttt{imc} \ge 25$ est en surpoids, et celles avec un $\texttt{imc} \ge 30$ sont obèses. Cependant, l'IMC est un indicateur de santé décrié: voir cet article du [New York Times](https://www.nytimes.com/2024/09/06/health/body-roundness-index-bmi.html).]
+2. Ajustez un modèle incluant des interactions adéquates pour `obesite`, `fumeur`, `imc` et `age`.
+3. Écrivez l'équation de la moyenne pour chaque combinaison de `obesite` et `fumeur`.
+4. Tester la significativité des interactions et vérifiez si l'effet de l'`imc` (pente) est le même pour les obèses ou pas (selon que la personne fume ou pas).
+
+
