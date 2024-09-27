@@ -85,7 +85,7 @@ où $\mathbf{H}_{\mathbf{X}} = \mathbf{X}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\m
 #| eval: true
 #| echo: false
 #| fig-align: 'center'
-knitr::include_graphics("fig/04/OLSgeometry.png")
+knitr::include_graphics("fig/05/OLSgeometry.png")
 ```
 
 ## Conséquence de l'orthogonalité
@@ -104,7 +104,7 @@ La représentation et les propriétés géométriques ont des corollaires import
 #| warning: false
 #| knitr.digits.signif: true
 data(college, package = "hecmodstat")
-mod <- lm(salaire ~ sexe + domaine + echelon + service, data = college)
+mod <- lm(salaire ~ sexe + echelon + service, data = college)
 # Corrélations nulles
 cor(resid(mod), model.matrix(mod))[-1]
 cor(resid(mod), fitted(mod))
@@ -122,7 +122,7 @@ Une régression linéaire simple de $\widehat{\boldsymbol{y}}$ (ou de toute colo
 #| eval: true
 #| echo: false
 #| fig-cap: "Diagramme des résidus versus valeurs ajustées (gauche), et variable explicative `service` (droite) pour le modèle avec les données `college`, L'ordonnée à l'origine et la pente sont nulles."
-mod <- lm(salary ~ sex + field + rank + service, data = college)
+mod <- lm(salaire ~ sexe + echelon + service, data = college)
 g1 <- ggplot(data = data.frame(yhat = fitted(mod), 
                          e = resid(mod)),
        mapping = aes(x = yhat, y = e)) +
@@ -144,9 +144,9 @@ Les tendances résiduelles dues à des interactions, des termes nonlinéaires, e
 Les valeurs ajustées $\widehat{y}_i$ pour deux matrices de modèle $\mathbf{X}_a$ et $\mathbf{X}_b$sont les mêmes si elles engendrent le même sous-espace vectoriel, $\mathcal{S}(\mathbf{X}_a) = \mathcal{S}(\mathbf{X}_b)$.
 
 ```{r}
-# Centrer-rédurie une variable, changer la paramétrisation d'une variable catégorielle,
+# Centrer-réduire une variable, changer la paramétrisation d'une variable catégorielle,
 # Enlever l'ordonnée à l'origine
-modB <- lm(salaire ~ 0 + sexe + domaine + echelon + service,
+modB <- lm(salaire ~ 0 + sexe + echelon + service,
            data = college |> 
             dplyr::mutate(service = scale(service)),
            contrasts = list(rank = contr.sum))
@@ -159,20 +159,20 @@ isTRUE(all.equal(fitted(mod), fitted(modB)))
 
 ## Corrélation linéaire de Pearson
 
-The Pearson correlation coefficient quantifies the strength of the linear relationship between two random variables $X$ and $Y$. 
+La corrélation linéaire mesure la force de la relation linéaire entre deux variables aléatoires $X$ et $Y$. 
 \begin{align*}
 \rho= \mathsf{cor}(X, Y) =  \frac{{\mathsf{Co}}(X,Y)}{\sqrt{{\mathsf{Va}}(X){\mathsf{Va}}(Y)}}. 
 \end{align*}
 
-- The sample correlation $\rho \in [-1, 1]$.
-- $|\rho|=1$ if and only if the $n$ observations fall exactly on a line.
-- The larger $|\rho|$, the less scattered the points are.
+- La corrélation satisfait $\rho \in [-1, 1]$.
+- $|\rho|=1$ si et seulement si les $n$ observations sont alignées.
+- Plus $|\rho|$ est grande, moins les points sont dispersés.
 
-## Properties of Pearson's linear correlation coefficient
+## Propriétés de la corrélation linéaire
 
-The sign determines the orientation of the slope (downward for negative, upward for positive). 
+Le signe de la corrélation détermine le signe de la pente (à la baisse pour $\rho$ négatif, à la hausse pour $\rho$ positive). 
 
-If $\rho>0$ (or $\rho<0$), the two variables are positively (negatively) associated, meaning that $Y$ increases (decreases) on average with $X$.
+Si $\rho>0$ (ou $\rho<0$), les deux variables sont positivement (négativement) associées, ce qui veut dire que $Y$ augmente (diminue) en moyenne avec $X$.
 
 ```{r}
 #| eval: true
@@ -181,7 +181,7 @@ If $\rho>0$ (or $\rho<0$), the two variables are positively (negatively) associa
 #| fig-height: 3
 #| out-width: '100%'
 #| label: fig-scatterplot-corr
-#| fig-cap: "Scatterplots of observations with correlations of $0.1$, $0.5$, $-0.75$ and $0.95$ from $A$ to $D$." 
+#| fig-cap: "Nuages de points d'observations avec des corrélations de $0.1$, $0.5$, $-0.75$ et $0.95$ de $A$ jusqu'à $D$." 
 set.seed(1234)
 xdat <- rbind(
   MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.1), c(0.1,1))),
@@ -201,10 +201,10 @@ ggplot(mapping = aes(x = x, y = y, group = dataset)) +
 ```
 
 
-## Correlation and independence
+## Corrélation et indépendance
 
-- Independent variables are uncorrelated (not the other way around).
-- A correlation of zero only implies that there is no *linear* dependence between two variables.
+- Les variables indépendantes ont une corrélation nulle (mais pas nécessairement l'inverse).
+- Une corrélation linéaire de zéro indique seulement qu'il n'y a pas de *dépendance linéaire* entre les variables.
 
 ```{r}
 #| eval: true
@@ -213,7 +213,7 @@ ggplot(mapping = aes(x = x, y = y, group = dataset)) +
 #| fig-width: 12
 #| fig-height: 3
 #| label: fig-datasaurus
-#| fig-cap: "Four datasets with dependent data having identical summary statistics and a linear correlation of -0.06."
+#| fig-cap: "Quatre jeux de données avec des statistiques descriptivs identiques, dont une corrélation linéaire de $-0.06$."
 datasauRus::datasaurus_dozen |>
   dplyr::filter(dataset %in% c("dino","bullseye","star","x_shape")) |>
   ggplot(mapping = aes(x = x, y = y, group = dataset)) +
@@ -224,37 +224,38 @@ datasauRus::datasaurus_dozen |>
 
 
 
-## Sum of squares decomposition
+## Décomposition de la somme des carrés
 
-Suppose that we do not use any explanatory variable (i.e., the intercept-only model). In this case, the fitted value for $Y$ is the overall mean and the sum of squared centered observations
+
+Si on considère le modèle avec seulement une ordonnée à l'origine, la valeur ajustée pour $Y$ est la moyenne globale et la somme des observations centrées au carré est
 \begin{align*}
 \mathsf{SS}_c=\sum_{i=1}^n (Y_i-\overline{Y})^2                                              
 \end{align*}
-where $\overline{Y}$ represents the intercept-only fitted value.
+où $\overline{Y}$ représente la valeur ajustée du modèle.
 
-When we include the $p$ regressors,  we get rather
+Si on inclut $p$ variables explicatives, on obtient
 \begin{align*}
 \mathsf{SS}_e=\sum_{i=1}^n (Y_i-\hat{Y}_i)^2 
 \end{align*}
-The $\mathsf{SS}_e$ is non-increasing when we include more variables.
+Si on inclut plus de variables, $\mathsf{SS}_e$ ne peut augmenter.
 
-## Percentage of variance
+## Pourcentage de variance expliquée
 
-Consider the sum of squared residuals for two models:
+Considérons la somme du carré des résidus des deux modèles:
 
-- $\mathsf{SS}_c$ is for the intercept-only model
-- $\mathsf{SS}_e$ for the linear regression with model matrix $\mathbf{X}$. 
+- $\mathsf{SS}_c$ pour le modèle avec seulement l'ordonnée à l'origine.
+- $\mathsf{SS}_e$ pour le modèle de régression linéaire avec matrice du modèle $\mathbf{X}$. 
 
-Consequently, $\mathsf{SS}_c-\mathsf{SS}_e$ is the reduction of the error associated with including $\mathbf{X}$ in the model
+La différence $\mathsf{SS}_c-\mathsf{SS}_e$ est la réduction de l'erreur associée à l'ajout de covariables de $\mathbf{X}$ dans le modèle
 \begin{align*}
 R^2=\frac{\mathsf{SS}_c-\mathsf{SS}_e}{\mathsf{SS}_c}                                                     
 \end{align*}
-This gives the proportion of the variability in $Y$ explained by $\mathbf{X}$.
+Ainsi, le coefficient $R^2$ représente la proportion de variance de $Y$ expliquée par $\mathbf{X}$.
  
 
 ## Coefficient of determination
 
-We can show that the coefficient of determination is the square of Pearson's linear correlation between the response $\boldsymbol{y}$ and the fitted values $\widehat{\boldsymbol{y}}$,
+On peut démontrer que le coefficient de détermination $R^2$ est le carré de la corrélation linéaire entre la variable réponse $\boldsymbol{y}$ et les valeurs ajustées $\widehat{\boldsymbol{y}}$,
 $$R^2 = \mathsf{cor}^2(\boldsymbol{y}, \widehat{\boldsymbol{y}}).$$
 
   
@@ -263,51 +264,50 @@ $$R^2 = \mathsf{cor}^2(\boldsymbol{y}, \widehat{\boldsymbol{y}}).$$
 #| eval: true
 #| echo: true
 summary(mod)$r.squared
-y <- college$salary
+y <- college$salaire
 yhat <- fitted(mod)
 cor(y, yhat)^2 
 ```
 
-- $R^2$ always takes a value between $0$ and $1$.
-- $R^2$ is not a goodness-of-fit criterion: the coefficient is non-decreasing in the dimension of $\mathbf{X}$, the more columns are added, the higher $R^2$.
+- $R^2$ prend toujours des valeurs entre $0$ et $1$.
+- $R^2$ n'est pas une mesure de la qualité de l'ajustement: le coefficient est non-décroissant à mesure que la dimension de  $\mathbf{X}$ augmente. Autrement dit, le plus de variables explicatives on ajoute, le plus grand le $R^2$.
 
-## Distribution of errors
+## Loi des aléas
 
-Since we define residuals as $(\mathbf{I}-\mathbf{H}_{\mathbf{X}})\mathbf{Y}$, it follows that $E_i \sim \mathsf{normal}\{0, \sigma^2(1-h_{ii})\}$. Since $(\mathbf{I}-\mathbf{H}_{\mathbf{X}})$ has rank $p$
+En définissant les résidus comme $\boldsymbol{E}=(\mathbf{I}-\mathbf{H}_{\mathbf{X}})\boldsymbol{Y}$, il en découle que  $E_i \sim \mathsf{normale}\{0, \sigma^2(1-h_{ii})\}$. Puisque $(\mathbf{I}-\mathbf{H}_{\mathbf{X}})$ a un rang de $p$
 
-- The residuals are linearly related (there are $n-p$ free components).
-- The residuals are heteroscedastic, and their variance depends on the diagonal elements of the "hat matrix" $\mathbf{H}_{\mathbf{X}}$, the collection $\{h_{ii}\}$ for $(i=1, \ldots, n)$.
-- If we further estimate $\sigma^2$ by $S^2$, we introduce additional independence since $S^2 = \sum_{i=1}^n e_i^2/(n-p-1)$, so $e_i$ appears in the formula of the sample variance...
+- Les résidus ordinaires sont linéairement dépendants (il y a $n-p$ composantes indépendantes).
+- Les résidus sont hétéroscédastiques (de variance différente). Leur variance dépend des éléments diagonaux de la "matrice chapeau" $\mathbf{H}_{\mathbf{X}}$, soit $\{h_{ii}\}$ pour $(i=1, \ldots, n)$.
+- Si on estime $\sigma^2$ par $S^2$, on introduit une dépendance additionnelle puisque $S^2 = \sum_{i=1}^n e_i^2/(n-p-1)$, donc $e_i$ apparaît dans la formule de la variance empirique...
 
-## Externally studentized residuals
+## Résidus studentisés externes
 
-- We consider estimation of the standard deviation $S_{(-i)}$ by fitting the model to but the $i$th observation (jackknife estimator) --- there are explicit formulas for this, no need to refit the model!
-- Then, $e_i$ is independent of $S_{(-i)}$
-- The standardized quantities (residuals divided by std. dev.)
+- On considère plutôt l'estimation de l'écart-type avec le modè dans lequel on a retiré la $i$e observation (méthode du canif); l'estimateur résultant est dénoté $S_{(-i)}$. Il existe une formule explicite pour ce dernier, donc il n'est pas nécessaire de réajuster le modèle $n$ fois!
+- Avec ce choix, $e_i$ est indépendant de $S_{(-i)}$
+- Les résidus standardisés par leur erreur-type 
 $$r_i = \frac{e_i}{S_{(-i)}(1-h_{ii})}$$
-are the jackknife (or externally) studentized residuals. In **R**, use `rstudent`.
+sont appelés résidus studentisés externe. Dans **R**, on les obtiens via `rstudent`.
 
-The distribution of $R \sim \mathsf{Student}(n-p-2)$, but the collection $R_1, \ldots, R_n$ are not independent.
+Leur loi marginale est $R_i \sim \mathsf{Student}(n-p-2)$, mais les résidus stud. $R_1, \ldots, R_n$ ne sont pas indépendants.
 
-## Leverage
+## Effet levier
 
-- The diagonal elements of the hat matrix $h_{ii} = \partial \widehat{y}_i/\partial y_i$ represent the **leverage** of an observations.
-- Leverage values tell us how much each point impacts the fit: they are strictly positive, are bounded below by $1/n$ and above by $1$.
-- The sum of the leverage values is $\sum_{i=1}^n h_i=p+1$: in a good design, each point has approximately the same contribution, with average weight $(p+1)/n$.
-- Points with high leverage are those that have unusual combinations of explanatories. 
-- One condition for the OLS estimator $\widehat{\boldsymbol{\beta}}$ to be approximately normally distributed is that $\max_{i=1}^n h_{ii} \to 0$ as $n \to \infty$: no observation dominates the fit.
+- Les éléments diagonaux de la matrice chapeau $h_{ii} = \partial \widehat{y}_i/\partial y_i$ représentent l'effet **levier** d'une observation.
+- Le levier nous indique à quel point une observation impacte l'ajustement. Les valeurs sont bornées entre $1/n$ et $1$.
+- La somme des effets leviers est $\sum_{i=1}^n h_i=p+1$: dans un bon devis, chaque point a une contribution moyenne égale avec un poids de $(p+1)/n$.
+- Les points qui ont un effet levier important sont typiquement ceux qui ont des combinaisons inhabituelles de variables explicatives.
+- Une condition pour que l'estimateur des MCO $\widehat{\boldsymbol{\beta}}$ suivent une loi normale approximative est que $\max_{i=1}^n h_{ii} \to 0$ à mesure que $n \to \infty$: aucune observation ne doit dominer l'ajustement.
 
-## Influential observations vs outliers
+## Valeurs influentes vs aberrances
 
+Il est important de distinguer entre une valeur **influente** (qui une combinaison de $\mathbf{x}$ inhabituelle value, loin de la moyenne), et une valeur **aberrante** (valeur inhabituelle de $y$).
 
-It is important to distinguish betwen **influential** observations (which have unusual $\mathbf{x}$ value, i.e., far from the overall mean) and **outliers** (unusual value of the response $y$).
-If an observation is both an outlier and has a high leverage, it is problematic.
+Si une aberrance a un effet de levier élevé, c'est problématique.
 
 ```{r}
 #| label: fig-outliers
 #| echo: false
-#| fig-cap: Outlier and influential observation. The left panel shows an outlier, whereas
-#|   the right panel shows an influential variable (rightmost $x$ value).
+#| fig-cap: Valeur aberrante (gauche) et observation influente (droite, valeur de $x$ la plus à droite).
 set.seed(1)
 x <- c(rgamma(99, shape = 5), 20)
 y1 <- 0.4*x+3+rnorm(100, sd = 1)
