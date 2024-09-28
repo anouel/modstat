@@ -1,7 +1,7 @@
 ---
 title: "Modélisation statistique"
 author: "Léo Belzile, HEC Montréal"
-subtitle: "05. Modèles linéaires (complément d'information)"
+subtitle: "05. Modèles linéaires (géométrie)"
 date: today
 date-format: YYYY
 eval: true
@@ -52,30 +52,31 @@ options(digits = 2, width = 75)
 ```
 
 
-## Géomérie
+## Géométrie des colonnes
 
 
 L'équation du modèle linéaire est
-$$\boldsymbol{Y} = \underset{\text{moyenne } \boldsymbol{\mu}}{\mathbf{X}\boldsymbol{\beta}} + \underset{\text{aléa}}{\boldsymbol{\varepsilon}}$$
-tandis que la décomposition du modèle en termes de résidus et de valeurs ajustées est
+$$\boldsymbol{Y} = \underset{\vphantom{é}\text{moyenne } \boldsymbol{\mu}}{\vphantom{y}\mathbf{X}\boldsymbol{\beta}} + \underset{\text{aléa}}{\vphantom{y}\boldsymbol{\varepsilon}}$$
+et supposons que $\mathsf{E}(\boldsymbol{\varepsilon} \mid \mathbf{X})= \boldsymbol{0}_n$ et $\mathsf{Va}(\boldsymbol{\varepsilon} \mid \mathbf{X}) = \sigma^2\mathbf{I}_n$.
+La décomposition du modèle en termes de résidus et de valeurs ajustées est
 \begin{align*}
-\underset{\text{observations}}{\boldsymbol{y}} = \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} + \underset{\text{résidus}}{\boldsymbol{e}}
+\underset{\text{observations}}{\boldsymbol{y}} = \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} + \underset{\text{résidus}}{\vphantom{y}\boldsymbol{e}}
 \end{align*}
 
 ## Matrices de projection
 
-Pour une matrice de modèle de dimension $n\times p$, le sous-espace vectoriel engendré  engendré par les colonnes de $\mathbf{X}$ est
+Pour une matrice de modèle de dimension $n\times (p+1)$, le sous-espace vectoriel engendré par les colonnes de $\mathbf{X}$ est
 \begin{align*}
-\mathcal{S}(\mathbf{X}) =\{\mathbf{X}\boldsymbol{a}, \boldsymbol{a} \in \mathbb{R}^p\}
+\mathcal{S}(\mathbf{X}) =\{\mathbf{X}\boldsymbol{a}, \boldsymbol{a} \in \mathbb{R}^{p+1}\}
 \end{align*}
 
 On peut écrire les valeurs ajustées comme la projection du vecteur réponse $\boldsymbol{y}$ dans sous-espace vectoriel engendré de $\mathbf{X}$,
 \begin{align*}
- \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} = \underset{\substack{\text{matrice du modèle $\times$}\\\text{estimateur des MCO}}}{\mathbf{X} \widehat{\boldsymbol{\beta}}} = \underset{\text{matrice de projection}}{\mathbf{X}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}}\boldsymbol{y} = \mathbf{H}_{\mathbf{X}}\boldsymbol{y}
+ \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} = \underset{\substack{\text{matrice du modèle $\times$}\\\text{estimateur des MCO}}}{\mathbf{X} \widehat{\boldsymbol{\beta}}} = \underset{\text{matrice de projection}}{\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top}\boldsymbol{y} = \mathbf{H}_{\mathbf{X}}\boldsymbol{y}
 \end{align*}
-où $\mathbf{H}_{\mathbf{X}} = \mathbf{X}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}$ est une matrice de projection orthogonale.
+où $\mathbf{H}_{\mathbf{X}} = \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top$ est une matrice de projection orthogonale.
 
-- $\mathbf{H}_{\mathbf{X}}$ est une matrice symmétrique $n \times n$ de rang $n-p$.
+- $\mathbf{H}_{\mathbf{X}}$ est une matrice symmétrique $n \times n$ de rang $p+1$.
 - Une matrice de projection orthogonale est telle que $\mathbf{H}_{\mathbf{X}}\mathbf{H}_{\mathbf{X}} = \mathbf{H}_{\mathbf{X}}$ et $\mathbf{H}_{\mathbf{X}} = \mathbf{H}_{\mathbf{X}}^\top$.
 
 
@@ -92,7 +93,7 @@ knitr::include_graphics("fig/05/OLSgeometry.png")
 
 La représentation et les propriétés géométriques ont des corollaires importants pour l'inférence et la constructions de diagnostics.
 
-- Si $\mathbf{1}_n \in \mathcal{S}(\mathbf{X})$ (par ex., l'ordonnée à l'origine est inclus dans $\mathbf{X}$), la moyenne empirique de $\boldsymbol{e}$ est nulle.
+- Si $\mathbf{1}_n \in \mathcal{S}(\mathbf{X})$ (par ex., l'ordonnée à l'origine est incluse dans $\mathbf{X}$), la moyenne empirique de $\boldsymbol{e}$ est nulle.
 - Les valeurs ajustées $\widehat{\boldsymbol{y}}$ et les résidus ordinaires $\boldsymbol{e}$ ne sont pas corrélés.
 - Idem  pour toute colonne de $\mathbf{X}$, puisque $\mathbf{X}^\top\boldsymbol{e}=\boldsymbol{0}_{p+1}$.
 
@@ -115,7 +116,7 @@ mean(resid(mod))
 
 ## Diagnostics graphiques
 
-Une régression linéaire simple de $\widehat{\boldsymbol{y}}$ (ou de toute colonnede $\mathbf{X}$) avec réponse $\boldsymbol{e}$ a une ordonnée à l'origine et une pente de zéro.
+Une régression linéaire simple de $\widehat{\boldsymbol{y}}$ (ou de toute colonne de $\mathbf{X}$) avec réponse $\boldsymbol{e}$ a une ordonnée à l'origine et une pente de zéro.
 
 ```{r}
 #| label: fig-zerocor
@@ -144,165 +145,58 @@ Les tendances résiduelles dues à des interactions, des termes nonlinéaires, e
 Les valeurs ajustées $\widehat{y}_i$ pour deux matrices de modèle $\mathbf{X}_a$ et $\mathbf{X}_b$sont les mêmes si elles engendrent le même sous-espace vectoriel, $\mathcal{S}(\mathbf{X}_a) = \mathcal{S}(\mathbf{X}_b)$.
 
 ```{r}
-# Centrer-réduire une variable, changer la paramétrisation d'une variable catégorielle,
-# Enlever l'ordonnée à l'origine
-modB <- lm(salaire ~ 0 + sexe + echelon + service,
+modA <- lm(salaire ~ sexe + echelon + service, data = college)
+modB <- lm(salaire ~ 0 + sexe + echelon + service, # Enlever l'ordonnée à l'origine
            data = college |> 
-            dplyr::mutate(service = scale(service)),
-           contrasts = list(rank = contr.sum))
-head(model.matrix(mod), n = 3L)
+            dplyr::mutate(service = scale(service)), # Centrer-réduire une variable
+           contrasts = list(echelon = contr.sum)) # changer la paramétrisation
+head(model.matrix(modA), n = 3L)
 head(model.matrix(modB), n = 3L)
 # Invariance du modèle
-isTRUE(all.equal(fitted(mod), fitted(modB)))
+isTRUE(all.equal(fitted(modA), fitted(modB)))
 ```
 
-
-## Corrélation linéaire de Pearson
-
-La corrélation linéaire mesure la force de la relation linéaire entre deux variables aléatoires $X$ et $Y$. 
-\begin{align*}
-\rho= \mathsf{cor}(X, Y) =  \frac{{\mathsf{Co}}(X,Y)}{\sqrt{{\mathsf{Va}}(X){\mathsf{Va}}(Y)}}. 
-\end{align*}
-
-- La corrélation satisfait $\rho \in [-1, 1]$.
-- $|\rho|=1$ si et seulement si les $n$ observations sont alignées.
-- Plus $|\rho|$ est grande, moins les points sont dispersés.
-
-## Propriétés de la corrélation linéaire
-
-Le signe de la corrélation détermine le signe de la pente (à la baisse pour $\rho$ négatif, à la hausse pour $\rho$ positive). 
-
-Si $\rho>0$ (ou $\rho<0$), les deux variables sont positivement (négativement) associées, ce qui veut dire que $Y$ augmente (diminue) en moyenne avec $X$.
-
-```{r}
-#| eval: true
-#| echo: false
-#| fig-width: 12
-#| fig-height: 3
-#| out-width: '100%'
-#| label: fig-scatterplot-corr
-#| fig-cap: "Nuages de points d'observations avec des corrélations de $0.1$, $0.5$, $-0.75$ et $0.95$ de $A$ jusqu'à $D$." 
-set.seed(1234)
-xdat <- rbind(
-  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.1), c(0.1,1))),
-  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.5), c(0.5,1))),
-  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, -0.75), c(-0.75,1))),
-  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.95), c(0.95,1)))
-)
-colnames(xdat) <- c("x","y")
-data.frame(dataset = factor(rep(LETTERS[1:4], each = 100)),
-           xdat) |>
-ggplot(mapping = aes(x = x, y = y, group = dataset)) +
-  geom_point() +
-  geom_smooth(se = FALSE, formula = y ~ x, method = "lm", col = "grey") + 
-  facet_wrap(~dataset, nrow = 1, ncol = 4, scales = "free") +
-  labs(x = "", y = "")
-
-```
-
-
-## Corrélation et indépendance
-
-- Les variables indépendantes ont une corrélation nulle (mais pas nécessairement l'inverse).
-- Une corrélation linéaire de zéro indique seulement qu'il n'y a pas de *dépendance linéaire* entre les variables.
-
-```{r}
-#| eval: true
-#| echo: false
-#| out-width: '100%'
-#| fig-width: 12
-#| fig-height: 3
-#| label: fig-datasaurus
-#| fig-cap: "Quatre jeux de données avec des statistiques descriptivs identiques, dont une corrélation linéaire de $-0.06$."
-datasauRus::datasaurus_dozen |>
-  dplyr::filter(dataset %in% c("dino","bullseye","star","x_shape")) |>
-  ggplot(mapping = aes(x = x, y = y, group = dataset)) +
-  geom_point() + 
-  geom_smooth(se = FALSE, formula = y ~ x, method = "lm", col = "grey") + 
-  facet_wrap(~dataset, nrow = 1, ncol = 4) + labs(x = "", y = "")
-```
-
-
-
-## Décomposition de la somme des carrés
-
-
-Si on considère le modèle avec seulement une ordonnée à l'origine, la valeur ajustée pour $Y$ est la moyenne globale et la somme des observations centrées au carré est
-\begin{align*}
-\mathsf{SS}_c=\sum_{i=1}^n (Y_i-\overline{Y})^2                                              
-\end{align*}
-où $\overline{Y}$ représente la valeur ajustée du modèle.
-
-Si on inclut $p$ variables explicatives, on obtient
-\begin{align*}
-\mathsf{SS}_e=\sum_{i=1}^n (Y_i-\hat{Y}_i)^2 
-\end{align*}
-Si on inclut plus de variables, $\mathsf{SS}_e$ ne peut augmenter.
-
-## Pourcentage de variance expliquée
-
-Considérons la somme du carré des résidus des deux modèles:
-
-- $\mathsf{SS}_c$ pour le modèle avec seulement l'ordonnée à l'origine.
-- $\mathsf{SS}_e$ pour le modèle de régression linéaire avec matrice du modèle $\mathbf{X}$. 
-
-La différence $\mathsf{SS}_c-\mathsf{SS}_e$ est la réduction de l'erreur associée à l'ajout de covariables de $\mathbf{X}$ dans le modèle
-\begin{align*}
-R^2=\frac{\mathsf{SS}_c-\mathsf{SS}_e}{\mathsf{SS}_c}                                                     
-\end{align*}
-Ainsi, le coefficient $R^2$ représente la proportion de variance de $Y$ expliquée par $\mathbf{X}$.
- 
-
-## Coefficient of determination
-
-On peut démontrer que le coefficient de détermination $R^2$ est le carré de la corrélation linéaire entre la variable réponse $\boldsymbol{y}$ et les valeurs ajustées $\widehat{\boldsymbol{y}}$,
-$$R^2 = \mathsf{cor}^2(\boldsymbol{y}, \widehat{\boldsymbol{y}}).$$
-
-  
-
-```{r}
-#| eval: true
-#| echo: true
-summary(mod)$r.squared
-y <- college$salaire
-yhat <- fitted(mod)
-cor(y, yhat)^2 
-```
-
-- $R^2$ prend toujours des valeurs entre $0$ et $1$.
-- $R^2$ n'est pas une mesure de la qualité de l'ajustement: le coefficient est non-décroissant à mesure que la dimension de  $\mathbf{X}$ augmente. Autrement dit, le plus de variables explicatives on ajoute, le plus grand le $R^2$.
 
 ## Loi des aléas
 
-En définissant les résidus comme $\boldsymbol{E}=(\mathbf{I}-\mathbf{H}_{\mathbf{X}})\boldsymbol{Y}$, il en découle que  $E_i \sim \mathsf{normale}\{0, \sigma^2(1-h_{ii})\}$. Puisque $(\mathbf{I}-\mathbf{H}_{\mathbf{X}})$ a un rang de $p$
+En définissant les résidus comme $$\boldsymbol{E}=(\mathbf{I}-\mathbf{H}_{\mathbf{X}})\boldsymbol{Y},$$ il en découle si $Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)$ que  
 
-- Les résidus ordinaires sont linéairement dépendants (il y a $n-p$ composantes indépendantes).
+- Marginalement, $E_i \sim \mathsf{normale}\{0, \sigma^2(1-h_{ii})\}$. 
 - Les résidus sont hétéroscédastiques (de variance différente). Leur variance dépend des éléments diagonaux de la "matrice chapeau" $\mathbf{H}_{\mathbf{X}}$, soit $\{h_{ii}\}$ pour $(i=1, \ldots, n)$.
+
+- Les résidus ordinaires sont linéairement dépendants (il y a $n-p-1$ composantes indépendantes, puisque $\mathbf{I}-\mathbf{H}_{\mathbf{X}}$ est une matrice de rang $n-p-1$).
+- On peut montrer que $\mathsf{Cov}(e_i, e_j) = -\sigma^2h_{ij}$: les résidus sont corrélés.
+
+## Estimation de la variance
+
 - Si on estime $\sigma^2$ par $S^2$, on introduit une dépendance additionnelle puisque $S^2 = \sum_{i=1}^n e_i^2/(n-p-1)$, donc $e_i$ apparaît dans la formule de la variance empirique...
+- On considère plutôt $S^2_{-i}$, l'estimateur obtenu en calculant la somme du carré des erreurs de la régression avec $n-1$ observations, en excluant la ligne $i$.
+- Une formule explicite existe en terme de $S^2$ et de $h_{ii}$, (pas besoin de recalculer $n$ régressions linéaires!), soit
+$$S^2_{-i} = \frac{(n-p-1)S^2 - e_i^2/(1-h_{ii})}{n-p-2}.$$
+
 
 ## Résidus studentisés externes
 
-- On considère plutôt l'estimation de l'écart-type avec le modè dans lequel on a retiré la $i$e observation (méthode du canif); l'estimateur résultant est dénoté $S_{(-i)}$. Il existe une formule explicite pour ce dernier, donc il n'est pas nécessaire de réajuster le modèle $n$ fois!
-- Avec ce choix, $e_i$ est indépendant de $S_{(-i)}$
-- Les résidus standardisés par leur erreur-type 
-$$r_i = \frac{e_i}{S_{(-i)}(1-h_{ii})}$$
-sont appelés résidus studentisés externe. Dans **R**, on les obtiens via `rstudent`.
+- Les résidus résidus studentisés dits externe sont définis comme
+$$r_i = \frac{e_i}{S_{-i}(1-h_{ii})^{1/2}}$$
+Dans **R**, on les obtient via `rstudent`.
 
-Leur loi marginale est $R_i \sim \mathsf{Student}(n-p-2)$, mais les résidus stud. $R_1, \ldots, R_n$ ne sont pas indépendants.
+- Leur loi marginale est $R_i \sim \mathsf{Student}(n-p-2)$.
+- $R_1, \ldots, R_n$ ne sont en revanche pas indépendants.
 
 ## Effet levier
 
 - Les éléments diagonaux de la matrice chapeau $h_{ii} = \partial \widehat{y}_i/\partial y_i$ représentent l'effet **levier** d'une observation.
 - Le levier nous indique à quel point une observation impacte l'ajustement. Les valeurs sont bornées entre $1/n$ et $1$.
-- La somme des effets leviers est $\sum_{i=1}^n h_i=p+1$: dans un bon devis, chaque point a une contribution moyenne égale avec un poids de $(p+1)/n$.
+- La somme des effets leviers est $\sum_{i=1}^n h_{ii}=p+1$: dans un bon devis, chaque point a une contribution moyenne égale avec un poids de $(p+1)/n$.
 - Les points qui ont un effet levier important sont typiquement ceux qui ont des combinaisons inhabituelles de variables explicatives.
-- Une condition pour que l'estimateur des MCO $\widehat{\boldsymbol{\beta}}$ suivent une loi normale approximative est que $\max_{i=1}^n h_{ii} \to 0$ à mesure que $n \to \infty$: aucune observation ne doit dominer l'ajustement.
+- Une condition pour que l'estimateur des MCO $\widehat{\boldsymbol{\beta}}$ soit convergent est que $\max_{i=1}^n h_{ii} \to 0$ à mesure que $n \to \infty$: aucune observation ne doit dominer l'ajustement.
 
 ## Valeurs influentes vs aberrances
 
-Il est important de distinguer entre une valeur **influente** (qui une combinaison de $\mathbf{x}$ inhabituelle value, loin de la moyenne), et une valeur **aberrante** (valeur inhabituelle de $y$).
+Il est important de distinguer entre une valeur **influente** (qui une combinaison de $\mathbf{x}$ inhabituelle, loin de la moyenne), et une valeur **aberrante** (valeur inhabituelle de $y$).
 
-Si une aberrance a un effet de levier élevé, c'est problématique.
+Si une valeur aberrante a un effet de levier élevé (typiquement $h_{ii}>2(p+1)/n$, c'est problématique.
 
 ```{r}
 #| label: fig-outliers
@@ -320,3 +214,13 @@ ggplot(data = dat, aes(x=x, y=y), colour=group) +
   theme(legend.position = "none", strip.text = element_blank(), )
 ```
 
+## Distance de Cook
+
+La distance de Cook d'une observation mesure l'effet sur l'ajustement de l'observation $i$: on estime les MCO de la régression sans l'observation $i$, disons $\widehat{\boldsymbol{\beta}}_{-i}$, pour obtenir les prédictions des $n$ observations, disons $\widehat{\boldsymbol{y}}_{-i}=\mathbf{X}\widehat{\boldsymbol{\beta}}_{-i}$. Alors
+
+$$
+C_i =\frac{1}{(p+1)S^2}\left(\widehat{\boldsymbol{y}}-\widehat{\boldsymbol{y}}_{-i}\right)^\top \left(\widehat{\boldsymbol{y}}-\widehat{\boldsymbol{y}}_{-i}\right)=
+\frac{r_i^2h_{ii}}{(p+1)(1-h_{ii})}.
+$$
+
+La distance Cook est grande quand $r_i$ est grande et/ou $h_{ii}$ est grand.

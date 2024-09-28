@@ -1,0 +1,170 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "05. Modèles linéaires (coefficient de détermination)"
+date: today
+date-format: YYYY
+eval: true
+cache: true
+echo: true
+lang: fr
+knitr.digits.signif: true
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecbleu <- c("#002855")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(digits = 2, width = 75)
+```
+
+## Corrélation linéaire de Pearson
+
+La corrélation linéaire mesure la force de la relation linéaire entre deux variables aléatoires $X$ et $Y$. 
+\begin{align*}
+\rho= \mathsf{cor}(X, Y) =  \frac{{\mathsf{Co}}(X,Y)}{\sqrt{{\mathsf{Va}}(X){\mathsf{Va}}(Y)}}. 
+\end{align*}
+
+- La corrélation satisfait $\rho \in [-1, 1]$.
+- $|\rho|=1$ si et seulement si les $n$ observations sont alignées.
+- Plus $|\rho|$ est grande, moins les points sont dispersés.
+
+## Propriétés de la corrélation linéaire
+
+Le signe de la corrélation détermine le signe de la pente (à la baisse pour $\rho$ négatif, à la hausse pour $\rho$ positive). 
+
+Si $\rho>0$ (ou $\rho<0$), les deux variables sont positivement (négativement) associées, ce qui veut dire que $Y$ augmente (diminue) en moyenne avec $X$.
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-width: 12
+#| fig-height: 3
+#| out-width: '100%'
+#| label: fig-scatterplot-corr
+#| fig-cap: "Nuages de points d'observations avec des corrélations de $0.1$, $0.5$, $-0.75$ et $0.95$ de $A$ jusqu'à $D$." 
+set.seed(1234)
+xdat <- rbind(
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.1), c(0.1,1))),
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.5), c(0.5,1))),
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, -0.75), c(-0.75,1))),
+  MASS::mvrnorm(n = 100, mu = c(0,0), Sigma = cbind(c(1, 0.95), c(0.95,1)))
+)
+colnames(xdat) <- c("x","y")
+data.frame(dataset = factor(rep(LETTERS[1:4], each = 100)),
+           xdat) |>
+ggplot(mapping = aes(x = x, y = y, group = dataset)) +
+  geom_point() +
+  geom_smooth(se = FALSE, formula = y ~ x, method = "lm", col = "grey") + 
+  facet_wrap(~dataset, nrow = 1, ncol = 4, scales = "free") +
+  labs(x = "", y = "")
+
+```
+
+
+## Corrélation et indépendance
+
+- Les variables indépendantes ont une corrélation nulle (mais pas nécessairement l'inverse).
+- Une corrélation linéaire de zéro indique seulement qu'il n'y a pas de *dépendance linéaire* entre les variables.
+
+```{r}
+#| eval: true
+#| echo: false
+#| out-width: '100%'
+#| fig-width: 12
+#| fig-height: 3
+#| label: fig-datasaurus
+#| fig-cap: "Quatre jeux de données avec des statistiques descriptives identiques, dont une corrélation linéaire de $-0.06$."
+datasauRus::datasaurus_dozen |>
+  dplyr::filter(dataset %in% c("dino","bullseye","star","x_shape")) |>
+  ggplot(mapping = aes(x = x, y = y, group = dataset)) +
+  geom_point() + 
+  geom_smooth(se = FALSE, formula = y ~ x, method = "lm", col = "grey") + 
+  facet_wrap(~dataset, nrow = 1, ncol = 4) + labs(x = "", y = "")
+```
+
+
+
+## Décomposition de la somme des carrés
+
+
+Si on considère le modèle avec seulement une ordonnée à l'origine, la valeur ajustée pour $Y$ est la moyenne globale et la somme des observations centrées au carré est
+\begin{align*}
+\mathsf{SC}_c=\sum_{i=1}^n (Y_i-\overline{Y})^2                                              
+\end{align*}
+où $\overline{Y}$ représente la valeur ajustée du modèle.
+
+Si on inclut $p$ variables explicatives, on obtient
+\begin{align*}
+\mathsf{SC}_e=\sum_{i=1}^n (Y_i-\widehat{Y}_i)^2 
+\end{align*}
+Si on inclut plus de variables, $\mathsf{SC}_e$ ne peut augmenter.
+
+## Pourcentage de variance expliquée
+
+Considérons la somme du carré des résidus des deux modèles:
+
+- $\mathsf{SC}_c$ pour le modèle avec seulement l'ordonnée à l'origine.
+- $\mathsf{SC}_e$ pour le modèle de régression linéaire avec matrice du modèle $\mathbf{X}$. 
+
+La différence $\mathsf{SC}_c-\mathsf{SC}_e$ est la réduction de l'erreur associée à l'ajout de covariables de $\mathbf{X}$ dans le modèle
+\begin{align*}
+R^2=\frac{\mathsf{SC}_c-\mathsf{SC}_e}{\mathsf{SC}_c}                                                     
+\end{align*}
+Ainsi, le coefficient $R^2$ représente la proportion de variance de $Y$ expliquée par $\mathbf{X}$.
+ 
+
+## Coefficient de détermination
+
+On peut démontrer que le coefficient de détermination $R^2$ est le carré de la corrélation linéaire entre la variable réponse $\boldsymbol{y}$ et les valeurs ajustées $\widehat{\boldsymbol{y}}$,
+$$R^2 = \mathsf{cor}^2(\boldsymbol{y}, \widehat{\boldsymbol{y}}).$$
+
+  
+
+```{r}
+#| eval: true
+#| echo: true
+data(college, package = "hecmodstat")
+mod <- lm(salaire ~ sexe + echelon + service, data = college)
+summary(mod)$r.squared # R-carré dans la sortie
+y <- college$salaire # vecteur de variables réponse
+yhat <- fitted(mod) # valeurs ajustées ychapeau
+cor(y, yhat)^2  # coefficient R-carré
+```
+
+- $R^2$ prend toujours des valeurs entre $0$ et $1$.
+- $R^2$ n'est pas une mesure de la qualité de l'ajustement: le coefficient est non-décroissant à mesure que la dimension de  $\mathbf{X}$ augmente. Autrement dit, le plus de variables explicatives on ajoute, le plus grand le $R^2$.
+

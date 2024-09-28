@@ -44,6 +44,6 @@ g1 + g2 + plot_layout(guides = 'collect') & theme(legend.position = "bottom")
 1. Créez une variable indicatrice binaire `obesite` qui indique si l'`imc` d'une personne est supérieur ou égale à 30.^[Selon l'organisation mondiale de la santé, une personne avec un $\texttt{imc} \ge 25$ est en surpoids, et celles avec un $\texttt{imc} \ge 30$ sont obèses. Cependant, l'IMC est un indicateur de santé décrié: voir cet article du [New York Times](https://www.nytimes.com/2024/09/06/health/body-roundness-index-bmi.html).]
 2. Ajustez un modèle incluant des interactions adéquates pour `obesite`, `fumeur`, `imc` et `age`.
 3. Écrivez l'équation de la moyenne pour chaque combinaison de `obesite` et `fumeur`.
-4. Tester la significativité des interactions et vérifiez si l'effet de l'`imc` (pente) est le même pour les obèses ou pas (selon que la personne fume ou pas).
+4. Testez la significativité des interactions et vérifiez si l'effet de l'`imc` (pente) est le même pour les obèses ou pas (selon que la personne fume ou pas).
 
 

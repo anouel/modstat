@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr"><head>
-<script src="MATH60604-diapos5b_files/libs/clipboard/clipboard.min.js"></script>
-<script src="MATH60604-diapos5b_files/libs/quarto-html/tabby.min.js"></script>
-<script src="MATH60604-diapos5b_files/libs/quarto-html/popper.min.js"></script>
-<script src="MATH60604-diapos5b_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="MATH60604-diapos5b_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="MATH60604-diapos5b_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="MATH60604-diapos5b_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="MATH60604-diapos5b_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="MATH60604-diapos5c_files/libs/clipboard/clipboard.min.js"></script>
+<script src="MATH60604-diapos5c_files/libs/quarto-html/tabby.min.js"></script>
+<script src="MATH60604-diapos5c_files/libs/quarto-html/popper.min.js"></script>
+<script src="MATH60604-diapos5c_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="MATH60604-diapos5c_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="MATH60604-diapos5c_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="MATH60604-diapos5c_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="MATH60604-diapos5c_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
@@ -16,8 +16,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="MATH60604-diapos5b_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="MATH60604-diapos5b_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="MATH60604-diapos5c_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="MATH60604-diapos5c_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -96,11 +96,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="MATH60604-diapos5b_files/libs/revealjs/dist/theme/quarto.css">
-  <link href="MATH60604-diapos5b_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="MATH60604-diapos5b_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="MATH60604-diapos5b_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="MATH60604-diapos5b_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="MATH60604-diapos5c_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="MATH60604-diapos5c_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="MATH60604-diapos5c_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="MATH60604-diapos5c_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="MATH60604-diapos5c_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -393,7 +393,7 @@
 
 <section id="title-slide" data-background-color="#002855" class="quarto-title-block center">
   <h1 class="title">Modélisation statistique</h1>
-  <p class="subtitle">05. Modèles linéaires (géométrie)</p>
+  <p class="subtitle">05. Modèles linéaires (coefficient de détermination)</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -405,134 +405,72 @@ Léo Belzile, HEC Montréal
 
   <p class="date">2024</p>
 </section>
-<section id="géométrie-des-colonnes" class="slide level2">
-<h2>Géométrie des colonnes</h2>
-<p>L’équation du modèle linéaire est <span class="math display">\[\boldsymbol{Y} = \underset{\vphantom{é}\text{moyenne } \boldsymbol{\mu}}{\vphantom{y}\mathbf{X}\boldsymbol{\beta}} + \underset{\text{aléa}}{\vphantom{y}\boldsymbol{\varepsilon}}\]</span> et supposons que <span class="math inline">\(\mathsf{E}(\boldsymbol{\varepsilon} \mid \mathbf{X})= \boldsymbol{0}_n\)</span> et <span class="math inline">\(\mathsf{Va}(\boldsymbol{\varepsilon} \mid \mathbf{X}) = \sigma^2\mathbf{I}_n\)</span>. La décomposition du modèle en termes de résidus et de valeurs ajustées est <span class="math display">\[\begin{align*}
-\underset{\text{observations}}{\boldsymbol{y}} = \underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} + \underset{\text{résidus}}{\vphantom{y}\boldsymbol{e}}
+<section id="corrélation-linéaire-de-pearson" class="slide level2">
+<h2>Corrélation linéaire de Pearson</h2>
+<p>La corrélation linéaire mesure la force de la relation linéaire entre deux variables aléatoires <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span>. <span class="math display">\[\begin{align*}
+\rho= \mathsf{cor}(X, Y) =  \frac{{\mathsf{Co}}(X,Y)}{\sqrt{{\mathsf{Va}}(X){\mathsf{Va}}(Y)}}.
 \end{align*}\]</span></p>
-</section>
-<section id="matrices-de-projection" class="slide level2">
-<h2>Matrices de projection</h2>
-<p>Pour une matrice de modèle de dimension <span class="math inline">\(n\times (p+1)\)</span>, le sous-espace vectoriel engendré par les colonnes de <span class="math inline">\(\mathbf{X}\)</span> est <span class="math display">\[\begin{align*}
-\mathcal{S}(\mathbf{X}) =\{\mathbf{X}\boldsymbol{a}, \boldsymbol{a} \in \mathbb{R}^{p+1}\}
-\end{align*}\]</span></p>
-<p>On peut écrire les valeurs ajustées comme la projection du vecteur réponse <span class="math inline">\(\boldsymbol{y}\)</span> dans sous-espace vectoriel engendré de <span class="math inline">\(\mathbf{X}\)</span>, <span class="math display">\[\begin{align*}
-\underset{\text{valeurs ajustées}}{\widehat{\boldsymbol{y}}} = \underset{\substack{\text{matrice du modèle $\times$}\\\text{estimateur des MCO}}}{\mathbf{X} \widehat{\boldsymbol{\beta}}} = \underset{\text{matrice de projection}}{\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top}\boldsymbol{y} = \mathbf{H}_{\mathbf{X}}\boldsymbol{y}
-\end{align*}\]</span> où <span class="math inline">\(\mathbf{H}_{\mathbf{X}} = \mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\)</span> est une matrice de projection orthogonale.</p>
 <ul>
-<li><span class="math inline">\(\mathbf{H}_{\mathbf{X}}\)</span> est une matrice symmétrique <span class="math inline">\(n \times n\)</span> de rang <span class="math inline">\(p+1\)</span>.</li>
-<li>Une matrice de projection orthogonale est telle que <span class="math inline">\(\mathbf{H}_{\mathbf{X}}\mathbf{H}_{\mathbf{X}} = \mathbf{H}_{\mathbf{X}}\)</span> et <span class="math inline">\(\mathbf{H}_{\mathbf{X}} = \mathbf{H}_{\mathbf{X}}^\top\)</span>.</li>
+<li>La corrélation satisfait <span class="math inline">\(\rho \in [-1, 1]\)</span>.</li>
+<li><span class="math inline">\(|\rho|=1\)</span> si et seulement si les <span class="math inline">\(n\)</span> observations sont alignées.</li>
+<li>Plus <span class="math inline">\(|\rho|\)</span> est grande, moins les points sont dispersés.</li>
 </ul>
 </section>
-<section id="visualisation-de-la-géométrie" class="slide level2">
-<h2>Visualisation de la géométrie</h2>
+<section id="propriétés-de-la-corrélation-linéaire" class="slide level2">
+<h2>Propriétés de la corrélation linéaire</h2>
+<p>Le signe de la corrélation détermine le signe de la pente (à la baisse pour <span class="math inline">\(\rho\)</span> négatif, à la hausse pour <span class="math inline">\(\rho\)</span> positive).</p>
+<p>Si <span class="math inline">\(\rho&gt;0\)</span> (ou <span class="math inline">\(\rho&lt;0\)</span>), les deux variables sont positivement (négativement) associées, ce qui veut dire que <span class="math inline">\(Y\)</span> augmente (diminue) en moyenne avec <span class="math inline">\(X\)</span>.</p>
 
-<img data-src="fig/05/OLSgeometry.png" class="quarto-figure quarto-figure-center r-stretch" width="341"></section>
-<section id="conséquence-de-lorthogonalité" class="slide level2">
-<h2>Conséquence de l’orthogonalité</h2>
-<p>La représentation et les propriétés géométriques ont des corollaires importants pour l’inférence et la constructions de diagnostics.</p>
+<img data-src="MATH60604-diapos5c_files/figure-revealjs/fig-scatterplot-corr-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;1: Nuages de points d’observations avec des corrélations de <span class="math inline">\(0.1\)</span>, <span class="math inline">\(0.5\)</span>, <span class="math inline">\(-0.75\)</span> et <span class="math inline">\(0.95\)</span> de <span class="math inline">\(A\)</span> jusqu’à <span class="math inline">\(D\)</span>.
+</p></section>
+<section id="corrélation-et-indépendance" class="slide level2">
+<h2>Corrélation et indépendance</h2>
 <ul>
-<li>Si <span class="math inline">\(\mathbf{1}_n \in \mathcal{S}(\mathbf{X})\)</span> (par ex., l’ordonnée à l’origine est incluse dans <span class="math inline">\(\mathbf{X}\)</span>), la moyenne empirique de <span class="math inline">\(\boldsymbol{e}\)</span> est nulle.</li>
-<li>Les valeurs ajustées <span class="math inline">\(\widehat{\boldsymbol{y}}\)</span> et les résidus ordinaires <span class="math inline">\(\boldsymbol{e}\)</span> ne sont pas corrélés.</li>
-<li>Idem pour toute colonne de <span class="math inline">\(\mathbf{X}\)</span>, puisque <span class="math inline">\(\mathbf{X}^\top\boldsymbol{e}=\boldsymbol{0}_{p+1}\)</span>.</li>
+<li>Les variables indépendantes ont une corrélation nulle (mais pas nécessairement l’inverse).</li>
+<li>Une corrélation linéaire de zéro indique seulement qu’il n’y a pas de <em>dépendance linéaire</em> entre les variables.</li>
 </ul>
-<div class="cell" data-knitr.digits.signif="true">
+
+<img data-src="MATH60604-diapos5c_files/figure-revealjs/fig-datasaurus-1.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;2: Quatre jeux de données avec des statistiques descriptives identiques, dont une corrélation linéaire de <span class="math inline">\(-0.06\)</span>.
+</p></section>
+<section id="décomposition-de-la-somme-des-carrés" class="slide level2">
+<h2>Décomposition de la somme des carrés</h2>
+<p>Si on considère le modèle avec seulement une ordonnée à l’origine, la valeur ajustée pour <span class="math inline">\(Y\)</span> est la moyenne globale et la somme des observations centrées au carré est <span class="math display">\[\begin{align*}
+\mathsf{SC}_c=\sum_{i=1}^n (Y_i-\overline{Y})^2                                              
+\end{align*}\]</span> où <span class="math inline">\(\overline{Y}\)</span> représente la valeur ajustée du modèle.</p>
+<p>Si on inclut <span class="math inline">\(p\)</span> variables explicatives, on obtient <span class="math display">\[\begin{align*}
+\mathsf{SC}_e=\sum_{i=1}^n (Y_i-\widehat{Y}_i)^2
+\end{align*}\]</span> Si on inclut plus de variables, <span class="math inline">\(\mathsf{SC}_e\)</span> ne peut augmenter.</p>
+</section>
+<section id="pourcentage-de-variance-expliquée" class="slide level2">
+<h2>Pourcentage de variance expliquée</h2>
+<p>Considérons la somme du carré des résidus des deux modèles:</p>
+<ul>
+<li><span class="math inline">\(\mathsf{SC}_c\)</span> pour le modèle avec seulement l’ordonnée à l’origine.</li>
+<li><span class="math inline">\(\mathsf{SC}_e\)</span> pour le modèle de régression linéaire avec matrice du modèle <span class="math inline">\(\mathbf{X}\)</span>.</li>
+</ul>
+<p>La différence <span class="math inline">\(\mathsf{SC}_c-\mathsf{SC}_e\)</span> est la réduction de l’erreur associée à l’ajout de covariables de <span class="math inline">\(\mathbf{X}\)</span> dans le modèle <span class="math display">\[\begin{align*}
+R^2=\frac{\mathsf{SC}_c-\mathsf{SC}_e}{\mathsf{SC}_c}                                                     
+\end{align*}\]</span> Ainsi, le coefficient <span class="math inline">\(R^2\)</span> représente la proportion de variance de <span class="math inline">\(Y\)</span> expliquée par <span class="math inline">\(\mathbf{X}\)</span>.</p>
+</section>
+<section id="coefficient-de-détermination" class="slide level2">
+<h2>Coefficient de détermination</h2>
+<p>On peut démontrer que le coefficient de détermination <span class="math inline">\(R^2\)</span> est le carré de la corrélation linéaire entre la variable réponse <span class="math inline">\(\boldsymbol{y}\)</span> et les valeurs ajustées <span class="math inline">\(\widehat{\boldsymbol{y}}\)</span>, <span class="math display">\[R^2 = \mathsf{cor}^2(\boldsymbol{y}, \widehat{\boldsymbol{y}}).\]</span></p>
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">data</span>(college, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span>
 <span id="cb1-2"><a href=""></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(salaire <span class="sc">~</span> sexe <span class="sc">+</span> echelon <span class="sc">+</span> service, <span class="at">data =</span> college)</span>
-<span id="cb1-3"><a href=""></a><span class="co"># Corrélations nulles</span></span>
-<span id="cb1-4"><a href=""></a><span class="fu">cor</span>(<span class="fu">resid</span>(mod), <span class="fu">model.matrix</span>(mod))[<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb1-5"><a href=""></a><span class="do">## [1]  2.3e-16 -4.2e-17 -1.9e-16  7.1e-17</span></span>
-<span id="cb1-6"><a href=""></a><span class="fu">cor</span>(<span class="fu">resid</span>(mod), <span class="fu">fitted</span>(mod))</span>
-<span id="cb1-7"><a href=""></a><span class="do">## [1] 1.7e-16</span></span>
-<span id="cb1-8"><a href=""></a><span class="co"># Moyenne des résidus nulle</span></span>
-<span id="cb1-9"><a href=""></a><span class="fu">mean</span>(<span class="fu">resid</span>(mod))</span>
-<span id="cb1-10"><a href=""></a><span class="do">## [1] 3.2e-16</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href=""></a><span class="fu">summary</span>(mod)<span class="sc">$</span>r.squared <span class="co"># R-carré dans la sortie</span></span>
+<span id="cb1-4"><a href=""></a><span class="do">## [1] 0.4</span></span>
+<span id="cb1-5"><a href=""></a>y <span class="ot">&lt;-</span> college<span class="sc">$</span>salaire <span class="co"># vecteur de variables réponse</span></span>
+<span id="cb1-6"><a href=""></a>yhat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(mod) <span class="co"># valeurs ajustées ychapeau</span></span>
+<span id="cb1-7"><a href=""></a><span class="fu">cor</span>(y, yhat)<span class="sc">^</span><span class="dv">2</span>  <span class="co"># coefficient R-carré</span></span>
+<span id="cb1-8"><a href=""></a><span class="do">## [1] 0.4</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="diagnostics-graphiques" class="slide level2">
-<h2>Diagnostics graphiques</h2>
-<p>Une régression linéaire simple de <span class="math inline">\(\widehat{\boldsymbol{y}}\)</span> (ou de toute colonne de <span class="math inline">\(\mathbf{X}\)</span>) avec réponse <span class="math inline">\(\boldsymbol{e}\)</span> a une ordonnée à l’origine et une pente de zéro.</p>
-
-<img data-src="MATH60604-diapos5b_files/figure-revealjs/fig-zerocor-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;1: Diagramme des résidus versus valeurs ajustées (gauche), et variable explicative <code>service</code> (droite) pour le modèle avec les données <code>college</code>, L’ordonnée à l’origine et la pente sont nulles.
-</p><p>Les tendances résiduelles dues à des interactions, des termes nonlinéaires, etc. seront visibles dans les diagrammes.</p>
-</section>
-<section id="invariance" class="slide level2">
-<h2>Invariance</h2>
-<p>Les valeurs ajustées <span class="math inline">\(\widehat{y}_i\)</span> pour deux matrices de modèle <span class="math inline">\(\mathbf{X}_a\)</span> et <span class="math inline">\(\mathbf{X}_b\)</span>sont les mêmes si elles engendrent le même sous-espace vectoriel, <span class="math inline">\(\mathcal{S}(\mathbf{X}_a) = \mathcal{S}(\mathbf{X}_b)\)</span>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>modA <span class="ot">&lt;-</span> <span class="fu">lm</span>(salaire <span class="sc">~</span> sexe <span class="sc">+</span> echelon <span class="sc">+</span> service, <span class="at">data =</span> college)</span>
-<span id="cb2-2"><a href=""></a>modB <span class="ot">&lt;-</span> <span class="fu">lm</span>(salaire <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> sexe <span class="sc">+</span> echelon <span class="sc">+</span> service, <span class="co"># Enlever l'ordonnée à l'origine</span></span>
-<span id="cb2-3"><a href=""></a>           <span class="at">data =</span> college <span class="sc">|&gt;</span> </span>
-<span id="cb2-4"><a href=""></a>            dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">service =</span> <span class="fu">scale</span>(service)), <span class="co"># Centrer-réduire une variable</span></span>
-<span id="cb2-5"><a href=""></a>           <span class="at">contrasts =</span> <span class="fu">list</span>(<span class="at">echelon =</span> contr.sum)) <span class="co"># changer la paramétrisation</span></span>
-<span id="cb2-6"><a href=""></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(modA), <span class="at">n =</span> <span class="dv">3</span>L)</span>
-<span id="cb2-7"><a href=""></a><span class="do">##   (Intercept) sexehomme echelonaggrege echelontitulaire service</span></span>
-<span id="cb2-8"><a href=""></a><span class="do">## 1           1         1              0                1      18</span></span>
-<span id="cb2-9"><a href=""></a><span class="do">## 2           1         1              0                1      16</span></span>
-<span id="cb2-10"><a href=""></a><span class="do">## 3           1         1              0                0       3</span></span>
-<span id="cb2-11"><a href=""></a><span class="fu">head</span>(<span class="fu">model.matrix</span>(modB), <span class="at">n =</span> <span class="dv">3</span>L)</span>
-<span id="cb2-12"><a href=""></a><span class="do">##   sexefemme sexehomme echelon1 echelon2 service</span></span>
-<span id="cb2-13"><a href=""></a><span class="do">## 1         0         1       -1       -1    0.03</span></span>
-<span id="cb2-14"><a href=""></a><span class="do">## 2         0         1       -1       -1   -0.12</span></span>
-<span id="cb2-15"><a href=""></a><span class="do">## 3         0         1        1        0   -1.12</span></span>
-<span id="cb2-16"><a href=""></a><span class="co"># Invariance du modèle</span></span>
-<span id="cb2-17"><a href=""></a><span class="fu">isTRUE</span>(<span class="fu">all.equal</span>(<span class="fu">fitted</span>(modA), <span class="fu">fitted</span>(modB)))</span>
-<span id="cb2-18"><a href=""></a><span class="do">## [1] TRUE</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="loi-des-aléas" class="slide level2">
-<h2>Loi des aléas</h2>
-<p>En définissant les résidus comme <span class="math display">\[\boldsymbol{E}=(\mathbf{I}-\mathbf{H}_{\mathbf{X}})\boldsymbol{Y},\]</span> il en découle si <span class="math inline">\(Y_i \sim \mathsf{normale}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)\)</span> que</p>
 <ul>
-<li><p>Marginalement, <span class="math inline">\(E_i \sim \mathsf{normale}\{0, \sigma^2(1-h_{ii})\}\)</span>.</p></li>
-<li><p>Les résidus sont hétéroscédastiques (de variance différente). Leur variance dépend des éléments diagonaux de la “matrice chapeau” <span class="math inline">\(\mathbf{H}_{\mathbf{X}}\)</span>, soit <span class="math inline">\(\{h_{ii}\}\)</span> pour <span class="math inline">\((i=1, \ldots, n)\)</span>.</p></li>
-<li><p>Les résidus ordinaires sont linéairement dépendants (il y a <span class="math inline">\(n-p-1\)</span> composantes indépendantes, puisque <span class="math inline">\(\mathbf{I}-\mathbf{H}_{\mathbf{X}}\)</span> est une matrice de rang <span class="math inline">\(n-p-1\)</span>).</p></li>
-<li><p>On peut montrer que <span class="math inline">\(\mathsf{Cov}(e_i, e_j) = -\sigma^2h_{ij}\)</span>: les résidus sont corrélés.</p></li>
+<li><span class="math inline">\(R^2\)</span> prend toujours des valeurs entre <span class="math inline">\(0\)</span> et <span class="math inline">\(1\)</span>.</li>
+<li><span class="math inline">\(R^2\)</span> n’est pas une mesure de la qualité de l’ajustement: le coefficient est non-décroissant à mesure que la dimension de <span class="math inline">\(\mathbf{X}\)</span> augmente. Autrement dit, le plus de variables explicatives on ajoute, le plus grand le <span class="math inline">\(R^2\)</span>.</li>
 </ul>
-</section>
-<section id="estimation-de-la-variance" class="slide level2">
-<h2>Estimation de la variance</h2>
-<ul>
-<li>Si on estime <span class="math inline">\(\sigma^2\)</span> par <span class="math inline">\(S^2\)</span>, on introduit une dépendance additionnelle puisque <span class="math inline">\(S^2 = \sum_{i=1}^n e_i^2/(n-p-1)\)</span>, donc <span class="math inline">\(e_i\)</span> apparaît dans la formule de la variance empirique…</li>
-<li>On considère plutôt <span class="math inline">\(S^2_{-i}\)</span>, l’estimateur obtenu en calculant la somme du carré des erreurs de la régression avec <span class="math inline">\(n-1\)</span> observations, en excluant la ligne <span class="math inline">\(i\)</span>.</li>
-<li>Une formule explicite existe en terme de <span class="math inline">\(S^2\)</span> et de <span class="math inline">\(h_{ii}\)</span>, (pas besoin de recalculer <span class="math inline">\(n\)</span> régressions linéaires!), soit <span class="math display">\[S^2_{-i} = \frac{(n-p-1)S^2 - e_i^2/(1-h_{ii})}{n-p-2}.\]</span></li>
-</ul>
-</section>
-<section id="résidus-studentisés-externes" class="slide level2">
-<h2>Résidus studentisés externes</h2>
-<ul>
-<li><p>Les résidus résidus studentisés dits externe sont définis comme <span class="math display">\[r_i = \frac{e_i}{S_{-i}(1-h_{ii})^{1/2}}\]</span> Dans <strong>R</strong>, on les obtient via <code>rstudent</code>.</p></li>
-<li><p>Leur loi marginale est <span class="math inline">\(R_i \sim \mathsf{Student}(n-p-2)\)</span>.</p></li>
-<li><p><span class="math inline">\(R_1, \ldots, R_n\)</span> ne sont en revanche pas indépendants.</p></li>
-</ul>
-</section>
-<section id="effet-levier" class="slide level2">
-<h2>Effet levier</h2>
-<ul>
-<li>Les éléments diagonaux de la matrice chapeau <span class="math inline">\(h_{ii} = \partial \widehat{y}_i/\partial y_i\)</span> représentent l’effet <strong>levier</strong> d’une observation.</li>
-<li>Le levier nous indique à quel point une observation impacte l’ajustement. Les valeurs sont bornées entre <span class="math inline">\(1/n\)</span> et <span class="math inline">\(1\)</span>.</li>
-<li>La somme des effets leviers est <span class="math inline">\(\sum_{i=1}^n h_{ii}=p+1\)</span>: dans un bon devis, chaque point a une contribution moyenne égale avec un poids de <span class="math inline">\((p+1)/n\)</span>.</li>
-<li>Les points qui ont un effet levier important sont typiquement ceux qui ont des combinaisons inhabituelles de variables explicatives.</li>
-<li>Une condition pour que l’estimateur des MCO <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span> soit convergent est que <span class="math inline">\(\max_{i=1}^n h_{ii} \to 0\)</span> à mesure que <span class="math inline">\(n \to \infty\)</span>: aucune observation ne doit dominer l’ajustement.</li>
-</ul>
-</section>
-<section id="valeurs-influentes-vs-aberrances" class="slide level2">
-<h2>Valeurs influentes vs aberrances</h2>
-<p>Il est important de distinguer entre une valeur <strong>influente</strong> (qui une combinaison de <span class="math inline">\(\mathbf{x}\)</span> inhabituelle, loin de la moyenne), et une valeur <strong>aberrante</strong> (valeur inhabituelle de <span class="math inline">\(y\)</span>).</p>
-<p>Si une valeur aberrante a un effet de levier élevé (typiquement <span class="math inline">\(h_{ii}&gt;2(p+1)/n\)</span>, c’est problématique.</p>
-
-<img data-src="MATH60604-diapos5b_files/figure-revealjs/fig-outliers-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;2: Valeur aberrante (gauche) et observation influente (droite, valeur de <span class="math inline">\(x\)</span> la plus à droite).
-</p></section>
-<section id="distance-de-cook" class="slide level2">
-<h2>Distance de Cook</h2>
-<p>La distance de Cook d’une observation mesure l’effet sur l’ajustement de l’observation <span class="math inline">\(i\)</span>: on estime les MCO de la régression sans l’observation <span class="math inline">\(i\)</span>, disons <span class="math inline">\(\widehat{\boldsymbol{\beta}}_{-i}\)</span>, pour obtenir les prédictions des <span class="math inline">\(n\)</span> observations, disons <span class="math inline">\(\widehat{\boldsymbol{y}}_{-i}=\mathbf{X}\widehat{\boldsymbol{\beta}}_{-i}\)</span>. Alors</p>
-<p><span class="math display">\[
-C_i =\frac{1}{(p+1)S^2}\left(\widehat{\boldsymbol{y}}-\widehat{\boldsymbol{y}}_{-i}\right)^\top \left(\widehat{\boldsymbol{y}}-\widehat{\boldsymbol{y}}_{-i}\right)=
-\frac{r_i^2h_{ii}}{(p+1)(1-h_{ii})}.
-\]</span></p>
-<p>La distance Cook est grande quand <span class="math inline">\(r_i\)</span> est grande et/ou <span class="math inline">\(h_{ii}\)</span> est grand.</p>
 <div class="quarto-auto-generated-content">
 <p><img src="fig/logo_hec_montreal_bleu_web.png" class="slide-logo"></p>
 <div class="footer footer-default">
@@ -544,19 +482,19 @@ C_i =\frac{1}{(p+1)S^2}\left(\widehat{\boldsymbol{y}}-\widehat{\boldsymbol{y}}_{
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="MATH60604-diapos5b_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="MATH60604-diapos5c_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
