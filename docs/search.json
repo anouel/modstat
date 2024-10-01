@@ -81,74 +81,144 @@
     "text": "Notes de bas de page\n\n\nAdapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander↩︎"
   },
   {
-    "objectID": "exercices/modeles-lineaires-contrastes.html",
-    "href": "exercices/modeles-lineaires-contrastes.html",
-    "title": "Tests d’hypothèses pour modèles linéaires",
+    "objectID": "contenu/05-contenu.html",
+    "href": "contenu/05-contenu.html",
+    "title": "Modélisation statistique",
     "section": "",
-    "text": "La base de données HBSC24_S4 du paquet hecedsm contient des données pour l’étude 4 de Huang et al. (2024).\n\n\nCode\nremotes::install_github(\"lbelzile/hecedsm\")\ndata(HBSC24_S4, package = \"hecedsm\")\n?hecedsm::HBSC24_S4\n# Ajuster un modèle pour l'authenticité selon l'état d'esprit\nmod &lt;- lm(authenticity ~ cond, data = HBSC24_S4)\n(emm &lt;- emmeans::emmeans(mod, specs = \"cond\"))\nemm |&gt;\n  contrasts(\n    method = list(C1 = c(),  # spécifier contraste 1 ici\n                  C2 = c())) # spécifier contraste 2 ici\n\n\nLes résultats suivants sont extraits de la section D Authenticity and Social Learning Behavior des annexes en ligne.\n\nWe ran a regression with contrast coding to examine the role of mindset on perceived authenticity. Participants who reflected on their goal attainment as a transformation perceived their current state to be more authentic \\((M = 5.98\\), \\(\\text{SD} =  .82)\\) compared to participants who wrote about distancing from old state or arriving at a new state \\((M_{\\text{old}} = 5.62\\), \\(\\text{SD} =  1.18\\); \\(M_{\\text{new}} = 5.74\\), \\(\\text{SD} =  1.07\\), contrast 1: \\(b = .10\\), \\(\\text{SE} =  .04\\), \\(t(259) = 2.21\\), \\(p = .028).\\)\n\n\nFurther, there was no difference between participants who reflected on their goal attainment as distancing from an old state compared to arriving at a new state (contrast 2: \\(b = .06\\), \\(\\text{SE} =  .08\\), \\(t(259) = .79\\), \\(p = .433).\\)\n\n\nWe next examined how perceived authenticity affects information sharing. As expected, authenticity positively predicted information sharing (\\(b = 6.84\\), \\(\\text{SE} =  1.87\\), \\(t(260) = 3.66\\), \\(p &lt;.001\\)).\n\n\nEn utilisant la description du texte, écrivez les poids pour les deux contrastes énumérés ci-dessus si l’ordre des conditions est change, new et old (ordre alphabétique).\nEffectuez un test global de l’authenticité en fonction de la condition expérimentale (cond).\nCalculez les contrastes et rapportez les valeurs des tests. Vérifiez les moyennes marginales et les statistiques des tests: pouvez-vous reproduire les résultats des auteurs?\nEffectuez une régression linéaire simple de words sur authenticity et vérifiez si la corrélation est significative.\n\n\n\n\n\nRéférences\n\nHuang, S., Brucks, M. S., Song, J., & Campbell, M. C. (2024). Beyond achievement: Transformation mindset enhances authenticity after goal success. Motivation Science, 10(3), 171–181. https://doi.org/10.1037/mot0000340",
+    "text": "interpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#objectifs-dapprentissage",
+    "href": "contenu/05-contenu.html#objectifs-dapprentissage",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "interpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#en-classe",
+    "href": "contenu/05-contenu.html#en-classe",
+    "title": "Modélisation statistique",
+    "section": "En classe",
+    "text": "En classe\n\nDiapositives (pdf et code)\nExercice",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#après-le-cours",
+    "href": "contenu/05-contenu.html#après-le-cours",
+    "title": "Modélisation statistique",
+    "section": "Après le cours",
+    "text": "Après le cours\n\nVisionnement des vidéos de la Section 5\nDiapositives supplémentaires sur la géométrie (pdf, et code)\nDiapositives supplémentaires sur le \\(R^2\\) (pdf)\nExercices 2.1, 2.3 et 2.8",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#diapositives",
+    "href": "contenu/05-contenu.html#diapositives",
+    "title": "Modélisation statistique",
+    "section": "Diapositives",
+    "text": "Diapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#sec-video",
+    "href": "contenu/05-contenu.html#sec-video",
+    "title": "Modélisation statistique",
+    "section": "Vidéos",
+    "text": "Vidéos\nLes vidéos pour cette section sont disponibles sur cette chaîne YouTube.\n\nGéométrie des moindres carrés\nCoefficient de détermination\n\nVous pouvez aussi visionner les différents vidéos de la chaîne (en passant d’une vidéo à l’autre) ici:",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "exercices/interactions.html",
+    "href": "exercices/interactions.html",
+    "title": "Interactions",
+    "section": "",
+    "text": "La base de données assurance du paquet hecmodstat contient les informations de primes d’assurance médicales de 1338 américains datant de 2003. La Figure 1 montre deux graphiques tirés d’une analyse exploratoire, indiquant une potentielle interaction entre le statut de fumeur et l’indice de masse corporelle.\nFigure 1: Nuages de points de frais médicaux en fonction de l’IMC et de l’âge, colorée par statut de fumeur.",
     "crumbs": [
       "Exercices",
       "Activités en classe",
-      "Tests d'hypothèse, modèles linéaires"
+      "Interactions"
     ]
   },
   {
-    "objectID": "exercices/01-exercice.html",
-    "href": "exercices/01-exercice.html",
-    "title": "Exercice 1",
+    "objectID": "exercices/interactions.html#footnotes",
+    "href": "exercices/interactions.html#footnotes",
+    "title": "Interactions",
+    "section": "Notes de bas de page",
+    "text": "Notes de bas de page\n\n\nSelon l’organisation mondiale de la santé, une personne avec un \\(\\texttt{imc} \\ge 25\\) est en surpoids, et celles avec un \\(\\texttt{imc} \\ge 30\\) sont obèses. Cependant, l’IMC est un indicateur de santé décrié: voir cet article du New York Times.↩︎",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Interactions"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Modélisation statistique",
     "section": "",
-    "text": "Les données renfe contiennent des informations sur 10K billets de trains vendus par la compagnie Renfe, l’entreprise ferroviaire publique espagnole. Les données incluent les variables:",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
+    "text": "Modélisation statistique\n        \n        \n            L’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\n        \n        \n            MATH 60604, automne 2024HEC Montréal\n        \n    \n\n\n\n\n\n\nInstructeur 1\n\n   Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\nInstructeur 2\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\nDétails\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
   },
   {
-    "objectID": "exercices/01-exercice.html#exercice-1.1",
-    "href": "exercices/01-exercice.html#exercice-1.1",
-    "title": "Exercice 1",
-    "section": "Exercice 1.1",
-    "text": "Exercice 1.1\nOn considère le temps de parcours pour les trains à grande vitesse (AVE} etAVE-TGV}). La vraie moyenne théorique de la « population » est de \\(\\mu=2.845\\) heures; ces quantités ont été déterminées sur la base des données complète contenant plus de 2.3 millions d’entrées et sont donc considérées comme connues, contrairement à la plupart des applications pratiques.\nUne étude de simulation a été conduite pour déterminer le comportement de tests pour un échantillon. L’algorithme suivant a été répété 10K fois:\n\nsélection d’un sous-échantillon de taille \\(n=100\\).\ncalcul de la statistique du test-\\(t\\) pour un échantillon correspondant à \\(\\mathscr{H}_0: \\mu=\\mu_0\\) (versus \\(\\mathscr{H}_0: \\mu \\neq \\mu_0\\)) pour différentes valeurs de \\(\\mu_0\\).\nsauvegarde des valeurs-\\(p\\) associées au test.\n\nLa Figure 1 montre le pourcentage de valeur-\\(p\\) parmi les 10K qui sont plus petites que 0.05, c’est-à-dire la proportion de rejet (à un niveau de \\(5\\)%) de \\(\\mathscr{H}_0:\\mu=\\mu_0\\) contre l’alternative bilatérale à \\(\\mu_0 \\in \\{2.83, 2.835, 2.84, \\ldots, 2.995, 3\\}\\). Utilisez la courbe de puissance (Figure 1) afin de répondre aux questions suivantes:\n\nExpliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\n\nCode\nlibrary(ggplot2)\n## Exercice 1.1\ndata(renfe, package = \"hecmodstat\")\n# Sélectionner un sous-échantillon de trains à haute vitesse\ndonnees &lt;- renfe |&gt; dplyr::filter(type %in% c(\"AVE\",\"AVE-TGV\"))\n# Transformer la durée en heures\nduree &lt;- donnees$duree / 60\n# Compute summary statistics of the duration\nmoy_d &lt;- mean(duree);\n\n# Étude de puissance\nB &lt;- 1e4L # nombre de simulations (10 000)\nn &lt;- nrow(donnees)\nm &lt;- 100L # taille du sous-échantillon\nalpha &lt;- 0.05 # niveau du test\n# Créer une grille de durées pour le temps moyen sous l'alternative\ntemps &lt;- sort(c(moy_d, seq(from = 2.83, to = 3, by = 0.005)))\n# Créer un contenant pour stocker les résultats\npuissance &lt;- matrix(nrow = B, ncol = length(temps))\n# Fixer le germe aléatoire pour s'assurer de résultats reproductibles\nset.seed(2020)\nfor(i in seq_len(B)){ # pour chaque réplication\n  for(j in seq_along(temps)){ # pour chaque alternative\n    # Test-t pour un échantillon\n    puissance[i,j] &lt;-  t.test(x = duree[sample.int(n = n, size = m)],\n                          mu = temps[j])$p.value\n    # Stocker les valeurs-p\n  }\n}\n# Créer un graphique de la puissance\nggplot(data = data.frame(temps = temps,\n                         puissance = colMeans(puissance &lt; alpha)),\n       mapping = aes(x = temps, y = puissance)) +\n  geom_point() +\n  geom_vline(xintercept = 2.845, linetype = \"dashed\") +\n  geom_hline(yintercept = alpha) +\n  labs(x = \"durée moyenne de trajet (en heures)\",\n       y = \"\",\n       subtitle = \"Puissance du test-t en fonction de la durée moyenne de trajet postulée.\") +\n  scale_y_continuous(limits = c(0,1),\n                     expand = expansion(add = 0.01)) +\n  theme_classic()\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-exercice.html#exercice-1.2",
-    "href": "exercices/01-exercice.html#exercice-1.2",
-    "title": "Exercice 1",
-    "section": "Exercice 1.2",
-    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-exercice.html#exercice-1.3",
-    "href": "exercices/01-exercice.html#exercice-1.3",
-    "title": "Exercice 1",
-    "section": "Exercice 1.3",
-    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/index.html",
-    "href": "exercices/index.html",
-    "title": "Exercices",
+    "objectID": "contenu/02-contenu.html",
+    "href": "contenu/02-contenu.html",
+    "title": "Modélisation statistique",
     "section": "",
-    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie",
+    "text": "Objectifs d’apprentissage\n\nApprendre la terminologie associée à l’inférence basée sur la vraisemblance.\nDériver des expressions explicites pour l’estimateur du maximum de vraisemblance de modèles simples.\nEn utilisant l’optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.\nUtiliser les propriétés de la vraisemblance pour les grands échantillons afin d’obtenir des intervalles de confiance et les propriétés des tests statistiques.\nUtiliser les critères d’information pour la sélection des modèles.\n\n\n\nContenu\n\nNotes de cours: chapitre 3 (Inférence basée sur la vraisemblance)\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nDémo R\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 3\n\n\n\n\n\n\nS\nContenu\nDiapos\nVidéos\nR\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n\n\n\n\n\nLectures additionnelles\n\nUnderstanding Maximum Likelihood par Kristoffer Magnusson\nDavison (2003), chapitre 4\n\n\n\n\n\n\nRéférences\n\nDavison, A. C. (2003). Statistical models. Cambridge University Press.",
     "crumbs": [
-      "Exercices",
-      "Exercises"
+      "Contenu",
+      "Semaine 2"
+    ]
+  },
+  {
+    "objectID": "contenu/04-contenu.html",
+    "href": "contenu/04-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\neffectuer des tests d’hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),\nobtenir des prédictions à partir d’un modèle linéaire à l’aide d’un logiciel,\ncomprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,\ntester l’égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice et code pour la solution\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 4"
+    ]
+  },
+  {
+    "objectID": "contenu/01-contenu.html",
+    "href": "contenu/01-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
+    "crumbs": [
+      "Contenu",
+      "Semaine 1"
+    ]
+  },
+  {
+    "objectID": "contenu/03-contenu.html",
+    "href": "contenu/03-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.3\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 3"
     ]
   },
   {
@@ -240,89 +310,74 @@
     ]
   },
   {
-    "objectID": "contenu/04-contenu.html",
-    "href": "contenu/04-contenu.html",
-    "title": "Modélisation statistique",
+    "objectID": "exercices/index.html",
+    "href": "exercices/index.html",
+    "title": "Exercices",
     "section": "",
-    "text": "Objectifs d’apprentissage\n\neffectuer des tests d’hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),\nobtenir des prédictions à partir d’un modèle linéaire à l’aide d’un logiciel,\ncomprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,\ntester l’égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice et code pour la solution\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie",
     "crumbs": [
-      "Contenu",
-      "Semaine 4"
+      "Exercices",
+      "Exercises"
     ]
   },
   {
-    "objectID": "contenu/01-contenu.html",
-    "href": "contenu/01-contenu.html",
-    "title": "Modélisation statistique",
+    "objectID": "exercices/01-exercice.html",
+    "href": "exercices/01-exercice.html",
+    "title": "Exercice 1",
     "section": "",
-    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
+    "text": "Les données renfe contiennent des informations sur 10K billets de trains vendus par la compagnie Renfe, l’entreprise ferroviaire publique espagnole. Les données incluent les variables:",
     "crumbs": [
-      "Contenu",
-      "Semaine 1"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
-    "objectID": "contenu/03-contenu.html",
-    "href": "contenu/03-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.3\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "objectID": "exercices/01-exercice.html#exercice-1.1",
+    "href": "exercices/01-exercice.html#exercice-1.1",
+    "title": "Exercice 1",
+    "section": "Exercice 1.1",
+    "text": "Exercice 1.1\nOn considère le temps de parcours pour les trains à grande vitesse (AVE} etAVE-TGV}). La vraie moyenne théorique de la « population » est de \\(\\mu=2.845\\) heures; ces quantités ont été déterminées sur la base des données complète contenant plus de 2.3 millions d’entrées et sont donc considérées comme connues, contrairement à la plupart des applications pratiques.\nUne étude de simulation a été conduite pour déterminer le comportement de tests pour un échantillon. L’algorithme suivant a été répété 10K fois:\n\nsélection d’un sous-échantillon de taille \\(n=100\\).\ncalcul de la statistique du test-\\(t\\) pour un échantillon correspondant à \\(\\mathscr{H}_0: \\mu=\\mu_0\\) (versus \\(\\mathscr{H}_0: \\mu \\neq \\mu_0\\)) pour différentes valeurs de \\(\\mu_0\\).\nsauvegarde des valeurs-\\(p\\) associées au test.\n\nLa Figure 1 montre le pourcentage de valeur-\\(p\\) parmi les 10K qui sont plus petites que 0.05, c’est-à-dire la proportion de rejet (à un niveau de \\(5\\)%) de \\(\\mathscr{H}_0:\\mu=\\mu_0\\) contre l’alternative bilatérale à \\(\\mu_0 \\in \\{2.83, 2.835, 2.84, \\ldots, 2.995, 3\\}\\). Utilisez la courbe de puissance (Figure 1) afin de répondre aux questions suivantes:\n\nExpliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\n\nCode\nlibrary(ggplot2)\n## Exercice 1.1\ndata(renfe, package = \"hecmodstat\")\n# Sélectionner un sous-échantillon de trains à haute vitesse\ndonnees &lt;- renfe |&gt; dplyr::filter(type %in% c(\"AVE\",\"AVE-TGV\"))\n# Transformer la durée en heures\nduree &lt;- donnees$duree / 60\n# Compute summary statistics of the duration\nmoy_d &lt;- mean(duree);\n\n# Étude de puissance\nB &lt;- 1e4L # nombre de simulations (10 000)\nn &lt;- nrow(donnees)\nm &lt;- 100L # taille du sous-échantillon\nalpha &lt;- 0.05 # niveau du test\n# Créer une grille de durées pour le temps moyen sous l'alternative\ntemps &lt;- sort(c(moy_d, seq(from = 2.83, to = 3, by = 0.005)))\n# Créer un contenant pour stocker les résultats\npuissance &lt;- matrix(nrow = B, ncol = length(temps))\n# Fixer le germe aléatoire pour s'assurer de résultats reproductibles\nset.seed(2020)\nfor(i in seq_len(B)){ # pour chaque réplication\n  for(j in seq_along(temps)){ # pour chaque alternative\n    # Test-t pour un échantillon\n    puissance[i,j] &lt;-  t.test(x = duree[sample.int(n = n, size = m)],\n                          mu = temps[j])$p.value\n    # Stocker les valeurs-p\n  }\n}\n# Créer un graphique de la puissance\nggplot(data = data.frame(temps = temps,\n                         puissance = colMeans(puissance &lt; alpha)),\n       mapping = aes(x = temps, y = puissance)) +\n  geom_point() +\n  geom_vline(xintercept = 2.845, linetype = \"dashed\") +\n  geom_hline(yintercept = alpha) +\n  labs(x = \"durée moyenne de trajet (en heures)\",\n       y = \"\",\n       subtitle = \"Puissance du test-t en fonction de la durée moyenne de trajet postulée.\") +\n  scale_y_continuous(limits = c(0,1),\n                     expand = expansion(add = 0.01)) +\n  theme_classic()\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
     "crumbs": [
-      "Contenu",
-      "Semaine 3"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
-    "objectID": "contenu/05-contenu.html",
-    "href": "contenu/05-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\ninterpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "objectID": "exercices/01-exercice.html#exercice-1.2",
+    "href": "exercices/01-exercice.html#exercice-1.2",
+    "title": "Exercice 1",
+    "section": "Exercice 1.2",
+    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).",
     "crumbs": [
-      "Contenu",
-      "Semaine 5"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
-    "objectID": "contenu/02-contenu.html",
-    "href": "contenu/02-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nApprendre la terminologie associée à l’inférence basée sur la vraisemblance.\nDériver des expressions explicites pour l’estimateur du maximum de vraisemblance de modèles simples.\nEn utilisant l’optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.\nUtiliser les propriétés de la vraisemblance pour les grands échantillons afin d’obtenir des intervalles de confiance et les propriétés des tests statistiques.\nUtiliser les critères d’information pour la sélection des modèles.\n\n\n\nContenu\n\nNotes de cours: chapitre 3 (Inférence basée sur la vraisemblance)\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nDémo R\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 3\n\n\n\n\n\n\nS\nContenu\nDiapos\nVidéos\nR\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n\n\n\n\n\nLectures additionnelles\n\nUnderstanding Maximum Likelihood par Kristoffer Magnusson\nDavison (2003), chapitre 4\n\n\n\n\n\n\nRéférences\n\nDavison, A. C. (2003). Statistical models. Cambridge University Press.",
+    "objectID": "exercices/01-exercice.html#exercice-1.3",
+    "href": "exercices/01-exercice.html#exercice-1.3",
+    "title": "Exercice 1",
+    "section": "Exercice 1.3",
+    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.",
     "crumbs": [
-      "Contenu",
-      "Semaine 2"
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Modélisation statistique",
+    "objectID": "exercices/modeles-lineaires-contrastes.html",
+    "href": "exercices/modeles-lineaires-contrastes.html",
+    "title": "Tests d’hypothèses pour modèles linéaires",
     "section": "",
-    "text": "Modélisation statistique\n        \n        \n            L’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\n        \n        \n            MATH 60604, automne 2024HEC Montréal\n        \n    \n\n\n\n\n\n\nInstructeur 1\n\n   Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\nInstructeur 2\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\nDétails\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
-  },
-  {
-    "objectID": "exercices/interactions.html",
-    "href": "exercices/interactions.html",
-    "title": "Interactions",
-    "section": "",
-    "text": "La base de données assurance du paquet hecmodstat contient les informations de primes d’assurance médicales de 1338 américains datant de 2003. La Figure 1 montre deux graphiques tirés d’une analyse exploratoire, indiquant une potentielle interaction entre le statut de fumeur et l’indice de masse corporelle.\nFigure 1: Nuages de points de frais médicaux en fonction de l’IMC et de l’âge, colorée par statut de fumeur.",
+    "text": "La base de données HBSC24_S4 du paquet hecedsm contient des données pour l’étude 4 de Huang et al. (2024).\n\n\nCode\nremotes::install_github(\"lbelzile/hecedsm\")\ndata(HBSC24_S4, package = \"hecedsm\")\n?hecedsm::HBSC24_S4\n# Ajuster un modèle pour l'authenticité selon l'état d'esprit\nmod &lt;- lm(authenticity ~ cond, data = HBSC24_S4)\n(emm &lt;- emmeans::emmeans(mod, specs = \"cond\"))\nemm |&gt;\n  contrasts(\n    method = list(C1 = c(),  # spécifier contraste 1 ici\n                  C2 = c())) # spécifier contraste 2 ici\n\n\nLes résultats suivants sont extraits de la section D Authenticity and Social Learning Behavior des annexes en ligne.\n\nWe ran a regression with contrast coding to examine the role of mindset on perceived authenticity. Participants who reflected on their goal attainment as a transformation perceived their current state to be more authentic \\((M = 5.98\\), \\(\\text{SD} =  .82)\\) compared to participants who wrote about distancing from old state or arriving at a new state \\((M_{\\text{old}} = 5.62\\), \\(\\text{SD} =  1.18\\); \\(M_{\\text{new}} = 5.74\\), \\(\\text{SD} =  1.07\\), contrast 1: \\(b = .10\\), \\(\\text{SE} =  .04\\), \\(t(259) = 2.21\\), \\(p = .028).\\)\n\n\nFurther, there was no difference between participants who reflected on their goal attainment as distancing from an old state compared to arriving at a new state (contrast 2: \\(b = .06\\), \\(\\text{SE} =  .08\\), \\(t(259) = .79\\), \\(p = .433).\\)\n\n\nWe next examined how perceived authenticity affects information sharing. As expected, authenticity positively predicted information sharing (\\(b = 6.84\\), \\(\\text{SE} =  1.87\\), \\(t(260) = 3.66\\), \\(p &lt;.001\\)).\n\n\nEn utilisant la description du texte, écrivez les poids pour les deux contrastes énumérés ci-dessus si l’ordre des conditions est change, new et old (ordre alphabétique).\nEffectuez un test global de l’authenticité en fonction de la condition expérimentale (cond).\nCalculez les contrastes et rapportez les valeurs des tests. Vérifiez les moyennes marginales et les statistiques des tests: pouvez-vous reproduire les résultats des auteurs?\nEffectuez une régression linéaire simple de words sur authenticity et vérifiez si la corrélation est significative.\n\n\n\n\n\nRéférences\n\nHuang, S., Brucks, M. S., Song, J., & Campbell, M. C. (2024). Beyond achievement: Transformation mindset enhances authenticity after goal success. Motivation Science, 10(3), 171–181. https://doi.org/10.1037/mot0000340",
     "crumbs": [
       "Exercices",
       "Activités en classe",
-      "Interactions"
-    ]
-  },
-  {
-    "objectID": "exercices/interactions.html#footnotes",
-    "href": "exercices/interactions.html#footnotes",
-    "title": "Interactions",
-    "section": "Notes de bas de page",
-    "text": "Notes de bas de page\n\n\nSelon l’organisation mondiale de la santé, une personne avec un \\(\\texttt{imc} \\ge 25\\) est en surpoids, et celles avec un \\(\\texttt{imc} \\ge 30\\) sont obèses. Cependant, l’IMC est un indicateur de santé décrié: voir cet article du New York Times.↩︎",
-    "crumbs": [
-      "Exercices",
-      "Activités en classe",
-      "Interactions"
+      "Tests d'hypothèse, modèles linéaires"
     ]
   },
   {

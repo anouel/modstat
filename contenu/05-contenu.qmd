@@ -3,7 +3,7 @@ title: "Modèles linéaires"
 ---
 
 
-### Objectifs d'apprentissage
+## Objectifs d'apprentissage
 
 
 - interpréter et de tester si des termes d’interactions sont significatifs
@@ -16,13 +16,23 @@ title: "Modèles linéaires"
 - Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.4--4.5
 
 
-### En classe
+## En classe
 
 - [Diapositives](../diapos/MATH60604-diapos5a.html) ([pdf](../diapos/MATH60604-diapos5a.pdf) et [code](MATH60604-diapos5a.R))
 - [Exercice](../exercices/interactions.qmd)
 
 
-### Diapositives
+## Après le cours
+
+- Visionnement des vidéos de la @sec-video
+- [Diapositives](../diapos/MATH60604-diapos5b.html) supplémentaires sur la géométrie  ([pdf](../diapos/MATH60604-diapos5b.pdf),  et [code](MATH60604-diapos5b.R))
+- [Diapositives](../diapos/MATH60604-diapos5c.html) supplémentaires sur le $R^2$  ([pdf](../diapos/MATH60604-diapos5c.pdf))
+- Exercices 2.1, 2.3 et 2.8
+
+
+## Diapositives
+
+
 
 
 <p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5a.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5a.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
@@ -30,5 +40,44 @@ title: "Modèles linéaires"
 <div class="ratio ratio-16x9">
 <iframe class="slide-deck" src="../diapos/MATH60604-diapos5a.html"></iframe>
 </div>
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5b.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5b.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos5b.html"></iframe>
+</div>
+
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5c.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos5c.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos5c.html"></iframe>
+</div>
+
+
+## Vidéos {#sec-video}
+
+```{r}
+#| label: slides-videos
+#| echo: false
+#| include: false
+source(here::here("files", "fonctions_diapos.R"))
+source(here::here("files", "youtube-playlist.R"))
+
+playlist_id <- "PLUB8VZzxA8IsIiin9XbR2-ws1tlwz_yEf"
+
+slide_details <- tibble::tribble(
+  ~youtube_id,   ~title, ~slide, ~active,
+  "AxIaZIEbg3w", "Géométrie des moindres carrés", "5b", TRUE,
+  "YoOkgWMaGAk", "Coefficient de détermination", "5c", FALSE,
+)
+
+```
+
+```{r show-youtube-list, echo=FALSE, results="asis"}
+youtube_list(slide_details, playlist_id)
+```
+
 
 
