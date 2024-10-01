@@ -32,6 +32,13 @@
     "text": "Contenu du cours\n\nPrincipes fondamentaux de modélisation et d’inférence statistique\nModèles linéaires\nModèles linéaires généralisés\nModèles pour données longitudinales et corrélées\nModèles linéaires mixtes\nIntroduction à l’analyse de survie"
   },
   {
+    "objectID": "syllabus.html#objectifs-dapprentissage",
+    "href": "syllabus.html#objectifs-dapprentissage",
+    "title": "Plan de cours",
+    "section": "Objectifs d’apprentissage",
+    "text": "Objectifs d’apprentissage\nLes objectifs d’apprentissage du cours sont listés ici."
+  },
+  {
     "objectID": "syllabus.html#prérequis",
     "href": "syllabus.html#prérequis",
     "title": "Plan de cours",
@@ -167,11 +174,11 @@
     ]
   },
   {
-    "objectID": "objectifsapprentissage.html#modèles-lnéaires",
-    "href": "objectifsapprentissage.html#modèles-lnéaires",
+    "objectID": "objectifsapprentissage.html#modèles-linéaires",
+    "href": "objectifsapprentissage.html#modèles-linéaires",
     "title": "Objectifs d’apprentissage",
-    "section": "Modèles lnéaires",
-    "text": "Modèles lnéaires\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\ncalculer des contrastes\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);\ntester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;\nmesurer l’adéquation du modèle à l’aide du coefficient de détermination;\nobtenir des prédictions du modèle linéaire par le biais d’un logiciel;\ncomprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ninterpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;\nlister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.",
+    "section": "Modèles linéaires",
+    "text": "Modèles linéaires\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\ncalculer des contrastes\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);\ntester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;\nmesurer l’adéquation du modèle à l’aide du coefficient de détermination;\nobtenir des prédictions du modèle linéaire par le biais d’un logiciel;\ncomprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ninterpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;\nlister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.",
     "crumbs": [
       "Contenu",
       "Objectifs d'apprentissage"

@@ -56,6 +56,9 @@ Ce cours aborde notamment les modèles linéaires, les modèles linéaires gén�
 - Modèles linéaires mixtes
 - Introduction à l'analyse de survie
 
+## Objectifs d'apprentissage
+
+Les objectifs d'apprentissage du cours sont listés [ici](objectifsapprentissage.qmd).
 
 
 ## Prérequis

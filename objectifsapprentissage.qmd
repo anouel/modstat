@@ -10,7 +10,7 @@ title: Objectifs d’apprentissage
 - faire un test d’hypothèse pour une statistique arbitraire;
 - connaître et interpréter adéquatement une valeur-$p$ et un intervalle de confiance;
 
-## Modèles lnéaires
+## Modèles linéaires
 
 À la fin du chapitre, l’étudiant(e) sera en mesure de
 
