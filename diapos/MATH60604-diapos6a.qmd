@@ -170,8 +170,8 @@ g1 + g2
 #| fig-width: 10
 #| fig-height: 8
 data(college, package = "hecmodstat")
-modlin.college1 <- lm(salaire ~ echelon + domaine + sexe + annees + service, data = college)
-car::residualPlots(modlin.college1, test = FALSE, layout = c(2,3))
+modlin1_college <- lm(salaire ~ echelon + domaine + sexe + annees + service, data = college)
+car::residualPlots(modlin1_college, test = FALSE, layout = c(2,3))
 ```
 
 ## Remèdes pour une spécification erronée de la moyenne
@@ -235,11 +235,11 @@ boxplot(rstudent(fitlmh) ~ xcat, xlab = "groupe", ylab="résidus studentisés ex
 #| eval: true
 #| echo: true
 # Résidus studentisés externes
-r <- rstudent(modlin.college1)
+r <- rstudent(modlin1_college)
 # Test F de Levene
 car::leveneTest(r ~ echelon, center = "mean", data = college)
 # Test du score avec Breusch-Pagan
-car::ncvTest(modlin.college1, var.formula =  ~ echelon)
+car::ncvTest(modlin1_college, var.formula =  ~ echelon)
 ```
 
 ## Conséquences de variances inégales
@@ -281,7 +281,9 @@ g1 <- ggplot(data = data.frame("pvalue" = pvalsF),
        caption = "test-t de Wald (variances égales)") +
    scale_x_continuous(expand = c(0, 0),
                       limits = c(0, 1),
-                      breaks = c(0,0.5,1))
+                      breaks = c(0,0.5,1)) + 
+   scale_y_continuous(expand = c(0, 0),
+                      limits = c(0, 0.5))
 g2 <- ggplot(data = data.frame("pvalue" = pvalsW),
        aes(x = pvalue)) +
   # bin into 20 compartments,
@@ -296,7 +298,9 @@ g2 <- ggplot(data = data.frame("pvalue" = pvalsW),
        caption = "test-t de Welch (variances inégales)") +
    scale_x_continuous(expand = c(0, 0),
                       limits = c(0, 1),
-                      breaks = c(0,0.5,1))
+                      breaks = c(0,0.5,1)) + 
+   scale_y_continuous(expand = c(0, 0),
+                      limits = c(0, 0.5))
 theme_set(theme_classic())
 g1 + g2
 ```
@@ -350,7 +354,7 @@ Les économistes utilisent fréquemment des estimateurs **sandwich**  [@White:19
 $$\widehat{\mathsf{Va}}_{\mathsf{HCE}}(\boldsymbol{\widehat{\beta}}) = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\Omega}\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}$$
 avec $\boldsymbol{\Omega}$ une matrice diagonale.
 
-Les choix populaires pour des matrices convergente en cas d'hétéroscédasticité matrices [@McKinnon.White:1985], utilisent $\mathrm{diag}(\boldsymbol{\Omega})_i = e_i^2/(1-h_{ii})^2$, dans le cas de la matrice HC${}_3$.
+Les choix populaires pour des matrices convergente en cas d'hétéroscédasticité matrices [@McKinnon.White:1985], utilisent $\mathrm{diag}(\boldsymbol{\Omega})_i = e_i^2/(1-h_{ii})^2$, dans le cas de la matrice $\mathrm{HC}_3$.
 
 ## Exemple de matrice de variance sandwich
 
@@ -359,14 +363,14 @@ Remplacer $\mathsf{Va}(\widehat{\boldsymbol{\beta}})$ par $\widehat{\mathsf{Va}}
 ```{r}
 #| echo: true
 # Matrice de covariance sandwich
-vcov_HCE <- car::hccm(modlin.college1)
+vcov_HCE <- car::hccm(modlin1_college)
 # Statistiques de Wald
-w <- coef(modlin.college1) / sqrt(diag(vcov_HCE))
+w <- coef(modlin1_college) / sqrt(diag(vcov_HCE))
 # Rapport des variances avec/sans correction
-diag(vcov_HCE) / diag(vcov(modlin.college1))
+diag(vcov_HCE) / diag(vcov(modlin1_college))
 # Calcul des valeurs-p
 valp <- 2*pt(abs(w), 
-             df = modlin.college1$df.residual,
+             df = modlin1_college$df.residual,
              lower.tail = FALSE)
 ```
 
@@ -388,7 +392,7 @@ Une transformation logarithmique de la variable réponse, $\ln Y$, donne un mod�
 
 Écrivons le modèle log-linéaire
 \begin{align*}
-\ln Y = \beta_0+ \beta_0 +\beta_1 X_1 +\cdots + \beta_pX_p + \varepsilon;
+\ln Y = \beta_0+ \beta_1 X_1 +\cdots + \beta_pX_p + \varepsilon;
 \end{align*}
 à l'échelle originale de la variable réponse, cela représente
 \begin{align*}
@@ -441,7 +445,7 @@ et réarranger cette expression nous donne
 \end{align*}
 une mesure **d'élasticité partielle**: le coefficient $\beta_1$ est un pourcentage de changement de $Y$ pour chaque pourcentage d'augmentation de $X_1$, *ceteris paribus*.
 
-## Postulat d'indépendance
+## Postulat 3 - indépendance
 
 Découle du plan de collecte, nécessite du contexte pour la validation.
 
@@ -514,6 +518,7 @@ ggplot() +
   coord_cartesian(xlim = c(0, max(rho)),
                   ylim = c(0, 1),
                   expand = FALSE) +
+  scale_color_viridis_d() +
   theme_minimal() +
   theme(legend.position = "bottom")
 
@@ -552,7 +557,7 @@ g0 + g1
 ```
 
 
-## Postulat de normalité
+## Postulat 4 - normalité
 
 Sans nul doute le postulat le moins important.
 
@@ -564,10 +569,11 @@ Les tests pour les **coefficients** sont valides pourvu qu'ils soient estimés a
 
 - attention aux interactions entre variables catégorielles (moyennes de petits sous-groupes).
 
+Les intervalles pour la moyenne prédite ont fiables, ce n'est pas nécessairement le cas pour les intervalles de prédiction.
 
 ## Diagramme quantile-quantile
 
-Créer un diagramme quantile-quantile Student pour les résidus studentisés externes, sachant que $R_i \sim \mathsf{Student}(n-p-2)$ si $E_i \sim \mathsf{normale}(0, \sigma^2)$.
+Créer un diagramme quantile-quantile Student pour les résidus studentisés externes, sachant que $R_i \sim \mathsf{Student}(n-p-2)$ si $\varepsilon_i \sim \mathsf{normale}(0, \sigma^2)$.
 
 ```{r}
 #| label: fig-qqplotresid
@@ -632,13 +638,13 @@ qqPlot(scale(c(rnorm(100,-3),rnorm(100,3))),
 
 ## Remèdes pour la normalité
 
-- Si les données proviennent de différentes familles (décomptes Poisson, données binaires ou proportions binomiales, etc.), utilisez des **modèles linéaires généralisés**..
+- Si les données proviennent de différentes familles (décomptes Poisson, données binaires ou proportions binomiales, etc.), utilisez des **modèles linéaires généralisés**.
 - transformations de type Box--Cox
 
 ## Transformation Box--Cox
 
 
-Avec des données strictement positives, on peut utiliser une transformation de Box--Cox,
+Avec des données strictement positives, on peut utiliser une transformation de Box--Cox [@Box.Cox:1964],
 \begin{align*}
 y(\lambda)= \begin{cases}
 (y^{\lambda}-1)/\lambda, & \lambda \neq 0\\
