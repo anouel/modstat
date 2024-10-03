@@ -10,25 +10,6 @@ title: Objectifs d’apprentissage
 - faire un test d’hypothèse pour une statistique arbitraire;
 - connaître et interpréter adéquatement une valeur-$p$ et un intervalle de confiance;
 
-## Modèles linéaires
-
-À la fin du chapitre, l’étudiant(e) sera en mesure de
-
-- interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);
-- calculer des contrastes
-- estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);
-- tester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;
-- mesurer l’adéquation du modèle à l’aide du coefficient de détermination;
-- obtenir des prédictions du modèle linéaire par le biais d’un logiciel;
-- comprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);
-- interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;
-- interpréter et de tester si des termes d’interactions sont significatifs
-- interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;
-- tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;
-- comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;
-- lister les postulats de validité du modèle linéaire;
-- utiliser des diagnostics graphiques pour établir la validité des postulats.
-
 
 ## Vraisemblance
 
@@ -40,6 +21,25 @@ title: Objectifs d’apprentissage
 - comparer des modèles emboîtés à l’aide d’un test du rapport de vraisemblance;
 - comparer des modèles non-emboîtés à l’aide de critères d’information.
 
+
+## Modèles linéaires
+
+À la fin du chapitre, l’étudiant(e) sera en mesure de
+
+- interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);
+- estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);
+- tester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;
+- obtenir des prédictions du modèle linéaire par le biais d’un logiciel;
+- comprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);
+- interpréter et de tester si des termes d’interactions sont significatifs
+- spécifier les poids de contrastes linéaires
+- interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;
+- tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;
+- mesurer l’adéquation du modèle à l’aide du coefficient de détermination;
+- lister les postulats de validité du modèle linéaire;
+- utiliser des diagnostics graphiques pour établir la validité des postulats.
+- interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;
+- comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;
 
 ## Modèles linéaires généralisés
 

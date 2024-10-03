@@ -1,0 +1,15 @@
+{
+  "hash": "30952a2c9edb30602386b4fc852af290",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Diagnostics graphiques\"\neval: true\necho: false\ncache: false\nout-width: \"100%\"\nfig-width: 6.6\nfig-height: 10\nfig-align: \"center\"\n---\n\n\n\n\n\n\nOn considère une régression linéaire avec deux variables explicatives, âge (en années) et une variable catégorielle pour le niveau d'éducation, sans interaction entre les deux. Sur la base des diagnostics graphiques, quel postulat du modèle linéaire n'est pas respecté? \n\n\n\nLes diagnostics graphiques pour la régression linéaire sont: résidus ordinaires versus valeurs ajustées (en haut à gauche), résidus ordinaires versus variable explicative âge (en haut à droite), valeur absolue des résidus studentisés externes contre valeurs ajustées (milieu, à gauche), résidus studentisés externes contre niveau d'éducation (milieu, à droite), diagramme quantile-quantile des résidus studentisés externes (en bas à gauche) et distance de Cook en fonction de l'indice (en bas à droite).\n\n\n*Attention: certaines violations des postulats ont un effet domino.*\n\n**Postulats du modèle**\n\n* spécification incorrecte de la moyenne\n* additivité\n* homoscédasticité\n* normalité\n* absence de valeurs aberrantes\n\n\n\n\n\n::: {.cell}\n\n:::\n\n\n\n\n## Exemple 1\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](diagnostics-graphiques_files/figure-html/unnamed-chunk-2-1.png){width=633.6}\n:::\n:::\n\n\n\n\n## Exemple 2\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](diagnostics-graphiques_files/figure-html/unnamed-chunk-3-1.png){width=633.6}\n:::\n:::\n\n\n\n\n## Exemple 3\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](diagnostics-graphiques_files/figure-html/unnamed-chunk-4-1.png){width=633.6}\n:::\n:::\n\n\n\n\n## Exemple 4\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](diagnostics-graphiques_files/figure-html/unnamed-chunk-5-1.png){width=633.6}\n:::\n:::\n\n\n\n\n## Exemple 5\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](diagnostics-graphiques_files/figure-html/unnamed-chunk-6-1.png){width=633.6}\n:::\n:::\n\n\n\n\n## Exemple 6\n\n\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](diagnostics-graphiques_files/figure-html/unnamed-chunk-7-1.png){width=633.6}\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

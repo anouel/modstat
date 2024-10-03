@@ -1,0 +1,838 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "06. Modèles linéaires"
+date: today
+date-format: YYYY
+eval: true
+cache: false
+echo: false
+lang: fr
+fig-align: 'center'
+out-width: '100%'
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecblue <- c("#002855")
+
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+library(knitr)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(scipen=1, digits=2, width = 75)
+options(knitr.kable.NA = '')
+library(kableExtra)
+library(car)
+```
+
+## Postulats du modèles linéaire
+
+Il y a quatre postulats principaux du modèle linéaire de la forme $$Y_i \mid \mathbf{x}_i \sim \mathsf{normal}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2)$$
+
+- linéarité et additivité: la moyenne de $Y_i \mid \mathbf{x}_i$ est $\beta_0 + \beta_1x_{i1} + \cdots + \beta_p x_{ip}$,
+- homoscédasticité: la variance des observations $\sigma^2$ est constante,
+- indépendence des observations (conditionnellement aux covariables),
+- normalité.
+
+## Lisez les petits caractères
+
+Notre stratégie consiste à créer des outils de diagnostics graphiques ou à effectuer des tests d'hypothèse pour s'assurer qu'il n'y a pas de violation flagrante des postulats du modèle.
+
+- Lorsque nous effectuons un test d'hypothèse, nous ne rejetons pas l'hypothèse nulle soit parce qu'elle est vraie ou par manque de preuves. 
+- Il en va de même pour la vérification de la validité des postulats du modèle.
+- Attention à ne pas surinterpréter les diagnostics graphiques: l'humain est très doué pour trouver des tendances.
+
+
+
+## Postulat 1 - spécification adéquate de la moyenne
+
+
+La moyenne est $$\mathsf{E}(Y_i \mid \mathbf{x}_i)=\beta_0 + \beta_1x_{i1} + \cdots + \beta_p x_{ip}.$$
+
+Implicitement,
+
+- toutes les interactions sont incluses,
+- il n'y a pas de variable explicatives omise du modèle,
+- la relation entre $Y_i$ et $X_j$ est linéaire,
+- l'effet des variables explicatives est additif (moyenne + aléa).
+
+## Diagrammes diagnostics pour la linéarité
+
+On utilise les résidus ordinaires $\boldsymbol{e}$, qui ne sont pas corrélés avec les valeurs ajustées $\widehat{\boldsymbol{y}}$ et les variables explicatives (c'est-à-dire les colonnes de $\mathbf{X}$).
+
+- Nuage de points des résidus $\boldsymbol{e}$ par rapport aux valeurs ajustées $\widehat{\boldsymbol{y}}$.
+- Nuage de points des résidus $\boldsymbol{e}$ par rapport aux colonnes de la matrice du modèle, $\mathbf{X}$.
+- Nuage de points des résidus $\boldsymbol{e}$ en fonction d'autres variables qui n'étaient pas dans le modèle.
+
+
+Toute tendance locale (par exemple, tendance quadratique, cycles, points de ruptures, sous-groupes) indique une mauvaise spécification du modèle pour la moyenne.
+
+Utiliser une courbe de lissage local (GAM ou LOESS) pour détecter les tendances.
+
+## Exemples de diagrammes de résidus
+
+
+Cherchez les tendances dans l'axe des ordonnées $y$, pas dans l'axe des abcisses $x$ !
+
+
+```{r}
+#| label: fig-regdiaglin
+#| echo: false
+#| fig-cap: "Diagrammes des résidus par rapport aux valeurs ajustées. Les deux premiers diagrammes ne montrent aucun écart par rapport à la linéarité (moyenne locale nulle). Le troisième diagramme montre une tendance quadratique évidente, ce qui suggère que le modèle moyen est mal spécifié. Notez que la distribution de la valeur ajustée n'est pas nécessairement uniforme, comme dans le deuxième panneau."
+par(pch = 19, col = scales::alpha("black", 0.8), bty = "l")
+par(mar=c(3.1, 3.1, 1, 1), mgp=c(1.7, 0.6, 0), font.main=1, cex.main=0.8)
+par(mfrow=c(1, 3))
+x1 <- 1:200
+x2 <- (1:200)^2
+set.seed(1)
+lm1 <- lm(rnorm(200)~x1)
+lm2 <- lm(rnorm(200) ~ x2)
+s1 <- scale(sin(x1/45)*2+rnorm(200))
+lm3 <- lm(s1 ~ x1)
+car::residualPlot(lm1,ylab="résidus", xlab = "valeurs ajustées", col.quad = hecblue)
+car::residualPlot(lm2,ylab="résidus", xlab = "valeurs ajustées", col.quad = hecblue)
+car::residualPlot(lm3,ylab="résidus", xlab = "valeurs ajustées", col.quad = hecblue)
+```
+
+## Exemples 
+
+
+```{r}
+#| fig-cap: "Diagramme des résidus en fonction des variables explicatives (à gauche) et d'une covariable omise (à droite). On constate une interaction oubliée entre l'IMC et l'indicateur fumeur/obèse, et une tendance linéaire pour le nombre d'enfants."
+#| label: fig-residplots
+data(assurance, package = "hecmodstat")
+assurance <- assurance |>
+  dplyr::mutate(obesite = factor(imc >= 30, levels = c(FALSE, TRUE), 
+                                 labels = c("non-obese","obese")))
+mod0 <- lm(frais ~ age + obesite*fumeur, data = assurance)
+mod1 <- lm(frais ~ age + obesite*fumeur*imc, data = assurance)
+mod2 <- lm(frais ~ age + obesite*fumeur*imc + enfant, data = assurance)
+g1 <- ggplot(data = data.frame(e = resid(mod0),
+                         x = assurance$imc, 
+                         col = interaction(assurance$obesite, assurance$fumeur)),
+       mapping = aes(x = x, y = e, color = col)) +
+  geom_point() +
+  geom_smooth(se = FALSE,method = "lm", formula = y ~ x, show.legend = FALSE) +
+  MetBrewer::scale_color_met_d(name = "Hiroshige") + 
+  labs(x = "indice de masse corporelle", y = "résidus ordinaires",
+       color = "obèse/fumeur") +
+  theme(legend.position = "bottom")
+g2 <- ggplot(data = data.frame(e = resid(mod1),
+                         x = assurance$enfant),
+       mapping = aes(x = x, y = e)) +
+  geom_jitter() +
+  geom_smooth(method = "lm", formula = y ~ x, col = "black",
+              se = FALSE) +
+  MetBrewer::scale_color_met_d(name = "Hiroshige") + 
+  labs(x = "nombre d'enfants", y = "résidus ordinaires")
+g1 + g2
+```
+
+## Exemples de diagnostics pour les salaires 
+
+```{r}
+#| eval: true
+#| echo: true
+#| out-width: '100%'
+#| fig-align: 'center'
+#| fig-width: 10
+#| fig-height: 8
+data(college, package = "hecmodstat")
+modlin.college1 <- lm(salaire ~ echelon + domaine + sexe + annees + service, data = college)
+car::residualPlots(modlin.college1, test = FALSE, layout = c(2,3))
+```
+
+## Remèdes pour une spécification erronée de la moyenne
+
+Complexifiez le modèle:
+
+- ajoutez d'autres variables explicatives,
+- vérifiez s'il est nécessaire de spécifier des interactions,
+- spécifiez les effets nonlinéaires avec des splines pénalisés,
+- considérez des transformations de la variable réponse.
+
+## Postulat 2: homoscédasticité (variance constante)
+
+On suppose que la variance est la même pour toutes les observations, $\mathsf{Va}(Y_i \mid \mathbf{x}_i) = \sigma^2$
+
+Les schémas d'hétéroscédasticité usuels sont:
+
+- la variance dépend des niveaux d'une variable catégorielle,
+- la variance augmente avec la réponse (par ex., un modèle à effet multiplicatif),
+- les données sont tirées d'une loi pour laquelle la variance est une fonction de la moyenne, par ex. données Poisson.
+
+## Diagnostics pour l'égalité de variance
+
+On crée des diagnostics avec les résidus studentisés externes $r_i$, qui ont la même variance contrairement aux résidus ordinaires $e_i$.
+
+**Tests d'hypothèses**:
+
+- test de Levene (test-$F$, une ANOVA à $|r_{ij} - \overline{r_{j}}|$ en fonction de l'indice de groupe $j$),
+- test de Breusch--Pagan (populaire en science économiques, consiste à ajuster une régression linéaire pour $e_i^2$),
+- test de Bartlett (test de rapport de vraisemblance normale pour différentes variances, déconseillé car très sensible au postulat de normalité).
+
+**Diagnostics graphiques**:
+
+- nuage de points de $r_i$ (en valeur absolue) en fonction des valeurs ajustées (diagramme de niveau/dispersion).
+
+## Exemples de diagrammes de niveau et dispersion
+
+
+```{r}
+#| label: fig-diagfitvalhomosce
+#| echo: false
+#| fig-cap: "Diagrammes des résidus studentisés externes en fonction des valeurs ajustées (gauche) et d'une variable catégorielle (droite)."
+par(mar=c(3.1,3.1,1.6,1),
+    mgp=c(1.7,0.6,0),font.main=1,cex.main=0.8,
+    mfrow= c(1,3),  pch = 19, bty = "l")
+set.seed(1)
+x1 <- sort(100+3*rnorm(200,0,10))
+s1 <- scale(rnorm(200)*(x1-30)^2)
+fithetero <- rstudent(lm(s1~x1))
+plot(x1,s1,xlab="valeurs ajustées",ylab="résidus studentisés externes")
+plot(x1,abs(fithetero),xlab="valeurs ajustées",ylab="|résidus studentisés externes|")
+car::gamLine(x1, abs(fithetero), spread = TRUE, col = hecblue)
+set.seed(1)
+fitlmh <- lm(c(rnorm(100, sd = 0.5), rnorm(100, sd = 3), rnorm(30, sd = 1.5)) ~ (xcat <- factor(c(rep(1,100), rep(2, 100), rep(3, 30)))))
+boxplot(rstudent(fitlmh) ~ xcat, xlab = "groupe", ylab="résidus studentisés externes")
+```
+
+## Tests pour hétéroscédasticité avec données de collège
+
+```{r}
+#| eval: true
+#| echo: true
+# Résidus studentisés externes
+r <- rstudent(modlin.college1)
+# Test F de Levene
+car::leveneTest(r ~ echelon, center = "mean", data = college)
+# Test du score avec Breusch-Pagan
+car::ncvTest(modlin.college1, var.formula =  ~ echelon)
+```
+
+## Conséquences de variances inégales
+
+
+```{r}
+#| label: fig-simuWelchnull
+#| echo: false
+#| cache: true
+#| fig-cap: "Histogramme de la loi nulle des valeurs-$p$ obtenues par simulation à l'aide du test-$t$ à deux échantillons (à gauche) et du test-$t$ de Welch (à droite), sur la base de 10 000 simulations. Chaque échantillon simulé se compose de 50 observations provenant d'une distribution $\\mathsf{normale}(0, 1)$ et de 10 observations provenant d'une distribution $\\mathsf{normale}(0, 9)$. La loi uniforme sous $\\mathscr{H}_0$ aurait 5 % dans chacune des 20 cases utilisées pour l'affichage."
+set.seed(1234)
+n1 <- 50
+n2 <- 10
+mu1 <- 0
+mu2 <- 0
+sd1 <- 1
+sd2 <- 3
+nrep <- 1e4
+pvalsF <- rep(0, nrep)
+pvalsW <- rep(0, nrep)
+group <- factor(c(rep(0, n1), rep(1, n2)))
+for(i in seq_len(nrep)){
+dat <- c(rnorm(n = n1, mean = mu1, sd = sd1),
+         rnorm(n = n2, mean = mu2, sd = sd2))
+pvalsW[i] <- t.test(dat ~ group)$p.value
+pvalsF[i] <- t.test(dat ~ group, var.equal = TRUE)$p.value
+}
+g1 <- ggplot(data = data.frame("pvalue" = pvalsF),
+       aes(x = pvalue)) +
+  # bin into 20 compartments,
+  # specifying boundaries to avoid artifacts
+  geom_histogram(breaks = seq(0, 1, by = 0.05),
+                 aes(y = after_stat(width*density)),
+                 alpha = 0.2) +
+  stat_function(fun = function(x){1/20}, #uniform distribution
+                col = "blue") +
+  labs(x = "valeur-p",
+       y = "taux de rejet",
+       caption = "test-t de Wald (variances égales)") +
+   scale_x_continuous(expand = c(0, 0),
+                      limits = c(0, 1),
+                      breaks = c(0,0.5,1))
+g2 <- ggplot(data = data.frame("pvalue" = pvalsW),
+       aes(x = pvalue)) +
+  # bin into 20 compartments,
+  # specifying boundaries to avoid artifacts
+  geom_histogram(breaks = seq(0, 1, by = 0.05),
+                 aes(y = after_stat(width*density)),
+                 alpha = 0.2) +
+  stat_function(fun = function(x){0.05}, #uniform distribution
+                col = "blue") +
+  labs(x = "valeur-p",
+       y = "taux de rejet",
+       caption = "test-t de Welch (variances inégales)") +
+   scale_x_continuous(expand = c(0, 0),
+                      limits = c(0, 1),
+                      breaks = c(0,0.5,1))
+theme_set(theme_classic())
+g1 + g2
+```
+
+##  Remède 1 - modéliser la structure de covariance
+
+Spécifier une fonction pour la variance, par ex.
+
+- $\sigma_j$ pour le niveau $j$ d'une variable catégorielle, 
+- $\sigma^2(\boldsymbol{v}_i) = g(\boldsymbol{v}_i; \boldsymbol{\psi})$ pour une transformation adéquate $g(\cdot): \mathbb{R} \to (0, \infty)$, un vecteur de variables explicatives $\boldsymbol{v}$ et un vecteur de paramètres $\boldsymbol{\psi}$.
+
+Une telle structure ouvre la voie à des comparaisons par le biais de tests de rapport de vraisemblance.
+
+
+
+## Exemple d'hétéroscédasticité
+
+Pour les données de collège, on spécifie $Y_i \sim \mathsf{normal}(\mathbf{x}_i\boldsymbol{\beta}, \sigma^2_{\texttt{echelon}_i})$ avec un paramètre de variance spécifique à l'échelon. Cela semble corriger l'hétéroscédasticité.
+
+
+```{r}
+#| eval: true
+#| echo: true
+#| fig-align: 'center'
+library(nlme) # modèles mixtes et structures de corrélation
+modlin.college2 <- nlme::gls(
+  model = salaire ~ echelon + domaine + sexe + service, # spécification de la moyenne
+  weights = nlme::varIdent(form = ~1 | echelon), # variance constante par échelon
+  data = college)
+plot(modlin.college2)
+```
+
+Le modèle est ajusté par maximum de vraisemblance restreint avec la fonction `gls`  du paquet `nlme`.
+
+## Exemple d'hétéroscédasticité de groupe avec ANOVA
+
+Le fonctions `t.test` et `oneway.test` effectuent des tests d'hypothèse pour des comparaisons de moyennes: pour l'observation $i$ du groupe $j$, on spécifie que
+
+$$Y_{ij} \sim \mathsf{normale}(\mu_j, \sigma^2_j).$$
+Ces tests sont parfois listés sont le nom de @Welch:1947.
+
+Il n'existe pas de loi nulle exacte dans le cas des comparaisons de moyennes, mais des approximations dues à @Satterthwaite:1946 sont employées comme références.
+
+On doit avoir suffisamment d'observations dans chaque sous-groupe pour estimer de manière fiable la moyenne et la variance.
+
+
+## Remède 2 - utiliser une matrice sandwich pour les erreurs
+
+Les économistes utilisent fréquemment des estimateurs **sandwich**  [@White:1980], en remplaçant l'estimateur usuel de la matrice de covariance des $\widehat{\boldsymbol{\beta}}$, d'ordinaire $S^2(\mathbf{X}^\top\mathbf{X})^{-1}$, par un estimateur sandwich de la forme
+
+$$\widehat{\mathsf{Va}}_{\mathsf{HCE}}(\boldsymbol{\widehat{\beta}}) = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\Omega}\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}$$
+avec $\boldsymbol{\Omega}$ une matrice diagonale.
+
+Les choix populaires pour des matrices convergente en cas d'hétéroscédasticité matrices [@McKinnon.White:1985], utilisent $\mathrm{diag}(\boldsymbol{\Omega})_i = e_i^2/(1-h_{ii})^2$, dans le cas de la matrice HC${}_3$.
+
+## Exemple de matrice de variance sandwich
+
+Remplacer $\mathsf{Va}(\widehat{\boldsymbol{\beta}})$ par $\widehat{\mathsf{Va}}_{\mathsf{HCE}}(\boldsymbol{\widehat{\beta}})$ dans le formule des tests de Wald.
+
+```{r}
+#| echo: true
+# Matrice de covariance sandwich
+vcov_HCE <- car::hccm(modlin.college1)
+# Statistiques de Wald
+w <- coef(modlin.college1) / sqrt(diag(vcov_HCE))
+# Rapport des variances avec/sans correction
+diag(vcov_HCE) / diag(vcov(modlin.college1))
+# Calcul des valeurs-p
+valp <- 2*pt(abs(w), 
+             df = modlin.college1$df.residual,
+             lower.tail = FALSE)
+```
+
+
+
+## Structure multiplicative
+
+Des données multiplicatives
+\begin{align*}
+\left(\begin{matrix} \text{moyenne $\mu_i$}\end{matrix}\right) \times
+ \left(\begin{matrix} \text{aléa spécifique}
+\end{matrix}\right)
+\end{align*}
+ont une plus grande variabilité quand la variable réponse est grande.
+
+## Remède 3 - transformations
+
+Une transformation logarithmique de la variable réponse, $\ln Y$, donne un modèle **additif** pour autant que $Y > 0$.
+
+Écrivons le modèle log-linéaire
+\begin{align*}
+\ln Y = \beta_0+ \beta_0 +\beta_1 X_1 +\cdots + \beta_pX_p + \varepsilon;
+\end{align*}
+à l'échelle originale de la variable réponse, cela représente
+\begin{align*}
+Y &= \exp\left(\beta_0 +\beta_1 X_1 +\cdots + \beta_pX_p\right)\cdot \exp(\varepsilon),
+\end{align*}
+et donc
+\begin{align*}
+\mathsf{E}(Y \mid \mathbf{X}) = \exp(\beta_0 +\beta_1 X_1 +\cdots + \beta_pX_p) \times \mathsf{E}\{\exp(\varepsilon) \mid \mathbf{X}\}.
+\end{align*}
+
+## Modèle lognormal
+
+Si $\varepsilon \mid \mathbf{x} \sim \mathsf{normal}(\mu,\sigma^2)$, alors $\mathsf{E}\{\exp(\varepsilon) \mid \mathbf{x}\}= \exp(\mu+\sigma^2/2)$ et $\exp(\varepsilon)$ suit une loi lognormale.
+
+Une augmentation d'une unité de $X_j$ mène à une augmentation moyenne de $\beta_j$ de $\ln Y$ sans interaction ni terme nonlinéaire pour $X_j$, et cela se traduit par un facteur multiplicatif de $\exp(\beta_j)$ à l'échelle de $Y$. 
+
+- Si $\beta_j=0$, $\exp(\beta_j)=1$ et il n'y a pas de changement
+- Si $\beta_j < 0$, $\exp(\beta_j)<1$ et la moyenne décroît avec $X_j$
+- Si $\beta_j > 0$, $\exp(\beta_j)>1$ et la moyenne augmente avec $X_j$
+
+
+## Interprétation de modèles log-linéaires
+
+Comparez le rapport de $\mathsf{E}(Y \mid X_1=x+1)$ à $\mathsf{E}(Y \mid X_1=x)$,
+\begin{align*}
+\frac{\mathsf{E}(Y \mid X_1=x+1, X_2, \ldots, X_p)}{\mathsf{E}(Y \mid X_1=x,  X_2, \ldots, X_p)} = \frac{\exp\{\beta_1(x+1)\}}{\exp(\beta_1 x)} = \exp(\beta_1).
+\end{align*}
+Ainsi, $\exp(\beta_1)$ donne le rapport des moyennes de $Y$ quand $X_1=x+1$ par rapport à $X_1=x$, *ceteris paribus* (avec les restrictions habituelles).
+
+
+
+L'interprétation (par rapport à la référence, dépend du signe de $\beta_j$:
+
+- Le pourcentage de diminution est $1-\exp(\beta_j)$ si $\beta_j <0$ and 
+- Le pourcentage d'augmentation est $\exp(\beta_j)-1$ si $\beta_j>0$.
+
+## Transformations plus générales
+
+Considérons le cas où on prend le logarithme de $Y$ et $X_1$, avec
+\begin{align*}
+Y= X_1^{\beta_1}\exp(\beta_0 + \beta_2X_2 + \cdots + \beta_pX_p + \varepsilon)
+\end{align*}
+En prenant la dérivée par rapport à $X_1>0$, on obtient
+\begin{align*}
+\frac{\partial Y}{\partial X_1}&= \beta_1 X_1^{\beta_1-1}\exp(\beta_0 + \beta_2X_2 + \cdots + \beta_pX_p + \varepsilon)= \frac{\beta_1 Y}{X_1}
+\end{align*}
+et réarranger cette expression nous donne
+\begin{align*}
+\frac{\partial X_1}{X_1}\beta_1 = \frac{\partial Y}{Y};
+\end{align*}
+une mesure **d'élasticité partielle**: le coefficient $\beta_1$ est un pourcentage de changement de $Y$ pour chaque pourcentage d'augmentation de $X_1$, *ceteris paribus*.
+
+## Postulat d'indépendance
+
+Découle du plan de collecte, nécessite du contexte pour la validation.
+
+Parmi les cas où les données sont dépendantes, les plus fréquents sont
+
+- plans avec données répétées.
+- données longitudinales: mesures répétées sur un même sujet dans le temps (évolution temporelle, peu de mesures)
+- séries chronologiques: observations mesurées à plusieurs périodes de temps
+- données spatiales
+
+## Conséquences de la dépendance
+
+Les objets proches se ressemblent davantage, de sorte que la quantité de nouvelle information est inférieure à la taille de l'échantillon.
+
+
+Lorsque les observations sont positivement corrélées, les erreurs-type estimées indiquées par le logiciel sont trop petites. 
+
+
+Cela signifie que nous sommes trop confiants et que nous rejetterons l'hypothèse nulle plus souvent que nous ne le devrions si l'hypothèse nulle était vraie (erreur de type I gonflée, plus de faux positifs).
+
+
+## Conséquences sur l'inférence de la corrélation
+
+```{r }
+#| label: fig-plotLevelIndep
+#| echo: false
+#| eval: true
+#| fig-cap: "Taux de rejet de l'hypothèse nulle pour le test $F$ d'égalité des moyennes pour une ANOVA à une voie avec des données générées avec une moyenne et une variance constantes, à partir d'un modèle d'équicorrélation (les observations à l'intérieur d'un groupe sont corrélées, les observations entre les groupes sont indépendantes). Le niveau nominal du test est de 5%."
+# size_p5 <- t(apply(matRes, 2:3, function(x){mean(x < 0.05)}))
+# nent <- length(size_p5)
+# size_p5_tibble <-
+#   tibble(size = c(size_p5),
+#          samp = factor(rep(ng, length.out = nent)),
+#          correlation = rep(correlation, each = length(ng)))
+
+
+# From Don Fraser (1958). Statistics: an introduction, pp. 342-343
+nrep <- 25L
+rho <- seq(0, 0.8, by = 0.01)
+dims <- c(2,3,5,10)
+size <- matrix(0, nrow = length(rho), ncol = length(dims))
+for(i in seq_along(dims)){
+  d <- dims[i]
+  sigmasq <- (1-rho)
+  tausq <- rho
+  fact <- (nrep*tausq + sigmasq)/sigmasq
+
+  cutoff <- qf(0.95, df1 = d-1, df2 = (nrep-1)*d)
+  size[,i] <- pf(cutoff/fact, df1 = d-1, df2 = (nrep-1)*d, lower.tail = FALSE)
+}
+
+size_exact <- data.frame(
+  size = c(size),
+  dim = factor(rep(dims, each = length(rho))),
+  rho = rep(rho, length.out = length(size)))
+
+# ggplot(data = size_p5_tibble,
+#        mapping = aes(col = samp,
+#                      x = correlation,
+#                      y = size)) +
+#   geom_line() +
+ggplot() +
+  geom_line(data = size_exact,
+            mapping = aes(color = dim, x = rho, y = size)) +
+  geom_hline(yintercept = 0.05, alpha = 0.5) +
+  labs(y = "niveau du test",
+       x = "corrélation intra-classe",
+       color = "nombre de groupes",
+       caption = "25 observations par groupe") +
+  coord_cartesian(xlim = c(0, max(rho)),
+                  ylim = c(0, 1),
+                  expand = FALSE) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+```
+
+## Remèdes pour la dépendance
+
+Le chapitre 6 traitera de **données corrélées**
+
+L'idée principale est de modéliser la corrélation et la variance, en partant du vecteur complet d'observations et en supposant que $$\boldsymbol{Y} \mid \mathbf{X} \sim \mathsf{normal}_n(\mathbf{X}\boldsymbol{\beta}, \boldsymbol{\Sigma})$$ avec un modèle pour la matrice de variance de dimension $n \times n$, disons $\boldsymbol{\Sigma}$, qui sera paramétré en fonction de $\boldsymbol{\psi}$.
+
+## Séries chronologiques et données longitudinales
+
+Pour les séries chronologiques, on peut considérer un **corrélogramme**, un diagramme à bande de la corrélation entre deux mesures d'une même variables à distance $h$, en fonction de $h$.
+
+Avec $n$ observations $y_1, \ldots, y_n$, l'autocorrélation à décalage $h=0, 1, \ldots$ est [@Brockwell.Davis:2016, Définition 1.4.4]
+\begin{align*}
+r(h) = \frac{\gamma(h)}{\gamma(0)}, \qquad \gamma(h) = \frac{1}{n}\sum_{i=1}^{n-|h|} (y_i-\overline{y})(y_{i+h} - \overline{y})
+\end{align*}
+
+## Exemples de corrélogrammes
+
+
+```{r}
+#| label: fig-correlogram
+#| echo: false
+#| fig-cap: "Corrélogramme d'observations indépendantes (à gauche) et des résidus ordinaires du modèle log-linéaire ajusté aux données sur le traffic aérien (à droite). Alors que le modèle moyen de ce dernier est apparemment correctement spécifié, il existe une dépendance résiduelle entre les observations mensuelles et annuelles (décalage de $h=12$ mois). Les lignes traitillées en bleu indiquent un intervalle de confiance ponctuels approximatifs à 95 % pour un bruit blanc (observations non corrélées)."
+library(forecast)
+data("trafficaerien", package = "hecmodstat")
+ols_airpass <- lm(log(passagers) ~ mois + annee, data = trafficaerien)
+set.seed(1234)
+g0 <- ggAcf(rnorm(100),lag.max=25) + labs(x = "décalage", y ="autocorrélation", title = "")+ ylim(c(-1,1))
+g1 <- ggAcf(resid(ols_airpass),lag.max=25) + labs(x = "décalage", y ="autocorrélation", title = "") + ylim(c(-1,1))
+g0 + g1
+```
+
+
+## Postulat de normalité
+
+Sans nul doute le postulat le moins important.
+
+L'estimateur des moindres carrés ordinaires est le **meilleur estimateur linéaire sans biais** (BLUE) si les données sont indépendantes et de variance constante, peu importe leur loi sous-jacente.
+
+L'estimateur est sans biais et convergent même si la variance est mal spécifié, mais il n'est alors plus optimal.
+
+Les tests pour les **coefficients** sont valides pourvu qu'ils soient estimés avec un **nombre suffisant d'observations**.
+
+- attention aux interactions entre variables catégorielles (moyennes de petits sous-groupes).
+
+
+## Diagramme quantile-quantile
+
+Créer un diagramme quantile-quantile Student pour les résidus studentisés externes, sachant que $R_i \sim \mathsf{Student}(n-p-2)$ si $E_i \sim \mathsf{normale}(0, \sigma^2)$.
+
+```{r}
+#| label: fig-qqplotresid
+#| cache: true
+#| echo: false
+#| fig-cap: Histogramme et densité par lissage de noyau (gauche) et diagramme quantile-quantile Student avec intervalles de confiances ponctuels à 95\% obtenus par autoamorçage paramétrique (droite). 
+par(pch = 19, col = scales::alpha("black", 0.8), bty = "l")
+par(mar=c(3.1, 3.1, 1, 1), mgp=c(1.7, 0.6, 0), font.main=1, cex.main=0.8)
+par(mfrow = c(1,2))
+library(car)
+library(qqplotr, warn.conflicts = FALSE)
+set.seed(1234)
+di <- "t"
+dp <- list(df = lm2$df.residual)
+de <- FALSE
+library(qqplotr)
+g2 <- ggplot(data = data.frame(sample = rstudent(lm2)), mapping = aes(sample = sample)) +
+ stat_qq_band(distribution = di, detrend = de, bandType = "boot", B = 9999, dparams = dp) +
+ stat_qq_line(distribution = di, detrend = de) +
+ stat_qq_point(distribution = di, detrend = de) +
+ labs(x = "quantiles théoriques Student", y = "résidus studentisés externes")
+g1 <- ggplot(data = data.frame(x = rstudent(lm2)), aes(x=x)) +
+  geom_histogram(aes(x=x, y = after_stat(density))) +
+  stat_function(fun = "dt", args = list(df = lm2$df.residual), col = hecblue) +
+  geom_density() + labs(x = "résidus studentisés externes")
+g1 + g2
+```
+
+## Interprétation de diagrammes quantiles-quantiles
+
+
+
+```{r}
+#| label: fig-qqplotsbad
+#| cache: true
+#| echo: false
+#| fig-cap: Diagrammes quantiles-quantiles de données discrète (coin supérieur gauche), à ailes lourdes (coin supérieur droit), asymmétrique à droite (coin inférieur gauche) et bimodales (coin inférieur droit).
+set.seed(1234)
+par(pch = 19, col = scales::alpha("black", 0.8), bty = "l")
+par(mar=c(3.1, 3.1, 1, 1), mgp=c(1.7, 0.6, 0), font.main=1, cex.main=0.8)
+par(mfrow= c(2,2))
+qqPlot(scale(rgeom(n = 100, prob = 0.5)),
+       xlab = "quantiles théoriques",
+       ylab = "quantiles empiriques",
+       col.lines=hecblue, id = FALSE)
+set.seed(123)
+qqPlot(scale(rt(200, df = 3)),
+       xlab = "quantiles théoriques",
+       ylab = "quantiles empiriques",
+       col.lines=hecblue, id = FALSE)
+set.seed(432)
+qqPlot(scale(rgamma(100,shape = 2)),
+       xlab = "quantiles théoriques",
+       ylab = "quantiles empiriques",
+       col.lines=hecblue, id = FALSE)
+set.seed(432)
+qqPlot(scale(c(rnorm(100,-3),rnorm(100,3))),
+       xlab = "quantiles théoriques",
+       ylab = "quantiles empiriques",
+       col.lines=hecblue, id = FALSE)
+```
+
+## Remèdes pour la normalité
+
+- Si les données proviennent de différentes familles (décomptes Poisson, données binaires ou proportions binomiales, etc.), utilisez des **modèles linéaires généralisés**..
+- transformations de type Box--Cox
+
+## Transformation Box--Cox
+
+
+Avec des données strictement positives, on peut utiliser une transformation de Box--Cox,
+\begin{align*}
+y(\lambda)= \begin{cases}
+(y^{\lambda}-1)/\lambda, & \lambda \neq 0\\
+\ln(y), & \lambda=0.
+\end{cases}
+\end{align*}
+Les cas de figure
+
+- $\lambda=-1$ (inverse), 
+- $\lambda=1$ (identité) et
+- $\lambda=0$ (logarithme) 
+
+sont les plus importants car les modèles résultants sont interprétables.
+
+## Inférence pour modèles Box--Cox
+
+Si on suppose que $\boldsymbol{Y}(\lambda) \sim \mathsf{normal}(\mathbf{X}\boldsymbol{\beta}, \sigma^2 \mathbf{I}_n)$, alors la vraisemblance est
+\begin{align*}
+L(\lambda, \boldsymbol{\beta}, \sigma; \boldsymbol{y}, \mathbf{X}) &= (2\pi\sigma^2)^{-n/2} J(\lambda, \boldsymbol{y}) \times\\& \quad \exp \left[ - \frac{1}{2\sigma^2}\{\boldsymbol{y}(\lambda) - \mathbf{X}\boldsymbol{\beta}\}^\top\{\boldsymbol{y}(\lambda) - \mathbf{X}\boldsymbol{\beta}\}\right],
+\end{align*}
+où $J$ dénote le Jacobien de la transformation Box--Cox, $J(\lambda, \boldsymbol{y})=\prod_{i=1}^n y_i^{\lambda-1}$.
+
+## Profilage de $\lambda$
+
+Pour chaque valeur de $\lambda$, on obtient les estimateurs du maximum de vraisemblance usuels en remplaçant $\boldsymbol{y}$ par $\boldsymbol{y}(\lambda)$.
+
+La log vraisemblance profilée pour $\lambda$ est
+\begin{align*}
+\ell_{\mathsf{p}}(\lambda) = -\frac{n}{2}\ln(2\pi \widehat{\sigma}^2_\lambda) - \frac{n}{2} + (\lambda - 1)\sum_{i=1}^n \ln(y_i)
+\end{align*}
+
+
+## Modèles pour données de poisons
+
+@Box.Cox:1964 modélise le temps de survie de 48 animaux sur la base d'un essai aléatoire. Les données sur les `poisons` sont équilibrées, 3 poisons ayant été administrés avec 4 traitements à 4 animaux chacun.
+
+Nous pourrions envisager une ANOVA à deux facteurs sans interaction, étant donné le peu d'observations pour chaque combinaison. Le modèle s'écrit alors
+\begin{align*}
+Y &= \beta_0 + \beta_1 \texttt{poison}_2 + \beta_2\texttt{poison}_3  +\beta_3\texttt{treatment}_2 \\ &\qquad+ \beta_4\texttt{treatment}_3
++\beta_5\texttt{treatment}_4 + \varepsilon
+\end{align*}
+
+
+## Diagnostics graphiques pour les données de poisons
+
+```{r}
+#| label: fig-poisonplots
+#| echo: false
+#| eval: true
+#| fig-cap: "Diagnostics graphiques pour les données de poisons: résidus ordinaires (avec décalage) pour le modèle linéaire du temps de survie en fonction du type de poison et de traitements, et diagramme quantile-quantile des résidus studentisés."
+#| fig-align: 'center'
+poisons <- SMPracticals::poisons
+poisonlm1 <- lm(time ~ poison + treat, data = poisons)
+poisonlm2 <- lm(I(1/time) ~ poison + treat, data = poisons)
+
+poisons$resid1 <- resid(poisonlm1)
+poisons$rstudent1 <- rstudent(poisonlm1)
+poisons$resid2 <- resid(poisonlm2)
+poisons$rstudent2 <- rstudent(poisonlm2)
+poisons$fitted1 <- fitted(poisonlm1)
+poisons$fitted2 <- fitted(poisonlm2)
+g1 <- ggplot(data = poisons) +
+  geom_point(aes(x = fitted1, y = resid1), position = position_jitter(width = 0.05)) +
+  labs(y = "résidus ordinaires", x = "valeurs ajustées")
+dp <- list(df=poisonlm1$df.residual-1)
+di <- "t"
+de <- FALSE
+library(qqplotr)
+g2 <- ggplot(data = poisons, aes(sample = rstudent1)) +
+ stat_qq_band(distribution = di, dparams = dp,
+              detrend = de, identity = TRUE,
+              bandType = "boot", B = 9999) +
+ stat_qq_line(distribution = di, dparams = dp,
+              detrend = de, identity = TRUE) +
+ stat_qq_point(distribution = di, dparams = dp,
+               detrend = de, identity = TRUE) +
+ labs(x = "quantiles théoriques",
+      y = "quantiles empiriques")
+g4 <- ggplot(data = poisons, aes(sample = rstudent2)) +
+ stat_qq_band(distribution = di, dparams = dp,
+              detrend = de, identity = TRUE,
+              bandType = "boot", B = 9999) +
+ stat_qq_line(distribution = di, dparams = dp,
+              detrend = de, identity = TRUE) +
+ stat_qq_point(distribution = di, dparams = dp,
+               detrend = de, identity = TRUE) +
+ labs(x = "quantiles théoriques",
+      y = "quantiles empiriques")
+g3 <- ggplot(data = poisons) +
+  geom_point(aes(x = fitted2, y = resid2), position = position_jitter(width = 0.05)) +
+  labs(y = "résidus ordinaires", x = "valeurs ajustées")
+boxcox_gg <- function(fitted.lm, showlambda = TRUE, lambdaSF = 3, grid = seq(-2,2, by = 0.1), scale.factor = 0.5) {
+      boxcox_object <- MASS::boxcox(fitted.lm, lambda = grid, plotit = FALSE)
+    x <- unlist(boxcox_object$x)
+    y <- unlist(boxcox_object$y)
+    xstart <- x[-1]
+    ystart <- y[-1]
+    xend <- x[-(length(x))]
+    yend <- y[-(length(y))]
+    boxcox_unlist <- data.frame(xstart, ystart, xend, yend)
+    best_lambda <- x[which.max(y)]
+    rounded_lambda <- round(best_lambda, lambdaSF)
+    min_y <- min(y)
+    accept_inds <- which(y > max(y) - 1/2 * qchisq(0.95, 1))
+    accept_range <- x[accept_inds]
+    conf_lo <- round(min(accept_range), lambdaSF)
+    conf_hi <- round(max(accept_range), lambdaSF)
+    plot <- ggplot(data = boxcox_unlist) + geom_segment(aes(x = xstart,
+        y = ystart, xend = xend, yend = yend), linewidth = scale.factor) +
+        labs(x = expression(lambda), y = "log vraisemblance profilée") +
+        geom_vline(xintercept = best_lambda, linetype = "dotted",
+            linewidth = scale.factor/2) + geom_vline(xintercept = conf_lo,
+        linetype = "dotted", linewidth = scale.factor/2) + geom_vline(xintercept = conf_hi,
+        linetype = "dotted", linewidth = scale.factor/2) + geom_hline(yintercept = y[min(accept_inds)],
+        linetype = "dotted", linewidth = scale.factor/2)
+    if (showlambda) {
+        return(plot +
+                 annotate("text", x = best_lambda, label = as.character(rounded_lambda), y = min_y) +
+              annotate("text", x = conf_lo, label = as.character(conf_lo), y = min_y) +
+              annotate("text", x = conf_hi,
+            label = as.character(conf_hi), y = min_y))
+    } else {
+        return(plot)
+    }
+}
+g5 <- boxcox_gg(poisonlm1, grid = seq(-1.5,0.1, by = 0.01))
+g1 + g2
+```
+
+## Vraisemblance profilée
+
+```{r}
+#| fig-align: 'center'
+g5
+```
+
+L'intervalle de confiance à 95\% basé sur la log-vraisemblance profilée pour le paramètre du modèle Box--Cox contient $\lambda=-1$. 
+
+## Modèle avec transformation
+
+La réciproque de la variable réponse $Y^{-1}$ indique la vitesse d'action du poison, selon le type et le traitement. 
+
+```{r}
+#| fig-align: 'center'
+g3 + g4
+```
+
+Les diagnostics graphiques de ce modèles ne montrent aucune structure résiduelle.
+
+
+## Commentaire sur les transformations
+
+Nous ne pouvons pas comparer les modèles ajustés à $Y_i$ par rapport à $\ln Y_i$ en utilisant, par exemple, des critères d'information ou des tests, parce que les modèles ont des réponses différentes.
+
+Nous pouvons toutefois utiliser la vraisemblance de Box--Cox, qui inclut le **Jacobien** de la transformation, pour évaluer la qualité de l'ajustement et comparer le modèle avec $\lambda=0$ par rapport à $\lambda=-1$.
+
+## Diagnostics pour aberrances
+
+Les valeurs aberrantes peuvent avoir un impact important sur l'ajustement, davantage si leur levier est élevé.
+
+On trace la distance de Cook $C_i$ en fonction du levier $h_{ii}$, où 
+\begin{align*}
+C_i=\frac{r_i^2h_{ii}}{(p+1)(1-h_{ii})}.
+\end{align*}
+
+On peut aussi tester si les valeurs maximales pour les résidus Student sont plus grandes qu'attendues avec `car::outlierTest`.
+
+## Diagnostics graphiques pour les données de primes d'assurance
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-cap: "Diagnostics graphiques pour valeurs aberrantes et influentes."
+#| label: fig-cook
+library(ggfortify)
+autoplot(mod2, which = 5:6)
+```
+
+
+## Remède pour les valeurs aberrantes
+
+- Ignorez-les (pas recommandé si elles ont un impact sérieux)
+- Enlevez-les (pas recommandé, cela réduit l'erreur-type)
+- Utilisez une régression robuste, qui pondère à la baisse automatiquement les aberrances.
+
+```{r}
+#| echo: true
+rmod_ins <- MASS::rlm(data = assurance,
+  frais ~ splines::bs(age) + obesite*fumeur*imc + enfant)
+```
+
+La régression robuste est moins efficace (erreurs standard plus élevées), mais plus résistante aux valeurs aberrantes.
+
+La théorie des statistiques robustes dépasse le cadre de ce cours.
+
+## Références
+

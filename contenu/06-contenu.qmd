@@ -1,0 +1,34 @@
+---
+title: "Modèles linéaires"
+---
+
+
+### Objectifs d'apprentissage
+
+- lister les postulats de validité du modèle linéaire;
+- utiliser des diagnostics graphiques pour établir la validité des postulats.
+- interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;
+- comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence.
+
+### Contenu
+
+
+- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.7--4.8
+
+
+### En classe
+
+- [Diapositives](../diapos/MATH60604-diapos6a.html) ([pdf](../diapos/MATH60604-diapos6a.pdf) et [code](MATH60604-diapos6a.R))
+- [Exercice](../exercices/diagnostics-graphiques.qmd)
+
+
+### Diapositives
+
+
+<p class="text-center"><a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos6a.html">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class="btn btn-success btn-lg" target="_blank" href="../diapos/MATH60604-diapos6a.pdf" role="button">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>
+
+<div class="ratio ratio-16x9">
+<iframe class="slide-deck" src="../diapos/MATH60604-diapos6a.html"></iframe>
+</div>
+
+

@@ -130,5 +130,8 @@
   },
   "exercices/interactions.qmd": {
     "interactions.html": "c753c686"
+  },
+  "exercices/diagnostics-graphiques.qmd": {
+    "diagnostics-graphiques.html": "148394e1"
   }
 }

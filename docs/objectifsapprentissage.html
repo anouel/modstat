@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.6.1">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -213,6 +213,12 @@ window.Quarto = {
  <span class="menu-text">Semaine 5</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./contenu/06-contenu.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Semaine 6</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -226,8 +232,8 @@ window.Quarto = {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#modèles-linéaires" id="toc-modèles-linéaires" class="nav-link" data-scroll-target="#modèles-linéaires">Modèles linéaires</a></li>
   <li><a href="#vraisemblance" id="toc-vraisemblance" class="nav-link" data-scroll-target="#vraisemblance">Vraisemblance</a></li>
+  <li><a href="#modèles-linéaires" id="toc-modèles-linéaires" class="nav-link" data-scroll-target="#modèles-linéaires">Modèles linéaires</a></li>
   <li><a href="#modèles-linéaires-généralisés" id="toc-modèles-linéaires-généralisés" class="nav-link" data-scroll-target="#modèles-linéaires-généralisés">Modèles linéaires généralisés</a></li>
   <li><a href="#modèles-pour-données-longitudinales-et-corrélées" id="toc-modèles-pour-données-longitudinales-et-corrélées" class="nav-link" data-scroll-target="#modèles-pour-données-longitudinales-et-corrélées">Modèles pour données longitudinales et corrélées</a></li>
   <li><a href="#introduction-aux-modèles-mixtes-linéaires" id="toc-introduction-aux-modèles-mixtes-linéaires" class="nav-link" data-scroll-target="#introduction-aux-modèles-mixtes-linéaires">Introduction aux modèles mixtes linéaires</a></li>
@@ -266,26 +272,6 @@ window.Quarto = {
 <li>connaître et interpréter adéquatement une valeur-<span class="math inline">\(p\)</span> et un intervalle de confiance;</li>
 </ul>
 </section>
-<section id="modèles-linéaires" class="level2">
-<h2 class="anchored" data-anchor-id="modèles-linéaires">Modèles linéaires</h2>
-<p>À la fin du chapitre, l’étudiant(e) sera en mesure de</p>
-<ul>
-<li>interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);</li>
-<li>calculer des contrastes</li>
-<li>estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);</li>
-<li>tester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;</li>
-<li>mesurer l’adéquation du modèle à l’aide du coefficient de détermination;</li>
-<li>obtenir des prédictions du modèle linéaire par le biais d’un logiciel;</li>
-<li>comprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);</li>
-<li>interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;</li>
-<li>interpréter et de tester si des termes d’interactions sont significatifs</li>
-<li>interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;</li>
-<li>tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;</li>
-<li>comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;</li>
-<li>lister les postulats de validité du modèle linéaire;</li>
-<li>utiliser des diagnostics graphiques pour établir la validité des postulats.</li>
-</ul>
-</section>
 <section id="vraisemblance" class="level2">
 <h2 class="anchored" data-anchor-id="vraisemblance">Vraisemblance</h2>
 <p>À la fin du chapitre, l’étudiant(e) sera en mesure de:</p>
@@ -295,6 +281,26 @@ window.Quarto = {
 <li>comprendre le principe du maximum de vraisemblance;</li>
 <li>comparer des modèles emboîtés à l’aide d’un test du rapport de vraisemblance;</li>
 <li>comparer des modèles non-emboîtés à l’aide de critères d’information.</li>
+</ul>
+</section>
+<section id="modèles-linéaires" class="level2">
+<h2 class="anchored" data-anchor-id="modèles-linéaires">Modèles linéaires</h2>
+<p>À la fin du chapitre, l’étudiant(e) sera en mesure de</p>
+<ul>
+<li>interpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);</li>
+<li>estimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);</li>
+<li>tester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;</li>
+<li>obtenir des prédictions du modèle linéaire par le biais d’un logiciel;</li>
+<li>comprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);</li>
+<li>interpréter et de tester si des termes d’interactions sont significatifs</li>
+<li>spécifier les poids de contrastes linéaires</li>
+<li>interpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;</li>
+<li>tester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;</li>
+<li>mesurer l’adéquation du modèle à l’aide du coefficient de détermination;</li>
+<li>lister les postulats de validité du modèle linéaire;</li>
+<li>utiliser des diagnostics graphiques pour établir la validité des postulats.</li>
+<li>interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;</li>
+<li>comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;</li>
 </ul>
 </section>
 <section id="modèles-linéaires-généralisés" class="level2">

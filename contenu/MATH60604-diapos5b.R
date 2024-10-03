@@ -54,7 +54,7 @@ nbetas <- length(coef(modA))
 ## Calcul des effets leviers
 levier <- hatvalues(modA)
 # Quels points sont influents?
-which(proj > 2*nbetas/n)
+which(levier > 2*nbetas/n)
 ?influence.measures
 ## Distance de Cook
 distCook <- cooks.distance(modA)            

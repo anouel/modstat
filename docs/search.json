@@ -1,13 +1,478 @@
 [
   {
-    "objectID": "contenu/installation.html",
-    "href": "contenu/installation.html",
+    "objectID": "exercices/diagnostics-graphiques.html",
+    "href": "exercices/diagnostics-graphiques.html",
+    "title": "Diagnostics graphiques",
+    "section": "",
+    "text": "On considère une régression linéaire avec deux variables explicatives, âge (en années) et une variable catégorielle pour le niveau d’éducation, sans interaction entre les deux. Sur la base des diagnostics graphiques, quel postulat du modèle linéaire n’est pas respecté?\nLes diagnostics graphiques pour la régression linéaire sont: résidus ordinaires versus valeurs ajustées (en haut à gauche), résidus ordinaires versus variable explicative âge (en haut à droite), valeur absolue des résidus studentisés externes contre valeurs ajustées (milieu, à gauche), résidus studentisés externes contre niveau d’éducation (milieu, à droite), diagramme quantile-quantile des résidus studentisés externes (en bas à gauche) et distance de Cook en fonction de l’indice (en bas à droite).\nAttention: certaines violations des postulats ont un effet domino.\nPostulats du modèle",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/diagnostics-graphiques.html#exemple-1",
+    "href": "exercices/diagnostics-graphiques.html#exemple-1",
+    "title": "Diagnostics graphiques",
+    "section": "Exemple 1",
+    "text": "Exemple 1",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/diagnostics-graphiques.html#exemple-2",
+    "href": "exercices/diagnostics-graphiques.html#exemple-2",
+    "title": "Diagnostics graphiques",
+    "section": "Exemple 2",
+    "text": "Exemple 2",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/diagnostics-graphiques.html#exemple-3",
+    "href": "exercices/diagnostics-graphiques.html#exemple-3",
+    "title": "Diagnostics graphiques",
+    "section": "Exemple 3",
+    "text": "Exemple 3",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/diagnostics-graphiques.html#exemple-4",
+    "href": "exercices/diagnostics-graphiques.html#exemple-4",
+    "title": "Diagnostics graphiques",
+    "section": "Exemple 4",
+    "text": "Exemple 4",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/diagnostics-graphiques.html#exemple-5",
+    "href": "exercices/diagnostics-graphiques.html#exemple-5",
+    "title": "Diagnostics graphiques",
+    "section": "Exemple 5",
+    "text": "Exemple 5",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/diagnostics-graphiques.html#exemple-6",
+    "href": "exercices/diagnostics-graphiques.html#exemple-6",
+    "title": "Diagnostics graphiques",
+    "section": "Exemple 6",
+    "text": "Exemple 6",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Diagnostics graphiques"
+    ]
+  },
+  {
+    "objectID": "exercices/01-solution.html",
+    "href": "exercices/01-solution.html",
+    "title": "Tests d’hypothèse",
+    "section": "",
+    "text": "Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\nSolution 1. \n\nLa courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-\\(t\\) pour un échantillon. Le plus on s’éloigne de la vraie valeur \\(\\mu\\), le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle \\(\\mathscr{H}_0\\). Elle tend vers 0.05 près de \\(\\mu\\) et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.\nLa puissance augmente si \\(n\\) croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de \\(\\mu\\) où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.\nPuisque le test est fait à niveau \\(\\alpha=0.05\\), on devrait recouvrer le niveau du test quand \\(\\mathscr{H}_0\\) est vraie.\nLes données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-\\(t\\) pour un échantillon semble augmenter à mesure que l’on s’éloigne de \\(\\mu\\) et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-solution.html#exercice-1.1",
+    "href": "exercices/01-solution.html#exercice-1.1",
+    "title": "Tests d’hypothèse",
+    "section": "",
+    "text": "Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\nSolution 1. \n\nLa courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-\\(t\\) pour un échantillon. Le plus on s’éloigne de la vraie valeur \\(\\mu\\), le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle \\(\\mathscr{H}_0\\). Elle tend vers 0.05 près de \\(\\mu\\) et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.\nLa puissance augmente si \\(n\\) croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de \\(\\mu\\) où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.\nPuisque le test est fait à niveau \\(\\alpha=0.05\\), on devrait recouvrer le niveau du test quand \\(\\mathscr{H}_0\\) est vraie.\nLes données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-\\(t\\) pour un échantillon semble augmenter à mesure que l’on s’éloigne de \\(\\mu\\) et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-solution.html#exercice-1.2",
+    "href": "exercices/01-solution.html#exercice-1.2",
+    "title": "Tests d’hypothèse",
+    "section": "Exercice 1.2",
+    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).\n\n\nSolution 2. \n\nLe taux de couverture empirique est 0.947; cette valeur est près du taux de couverture théorique nominal, ce qui indique que le test est bien calibré.\n\n\n\nCode\ndata(renfe_simu, package = \"hecmodstat\")\nvraie_diff &lt;- -0.28\ncouverture &lt;- mean(with(renfe_simu, icbi &lt; vraie_diff & icbs &gt; vraie_diff))\ncouverture\n\n\n[1] 0.947\n\n\n\nFigure 2 contient deux histogrammes: la différence moyenne semble approximativement normale et centrée en \\(0.28\\), tandis que les valeurs-\\(p\\) sont réparties dans l’intervalle \\([0,1]\\) avec plus de valeurs près de zéro.\n\n\n\nCode\nlibrary(ggplot2)\nlibrary(patchwork) \ntheme_set(theme_classic())\ng1 &lt;- ggplot(data = renfe_simu, \n             mapping = aes(x = difmoy)) +\n  geom_density() +\n  geom_vline(xintercept = vraie_diff, \n             color = \"gray\",\n             linetype = \"dashed\") +\n  scale_y_continuous(limits = c(0,NA), expand = expansion()) + \n  labs(x = \"moyenne des différences\")\ng2 &lt;- ggplot(data = renfe_simu,\n             mapping = aes(x = valp)) +\n  geom_histogram(bins = 11) +\n  scale_y_continuous(limits = c(0,NA), expand = expansion())\ng1 + g2\n\n\n\n\n\n\n\n\nFigure 2: Gauche: densité de la différence moyenne de prix pour les trains à grande vitesse entre Madrid et Barcelone, versus Barcelone et Madrid. La vraie différence de moyenne est montrée par une ligne verticale. Droite: histogramme des valeurs-p.\n\n\n\n\n\n\nLa puissance est \\(0.105\\). Sous le régime alternatif (puisque \\(\\Delta=0.28\\)€), on rejette 10.5% du temps l’hypothèse nulle. Ce pourcentage est faible parce que la différence est petite et donc difficile de distinguer cette différence de la variabilité intrinsèque de la statistique à moins d’avoir une grande taille d’échantillon. La différence moyenne estimée avec l’échantillon est de \\(0.274\\).\n\n\n\nCode\nmean(renfe_simu$valp &lt; 0.05)\n\n\n[1] 0.105",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-solution.html#exercice-1.3",
+    "href": "exercices/01-solution.html#exercice-1.3",
+    "title": "Tests d’hypothèse",
+    "section": "Exercice 1.3",
+    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.\n\n\nSolution 3. Le prix des billets REXPRESS est fixe et vaut 43.25€, on a donc un échantillon aléatoire que pour l’autre classe de train!\n\nSoit \\(\\mu_{\\text{AVE-TGV}}\\) le prix moyen de l’ensemble des billets de train haute vitesse AVE-TGV.\nL’hypothèse nulle est \\(\\mathscr{H}_0: \\mu_{\\text{AVE-TGV}}=43.25\\)€ contre l’alternative \\(\\mathscr{H}_a: \\mu_{\\text{AVE-TGV}}\\neq 43.25\\)€.\nPuisqu’on veut comparer la moyenne et qu’un seul échantillon est aléatoire, on utilise un test-\\(t\\) pour un échantillon.\nLa différence moyenne estimée est \\(45.63\\)€\\(= 88.88\\)€\\(-43.25\\)€, avec un intervalle de confiance à 90% pour la différence moyenne de \\([44.14, 47.12]\\).\nLa statistique \\(t\\), qui vaut 50.519 ici, suit une loi Student-\\(t\\) avec 428 degrés de liberté; une approximation normale serait identique. La valeur-\\(p\\) associée est négligeable, on conclut que le prix des trains AVE-TGV et REXPRESS diffèrent.\n\n\n\nCode\ndata(renfe, package = \"hecmodstat\")\nlibrary(dplyr)\nrenfe |&gt; \n  group_by(type) |&gt; \n  summarize(moy = mean(prix), sd = sd(prix))\n\n\n# A tibble: 3 × 3\n  type       moy    sd\n  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;\n1 AVE       87.8  20.3\n2 AVE-TGV   88.9  18.7\n3 REXPRESS  43.2   0  \n\n\nCode\ntestt &lt;- with(renfe |&gt; dplyr::filter(type == \"AVE-TGV\"),\n     t.test(prix, mu = 43.25))\n# Intervalle de confiance pour la différence\ntestt$conf.int - 43.25\n\n\n[1] 43.85496 47.40560\nattr(,\"conf.level\")\n[1] 0.95",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Solution 1"
+    ]
+  },
+  {
+    "objectID": "contenu/index.html",
+    "href": "contenu/index.html",
     "title": "Modélisation statistique",
     "section": "",
-    "text": "Nous utiliserons le langage de programmation libre-accès R et l’environnement de développement intégré RStudio comme porte d’accès à R.\n\nInstaller R\nPour commencer, on installe la dernière version de R (la machine qui fait les calculs), actuellement 4.4.1 (Race for Your Life).\n\nAllez sur le site du Comprehensive R Archive Network (CRAN): https://cran.r-project.org/\nCliquez sur “Download R for XXX”, où XXX est Mac ou Windows:\n\n\n\n\n\n\n\n\n\n\nSi vous utilisez macOS, faites défiler le menu jusqu’au premier fichier .pkg de la liste et téléchargez-le.\n\n\n\n\n\n\n\n\n\nSi vous utilisez Windows, choisissez “base” (ou cliquez sur l’hyperlien en gras “install R for the first time”) et téléchargez le programme.\n\n\n\n\n\n\n\n\n\n\nDouble cliquez sur le fichier de téléchargement. Approuvez toutes les requêtes, comme pour n’importe quel autre programme.\n\n4a. Si vous utilisez macOS, téléchargez et installez XQuartz.\n4b. Si vous utilisez Windows, téléchargez et installez Rtools\n\n\nInstaller RStudio\nUne fois R installée, nous installerons une interface utilisateur graphique, RStudio, pour interagir avec R.\n\nNaviguez jusqu’à la section de téléchargements gratuits du site de RStudio: https://posit.co/download/rstudio-desktop/\n\nNaviguez vers le tableau et choisissez la version de RStudio Desktop adéquate.\n\n\n\n\n\n\n\n\n\n\nDouble-cliquez sur le fichier de téléchargement (potentiellement caché dans votre dossier de Téléchargements). Installez comme n’importe lequel autre logiciel.\n\nDouble-cliquez sur l’icône RStudio pour lancer l’application.\n\n\nInstaller tidyverse\nLes paquets R sont faciles à installer avec l’interface graphique. Sélectionnez le panneau “packages”, cliquez sur “Install,” tapez le nom du paquet que vous voulez installer et appuyer sur la touche Retour.\n\n\n\n\n\n\n\n\n\nLe paquet tidyverse est une collection d’une douzaine de paquets (incluant ggplot2 et dplyr) qui fonctionnent ensemble selon une syntaxe commune. L’installer (ou charger le paquet) inclura automatiquement toutes les dépendances associées\n\n\n\n\n\n\n\n\n\nNotez que RStudio génère le code R pour l’installation: install.packages(\"tidyverse\"). Vous pourriez utiliser directement cette fonction et faire copier-coller dans la console pour installer les paquets du tidyverse.\n\n\nInstaller Quarto\nQuarto est un système de publication de documents sous formats (Word, PDF, html) qui combine un bloc d’instructions définissant les paramètres du document (YAML), de même que des blocs codes (R, Python, Julia, …) et des blocs textes (Markdown, avec support pour \\(\\LaTeX\\)).\nVous pouvez installer Quarto en visitant le site du projet, en téléchargeant les fichiers d’installation\n\n\n\n\n\n\n\n\n\nUne fois l’utilitaire installé, installez le paquet R quarto via\n\ninstall.packages(\"quarto\")\n\n\n\nInstaller LaTeX via tinytex\nQuand vous créez un fichier Rmarkdown (.Rmd) ou Quarto (.qmd) pour créer un document reproductible qui inclut calculs et texte et que vous tricotez ce dernier en PDF, R utilise le programme de typographie scientifique LaTeX. L’installation la plus aisée pour ce dernier, si votre machine n’a pas déjà de suite LaTeX, est d’installer le paquet tinytex pour obtenir une version minimale qui prend moins d’espace.\nPour installer tinytex:\n\nUtilisez l’onglet Packages dans le panneau RStudio pour installer tinytex, comme n’importe quel autre paquet. Sinon, tapez install.packages(\"tinytex\") dans la console.\nExécutez tinytex::install_tinytex() dans la console.\nAttendez que le téléchargement soit complété. Vous devriez ensuite être en mesure de tricoter des documents PDF.",
+    "text": "Le contenu du cours est divisé en chapitres: des notes de cours, du code, et des exercices sont disponibles pour chaque sujet.",
     "crumbs": [
       "Contenu",
-      "Installation de R"
+      "Ressources"
+    ]
+  },
+  {
+    "objectID": "contenu/index.html#notes-de-cours",
+    "href": "contenu/index.html#notes-de-cours",
+    "title": "Modélisation statistique",
+    "section": "Notes de cours",
+    "text": "Notes de cours\n\nIntroduction\nBases de l’inférence statistique  \nInférence basée sur la vraisemblance",
+    "crumbs": [
+      "Contenu",
+      "Ressources"
+    ]
+  },
+  {
+    "objectID": "contenu/index.html#données",
+    "href": "contenu/index.html#données",
+    "title": "Modélisation statistique",
+    "section": "Données",
+    "text": "Données\nVous pouvez accéder aux bases de données dans R en installant le paquet R hecmodstat.\nVous pouvez installer le paquet à partir de Github à l’aide des commandes suivantes en roulant les commandes suivantes dans R (décommentez la première ligne pour installer le paquet remotes):\n\nlib &lt;- c(\"afex\", \"broom\", \"car\", \"dplyr\", \"emmeans\",\n         \"ggplot2\", \"Hmisc\", \"lme4\", \"lmerTest\", \n         \"marginaleffects\", \"MASS\", \"multcomp\", \"nlme\", \n         \"patchwork\", \"poorman\", \"remotes\", \"survminer\",\n         \"survival\", \"tidyr\", \"tinytable\")\nfor(pack in lib){\n  if(!require(pack, quietly = TRUE)){\n    install.packages(pack)\n  }\n}\nremotes::install_github(\"lbelzile/hecmodstat\")\nremotes::install_github(\"lbelzile/hecedsm\")\n\nNote: plusieurs bases de données ne sont pas documentées.",
+    "crumbs": [
+      "Contenu",
+      "Ressources"
+    ]
+  },
+  {
+    "objectID": "exercices/modeles-lineaires-contrastes.html",
+    "href": "exercices/modeles-lineaires-contrastes.html",
+    "title": "Tests d’hypothèses pour modèles linéaires",
+    "section": "",
+    "text": "La base de données HBSC24_S4 du paquet hecedsm contient des données pour l’étude 4 de Huang et al. (2024).\n\n\nCode\nremotes::install_github(\"lbelzile/hecedsm\")\ndata(HBSC24_S4, package = \"hecedsm\")\n?hecedsm::HBSC24_S4\n# Ajuster un modèle pour l'authenticité selon l'état d'esprit\nmod &lt;- lm(authenticity ~ cond, data = HBSC24_S4)\n(emm &lt;- emmeans::emmeans(mod, specs = \"cond\"))\nemm |&gt;\n  contrasts(\n    method = list(C1 = c(),  # spécifier contraste 1 ici\n                  C2 = c())) # spécifier contraste 2 ici\n\n\nLes résultats suivants sont extraits de la section D Authenticity and Social Learning Behavior des annexes en ligne.\n\nWe ran a regression with contrast coding to examine the role of mindset on perceived authenticity. Participants who reflected on their goal attainment as a transformation perceived their current state to be more authentic \\((M = 5.98\\), \\(\\text{SD} =  .82)\\) compared to participants who wrote about distancing from old state or arriving at a new state \\((M_{\\text{old}} = 5.62\\), \\(\\text{SD} =  1.18\\); \\(M_{\\text{new}} = 5.74\\), \\(\\text{SD} =  1.07\\), contrast 1: \\(b = .10\\), \\(\\text{SE} =  .04\\), \\(t(259) = 2.21\\), \\(p = .028).\\)\n\n\nFurther, there was no difference between participants who reflected on their goal attainment as distancing from an old state compared to arriving at a new state (contrast 2: \\(b = .06\\), \\(\\text{SE} =  .08\\), \\(t(259) = .79\\), \\(p = .433).\\)\n\n\nWe next examined how perceived authenticity affects information sharing. As expected, authenticity positively predicted information sharing (\\(b = 6.84\\), \\(\\text{SE} =  1.87\\), \\(t(260) = 3.66\\), \\(p &lt;.001\\)).\n\n\nEn utilisant la description du texte, écrivez les poids pour les deux contrastes énumérés ci-dessus si l’ordre des conditions est change, new et old (ordre alphabétique).\nEffectuez un test global de l’authenticité en fonction de la condition expérimentale (cond).\nCalculez les contrastes et rapportez les valeurs des tests. Vérifiez les moyennes marginales et les statistiques des tests: pouvez-vous reproduire les résultats des auteurs?\nEffectuez une régression linéaire simple de words sur authenticity et vérifiez si la corrélation est significative.\n\n\n\n\n\nRéférences\n\nHuang, S., Brucks, M. S., Song, J., & Campbell, M. C. (2024). Beyond achievement: Transformation mindset enhances authenticity after goal success. Motivation Science, 10(3), 171–181. https://doi.org/10.1037/mot0000340",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Tests d'hypothèse, modèles linéaires"
+    ]
+  },
+  {
+    "objectID": "exercices/01-exercice.html",
+    "href": "exercices/01-exercice.html",
+    "title": "Exercice 1",
+    "section": "",
+    "text": "Les données renfe contiennent des informations sur 10K billets de trains vendus par la compagnie Renfe, l’entreprise ferroviaire publique espagnole. Les données incluent les variables:",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-exercice.html#exercice-1.1",
+    "href": "exercices/01-exercice.html#exercice-1.1",
+    "title": "Exercice 1",
+    "section": "Exercice 1.1",
+    "text": "Exercice 1.1\nOn considère le temps de parcours pour les trains à grande vitesse (AVE} etAVE-TGV}). La vraie moyenne théorique de la « population » est de \\(\\mu=2.845\\) heures; ces quantités ont été déterminées sur la base des données complète contenant plus de 2.3 millions d’entrées et sont donc considérées comme connues, contrairement à la plupart des applications pratiques.\nUne étude de simulation a été conduite pour déterminer le comportement de tests pour un échantillon. L’algorithme suivant a été répété 10K fois:\n\nsélection d’un sous-échantillon de taille \\(n=100\\).\ncalcul de la statistique du test-\\(t\\) pour un échantillon correspondant à \\(\\mathscr{H}_0: \\mu=\\mu_0\\) (versus \\(\\mathscr{H}_0: \\mu \\neq \\mu_0\\)) pour différentes valeurs de \\(\\mu_0\\).\nsauvegarde des valeurs-\\(p\\) associées au test.\n\nLa Figure 1 montre le pourcentage de valeur-\\(p\\) parmi les 10K qui sont plus petites que 0.05, c’est-à-dire la proportion de rejet (à un niveau de \\(5\\)%) de \\(\\mathscr{H}_0:\\mu=\\mu_0\\) contre l’alternative bilatérale à \\(\\mu_0 \\in \\{2.83, 2.835, 2.84, \\ldots, 2.995, 3\\}\\). Utilisez la courbe de puissance (Figure 1) afin de répondre aux questions suivantes:\n\nExpliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\n\nCode\nlibrary(ggplot2)\n## Exercice 1.1\ndata(renfe, package = \"hecmodstat\")\n# Sélectionner un sous-échantillon de trains à haute vitesse\ndonnees &lt;- renfe |&gt; dplyr::filter(type %in% c(\"AVE\",\"AVE-TGV\"))\n# Transformer la durée en heures\nduree &lt;- donnees$duree / 60\n# Compute summary statistics of the duration\nmoy_d &lt;- mean(duree);\n\n# Étude de puissance\nB &lt;- 1e4L # nombre de simulations (10 000)\nn &lt;- nrow(donnees)\nm &lt;- 100L # taille du sous-échantillon\nalpha &lt;- 0.05 # niveau du test\n# Créer une grille de durées pour le temps moyen sous l'alternative\ntemps &lt;- sort(c(moy_d, seq(from = 2.83, to = 3, by = 0.005)))\n# Créer un contenant pour stocker les résultats\npuissance &lt;- matrix(nrow = B, ncol = length(temps))\n# Fixer le germe aléatoire pour s'assurer de résultats reproductibles\nset.seed(2020)\nfor(i in seq_len(B)){ # pour chaque réplication\n  for(j in seq_along(temps)){ # pour chaque alternative\n    # Test-t pour un échantillon\n    puissance[i,j] &lt;-  t.test(x = duree[sample.int(n = n, size = m)],\n                          mu = temps[j])$p.value\n    # Stocker les valeurs-p\n  }\n}\n# Créer un graphique de la puissance\nggplot(data = data.frame(temps = temps,\n                         puissance = colMeans(puissance &lt; alpha)),\n       mapping = aes(x = temps, y = puissance)) +\n  geom_point() +\n  geom_vline(xintercept = 2.845, linetype = \"dashed\") +\n  geom_hline(yintercept = alpha) +\n  labs(x = \"durée moyenne de trajet (en heures)\",\n       y = \"\",\n       subtitle = \"Puissance du test-t en fonction de la durée moyenne de trajet postulée.\") +\n  scale_y_continuous(limits = c(0,1),\n                     expand = expansion(add = 0.01)) +\n  theme_classic()\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-exercice.html#exercice-1.2",
+    "href": "exercices/01-exercice.html#exercice-1.2",
+    "title": "Exercice 1",
+    "section": "Exercice 1.2",
+    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
+    ]
+  },
+  {
+    "objectID": "exercices/01-exercice.html#exercice-1.3",
+    "href": "exercices/01-exercice.html#exercice-1.3",
+    "title": "Exercice 1",
+    "section": "Exercice 1.3",
+    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.",
+    "crumbs": [
+      "Exercices",
+      "Inférence statistique",
+      "Exercice 1"
+    ]
+  },
+  {
+    "objectID": "exercices/index.html",
+    "href": "exercices/index.html",
+    "title": "Exercices",
+    "section": "",
+    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie",
+    "crumbs": [
+      "Exercices",
+      "Exercises"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html",
+    "href": "objectifsapprentissage.html",
+    "title": "Objectifs d’apprentissage",
+    "section": "",
+    "text": "À la fin du chapitre, l’étudiant(e) sera en mesure de\n\nformuler l’hypothèse nulle et l’hypothèse alternative rattachée à une mise en situation;\nfaire un test d’hypothèse pour une statistique arbitraire;\nconnaître et interpréter adéquatement une valeur-\\(p\\) et un intervalle de confiance;",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#introduction",
+    "href": "objectifsapprentissage.html#introduction",
+    "title": "Objectifs d’apprentissage",
+    "section": "",
+    "text": "À la fin du chapitre, l’étudiant(e) sera en mesure de\n\nformuler l’hypothèse nulle et l’hypothèse alternative rattachée à une mise en situation;\nfaire un test d’hypothèse pour une statistique arbitraire;\nconnaître et interpréter adéquatement une valeur-\\(p\\) et un intervalle de confiance;",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#vraisemblance",
+    "href": "objectifsapprentissage.html#vraisemblance",
+    "title": "Objectifs d’apprentissage",
+    "section": "Vraisemblance",
+    "text": "Vraisemblance\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de:\n\nexpliquer la notion de vraisemblance;\ndériver le maximum de vraisemblance dans un problème simple;\ncomprendre le principe du maximum de vraisemblance;\ncomparer des modèles emboîtés à l’aide d’un test du rapport de vraisemblance;\ncomparer des modèles non-emboîtés à l’aide de critères d’information.",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#modèles-linéaires",
+    "href": "objectifsapprentissage.html#modèles-linéaires",
+    "title": "Objectifs d’apprentissage",
+    "section": "Modèles linéaires",
+    "text": "Modèles linéaires\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);\ntester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;\nobtenir des prédictions du modèle linéaire par le biais d’un logiciel;\ncomprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);\ninterpréter et de tester si des termes d’interactions sont significatifs\nspécifier les poids de contrastes linéaires\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\nmesurer l’adéquation du modèle à l’aide du coefficient de détermination;\nlister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#modèles-linéaires-généralisés",
+    "href": "objectifsapprentissage.html#modèles-linéaires-généralisés",
+    "title": "Objectifs d’apprentissage",
+    "section": "Modèles linéaires généralisés",
+    "text": "Modèles linéaires généralisés\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\nd’écrire l’équation de liaison des modèles linéaires généralisés de loi de Poisson, binomiale et normal, reliant les variables explicatives et les paramètres;\nde comprendre la relation entre moyenne et variance d’un modèle linéaire généralisé;\nd’interpréter les paramètres de régression Poisson et binomiale négative;\nde tester la surdispersion dans un modèle de Poisson à l’aide du test de rapport de vraisemblance;\nde juger de la qualité de l’adéquation du modèle de Poisson à l’aide de la déviance;\nde tester l’indépendance dans un tableau de contingence à l’aide d’un modèle Poisson saturé;\nd’interpréter les sorties logiciel pour les modèles linéaires généralisés\nd’interpréter les paramètres d’une régression logistique en terme de rapports de cote;\nde modéliser le taux de succès de données aggrégées à l’aide d’un modèle de Poisson avec décalage ou avec un modèle binomial logistique.",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#modèles-pour-données-longitudinales-et-corrélées",
+    "href": "objectifsapprentissage.html#modèles-pour-données-longitudinales-et-corrélées",
+    "title": "Objectifs d’apprentissage",
+    "section": "Modèles pour données longitudinales et corrélées",
+    "text": "Modèles pour données longitudinales et corrélées\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ncomprendre d’où provient la corrélation dans les données groupées et longitudinales.\ncalculer correctement des statistiques descriptives sur les données répétées.\najuster des modèles avec un modèle d’équicorrélation ou autorégressif de premier ordre (et leurs variantes hétérogènes), de même qu’une corrélation non structurée.\nécrire la corrélation et covariance des principaux modèles selon la paramétrisation utilisée en classe.\nfaire des tests de rapport de vraisemblance pour comparer des modèles de covariance (modèle emboîtés) ou des critères d’information.\ncomprendre l’hétéroscédasticité de groupe et savoir la modéliser.",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#introduction-aux-modèles-mixtes-linéaires",
+    "href": "objectifsapprentissage.html#introduction-aux-modèles-mixtes-linéaires",
+    "title": "Objectifs d’apprentissage",
+    "section": "Introduction aux modèles mixtes linéaires",
+    "text": "Introduction aux modèles mixtes linéaires\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ncomprendre le concept d’effet-groupe;\nsavoir dans quel contexte utiliser un effet-groupe aléatoire plutôt qu’un effet-groupe fixe (variables explicatives fixes par groupe, nombre de groupe large avec peu d’observations dans chacun);\nécrire l’équation du modèle mixte avec ordonnée à l’origine ou pente aléatoire(s);\nécrire les hypothèses du modèle (linéarité, normalité des erreurs et des effets aléatoires, indépendance entre effets aléatoires et erreurs, indépendence inter-groupe et structure intra-groupe, etc.);\nécrire la matrice de covariance d’observations d’un modèle mixte avec effet aléatoire à partir des estimés des paramètres (soit la somme des matrices de covariance des effets-groupe aléatoire et des erreurs);\nchoisir des structures de covariance adéquates pour données corrélées ou longitudinales;\ndistinguer entre prédictions pour la population (moyenne marginale) et prédictions pour des individus avec effets aléatoires (moyenne conditionnelle);\nobtenir des prédictions du modèle mixte à partir de logiciels.",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "objectifsapprentissage.html#introduction-à-lanalyse-de-survie",
+    "href": "objectifsapprentissage.html#introduction-à-lanalyse-de-survie",
+    "title": "Objectifs d’apprentissage",
+    "section": "Introduction à l’analyse de survie",
+    "text": "Introduction à l’analyse de survie\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\nexpliquer les concepts clés de l’analyse de survie (troncation, censure) dans vos propres mots et fournir des exem- ples de ces derniers;\nreconnaître des scénarios dans lesquels les données sont censurées à droite de façon aléatoire;\ninterpréter une courbe de survie de Kaplan–Meier;\ncomparer et tester l’égalité de courbes de survie à l’aide d’un test du score;\ninterpréter les paramètres du modèle de risques proportionnels de Cox et vérifier leur significativité.",
+    "crumbs": [
+      "Contenu",
+      "Objectifs d'apprentissage"
+    ]
+  },
+  {
+    "objectID": "contenu/04-contenu.html",
+    "href": "contenu/04-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\neffectuer des tests d’hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),\nobtenir des prédictions à partir d’un modèle linéaire à l’aide d’un logiciel,\ncomprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,\ntester l’égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice et code pour la solution\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 4"
+    ]
+  },
+  {
+    "objectID": "contenu/01-contenu.html",
+    "href": "contenu/01-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
+    "crumbs": [
+      "Contenu",
+      "Semaine 1"
+    ]
+  },
+  {
+    "objectID": "contenu/03-contenu.html",
+    "href": "contenu/03-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.3\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 3"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html",
+    "href": "contenu/06-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nlister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.7–4.8\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/02-contenu.html",
+    "href": "contenu/02-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nApprendre la terminologie associée à l’inférence basée sur la vraisemblance.\nDériver des expressions explicites pour l’estimateur du maximum de vraisemblance de modèles simples.\nEn utilisant l’optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.\nUtiliser les propriétés de la vraisemblance pour les grands échantillons afin d’obtenir des intervalles de confiance et les propriétés des tests statistiques.\nUtiliser les critères d’information pour la sélection des modèles.\n\n\n\nContenu\n\nNotes de cours: chapitre 3 (Inférence basée sur la vraisemblance)\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nDémo R\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 3\n\n\n\n\n\n\nS\nContenu\nDiapos\nVidéos\nR\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n\n\n\n\n\nLectures additionnelles\n\nUnderstanding Maximum Likelihood par Kristoffer Magnusson\nDavison (2003), chapitre 4\n\n\n\n\n\n\nRéférences\n\nDavison, A. C. (2003). Statistical models. Cambridge University Press.",
+    "crumbs": [
+      "Contenu",
+      "Semaine 2"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Modélisation statistique\n        \n        \n            L’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\n        \n        \n            MATH 60604, automne 2024HEC Montréal\n        \n    \n\n\n\n\n\n\nInstructeur 1\n\n   Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\nInstructeur 2\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\nDétails\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
+  },
+  {
+    "objectID": "exercices/interactions.html",
+    "href": "exercices/interactions.html",
+    "title": "Interactions",
+    "section": "",
+    "text": "La base de données assurance du paquet hecmodstat contient les informations de primes d’assurance médicales de 1338 américains datant de 2003. La Figure 1 montre deux graphiques tirés d’une analyse exploratoire, indiquant une potentielle interaction entre le statut de fumeur et l’indice de masse corporelle.\nFigure 1: Nuages de points de frais médicaux en fonction de l’IMC et de l’âge, colorée par statut de fumeur.",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Interactions"
+    ]
+  },
+  {
+    "objectID": "exercices/interactions.html#footnotes",
+    "href": "exercices/interactions.html#footnotes",
+    "title": "Interactions",
+    "section": "Notes de bas de page",
+    "text": "Notes de bas de page\n\n\nSelon l’organisation mondiale de la santé, une personne avec un \\(\\texttt{imc} \\ge 25\\) est en surpoids, et celles avec un \\(\\texttt{imc} \\ge 30\\) sont obèses. Cependant, l’IMC est un indicateur de santé décrié: voir cet article du New York Times.↩︎",
+    "crumbs": [
+      "Exercices",
+      "Activités en classe",
+      "Interactions"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html",
+    "href": "contenu/05-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "interpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#objectifs-dapprentissage",
+    "href": "contenu/05-contenu.html#objectifs-dapprentissage",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "interpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#en-classe",
+    "href": "contenu/05-contenu.html#en-classe",
+    "title": "Modélisation statistique",
+    "section": "En classe",
+    "text": "En classe\n\nDiapositives (pdf et code)\nExercice",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#après-le-cours",
+    "href": "contenu/05-contenu.html#après-le-cours",
+    "title": "Modélisation statistique",
+    "section": "Après le cours",
+    "text": "Après le cours\n\nVisionnement des vidéos de la Section 5\nDiapositives supplémentaires sur la géométrie (pdf, et code)\nDiapositives supplémentaires sur le \\(R^2\\) (pdf)\nExercices 2.1, 2.3 et 2.8",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#diapositives",
+    "href": "contenu/05-contenu.html#diapositives",
+    "title": "Modélisation statistique",
+    "section": "Diapositives",
+    "text": "Diapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
+    ]
+  },
+  {
+    "objectID": "contenu/05-contenu.html#sec-video",
+    "href": "contenu/05-contenu.html#sec-video",
+    "title": "Modélisation statistique",
+    "section": "Vidéos",
+    "text": "Vidéos\nLes vidéos pour cette section sont disponibles sur cette chaîne YouTube.\n\nGéométrie des moindres carrés\nCoefficient de détermination\n\nVous pouvez aussi visionner les différents vidéos de la chaîne (en passant d’une vidéo à l’autre) ici:",
+    "crumbs": [
+      "Contenu",
+      "Semaine 5"
     ]
   },
   {
@@ -81,384 +546,14 @@
     "text": "Notes de bas de page\n\n\nAdapté de politiques similaires par Melissa Cheney, Guy Grossman et Rohan Alexander↩︎"
   },
   {
-    "objectID": "contenu/05-contenu.html",
-    "href": "contenu/05-contenu.html",
+    "objectID": "contenu/installation.html",
+    "href": "contenu/installation.html",
     "title": "Modélisation statistique",
     "section": "",
-    "text": "interpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5",
+    "text": "Nous utiliserons le langage de programmation libre-accès R et l’environnement de développement intégré RStudio comme porte d’accès à R.\n\nInstaller R\nPour commencer, on installe la dernière version de R (la machine qui fait les calculs), actuellement 4.4.1 (Race for Your Life).\n\nAllez sur le site du Comprehensive R Archive Network (CRAN): https://cran.r-project.org/\nCliquez sur “Download R for XXX”, où XXX est Mac ou Windows:\n\n\n\n\n\n\n\n\n\n\nSi vous utilisez macOS, faites défiler le menu jusqu’au premier fichier .pkg de la liste et téléchargez-le.\n\n\n\n\n\n\n\n\n\nSi vous utilisez Windows, choisissez “base” (ou cliquez sur l’hyperlien en gras “install R for the first time”) et téléchargez le programme.\n\n\n\n\n\n\n\n\n\n\nDouble cliquez sur le fichier de téléchargement. Approuvez toutes les requêtes, comme pour n’importe quel autre programme.\n\n4a. Si vous utilisez macOS, téléchargez et installez XQuartz.\n4b. Si vous utilisez Windows, téléchargez et installez Rtools\n\n\nInstaller RStudio\nUne fois R installée, nous installerons une interface utilisateur graphique, RStudio, pour interagir avec R.\n\nNaviguez jusqu’à la section de téléchargements gratuits du site de RStudio: https://posit.co/download/rstudio-desktop/\n\nNaviguez vers le tableau et choisissez la version de RStudio Desktop adéquate.\n\n\n\n\n\n\n\n\n\n\nDouble-cliquez sur le fichier de téléchargement (potentiellement caché dans votre dossier de Téléchargements). Installez comme n’importe lequel autre logiciel.\n\nDouble-cliquez sur l’icône RStudio pour lancer l’application.\n\n\nInstaller tidyverse\nLes paquets R sont faciles à installer avec l’interface graphique. Sélectionnez le panneau “packages”, cliquez sur “Install,” tapez le nom du paquet que vous voulez installer et appuyer sur la touche Retour.\n\n\n\n\n\n\n\n\n\nLe paquet tidyverse est une collection d’une douzaine de paquets (incluant ggplot2 et dplyr) qui fonctionnent ensemble selon une syntaxe commune. L’installer (ou charger le paquet) inclura automatiquement toutes les dépendances associées\n\n\n\n\n\n\n\n\n\nNotez que RStudio génère le code R pour l’installation: install.packages(\"tidyverse\"). Vous pourriez utiliser directement cette fonction et faire copier-coller dans la console pour installer les paquets du tidyverse.\n\n\nInstaller Quarto\nQuarto est un système de publication de documents sous formats (Word, PDF, html) qui combine un bloc d’instructions définissant les paramètres du document (YAML), de même que des blocs codes (R, Python, Julia, …) et des blocs textes (Markdown, avec support pour \\(\\LaTeX\\)).\nVous pouvez installer Quarto en visitant le site du projet, en téléchargeant les fichiers d’installation\n\n\n\n\n\n\n\n\n\nUne fois l’utilitaire installé, installez le paquet R quarto via\n\ninstall.packages(\"quarto\")\n\n\n\nInstaller LaTeX via tinytex\nQuand vous créez un fichier Rmarkdown (.Rmd) ou Quarto (.qmd) pour créer un document reproductible qui inclut calculs et texte et que vous tricotez ce dernier en PDF, R utilise le programme de typographie scientifique LaTeX. L’installation la plus aisée pour ce dernier, si votre machine n’a pas déjà de suite LaTeX, est d’installer le paquet tinytex pour obtenir une version minimale qui prend moins d’espace.\nPour installer tinytex:\n\nUtilisez l’onglet Packages dans le panneau RStudio pour installer tinytex, comme n’importe quel autre paquet. Sinon, tapez install.packages(\"tinytex\") dans la console.\nExécutez tinytex::install_tinytex() dans la console.\nAttendez que le téléchargement soit complété. Vous devriez ensuite être en mesure de tricoter des documents PDF.",
     "crumbs": [
       "Contenu",
-      "Semaine 5"
-    ]
-  },
-  {
-    "objectID": "contenu/05-contenu.html#objectifs-dapprentissage",
-    "href": "contenu/05-contenu.html#objectifs-dapprentissage",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "interpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\n\n\n\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5",
-    "crumbs": [
-      "Contenu",
-      "Semaine 5"
-    ]
-  },
-  {
-    "objectID": "contenu/05-contenu.html#en-classe",
-    "href": "contenu/05-contenu.html#en-classe",
-    "title": "Modélisation statistique",
-    "section": "En classe",
-    "text": "En classe\n\nDiapositives (pdf et code)\nExercice",
-    "crumbs": [
-      "Contenu",
-      "Semaine 5"
-    ]
-  },
-  {
-    "objectID": "contenu/05-contenu.html#après-le-cours",
-    "href": "contenu/05-contenu.html#après-le-cours",
-    "title": "Modélisation statistique",
-    "section": "Après le cours",
-    "text": "Après le cours\n\nVisionnement des vidéos de la Section 5\nDiapositives supplémentaires sur la géométrie (pdf, et code)\nDiapositives supplémentaires sur le \\(R^2\\) (pdf)\nExercices 2.1, 2.3 et 2.8",
-    "crumbs": [
-      "Contenu",
-      "Semaine 5"
-    ]
-  },
-  {
-    "objectID": "contenu/05-contenu.html#diapositives",
-    "href": "contenu/05-contenu.html#diapositives",
-    "title": "Modélisation statistique",
-    "section": "Diapositives",
-    "text": "Diapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
-    "crumbs": [
-      "Contenu",
-      "Semaine 5"
-    ]
-  },
-  {
-    "objectID": "contenu/05-contenu.html#sec-video",
-    "href": "contenu/05-contenu.html#sec-video",
-    "title": "Modélisation statistique",
-    "section": "Vidéos",
-    "text": "Vidéos\nLes vidéos pour cette section sont disponibles sur cette chaîne YouTube.\n\nGéométrie des moindres carrés\nCoefficient de détermination\n\nVous pouvez aussi visionner les différents vidéos de la chaîne (en passant d’une vidéo à l’autre) ici:",
-    "crumbs": [
-      "Contenu",
-      "Semaine 5"
-    ]
-  },
-  {
-    "objectID": "exercices/interactions.html",
-    "href": "exercices/interactions.html",
-    "title": "Interactions",
-    "section": "",
-    "text": "La base de données assurance du paquet hecmodstat contient les informations de primes d’assurance médicales de 1338 américains datant de 2003. La Figure 1 montre deux graphiques tirés d’une analyse exploratoire, indiquant une potentielle interaction entre le statut de fumeur et l’indice de masse corporelle.\nFigure 1: Nuages de points de frais médicaux en fonction de l’IMC et de l’âge, colorée par statut de fumeur.",
-    "crumbs": [
-      "Exercices",
-      "Activités en classe",
-      "Interactions"
-    ]
-  },
-  {
-    "objectID": "exercices/interactions.html#footnotes",
-    "href": "exercices/interactions.html#footnotes",
-    "title": "Interactions",
-    "section": "Notes de bas de page",
-    "text": "Notes de bas de page\n\n\nSelon l’organisation mondiale de la santé, une personne avec un \\(\\texttt{imc} \\ge 25\\) est en surpoids, et celles avec un \\(\\texttt{imc} \\ge 30\\) sont obèses. Cependant, l’IMC est un indicateur de santé décrié: voir cet article du New York Times.↩︎",
-    "crumbs": [
-      "Exercices",
-      "Activités en classe",
-      "Interactions"
-    ]
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Modélisation statistique\n        \n        \n            L’objectif de ce cours est de couvrir les bases de l’inférence statistique ainsi que les outils de modélisation dans un contexte de régression. Les principes théoriques y sont abordés rigoureusement.\n        \n        \n            MATH 60604, automne 2024HEC Montréal\n        \n    \n\n\n\n\n\n\nInstructeur 1\n\n   Dr. Léo Belzile\n   CSC 4.850\n   leo.belzile@hec.ca\n\n\n\nInstructeur 2\n\n   Dr. Juliana Schulz\n   CSC 4.809\n   juliana.schulz@hec.ca\n\n\n\nDétails\n\n   automne 2024\n   jeudi\n   12h-15h\n   salle Louis-Laberge"
-  },
-  {
-    "objectID": "contenu/02-contenu.html",
-    "href": "contenu/02-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nApprendre la terminologie associée à l’inférence basée sur la vraisemblance.\nDériver des expressions explicites pour l’estimateur du maximum de vraisemblance de modèles simples.\nEn utilisant l’optimisation numérique, obtenir des estimations de paramètres et leurs erreurs-type en utilisant le maximum de vraisemblance.\nUtiliser les propriétés de la vraisemblance pour les grands échantillons afin d’obtenir des intervalles de confiance et les propriétés des tests statistiques.\nUtiliser les critères d’information pour la sélection des modèles.\n\n\n\nContenu\n\nNotes de cours: chapitre 3 (Inférence basée sur la vraisemblance)\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nDémo R\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 3\n\n\n\n\n\n\nS\nContenu\nDiapos\nVidéos\nR\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n\n\n\n\n\nLectures additionnelles\n\nUnderstanding Maximum Likelihood par Kristoffer Magnusson\nDavison (2003), chapitre 4\n\n\n\n\n\n\nRéférences\n\nDavison, A. C. (2003). Statistical models. Cambridge University Press.",
-    "crumbs": [
-      "Contenu",
-      "Semaine 2"
-    ]
-  },
-  {
-    "objectID": "contenu/04-contenu.html",
-    "href": "contenu/04-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\neffectuer des tests d’hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),\nobtenir des prédictions à partir d’un modèle linéaire à l’aide d’un logiciel,\ncomprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,\ntester l’égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice et code pour la solution\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
-    "crumbs": [
-      "Contenu",
-      "Semaine 4"
-    ]
-  },
-  {
-    "objectID": "contenu/01-contenu.html",
-    "href": "contenu/01-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
-    "crumbs": [
-      "Contenu",
-      "Semaine 1"
-    ]
-  },
-  {
-    "objectID": "contenu/03-contenu.html",
-    "href": "contenu/03-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.3\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
-    "crumbs": [
-      "Contenu",
-      "Semaine 3"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html",
-    "href": "objectifsapprentissage.html",
-    "title": "Objectifs d’apprentissage",
-    "section": "",
-    "text": "À la fin du chapitre, l’étudiant(e) sera en mesure de\n\nformuler l’hypothèse nulle et l’hypothèse alternative rattachée à une mise en situation;\nfaire un test d’hypothèse pour une statistique arbitraire;\nconnaître et interpréter adéquatement une valeur-\\(p\\) et un intervalle de confiance;",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#introduction",
-    "href": "objectifsapprentissage.html#introduction",
-    "title": "Objectifs d’apprentissage",
-    "section": "",
-    "text": "À la fin du chapitre, l’étudiant(e) sera en mesure de\n\nformuler l’hypothèse nulle et l’hypothèse alternative rattachée à une mise en situation;\nfaire un test d’hypothèse pour une statistique arbitraire;\nconnaître et interpréter adéquatement une valeur-\\(p\\) et un intervalle de confiance;",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#modèles-linéaires",
-    "href": "objectifsapprentissage.html#modèles-linéaires",
-    "title": "Objectifs d’apprentissage",
-    "section": "Modèles linéaires",
-    "text": "Modèles linéaires\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\ncalculer des contrastes\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel);\ntester si les paramètres d’un modèle sont significatifs, en plus de la significativité globale du modèle;\nmesurer l’adéquation du modèle à l’aide du coefficient de détermination;\nobtenir des prédictions du modèle linéaire par le biais d’un logiciel;\ncomprendre la distinction entre moyenne estimée et valeurs prédites (et leur incertitude respective);\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ninterpréter et de tester si des termes d’interactions sont significatifs\ninterpréter les interactions entre deux variables catégorielles ou entre une variable catégorielle et une variable continue;\ntester l’égalité de moyennes et la différence entre groupes avec un ou deux facteurs;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence;\nlister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#vraisemblance",
-    "href": "objectifsapprentissage.html#vraisemblance",
-    "title": "Objectifs d’apprentissage",
-    "section": "Vraisemblance",
-    "text": "Vraisemblance\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de:\n\nexpliquer la notion de vraisemblance;\ndériver le maximum de vraisemblance dans un problème simple;\ncomprendre le principe du maximum de vraisemblance;\ncomparer des modèles emboîtés à l’aide d’un test du rapport de vraisemblance;\ncomparer des modèles non-emboîtés à l’aide de critères d’information.",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#modèles-linéaires-généralisés",
-    "href": "objectifsapprentissage.html#modèles-linéaires-généralisés",
-    "title": "Objectifs d’apprentissage",
-    "section": "Modèles linéaires généralisés",
-    "text": "Modèles linéaires généralisés\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\nd’écrire l’équation de liaison des modèles linéaires généralisés de loi de Poisson, binomiale et normal, reliant les variables explicatives et les paramètres;\nde comprendre la relation entre moyenne et variance d’un modèle linéaire généralisé;\nd’interpréter les paramètres de régression Poisson et binomiale négative;\nde tester la surdispersion dans un modèle de Poisson à l’aide du test de rapport de vraisemblance;\nde juger de la qualité de l’adéquation du modèle de Poisson à l’aide de la déviance;\nde tester l’indépendance dans un tableau de contingence à l’aide d’un modèle Poisson saturé;\nd’interpréter les sorties logiciel pour les modèles linéaires généralisés\nd’interpréter les paramètres d’une régression logistique en terme de rapports de cote;\nde modéliser le taux de succès de données aggrégées à l’aide d’un modèle de Poisson avec décalage ou avec un modèle binomial logistique.",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#modèles-pour-données-longitudinales-et-corrélées",
-    "href": "objectifsapprentissage.html#modèles-pour-données-longitudinales-et-corrélées",
-    "title": "Objectifs d’apprentissage",
-    "section": "Modèles pour données longitudinales et corrélées",
-    "text": "Modèles pour données longitudinales et corrélées\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ncomprendre d’où provient la corrélation dans les données groupées et longitudinales.\ncalculer correctement des statistiques descriptives sur les données répétées.\najuster des modèles avec un modèle d’équicorrélation ou autorégressif de premier ordre (et leurs variantes hétérogènes), de même qu’une corrélation non structurée.\nécrire la corrélation et covariance des principaux modèles selon la paramétrisation utilisée en classe.\nfaire des tests de rapport de vraisemblance pour comparer des modèles de covariance (modèle emboîtés) ou des critères d’information.\ncomprendre l’hétéroscédasticité de groupe et savoir la modéliser.",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#introduction-aux-modèles-mixtes-linéaires",
-    "href": "objectifsapprentissage.html#introduction-aux-modèles-mixtes-linéaires",
-    "title": "Objectifs d’apprentissage",
-    "section": "Introduction aux modèles mixtes linéaires",
-    "text": "Introduction aux modèles mixtes linéaires\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\ncomprendre le concept d’effet-groupe;\nsavoir dans quel contexte utiliser un effet-groupe aléatoire plutôt qu’un effet-groupe fixe (variables explicatives fixes par groupe, nombre de groupe large avec peu d’observations dans chacun);\nécrire l’équation du modèle mixte avec ordonnée à l’origine ou pente aléatoire(s);\nécrire les hypothèses du modèle (linéarité, normalité des erreurs et des effets aléatoires, indépendance entre effets aléatoires et erreurs, indépendence inter-groupe et structure intra-groupe, etc.);\nécrire la matrice de covariance d’observations d’un modèle mixte avec effet aléatoire à partir des estimés des paramètres (soit la somme des matrices de covariance des effets-groupe aléatoire et des erreurs);\nchoisir des structures de covariance adéquates pour données corrélées ou longitudinales;\ndistinguer entre prédictions pour la population (moyenne marginale) et prédictions pour des individus avec effets aléatoires (moyenne conditionnelle);\nobtenir des prédictions du modèle mixte à partir de logiciels.",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "objectifsapprentissage.html#introduction-à-lanalyse-de-survie",
-    "href": "objectifsapprentissage.html#introduction-à-lanalyse-de-survie",
-    "title": "Objectifs d’apprentissage",
-    "section": "Introduction à l’analyse de survie",
-    "text": "Introduction à l’analyse de survie\nÀ la fin du chapitre, l’étudiant(e) sera en mesure de\n\nexpliquer les concepts clés de l’analyse de survie (troncation, censure) dans vos propres mots et fournir des exem- ples de ces derniers;\nreconnaître des scénarios dans lesquels les données sont censurées à droite de façon aléatoire;\ninterpréter une courbe de survie de Kaplan–Meier;\ncomparer et tester l’égalité de courbes de survie à l’aide d’un test du score;\ninterpréter les paramètres du modèle de risques proportionnels de Cox et vérifier leur significativité.",
-    "crumbs": [
-      "Contenu",
-      "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "exercices/index.html",
-    "href": "exercices/index.html",
-    "title": "Exercices",
-    "section": "",
-    "text": "Chapitre\nExercice\nSolution\nCode\n\n\n\n\n1\nBases de l’inférence statistique\n\n\n\n\n\n2\nRégression linéaire\n\n\n\n\n\n3\nVraisemblance\n\n\n\n\n\n4\nModèles linéaires généralisés\n\n\n\n\n\n5\nDonnées corrélées et longitudinales\n\n\n\n\n\n6\nModèles linéaires mixtes\n\n\n\n\n\n7\nAnalyse de survie",
-    "crumbs": [
-      "Exercices",
-      "Exercises"
-    ]
-  },
-  {
-    "objectID": "exercices/01-exercice.html",
-    "href": "exercices/01-exercice.html",
-    "title": "Exercice 1",
-    "section": "",
-    "text": "Les données renfe contiennent des informations sur 10K billets de trains vendus par la compagnie Renfe, l’entreprise ferroviaire publique espagnole. Les données incluent les variables:",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-exercice.html#exercice-1.1",
-    "href": "exercices/01-exercice.html#exercice-1.1",
-    "title": "Exercice 1",
-    "section": "Exercice 1.1",
-    "text": "Exercice 1.1\nOn considère le temps de parcours pour les trains à grande vitesse (AVE} etAVE-TGV}). La vraie moyenne théorique de la « population » est de \\(\\mu=2.845\\) heures; ces quantités ont été déterminées sur la base des données complète contenant plus de 2.3 millions d’entrées et sont donc considérées comme connues, contrairement à la plupart des applications pratiques.\nUne étude de simulation a été conduite pour déterminer le comportement de tests pour un échantillon. L’algorithme suivant a été répété 10K fois:\n\nsélection d’un sous-échantillon de taille \\(n=100\\).\ncalcul de la statistique du test-\\(t\\) pour un échantillon correspondant à \\(\\mathscr{H}_0: \\mu=\\mu_0\\) (versus \\(\\mathscr{H}_0: \\mu \\neq \\mu_0\\)) pour différentes valeurs de \\(\\mu_0\\).\nsauvegarde des valeurs-\\(p\\) associées au test.\n\nLa Figure 1 montre le pourcentage de valeur-\\(p\\) parmi les 10K qui sont plus petites que 0.05, c’est-à-dire la proportion de rejet (à un niveau de \\(5\\)%) de \\(\\mathscr{H}_0:\\mu=\\mu_0\\) contre l’alternative bilatérale à \\(\\mu_0 \\in \\{2.83, 2.835, 2.84, \\ldots, 2.995, 3\\}\\). Utilisez la courbe de puissance (Figure 1) afin de répondre aux questions suivantes:\n\nExpliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\n\nCode\nlibrary(ggplot2)\n## Exercice 1.1\ndata(renfe, package = \"hecmodstat\")\n# Sélectionner un sous-échantillon de trains à haute vitesse\ndonnees &lt;- renfe |&gt; dplyr::filter(type %in% c(\"AVE\",\"AVE-TGV\"))\n# Transformer la durée en heures\nduree &lt;- donnees$duree / 60\n# Compute summary statistics of the duration\nmoy_d &lt;- mean(duree);\n\n# Étude de puissance\nB &lt;- 1e4L # nombre de simulations (10 000)\nn &lt;- nrow(donnees)\nm &lt;- 100L # taille du sous-échantillon\nalpha &lt;- 0.05 # niveau du test\n# Créer une grille de durées pour le temps moyen sous l'alternative\ntemps &lt;- sort(c(moy_d, seq(from = 2.83, to = 3, by = 0.005)))\n# Créer un contenant pour stocker les résultats\npuissance &lt;- matrix(nrow = B, ncol = length(temps))\n# Fixer le germe aléatoire pour s'assurer de résultats reproductibles\nset.seed(2020)\nfor(i in seq_len(B)){ # pour chaque réplication\n  for(j in seq_along(temps)){ # pour chaque alternative\n    # Test-t pour un échantillon\n    puissance[i,j] &lt;-  t.test(x = duree[sample.int(n = n, size = m)],\n                          mu = temps[j])$p.value\n    # Stocker les valeurs-p\n  }\n}\n# Créer un graphique de la puissance\nggplot(data = data.frame(temps = temps,\n                         puissance = colMeans(puissance &lt; alpha)),\n       mapping = aes(x = temps, y = puissance)) +\n  geom_point() +\n  geom_vline(xintercept = 2.845, linetype = \"dashed\") +\n  geom_hline(yintercept = alpha) +\n  labs(x = \"durée moyenne de trajet (en heures)\",\n       y = \"\",\n       subtitle = \"Puissance du test-t en fonction de la durée moyenne de trajet postulée.\") +\n  scale_y_continuous(limits = c(0,1),\n                     expand = expansion(add = 0.01)) +\n  theme_classic()\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-exercice.html#exercice-1.2",
-    "href": "exercices/01-exercice.html#exercice-1.2",
-    "title": "Exercice 1",
-    "section": "Exercice 1.2",
-    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-exercice.html#exercice-1.3",
-    "href": "exercices/01-exercice.html#exercice-1.3",
-    "title": "Exercice 1",
-    "section": "Exercice 1.3",
-    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Exercice 1"
-    ]
-  },
-  {
-    "objectID": "exercices/modeles-lineaires-contrastes.html",
-    "href": "exercices/modeles-lineaires-contrastes.html",
-    "title": "Tests d’hypothèses pour modèles linéaires",
-    "section": "",
-    "text": "La base de données HBSC24_S4 du paquet hecedsm contient des données pour l’étude 4 de Huang et al. (2024).\n\n\nCode\nremotes::install_github(\"lbelzile/hecedsm\")\ndata(HBSC24_S4, package = \"hecedsm\")\n?hecedsm::HBSC24_S4\n# Ajuster un modèle pour l'authenticité selon l'état d'esprit\nmod &lt;- lm(authenticity ~ cond, data = HBSC24_S4)\n(emm &lt;- emmeans::emmeans(mod, specs = \"cond\"))\nemm |&gt;\n  contrasts(\n    method = list(C1 = c(),  # spécifier contraste 1 ici\n                  C2 = c())) # spécifier contraste 2 ici\n\n\nLes résultats suivants sont extraits de la section D Authenticity and Social Learning Behavior des annexes en ligne.\n\nWe ran a regression with contrast coding to examine the role of mindset on perceived authenticity. Participants who reflected on their goal attainment as a transformation perceived their current state to be more authentic \\((M = 5.98\\), \\(\\text{SD} =  .82)\\) compared to participants who wrote about distancing from old state or arriving at a new state \\((M_{\\text{old}} = 5.62\\), \\(\\text{SD} =  1.18\\); \\(M_{\\text{new}} = 5.74\\), \\(\\text{SD} =  1.07\\), contrast 1: \\(b = .10\\), \\(\\text{SE} =  .04\\), \\(t(259) = 2.21\\), \\(p = .028).\\)\n\n\nFurther, there was no difference between participants who reflected on their goal attainment as distancing from an old state compared to arriving at a new state (contrast 2: \\(b = .06\\), \\(\\text{SE} =  .08\\), \\(t(259) = .79\\), \\(p = .433).\\)\n\n\nWe next examined how perceived authenticity affects information sharing. As expected, authenticity positively predicted information sharing (\\(b = 6.84\\), \\(\\text{SE} =  1.87\\), \\(t(260) = 3.66\\), \\(p &lt;.001\\)).\n\n\nEn utilisant la description du texte, écrivez les poids pour les deux contrastes énumérés ci-dessus si l’ordre des conditions est change, new et old (ordre alphabétique).\nEffectuez un test global de l’authenticité en fonction de la condition expérimentale (cond).\nCalculez les contrastes et rapportez les valeurs des tests. Vérifiez les moyennes marginales et les statistiques des tests: pouvez-vous reproduire les résultats des auteurs?\nEffectuez une régression linéaire simple de words sur authenticity et vérifiez si la corrélation est significative.\n\n\n\n\n\nRéférences\n\nHuang, S., Brucks, M. S., Song, J., & Campbell, M. C. (2024). Beyond achievement: Transformation mindset enhances authenticity after goal success. Motivation Science, 10(3), 171–181. https://doi.org/10.1037/mot0000340",
-    "crumbs": [
-      "Exercices",
-      "Activités en classe",
-      "Tests d'hypothèse, modèles linéaires"
-    ]
-  },
-  {
-    "objectID": "contenu/index.html",
-    "href": "contenu/index.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Le contenu du cours est divisé en chapitres: des notes de cours, du code, et des exercices sont disponibles pour chaque sujet.",
-    "crumbs": [
-      "Contenu",
-      "Ressources"
-    ]
-  },
-  {
-    "objectID": "contenu/index.html#notes-de-cours",
-    "href": "contenu/index.html#notes-de-cours",
-    "title": "Modélisation statistique",
-    "section": "Notes de cours",
-    "text": "Notes de cours\n\nIntroduction\nBases de l’inférence statistique  \nInférence basée sur la vraisemblance",
-    "crumbs": [
-      "Contenu",
-      "Ressources"
-    ]
-  },
-  {
-    "objectID": "contenu/index.html#données",
-    "href": "contenu/index.html#données",
-    "title": "Modélisation statistique",
-    "section": "Données",
-    "text": "Données\nVous pouvez accéder aux bases de données dans R en installant le paquet R hecmodstat.\nVous pouvez installer le paquet à partir de Github à l’aide des commandes suivantes en roulant les commandes suivantes dans R (décommentez la première ligne pour installer le paquet remotes):\n\nlib &lt;- c(\"afex\", \"broom\", \"car\", \"dplyr\", \"emmeans\",\n         \"ggplot2\", \"Hmisc\", \"lme4\", \"lmerTest\", \n         \"marginaleffects\", \"MASS\", \"multcomp\", \"nlme\", \n         \"patchwork\", \"poorman\", \"remotes\", \"survminer\",\n         \"survival\", \"tidyr\", \"tinytable\")\nfor(pack in lib){\n  if(!require(pack, quietly = TRUE)){\n    install.packages(pack)\n  }\n}\nremotes::install_github(\"lbelzile/hecmodstat\")\nremotes::install_github(\"lbelzile/hecedsm\")\n\nNote: plusieurs bases de données ne sont pas documentées.",
-    "crumbs": [
-      "Contenu",
-      "Ressources"
-    ]
-  },
-  {
-    "objectID": "exercices/01-solution.html",
-    "href": "exercices/01-solution.html",
-    "title": "Tests d’hypothèse",
-    "section": "",
-    "text": "Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\nSolution 1. \n\nLa courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-\\(t\\) pour un échantillon. Le plus on s’éloigne de la vraie valeur \\(\\mu\\), le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle \\(\\mathscr{H}_0\\). Elle tend vers 0.05 près de \\(\\mu\\) et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.\nLa puissance augmente si \\(n\\) croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de \\(\\mu\\) où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.\nPuisque le test est fait à niveau \\(\\alpha=0.05\\), on devrait recouvrer le niveau du test quand \\(\\mathscr{H}_0\\) est vraie.\nLes données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-\\(t\\) pour un échantillon semble augmenter à mesure que l’on s’éloigne de \\(\\mu\\) et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Solution 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-solution.html#exercice-1.1",
-    "href": "exercices/01-solution.html#exercice-1.1",
-    "title": "Tests d’hypothèse",
-    "section": "",
-    "text": "Expliquez pourquoi la proportion de rejet de chaque test augmente quand on se déplace vers la droite sur le graphique.\nSupposez que l’on répète l’expérience de simulation, mais cette fois avec des sous-échantillons aléatoires de taille \\(n=1000\\). Comment est-ce que les points pour le test-\\(t\\) pour un échantillon se compareraient à ceux tracés sur le graphique? Seraient-ils en dessous, à la même hauteur ou au dessus?\nExpliquez pourquoi la valeur sur le graphique ppour un échantillon devrait être approximativement 0.05 dans un voisinage de \\(\\mu=2,845\\).\nProduisez un diagramme quantile-quantile normal et commentez sur la robustesse du test-\\(t\\) à des déviations de l’hypothèse de normalité.\n\n\nSolution 1. \n\nLa courbe donne le pourcentage de rejet de l’hypothèse nulle pour le test-\\(t\\) pour un échantillon. Le plus on s’éloigne de la vraie valeur \\(\\mu\\), le plus de preuves on accumule pour détecter un départ de l’hypothèse nulle \\(\\mathscr{H}_0\\). Elle tend vers 0.05 près de \\(\\mu\\) et augmente vers un des deux côtés à mesure que l’on s’éloigne de la vraie moyenne.\nLa puissance augmente si \\(n\\) croît, donc on s’attend que la courbe soit au dessus partout, sauf dans un voisinage de \\(\\mu\\) où elle devrait demeurer approximativement 0.05 si les hypothèses du test sont respectées.\nPuisque le test est fait à niveau \\(\\alpha=0.05\\), on devrait recouvrer le niveau du test quand \\(\\mathscr{H}_0\\) est vraie.\nLes données ne sont pas normalement distribuées et fortement discrétisées, mais la courbe de puissance du test-\\(t\\) pour un échantillon semble augmenter à mesure que l’on s’éloigne de \\(\\mu\\) et le niveau nominal du test correspond au niveau empirique, ou erreur de type I. Cela illustre la robustesse du test au départ de la normalité et c’est une conséquence du théorème central limite.\n\n\n\n\n\n\n\n\n\n\nFigure 1: Courbe de puissance pour le test-\\(t\\) pour un échantillon en fonction du temps de parcours (en heures). La ligne horizontale grise est située à 0.05, tandis que la ligne traitillée verticale marque la vraie moyenne \\(\\mu\\).",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Solution 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-solution.html#exercice-1.2",
-    "href": "exercices/01-solution.html#exercice-1.2",
-    "title": "Tests d’hypothèse",
-    "section": "Exercice 1.2",
-    "text": "Exercice 1.2\nSupposez que l’on veut comparer le tarif moyen pour les trains à grande vitesse pour les deux destinations, soit de Madrid vers Barcelone et le trajet inverse de Barcelone à Madrid. Une étude de simulation a été réalisée dans laquelle le test de Welch pour deux échantillons a été calculé sur des sous-échantillons aléatoires de taille \\(n=1000\\). Les données renfe_simu contiennent les différences moyennes (difmoy), les statistiques de test (Wstat), les valeurs-\\(p\\) (valp) et les intervalles de confiance à 95% (icbi et icbs) pour 1000 répétitions. Supposez que l’on sait que la vraie différence moyenne dans la population est de \\(-0,28\\)€. Utilisez les données simulées pour répondre aux questions suivantes et commentez brièvement sur chaque sous-question.\n\nQuel est le taux de couverture empirique des intervalles de confiance à 95% (c’est-à-dire le pourcentage des intervalles couvrant la valeur de la « vraie » différence moyenne)?\nTracez un histogramme des différences moyennes et superposez la vraie différence moyenne à l’aide d’un trait vertical.\nCalculez la puissance du test (pourcentage de rejet de l’hypothèse nulle sous l’hypothèse alternative).\n\n\nSolution 2. \n\nLe taux de couverture empirique est 0.947; cette valeur est près du taux de couverture théorique nominal, ce qui indique que le test est bien calibré.\n\n\n\nCode\ndata(renfe_simu, package = \"hecmodstat\")\nvraie_diff &lt;- -0.28\ncouverture &lt;- mean(with(renfe_simu, icbi &lt; vraie_diff & icbs &gt; vraie_diff))\ncouverture\n\n\n[1] 0.947\n\n\n\nFigure 2 contient deux histogrammes: la différence moyenne semble approximativement normale et centrée en \\(0.28\\), tandis que les valeurs-\\(p\\) sont réparties dans l’intervalle \\([0,1]\\) avec plus de valeurs près de zéro.\n\n\n\nCode\nlibrary(ggplot2)\nlibrary(patchwork) \ntheme_set(theme_classic())\ng1 &lt;- ggplot(data = renfe_simu, \n             mapping = aes(x = difmoy)) +\n  geom_density() +\n  geom_vline(xintercept = vraie_diff, \n             color = \"gray\",\n             linetype = \"dashed\") +\n  scale_y_continuous(limits = c(0,NA), expand = expansion()) + \n  labs(x = \"moyenne des différences\")\ng2 &lt;- ggplot(data = renfe_simu,\n             mapping = aes(x = valp)) +\n  geom_histogram(bins = 11) +\n  scale_y_continuous(limits = c(0,NA), expand = expansion())\ng1 + g2\n\n\n\n\n\n\n\n\nFigure 2: Gauche: densité de la différence moyenne de prix pour les trains à grande vitesse entre Madrid et Barcelone, versus Barcelone et Madrid. La vraie différence de moyenne est montrée par une ligne verticale. Droite: histogramme des valeurs-p.\n\n\n\n\n\n\nLa puissance est \\(0.105\\). Sous le régime alternatif (puisque \\(\\Delta=0.28\\)€), on rejette 10.5% du temps l’hypothèse nulle. Ce pourcentage est faible parce que la différence est petite et donc difficile de distinguer cette différence de la variabilité intrinsèque de la statistique à moins d’avoir une grande taille d’échantillon. La différence moyenne estimée avec l’échantillon est de \\(0.274\\).\n\n\n\nCode\nmean(renfe_simu$valp &lt; 0.05)\n\n\n[1] 0.105",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Solution 1"
-    ]
-  },
-  {
-    "objectID": "exercices/01-solution.html#exercice-1.3",
-    "href": "exercices/01-solution.html#exercice-1.3",
-    "title": "Tests d’hypothèse",
-    "section": "Exercice 1.3",
-    "text": "Exercice 1.3\nÀ l’aide des données renfe, testez si le prix moyen du billet pour un train de classe AVE-TGV est le même que celui d’un train régio-express (REXPRESS). Veillez à\n\nénoncer l’hypothèse nulle et l’hypothèse alternative,\njustifier avec soin le choix de votre statistique de test,\nrapporter la différence moyenne estimée et un intervalle à 90% pour cette différence,\nconclure dans le cadre de la mise en situation.\n\n\nSolution 3. Le prix des billets REXPRESS est fixe et vaut 43.25€, on a donc un échantillon aléatoire que pour l’autre classe de train!\n\nSoit \\(\\mu_{\\text{AVE-TGV}}\\) le prix moyen de l’ensemble des billets de train haute vitesse AVE-TGV.\nL’hypothèse nulle est \\(\\mathscr{H}_0: \\mu_{\\text{AVE-TGV}}=43.25\\)€ contre l’alternative \\(\\mathscr{H}_a: \\mu_{\\text{AVE-TGV}}\\neq 43.25\\)€.\nPuisqu’on veut comparer la moyenne et qu’un seul échantillon est aléatoire, on utilise un test-\\(t\\) pour un échantillon.\nLa différence moyenne estimée est \\(45.63\\)€\\(= 88.88\\)€\\(-43.25\\)€, avec un intervalle de confiance à 90% pour la différence moyenne de \\([44.14, 47.12]\\).\nLa statistique \\(t\\), qui vaut 50.519 ici, suit une loi Student-\\(t\\) avec 428 degrés de liberté; une approximation normale serait identique. La valeur-\\(p\\) associée est négligeable, on conclut que le prix des trains AVE-TGV et REXPRESS diffèrent.\n\n\n\nCode\ndata(renfe, package = \"hecmodstat\")\nlibrary(dplyr)\nrenfe |&gt; \n  group_by(type) |&gt; \n  summarize(moy = mean(prix), sd = sd(prix))\n\n\n# A tibble: 3 × 3\n  type       moy    sd\n  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt;\n1 AVE       87.8  20.3\n2 AVE-TGV   88.9  18.7\n3 REXPRESS  43.2   0  \n\n\nCode\ntestt &lt;- with(renfe |&gt; dplyr::filter(type == \"AVE-TGV\"),\n     t.test(prix, mu = 43.25))\n# Intervalle de confiance pour la différence\ntestt$conf.int - 43.25\n\n\n[1] 43.85496 47.40560\nattr(,\"conf.level\")\n[1] 0.95",
-    "crumbs": [
-      "Exercices",
-      "Inférence statistique",
-      "Solution 1"
+      "Installation de R"
     ]
   }
 ]
