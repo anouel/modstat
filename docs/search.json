@@ -236,6 +236,116 @@
     ]
   },
   {
+    "objectID": "contenu/06-contenu.html",
+    "href": "contenu/06-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "lister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence.",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html#objectifs-dapprentissage",
+    "href": "contenu/06-contenu.html#objectifs-dapprentissage",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "lister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence.",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html#contenu",
+    "href": "contenu/06-contenu.html#contenu",
+    "title": "Modélisation statistique",
+    "section": "Contenu",
+    "text": "Contenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.7–4.8",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html#en-classe",
+    "href": "contenu/06-contenu.html#en-classe",
+    "title": "Modélisation statistique",
+    "section": "En classe",
+    "text": "En classe\n\nDiapositives (pdf et code)\nExercice sur l’interprétation de graphiques de diagnostics",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html#après-le-cours",
+    "href": "contenu/06-contenu.html#après-le-cours",
+    "title": "Modélisation statistique",
+    "section": "Après le cours",
+    "text": "Après le cours\n\nVisionnement de la vidéo de la Section 6\nDiapositives supplémentaires sur la colinéarité (pdf et code)\nExercices 2.4, 2.5, 2.9, 2.10",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html#diapositives",
+    "href": "contenu/06-contenu.html#diapositives",
+    "title": "Modélisation statistique",
+    "section": "Diapositives",
+    "text": "Diapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/06-contenu.html#sec-video",
+    "href": "contenu/06-contenu.html#sec-video",
+    "title": "Modélisation statistique",
+    "section": "Vidéos",
+    "text": "Vidéos",
+    "crumbs": [
+      "Contenu",
+      "Semaine 6"
+    ]
+  },
+  {
+    "objectID": "contenu/04-contenu.html",
+    "href": "contenu/04-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\neffectuer des tests d’hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),\nobtenir des prédictions à partir d’un modèle linéaire à l’aide d’un logiciel,\ncomprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,\ntester l’égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice et code pour la solution\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 4"
+    ]
+  },
+  {
+    "objectID": "contenu/01-contenu.html",
+    "href": "contenu/01-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
+    "crumbs": [
+      "Contenu",
+      "Semaine 1"
+    ]
+  },
+  {
+    "objectID": "contenu/03-contenu.html",
+    "href": "contenu/03-contenu.html",
+    "title": "Modélisation statistique",
+    "section": "",
+    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.3\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
+    "crumbs": [
+      "Contenu",
+      "Semaine 3"
+    ]
+  },
+  {
     "objectID": "objectifsapprentissage.html",
     "href": "objectifsapprentissage.html",
     "title": "Objectifs d’apprentissage",
@@ -321,50 +431,6 @@
     "crumbs": [
       "Contenu",
       "Objectifs d'apprentissage"
-    ]
-  },
-  {
-    "objectID": "contenu/04-contenu.html",
-    "href": "contenu/04-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\neffectuer des tests d’hypothèses pour les paramètres du modèle linéaire (contrastes, tests de significativité globale, coefficients),\nobtenir des prédictions à partir d’un modèle linéaire à l’aide d’un logiciel,\ncomprendre la distinction entre les valeurs moyennes estimées et les valeurs prédites,\ntester l’égalité des moyennes dans plusieurs (sous-groupes) et également les différences de moyennes entre les groupes.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.4–4.5\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice et code pour la solution\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
-    "crumbs": [
-      "Contenu",
-      "Semaine 4"
-    ]
-  },
-  {
-    "objectID": "contenu/01-contenu.html",
-    "href": "contenu/01-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nComprendre le rôle de l’incertitude dans la prise de décision.\nComprendre l’importance du rapport signal/bruit en tant que preuve.\nConnaître les ingrédients de base des tests d’hypothèse et être capable de formuler et d’identifier correctement ces composants dans un article scientifique\nInterpréter correctement les valeurs-\\(p\\) et les intervalles de confiance pour un paramètre.\n\n\n\nContenu\n\n\n\n\n\n\nAvertissement\n\n\n\nIdéalement, je vous encourage à lire les notes de cours avant de venir en classe. Cela vous permettra de venir avec des questions en tête et de demander des éclaircissements.\n\n\n\nNotes de cours: chapitres 1 (Introduction) et 2 (Inférence statistique)\nInstallation de R\n\n\n\nEn classe\n\nPlan de cours (pdf)\nDiapositives (pdf et code)\nActivité: rapporter les conclusions de tests\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF\n\n\n\n\n\n\n\nAprès le cours\n\nSérie d’exercices 1\n\n\n\nLectures additionnelles\n\nTests de permutation",
-    "crumbs": [
-      "Contenu",
-      "Semaine 1"
-    ]
-  },
-  {
-    "objectID": "contenu/03-contenu.html",
-    "href": "contenu/03-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nréaliser une analyse exploratoire et formuler des questions en lien avec une base de données;\ninterpréter correctement les paramètres du modèle linéaire (variables binaires, catégorielles, continues);\nestimer par moindre carrés un modèle linéaire (à l’aide d’un logiciel).\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.1–4.3\n\n\n\nEn classe\n\nDiapositives (pdf et code)\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
-    "crumbs": [
-      "Contenu",
-      "Semaine 3"
-    ]
-  },
-  {
-    "objectID": "contenu/06-contenu.html",
-    "href": "contenu/06-contenu.html",
-    "title": "Modélisation statistique",
-    "section": "",
-    "text": "Objectifs d’apprentissage\n\nlister les postulats de validité du modèle linéaire;\nutiliser des diagnostics graphiques pour établir la validité des postulats.\ninterpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\ncomprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence.\n\n\n\nContenu\n\nNotes de cours: chapitre 4 (Régression linéaire), Sections 4.7–4.8\n\n\n\nEn classe\n\nDiapositives (pdf et code)\nExercice\n\n\n\nDiapositives\n\n  Ouvrir les diapos dans une nouvelle fenêtre   Télécharger un PDF",
-    "crumbs": [
-      "Contenu",
-      "Semaine 6"
     ]
   },
   {

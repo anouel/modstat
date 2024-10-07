@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos6a_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos6a_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos6a_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.1">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -483,8 +483,8 @@ Figure&nbsp;2: Diagramme des résidus en fonction des variables explicatives (à
 <h2>Exemples de diagnostics pour les salaires</h2>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">data</span>(college, <span class="at">package =</span> <span class="st">"hecmodstat"</span>)</span>
-<span id="cb1-2"><a href=""></a>modlin.college1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(salaire <span class="sc">~</span> echelon <span class="sc">+</span> domaine <span class="sc">+</span> sexe <span class="sc">+</span> annees <span class="sc">+</span> service, <span class="at">data =</span> college)</span>
-<span id="cb1-3"><a href=""></a>car<span class="sc">::</span><span class="fu">residualPlots</span>(modlin.college1, <span class="at">test =</span> <span class="cn">FALSE</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href=""></a>modlin1_college <span class="ot">&lt;-</span> <span class="fu">lm</span>(salaire <span class="sc">~</span> echelon <span class="sc">+</span> domaine <span class="sc">+</span> sexe <span class="sc">+</span> annees <span class="sc">+</span> service, <span class="at">data =</span> college)</span>
+<span id="cb1-3"><a href=""></a>car<span class="sc">::</span><span class="fu">residualPlots</span>(modlin1_college, <span class="at">test =</span> <span class="cn">FALSE</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="MATH60604-diapos6a_files/figure-revealjs/unnamed-chunk-4-1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
@@ -532,7 +532,7 @@ Figure&nbsp;3: Diagrammes des résidus studentisés externes en fonction des val
 <h2>Tests pour hétéroscédasticité avec données de collège</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Résidus studentisés externes</span></span>
-<span id="cb2-2"><a href=""></a>r <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(modlin.college1)</span>
+<span id="cb2-2"><a href=""></a>r <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(modlin1_college)</span>
 <span id="cb2-3"><a href=""></a><span class="co"># Test F de Levene</span></span>
 <span id="cb2-4"><a href=""></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(r <span class="sc">~</span> echelon, <span class="at">center =</span> <span class="st">"mean"</span>, <span class="at">data =</span> college)</span>
 <span id="cb2-5"><a href=""></a><span class="do">## Levene's Test for Homogeneity of Variance (center = "mean")</span></span>
@@ -542,7 +542,7 @@ Figure&nbsp;3: Diagrammes des résidus studentisés externes en fonction des val
 <span id="cb2-9"><a href=""></a><span class="do">## ---</span></span>
 <span id="cb2-10"><a href=""></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb2-11"><a href=""></a><span class="co"># Test du score avec Breusch-Pagan</span></span>
-<span id="cb2-12"><a href=""></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(modlin.college1, <span class="at">var.formula =</span>  <span class="sc">~</span> echelon)</span>
+<span id="cb2-12"><a href=""></a>car<span class="sc">::</span><span class="fu">ncvTest</span>(modlin1_college, <span class="at">var.formula =</span>  <span class="sc">~</span> echelon)</span>
 <span id="cb2-13"><a href=""></a><span class="do">## Non-constant Variance Score Test </span></span>
 <span id="cb2-14"><a href=""></a><span class="do">## Variance formula: ~ echelon </span></span>
 <span id="cb2-15"><a href=""></a><span class="do">## Chisquare = 70, Df = 2, p = 6e-16</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -588,25 +588,25 @@ Figure&nbsp;4: Histogramme de la loi nulle des valeurs-<span class="math inline"
 <h2>Remède 2 - utiliser une matrice sandwich pour les erreurs</h2>
 <p>Les économistes utilisent fréquemment des estimateurs <strong>sandwich</strong> <span class="citation" data-cites="White:1980">(<a href="#/références" role="doc-biblioref" onclick="">White 1980</a>)</span>, en remplaçant l’estimateur usuel de la matrice de covariance des <span class="math inline">\(\widehat{\boldsymbol{\beta}}\)</span>, d’ordinaire <span class="math inline">\(S^2(\mathbf{X}^\top\mathbf{X})^{-1}\)</span>, par un estimateur sandwich de la forme</p>
 <p><span class="math display">\[\widehat{\mathsf{Va}}_{\mathsf{HCE}}(\boldsymbol{\widehat{\beta}}) = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top\boldsymbol{\Omega}\mathbf{X}(\mathbf{X}^\top\mathbf{X})^{-1}\]</span> avec <span class="math inline">\(\boldsymbol{\Omega}\)</span> une matrice diagonale.</p>
-<p>Les choix populaires pour des matrices convergente en cas d’hétéroscédasticité matrices <span class="citation" data-cites="McKinnon.White:1985">(<a href="#/références" role="doc-biblioref" onclick="">MacKinnon et White 1985</a>)</span>, utilisent <span class="math inline">\(\mathrm{diag}(\boldsymbol{\Omega})_i = e_i^2/(1-h_{ii})^2\)</span>, dans le cas de la matrice HC<span class="math inline">\({}_3\)</span>.</p>
+<p>Les choix populaires pour des matrices convergente en cas d’hétéroscédasticité matrices <span class="citation" data-cites="McKinnon.White:1985">(<a href="#/références" role="doc-biblioref" onclick="">MacKinnon et White 1985</a>)</span>, utilisent <span class="math inline">\(\mathrm{diag}(\boldsymbol{\Omega})_i = e_i^2/(1-h_{ii})^2\)</span>, dans le cas de la matrice <span class="math inline">\(\mathrm{HC}_3\)</span>.</p>
 </section>
 <section id="exemple-de-matrice-de-variance-sandwich" class="slide level2">
 <h2>Exemple de matrice de variance sandwich</h2>
 <p>Remplacer <span class="math inline">\(\mathsf{Va}(\widehat{\boldsymbol{\beta}})\)</span> par <span class="math inline">\(\widehat{\mathsf{Va}}_{\mathsf{HCE}}(\boldsymbol{\widehat{\beta}})\)</span> dans le formule des tests de Wald.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># Matrice de covariance sandwich</span></span>
-<span id="cb4-2"><a href=""></a>vcov_HCE <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">hccm</span>(modlin.college1)</span>
+<span id="cb4-2"><a href=""></a>vcov_HCE <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">hccm</span>(modlin1_college)</span>
 <span id="cb4-3"><a href=""></a><span class="co"># Statistiques de Wald</span></span>
-<span id="cb4-4"><a href=""></a>w <span class="ot">&lt;-</span> <span class="fu">coef</span>(modlin.college1) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(vcov_HCE))</span>
+<span id="cb4-4"><a href=""></a>w <span class="ot">&lt;-</span> <span class="fu">coef</span>(modlin1_college) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(vcov_HCE))</span>
 <span id="cb4-5"><a href=""></a><span class="co"># Rapport des variances avec/sans correction</span></span>
-<span id="cb4-6"><a href=""></a><span class="fu">diag</span>(vcov_HCE) <span class="sc">/</span> <span class="fu">diag</span>(<span class="fu">vcov</span>(modlin.college1))</span>
+<span id="cb4-6"><a href=""></a><span class="fu">diag</span>(vcov_HCE) <span class="sc">/</span> <span class="fu">diag</span>(<span class="fu">vcov</span>(modlin1_college))</span>
 <span id="cb4-7"><a href=""></a><span class="do">##      (Intercept)   echelonaggrege echelontitulaire domainetheorique </span></span>
 <span id="cb4-8"><a href=""></a><span class="do">##             0.40             0.29             0.62             0.99 </span></span>
 <span id="cb4-9"><a href=""></a><span class="do">##        sexehomme           annees          service </span></span>
 <span id="cb4-10"><a href=""></a><span class="do">##             0.41             1.76             2.19</span></span>
 <span id="cb4-11"><a href=""></a><span class="co"># Calcul des valeurs-p</span></span>
 <span id="cb4-12"><a href=""></a>valp <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="fu">abs</span>(w), </span>
-<span id="cb4-13"><a href=""></a>             <span class="at">df =</span> modlin.college1<span class="sc">$</span>df.residual,</span>
+<span id="cb4-13"><a href=""></a>             <span class="at">df =</span> modlin1_college<span class="sc">$</span>df.residual,</span>
 <span id="cb4-14"><a href=""></a>             <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -622,7 +622,7 @@ Figure&nbsp;4: Histogramme de la loi nulle des valeurs-<span class="math inline"
 <h2>Remède 3 - transformations</h2>
 <p>Une transformation logarithmique de la variable réponse, <span class="math inline">\(\ln Y\)</span>, donne un modèle <strong>additif</strong> pour autant que <span class="math inline">\(Y &gt; 0\)</span>.</p>
 <p>Écrivons le modèle log-linéaire <span class="math display">\[\begin{align*}
-\ln Y = \beta_0+ \beta_0 +\beta_1 X_1 +\cdots + \beta_pX_p + \varepsilon;
+\ln Y = \beta_0+ \beta_1 X_1 +\cdots + \beta_pX_p + \varepsilon;
 \end{align*}\]</span> à l’échelle originale de la variable réponse, cela représente <span class="math display">\[\begin{align*}
 Y &amp;= \exp\left(\beta_0 +\beta_1 X_1 +\cdots + \beta_pX_p\right)\cdot \exp(\varepsilon),
 \end{align*}\]</span> et donc <span class="math display">\[\begin{align*}
@@ -660,8 +660,8 @@ Y= X_1^{\beta_1}\exp(\beta_0 + \beta_2X_2 + \cdots + \beta_pX_p + \varepsilon)
 \frac{\partial X_1}{X_1}\beta_1 = \frac{\partial Y}{Y};
 \end{align*}\]</span> une mesure <strong>d’élasticité partielle</strong>: le coefficient <span class="math inline">\(\beta_1\)</span> est un pourcentage de changement de <span class="math inline">\(Y\)</span> pour chaque pourcentage d’augmentation de <span class="math inline">\(X_1\)</span>, <em>ceteris paribus</em>.</p>
 </section>
-<section id="postulat-dindépendance" class="slide level2">
-<h2>Postulat d’indépendance</h2>
+<section id="postulat-3---indépendance" class="slide level2">
+<h2>Postulat 3 - indépendance</h2>
 <p>Découle du plan de collecte, nécessite du contexte pour la validation.</p>
 <p>Parmi les cas où les données sont dépendantes, les plus fréquents sont</p>
 <ul>
@@ -701,8 +701,8 @@ r(h) = \frac{\gamma(h)}{\gamma(0)}, \qquad \gamma(h) = \frac{1}{n}\sum_{i=1}^{n-
 <img data-src="MATH60604-diapos6a_files/figure-revealjs/fig-correlogram-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;6: Corrélogramme d’observations indépendantes (à gauche) et des résidus ordinaires du modèle log-linéaire ajusté aux données sur le traffic aérien (à droite). Alors que le modèle moyen de ce dernier est apparemment correctement spécifié, il existe une dépendance résiduelle entre les observations mensuelles et annuelles (décalage de <span class="math inline">\(h=12\)</span> mois). Les lignes traitillées en bleu indiquent un intervalle de confiance ponctuels approximatifs à 95 % pour un bruit blanc (observations non corrélées).
 </p></section>
-<section id="postulat-de-normalité" class="slide level2">
-<h2>Postulat de normalité</h2>
+<section id="postulat-4---normalité" class="slide level2">
+<h2>Postulat 4 - normalité</h2>
 <p>Sans nul doute le postulat le moins important.</p>
 <p>L’estimateur des moindres carrés ordinaires est le <strong>meilleur estimateur linéaire sans biais</strong> (BLUE) si les données sont indépendantes et de variance constante, peu importe leur loi sous-jacente.</p>
 <p>L’estimateur est sans biais et convergent même si la variance est mal spécifié, mais il n’est alors plus optimal.</p>
@@ -710,10 +710,11 @@ Figure&nbsp;6: Corrélogramme d’observations indépendantes (à gauche) et des
 <ul>
 <li>attention aux interactions entre variables catégorielles (moyennes de petits sous-groupes).</li>
 </ul>
+<p>Les intervalles pour la moyenne prédite ont fiables, ce n’est pas nécessairement le cas pour les intervalles de prédiction.</p>
 </section>
 <section id="diagramme-quantile-quantile" class="slide level2">
 <h2>Diagramme quantile-quantile</h2>
-<p>Créer un diagramme quantile-quantile Student pour les résidus studentisés externes, sachant que <span class="math inline">\(R_i \sim \mathsf{Student}(n-p-2)\)</span> si <span class="math inline">\(E_i \sim \mathsf{normale}(0, \sigma^2)\)</span>.</p>
+<p>Créer un diagramme quantile-quantile Student pour les résidus studentisés externes, sachant que <span class="math inline">\(R_i \sim \mathsf{Student}(n-p-2)\)</span> si <span class="math inline">\(\varepsilon_i \sim \mathsf{normale}(0, \sigma^2)\)</span>.</p>
 
 <img data-src="MATH60604-diapos6a_files/figure-revealjs/fig-qqplotresid-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
 Figure&nbsp;7: Histogramme et densité par lissage de noyau (gauche) et diagramme quantile-quantile Student avec intervalles de confiances ponctuels à 95% obtenus par autoamorçage paramétrique (droite).
@@ -727,13 +728,13 @@ Figure&nbsp;8: Diagrammes quantiles-quantiles de données discrète (coin supér
 <section id="remèdes-pour-la-normalité" class="slide level2">
 <h2>Remèdes pour la normalité</h2>
 <ul>
-<li>Si les données proviennent de différentes familles (décomptes Poisson, données binaires ou proportions binomiales, etc.), utilisez des <strong>modèles linéaires généralisés</strong>..</li>
+<li>Si les données proviennent de différentes familles (décomptes Poisson, données binaires ou proportions binomiales, etc.), utilisez des <strong>modèles linéaires généralisés</strong>.</li>
 <li>transformations de type Box–Cox</li>
 </ul>
 </section>
 <section id="transformation-boxcox" class="slide level2">
 <h2>Transformation Box–Cox</h2>
-<p>Avec des données strictement positives, on peut utiliser une transformation de Box–Cox, <span class="math display">\[\begin{align*}
+<p>Avec des données strictement positives, on peut utiliser une transformation de Box–Cox <span class="citation" data-cites="Box.Cox:1964">(<a href="#/références" role="doc-biblioref" onclick="">Box et Cox 1964</a>)</span>, <span class="math display">\[\begin{align*}
 y(\lambda)= \begin{cases}
 (y^{\lambda}-1)/\lambda, &amp; \lambda \neq 0\\
 \ln(y), &amp; \lambda=0.

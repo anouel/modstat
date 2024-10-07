@@ -1,0 +1,15 @@
+{
+  "hash": "760cccda40e00ca6d3c19ade29e4f0ec",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Modèles linéaires\"\n---\n\n\n\n\n### Objectifs d'apprentissage\n\n- lister les postulats de validité du modèle linéaire;\n- utiliser des diagnostics graphiques pour établir la validité des postulats.\n- interpréter les coefficients d’un modèle log-linéaire à l’échelle de la réponse;\n- comprendre et diagnostiquer la collinéarité et comprendre ses impacts sur l’inférence.\n\n### Contenu\n\n\n- Notes de cours: chapitre [4 (Régression linéaire)](https://lbelzile.github.io/math60604/regression-lineaire.html), Sections 4.7--4.8\n\n\n### En classe\n\n- [Diapositives](../diapos/MATH60604-diapos6a.html) ([pdf](../diapos/MATH60604-diapos6a.pdf) et [code](MATH60604-diapos6a.R))\n- [Exercice sur l'interprétation de graphiques de diagnostics](../exercices/diagnostics-graphiques.qmd)\n\n## Après le cours\n\n- Visionnement des vidéos de la @sec-video\n- [Diapositives](../diapos/MATH60604-diapos6b.html) supplémentaires sur la colinéarité  ([pdf](../diapos/MATH60604-diapos6b.pdf) et [code](MATH60604-diapos6b.R)))\n- Exercices 2.4, 2.5, 2.9, 2.10\n\n\n### Diapositives\n\n\n<p class=\"text-center\"><a class=\"btn btn-success btn-lg\" target=\"_blank\" href=\"../diapos/MATH60604-diapos6a.html\">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class=\"btn btn-success btn-lg\" target=\"_blank\" href=\"../diapos/MATH60604-diapos6a.pdf\" role=\"button\">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>\n\n<div class=\"ratio ratio-16x9\">\n<iframe class=\"slide-deck\" src=\"../diapos/MATH60604-diapos6a.html\"></iframe>\n</div>\n\n\n<p class=\"text-center\"><a class=\"btn btn-success btn-lg\" target=\"_blank\" href=\"../diapos/MATH60604-diapos6b.html\">{{< fa arrow-up-right-from-square >}} &ensp;Ouvrir les diapos dans une nouvelle fenêtre</a> <a class=\"btn btn-success btn-lg\" target=\"_blank\" href=\"../diapos/MATH60604-diapos6b.pdf\" role=\"button\">{{< fa file-pdf >}} &ensp;Télécharger un PDF</a></p>\n\n<div class=\"ratio ratio-16x9\">\n<iframe class=\"slide-deck\" src=\"../diapos/MATH60604-diapos6b.html\"></iframe>\n</div>\n\n\n## Vidéos {#sec-video}\n\n\n\n\n\nLes vidéos pour cette section sont disponibles [sur cette chaîne YouTube](https://www.youtube.com/playlist?list=PLUB8VZzxA8IsIiin9XbR2-ws1tlwz_yEf).\n\n- [Colinéarité](https://www.youtube.com/watch?v=eFW72C8icBc&list=PLUB8VZzxA8IsIiin9XbR2-ws1tlwz_yEf)\n\nVous pouvez aussi visionner les différents vidéos de la chaîne (en passant d'une vidéo à l'autre) ici:\n\n<div class=\"ratio ratio-16x9\">\n<iframe src=\"https://www.youtube.com/embed/playlist?list=PLUB8VZzxA8IsIiin9XbR2-ws1tlwz_yEf\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\n</div>\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

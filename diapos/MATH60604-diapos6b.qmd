@@ -1,0 +1,318 @@
+---
+title: "Modélisation statistique"
+author: "Léo Belzile, HEC Montréal"
+subtitle: "06. Modèles linéaires (colinéarité)"
+date: today
+date-format: YYYY
+eval: true
+lang: fr
+cache: false
+echo: false
+fig-align: 'center'
+out-width: '100%'
+standalone: true
+bibliography: MATH60604A.bib
+format:
+  revealjs:
+    slide-number: true
+    preview-links: auto
+    code-block-height: 750px
+    theme: [simple, hecmontreal.scss]
+    title-slide-attributes:
+      data-background-color: "#002855"
+    logo: "fig/logo_hec_montreal_bleu_web.png"
+    width: 1600
+    height: 900
+---
+
+
+```{r}
+#| eval: true
+#| include: false
+#| cache: false
+hecblue <- c("#002855")
+Sys.setenv(LANG = "fr")
+fcols <- c(gris = "#888b8d",
+           bleu = "#0072ce",
+           aqua = "#00aec7",
+           vert = "#26d07c",
+           rouge = "#ff585d",
+           rose = "#eb6fbd",
+           jaune = "#f3d03e")
+pcols <- c(gris = "#d9d9d6",
+           bleu = "#92c1e9",
+           agua = "#88dbdf",
+           vert = "#8fe2b0",
+           rouge = "#ffb1bb",
+           rose = "#eab8e4",
+           jaune = "#f2f0a1")
+library(ggplot2)
+library(knitr)
+theme_set(theme_classic())
+library(patchwork)
+knitr::opts_chunk$set(fig.retina = 3, collapse = TRUE)
+options(scipen=1, digits=3, width = 75)
+# options(knitr.kable.NA = '')
+# library(kableExtra)
+library(car)
+```
+
+
+## Colinéarité
+
+- La colinéarité (ou multicolinéarité) sert à décrire le cas de figure où une variable explicative est fortement corrélée avec une combinaison linéaire des autres covariables.
+- Une conséquence nuisible de la colinéarité est la *perte de précision* dans l'estimation des paramètres, et donc l'augmentation des erreurs-type des paramètres. 
+
+
+## Bixi et colinéarité
+
+On s'intéresse au nombre de locations quotidiennes de Bixi entre 2014 et 2019 en fonction de la température de l'aéroport voisin de Dorval, enregistrée à 16h. 
+ 
+```{r}
+data(bixicol, package = "hecmodstat")
+knitr::kable(head(bixicol, n = 5L), booktabs = TRUE, digits = c(2,2,2,1))
+```
+
+## Invariance linéaire
+
+Soit le log du nombre quotidien de locations de Bixi en fonction de la température en degrés Celcius et Farenheit (et la température en ${}^{\circ}$F arrondie au degré près). Si on ajuste le modèle linéaire 
+\begin{align*}
+ \texttt{lognutilisateur} = \beta_0 + \beta_{\texttt{c}} \texttt{celcius} + \beta_{\texttt{f}} \texttt{farenheit} + \varepsilon.
+\end{align*}
+
+- L'interprétation de $\beta_{\texttt{c}}$ est "le facteur d'augmentation du nombre de locations quotidiennes quand la température croît de $1{}^{\circ}$C, tout en gardant la température en Farenheit constante"
+- Or, les deux unités de températures sont liées par la relation linéaire
+$$1.8 \texttt{celcius} + 32 = \texttt{farenheit}.$$
+
+## Le noeud du problème
+
+Supposons que le vrai effet  (fictif) de la température sur le log du nombre de locations de vélo est
+\begin{align*}
+\mathsf{E}(\texttt{lognutilisateur} \mid \cdot) = \alpha_0+ \alpha_1 \texttt{celcius}.
+\end{align*}
+
+Les coefficients du modèle qui n'inclut que la température Farenheit sont donc
+\begin{align*}
+\mathsf{E}(\texttt{lognutilisateur} \mid \cdot)= \gamma_0 + \gamma_1\texttt{farenheit},
+\end{align*}
+avec $\alpha_0 = \gamma_0 + 32\gamma_1$ et $1.8\gamma_1 = \alpha_1$.
+ 
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 2
+data(bixicol, package = "hecmodstat")
+modlin1_bixicol <- lm(lognutilisateur ~ celcius, data = bixicol)
+modlin2_bixicol  <- lm(lognutilisateur ~ farenheit, data = bixicol)
+tab1_bixicol_coef <- summary(modlin1_bixicol)$coefficients[,1:2]
+tab2_bixicol_coef <- summary(modlin2_bixicol)$coefficients[,1:2]
+rownames(tab1_bixicol_coef) <- c("cst","Celcius")
+rownames(tab2_bixicol_coef) <- c("cst","Farenheit")
+knitr::kable(tab1_bixicol_coef, 
+             booktabs = TRUE,
+             col.names = c("coef.", "erreur-type"),
+             digits = 3)
+knitr::kable(tab2_bixicol_coef, 
+             booktabs = TRUE,
+             col.names = c("coef.", "erreur-type"),
+             digits = 3)
+```
+
+
+## Colinéarité exacte
+
+Les paramètres du modèle postulé avec les deux variables, 
+ \begin{align*}
+ \texttt{lognutilisateur} = \beta_0 + \beta_{\texttt{c}} \texttt{celcius} + \beta_{\texttt{f}} \texttt{farenheit} + \varepsilon,
+\end{align*}
+ne sont pas **identifiables**: n'importe laquelle combinaison linéaire des deux solutions donne le même modèle ajusté.
+
+
+C'est la même raison pour laquelle on n'inclut que $K-1$ variables indicatrices pour un facteur à $K$ niveaux si le modèle inclut l'ordonnée à l'origine.
+
+
+## Solutions multiples 
+
+```{r}
+#| eval: true
+#| echo: true
+# Colinéarité exacte détectée
+modlin3_bixicol  <- lm(lognutilisateur ~ celcius + farenheit, data = bixicol)
+summary(modlin3_bixicol) 
+```
+
+## Estimation avec quasi-colinéarité parfaite
+
+```{r}
+#| eval: true
+#| echo: true
+modlin4_bixicol  <- lm(lognutilisateur ~ celcius + rfarenheit, data = bixicol)
+summary(modlin4_bixicol)
+```
+ 
+## Effets de la colinéarité
+
+Règle générale, la colinéarité a les impacts suivants:
+
+- Les estimés des coefficients changent drastiquement quand de nouvelles observations sont ajoutées au modèle, ou quand on ajoute/enlève des variables explicatives.
+- Les erreurs-type des coefficients de la régression linéaire sont très élevées, parce que les coefficients ne peuvent pas être estimés précisément.
+- Les paramètres individuels ne sont pas statistiquement significatifs, mais le test $F$ pour l'effet global du modèle indiquera que certaines variables sont utiles.
+
+
+## Comment détecter la multicolinéarité
+
+Si les variables sont exactement colinéaires, **R** éliminera celles qui sont superflues
+
+- Les variables qui ne sont pas *exactement* colinéaires (par ex., en raison d'arrondis) ne seront pas détectées par le logiciel, ce qui peut poser problème.
+
+Sinon, on peut examiner les corrélations entre variables, ou mieux encore les **facteurs d'inflation de la variance**.
+
+
+## Facteurs d'inflation de la variance
+
+Pour une variable explicative donnée  $X_j$, définir
+\begin{align*}
+\mathsf{FIV}(j)=\frac{1}{1-R^2(j)}
+\end{align*}
+où $R^2(j)$ est le coefficient de détermination $R^2$ du modèle obtenu en régressant ${X}_j$ sur les autres variables explicatives.
+
+$R^2(j)$ donne la proportion de la variabilité de $X_j$ expliquée par les autres variables.
+
+## Quand est-ce que la colinéarité est problématique?
+
+Il n'y a pas de consensus mais, règle générale, 
+
+
+- $\mathsf{FIV}(j) > 4$ sous-tend que $R^2(j) >0.75$
+- $\mathsf{FIV}(j) > 5$  sous-tend que $R^2(j) >0.8$
+- $\mathsf{FIV}(j) > 10$  sous-tend que $R^2(j) >0.9$
+
+```{r}
+#| eval: true
+#| echo: true
+car::vif(modlin4_bixicol)
+```
+
+
+
+ 
+## Colinéarité pour données Bixi
+ 
+- La valeur de la statistique $F$ pour le test de significativité globale (omise de la sortie) du modèle linéaire simple avec température Celcius est $`r round(summary(modlin1_bixicol)$fstatistic[1],0)`$ avec une valeur-$p$ de moins de $10^{-4}$; cela suggère que la température est un excellent prédicteur ($`r round(100*(exp(summary(modlin1_bixicol)$coefficients[2,1])-1),1)`$\% d'augmentation du nombre d'utilisateurs pour chaque augmentation de $1^{\circ}$C).
+- En revanche, dès qu'on inclut Celcius et Farenheit (arrondi au degré près), les coefficients individuels ne sont plus statistiquement significatifs à niveau $5\%$. 
+- Qui plus est, le signe du coefficient de $\texttt{rfarenheit}$ est différent de celui du modèle avec $\texttt{farenheit}$!
+- Remarquez que les erreurs-type de Celcius sont $`r summary(modlin4_bixicol)$coefficients[2,2]/summary(modlin1_bixicol)$coefficients[2,2]`$ fois plus grandes dans le modèle avec les deux variables.
+- Les facteurs d'inflation de la variance  de $\texttt{celcius}$ et $\texttt{rfarenheit}$ sont de $`r round(as.numeric(car::vif(modlin4_bixicol)[1]), 0)`$, ce qui permet de diagnostiquer le problème. 
+
+## Diagramme de régression partielle
+
+Ce graphique montre la relation entre $Y$ et $X_j$ une fois que l'on a pris en compte les autres variables explicatives.
+
+**Construction**
+
+- Retirer la (ou les) colonne(s) de $\mathbf{X}$ correspondant à la variable explicative $X_j$; dénotons la matrice du modèle résultante $\mathbf{X}_{-j}$.
+- Ajuster une régression linéaire de $\boldsymbol{Y}$ en fonction de $\mathbf{X}_{-j}$,
+- Ajuster une régression linéaire de $\boldsymbol{X}_j$ en fonction de $\mathbf{X}_{-j}$,
+- Trace un nuage de point des résidus, avec la pente de régression $\beta_j$.
+
+
+
+## Diagramme de régression partielle pour données Bixi
+ 
+```{r}
+#| eval: true
+#| echo: true
+#| out-width: '100%'
+#| fig-align: 'center'
+#| fig-width: 10
+#| fig-height: 8
+#| fig-cap: "Diagramme de régression partiel pour les données Bixi. Puisque les données sont colinéaires, il n'y a pas de relation résiduelle si l'on prend en compte l'une ou l'autre des températures."
+#| label: fig-avplot-bixi
+car::avPlots(modlin4_bixicol, id = FALSE)
+```
+
+## Exemple de diagramme de régression partielle
+
+```{r}
+#| eval: true
+#| echo: true
+#| out-width: '100%'
+#| fig-align: 'center'
+#| fig-width: 10
+#| fig-height: 8
+#| fig-cap: "Diagramme de régression partielle pour le nombre d'années de service et le nombre d'années depuis le doctorat."
+#| label: fig-addedvariableplots
+data(college, package = "hecmodstat")
+modlin1_college <- lm(
+  salaire ~ echelon + domaine + sexe + service + annees,
+  data = college)
+car::avPlots(modlin1_college, terms = ~service + annees, id = FALSE)
+```
+
+
+## Facteur confondant
+
+Un **facteur confondant** est une variable explicative $C$ qui est associé à
+la variable réponse $Y$ et qui est aussi corrélé à la variable explicative $X$ d'intérêt.
+
+```{mermaid}
+flowchart TD
+    A("variable explicative") --> B("variable réponse")
+    C("facteur confondant") --> A & B
+    style A color:#FFFFFF, fill:#AA00FF, stroke:#AA00FF
+    style B color:#FFFFFF, stroke:#00C853, fill:#00C853
+    style C color:#FFFFFF, stroke:#2962FF, fill:#2962FF
+```
+
+Le facteur confondant $C$ peut biaiser la relation observée entre une
+variable explicative $X$ et la variable réponse $Y$, et donc complique
+l’interprétation.
+
+## Exemple de facteur confondant
+
+L'échelon académique des professeurs est corrélé avec le sexe, puisqu'il y a plus d'hommes que de femmes qui sont titulaires, et ces derniers sont mieux payés en moyenne. La variable `echelon` est un facteur confondant pour le `sexe`.
+
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 2
+data(college, package = "hecmodstat")
+modlin0_college <- lm(salaire ~ sexe, data = college)
+modlin1_college <- lm(salaire ~ sexe + echelon, data = college)
+tab0 <- as.data.frame(summary(modlin0_college)$coefficients[,1:4])
+tab1 <- as.data.frame(summary(modlin1_college)$coefficients[,1:4])
+rownames(tab0) <- c("cst","sexe [homme]")
+rownames(tab1) <- c("cst","sexe [homme]", "échelon [agrégé]", "échelon [titulaire]")
+tab0[,4] <- papaja::apa_p(tab0[,4])
+tab1[,4] <- papaja::apa_p(tab1[,4])
+knitr::kable(tab0, 
+             digits = 2, 
+             booktabs = TRUE,
+             align = "rrrr", 
+             col.names = c("coef.","erreur-type","stat","valeur p"))
+knitr::kable(tab1, 
+             digits = 2, 
+             align = "rrrr",
+             booktabs = TRUE, 
+             col.names = c("coef.","erreur-type","stat","valeur p"))
+```
+
+
+## Stratification et ajustement par régression
+
+Quoi faire avec les facteurs confondants? On peut **stratifier** par différents niveaux du facteur confondant.
+
+- Comparer le salaire séparément pour chaque échelon (chaque échelon représente une strate).
+
+On peut aussi ajuster un modèle de régression avec plusieurs variables.
+
+- On mesure ainsi l'effet de `sexe`, en prenant en compte l'effet des autres variables explicatives.
+
+## Données expérimentales versus observationnelles
+
+Les facteurs confondants sont essentiellement un problème pour les données observationnelles.
+
+
+Dans un devis expérimental, un processus d'assignation aléatoire garantit que toutes les autres variables qui pourraient affecter $Y$ sont équilibrées.
+
+Dans ce cas, on peut tirer des conclusions sur l'effet de $X$ sur $Y$ sans ajuster pour les facteurs confondants.
