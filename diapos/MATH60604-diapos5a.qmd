@@ -469,7 +469,7 @@ Interaction entre `chefdax` (ethnicité) et `ideology`.
 
 Le modèle d'analyse de variance compare les modèles avec/sans $A$, $B$, et l'interaction $AB$.
 
-Si l'échantillon est **balancé** (même nombre d'observations pour chaque sous-groupe), il existe une décomposition unique de la variabilité
+Si l'échantillon est **équilibré** (même nombre d'observations pour chaque sous-groupe), il existe une décomposition unique de la variabilité
 
 $$\underset{\text{total}}{\mathsf{SC}_{c}} = \underset{\text{facteur $A$}}{\mathsf{SC}_A} + \underset{\text{facteur $B$}}{\mathsf{SC}_B} + \underset{\text{interaction}}{\mathsf{SC}_{AB}} + \underset{\text{résidus}}{\mathsf{SC}_e}$$
 Ainsi, 
@@ -480,7 +480,7 @@ Ainsi,
 
 ## Statistiques de test pour ANOVA
 
-Considérons le retrait de $A$ du modèle balancé: si le modèle alternatif a $n_an_b$ paramètres pour la moyenne, et que nous imposons $n_a-1$ restrictions linéaires sous l'hypothèse nulle au modèle estimé sur la base de $n$ observations indépendantes, la statistique de test $F$ est
+Considérons le retrait de $A$ du modèle équilibré: si le modèle alternatif a $n_an_b$ paramètres pour la moyenne, et que nous imposons $n_a-1$ restrictions linéaires sous l'hypothèse nulle au modèle estimé sur la base de $n$ observations indépendantes, la statistique de test $F$ est
 \begin{align*}
 F = \frac{\mathsf{SC}_A/(n_a-1)}{\mathsf{SC}_{e}/ (n-n_an_b)}
 \end{align*}
@@ -502,7 +502,7 @@ F = \frac{\mathsf{SC}_A/(n_a-1)}{\mathsf{SC}_{e}/ (n-n_an_b)}
 *Lire le tableau de bas en haut (en débutant avec l'interaction).*
 
 
-## Comparaison de modèles emboîtés avec des données débalancées
+## Comparaison de modèles emboîtés avec des données dééquilibrées
 
 Selon la décomposition, on compare des modèles différents!
 
@@ -558,7 +558,7 @@ data(STC21_SS5, package = "hecedsm")
 # Équivalent à "lm" avec variables catégorielles, contrasts somme nulle
 mod1 <- aov(likelihood ~ purchase*debttype, 
            data = STC21_SS5)
-# Calculer le décompte par sous-catégorie (données débalancées)
+# Calculer le décompte par sous-catégorie (données dééquilibrées)
 xtabs(~purchase + debttype, data = STC21_SS5)
 # Calcul de la moyenne globale/lignes/colonnes/cellules
 moy_groupes <- model.tables(mod1, type = "means")
@@ -698,7 +698,7 @@ On peut calculer les effets marginaux pour idéologie (afro-Américain ou pas). 
 
 ## Comparaison des effets de la méthode d'acquisition.
 
-Nous pensons que les participants verront le fait de copier furtivement moins favorablement que si le chef Dax demandait l'autorisation de publier la recette. Il est difficile de connaître l'effet du groupe contrôle, car nous n'omettons cette mention dans ce dernier.
+Nous pensons que les participants verront le fait de copier furtivement moins favorablement que si le chef Dax demandait l'autorisation de publier la recette. Il est difficile de connaître l'effet du groupe contrôle.
 
 
 ```{r}

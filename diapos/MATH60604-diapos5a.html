@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos5a_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos5a_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos5a_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.56">
+  <meta name="generator" content="quarto-1.6.1">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -632,7 +632,7 @@ Table&nbsp;1: Moyennes de sous-groupes pour les combinaisons dans un devis 2 par
 <section id="tableau-danalyse-de-variance" class="slide level2">
 <h2>Tableau d’analyse de variance</h2>
 <p>Le modèle d’analyse de variance compare les modèles avec/sans <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, et l’interaction <span class="math inline">\(AB\)</span>.</p>
-<p>Si l’échantillon est <strong>balancé</strong> (même nombre d’observations pour chaque sous-groupe), il existe une décomposition unique de la variabilité</p>
+<p>Si l’échantillon est <strong>équilibré</strong> (même nombre d’observations pour chaque sous-groupe), il existe une décomposition unique de la variabilité</p>
 <p><span class="math display">\[\underset{\text{total}}{\mathsf{SC}_{c}} = \underset{\text{facteur $A$}}{\mathsf{SC}_A} + \underset{\text{facteur $B$}}{\mathsf{SC}_B} + \underset{\text{interaction}}{\mathsf{SC}_{AB}} + \underset{\text{résidus}}{\mathsf{SC}_e}\]</span> Ainsi,</p>
 <ul>
 <li>un modèle sans <span class="math inline">\(AB\)</span> aurait pour somme du carré des résidus <span class="math inline">\(\mathsf{SC}_{AB} + \mathsf{SC}_e\)</span> ( versus <span class="math inline">\(\mathsf{SC}_e\)</span> sous l’alternative), avec <span class="math inline">\((n_a-1)(n_b-1)\)</span> paramètres en moins.</li>
@@ -642,7 +642,7 @@ Table&nbsp;1: Moyennes de sous-groupes pour les combinaisons dans un devis 2 par
 </section>
 <section id="statistiques-de-test-pour-anova" class="slide level2">
 <h2>Statistiques de test pour ANOVA</h2>
-<p>Considérons le retrait de <span class="math inline">\(A\)</span> du modèle balancé: si le modèle alternatif a <span class="math inline">\(n_an_b\)</span> paramètres pour la moyenne, et que nous imposons <span class="math inline">\(n_a-1\)</span> restrictions linéaires sous l’hypothèse nulle au modèle estimé sur la base de <span class="math inline">\(n\)</span> observations indépendantes, la statistique de test <span class="math inline">\(F\)</span> est <span class="math display">\[\begin{align*}
+<p>Considérons le retrait de <span class="math inline">\(A\)</span> du modèle équilibré: si le modèle alternatif a <span class="math inline">\(n_an_b\)</span> paramètres pour la moyenne, et que nous imposons <span class="math inline">\(n_a-1\)</span> restrictions linéaires sous l’hypothèse nulle au modèle estimé sur la base de <span class="math inline">\(n\)</span> observations indépendantes, la statistique de test <span class="math inline">\(F\)</span> est <span class="math display">\[\begin{align*}
 F = \frac{\mathsf{SC}_A/(n_a-1)}{\mathsf{SC}_{e}/ (n-n_an_b)}
 \end{align*}\]</span></p>
 <ul>
@@ -702,8 +702,8 @@ F = \frac{\mathsf{SC}_A/(n_a-1)}{\mathsf{SC}_{e}/ (n-n_an_b)}
 </table>
 <p><em>Lire le tableau de bas en haut (en débutant avec l’interaction).</em></p>
 </section>
-<section id="comparaison-de-modèles-emboîtés-avec-des-données-débalancées" class="slide level2">
-<h2>Comparaison de modèles emboîtés avec des données débalancées</h2>
+<section id="comparaison-de-modèles-emboîtés-avec-des-données-dééquilibrées" class="slide level2">
+<h2>Comparaison de modèles emboîtés avec des données dééquilibrées</h2>
 <p>Selon la décomposition, on compare des modèles différents!</p>
 <div class="cell">
 <div id="tbl-ssdecompo" class="cell quarto-float quarto-figure quarto-figure-center">
@@ -787,7 +787,7 @@ The last line of the ANOVA table with the $F$-statistics gives the $p$-value for
 <span id="cb4-5"><a href=""></a><span class="co"># Équivalent à "lm" avec variables catégorielles, contrasts somme nulle</span></span>
 <span id="cb4-6"><a href=""></a>mod1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(likelihood <span class="sc">~</span> purchase<span class="sc">*</span>debttype, </span>
 <span id="cb4-7"><a href=""></a>           <span class="at">data =</span> STC21_SS5)</span>
-<span id="cb4-8"><a href=""></a><span class="co"># Calculer le décompte par sous-catégorie (données débalancées)</span></span>
+<span id="cb4-8"><a href=""></a><span class="co"># Calculer le décompte par sous-catégorie (données dééquilibrées)</span></span>
 <span id="cb4-9"><a href=""></a><span class="fu">xtabs</span>(<span class="sc">~</span>purchase <span class="sc">+</span> debttype, <span class="at">data =</span> STC21_SS5)</span>
 <span id="cb4-10"><a href=""></a><span class="do">##                debttype</span></span>
 <span id="cb4-11"><a href=""></a><span class="do">## purchase        credit loan</span></span>
