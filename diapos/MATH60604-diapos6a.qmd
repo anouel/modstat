@@ -426,7 +426,7 @@ Ainsi, $\exp(\beta_1)$ donne le rapport des moyennes de $Y$ quand $X_1=x+1$ par 
 
 L'interprétation (par rapport à la référence, dépend du signe de $\beta_j$:
 
-- Le pourcentage de diminution est $1-\exp(\beta_j)$ si $\beta_j <0$ and 
+- Le pourcentage de diminution est $1-\exp(\beta_j)$ si $\beta_j <0$
 - Le pourcentage d'augmentation est $\exp(\beta_j)-1$ si $\beta_j>0$.
 
 ## Transformations plus générales
