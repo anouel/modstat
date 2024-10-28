@@ -8,7 +8,7 @@
 <link href="MATH60604-diapos3_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="MATH60604-diapos3_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="MATH60604-diapos3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.1">
+  <meta name="generator" content="quarto-1.5.56">
 
   <meta name="author" content="Léo Belzile, HEC Montréal">
   <meta name="dcterms.date" content="2024-01-01">
@@ -945,7 +945,7 @@ Table&nbsp;2: Estimations des coefficients du modèle linéaire pour les donnée
 <p>Nous voulons trouver le vecteur de paramètres <span class="math inline">\(\boldsymbol{\beta} \in \mathbb{R}^{p+1}\)</span> qui minimise l’erreur quadratique moyenne, c’est-à-dire la distance verticale entre les valeurs ajustées <span class="math inline">\(\widehat{y}_i=\mathbf{x}_i\widehat{\boldsymbol{\beta}}\)</span> et les observations <span class="math inline">\(y_i\)</span>.</p>
 <p>Le problème d’optimisation est <span class="math display">\[\begin{align*}
 \widehat{\boldsymbol{\beta}}&amp;=\mathrm{arg min}_{\boldsymbol{\beta} \in \mathbb{R}^{p+1}}\sum_{i=1}^n (y_i-\mathbf{x}_i\boldsymbol{\beta})^2
-\\&amp;=(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}).
+\\&amp;=\mathrm{arg min}_{\boldsymbol{\beta} \in \mathbb{R}^{p+1}}(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta})^\top(\boldsymbol{y}-\mathbf{X}\boldsymbol{\beta}).
 \end{align*}\]</span></p>
 </section>
 <section id="estimateur-des-moindres-carrés-ordinaires" class="slide level2">
